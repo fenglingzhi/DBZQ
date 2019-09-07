@@ -4,7 +4,7 @@ export default {
     if (params.query.indexOf('test(')) {
       return {
         query: {
-          test: true
+          test: 'Hell world'
         }
       }
     }
