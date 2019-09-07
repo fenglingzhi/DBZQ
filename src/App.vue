@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    {{test}}
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import ax from 'axios'
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      test: false
+    }
+  },
+  mounted () {
+    ax.post('/graphql', {
+      query: `{
+        test(){}
+      }`
+    }).then(r => {
+      this.test = r.data.query.test
+    })
   }
 }
 </script>
