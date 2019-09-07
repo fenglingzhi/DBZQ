@@ -7,11 +7,22 @@ export default {
           test: 'Hell world',
           title:'This is test title',
           arr:[
-            'test arr1',
             {
-              name:'test',
+              name:'test1',
               val:'1'
-            }
+            },
+            {
+              name:'test2',
+              val:'2'
+            },
+            {
+              name:'test3',
+              val:'3'
+            },
+            {
+              name:'test4',
+              val:'4'
+            },
           ],
           obj:{
             name:'test',
