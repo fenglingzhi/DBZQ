@@ -5,7 +5,7 @@ export default {
       return {
         query: {
           test: 'Hell world',
-          title:'This is test title'
+          title:'This is test title',
           arr:[
             'test arr1',
             {
