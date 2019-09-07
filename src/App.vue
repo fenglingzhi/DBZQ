@@ -29,7 +29,15 @@ export default {
   components: { Mapcan, Tilelayer, Uicomponent },
   data() {
     return {
-      test: false
+      test: false,
+      title:'',
+      list1:[],
+      get_obj:{},
+    }
+  },
+  methods:{
+    getVal(d){
+      alert(d)
     }
   },
   methods: {
@@ -44,12 +52,16 @@ export default {
     }
   },
   mounted () {
+    let vm = this;
     ax.post('/graphql', {
       query: `{
         test(){}
       }`
     }).then(r => {
-      this.test = r.data.query.test
+      let resp = r.data.query;
+      this.test = r.data.query.test;
+      vm.title = resp.title;
+      vm.list1 = resp.arr
     })
   }
 }
