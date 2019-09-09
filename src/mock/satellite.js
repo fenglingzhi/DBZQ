@@ -6,9 +6,9 @@ export default {
         // 缺资讯信息，
         // 基础信息
         base_info: {
-          name: '飞机名称',
-          attribute: '1', // 飞机性质（军用 0 /民用 1）
-          model: 'abc_123', // 机型
+          air_name: '飞机名称',
+          air_attribute: '1', // 飞机性质（军用 0 /民用 1）
+          air_model: 'abc_123', // 机型
           sign_info: '注册信息',
           organization: '隶属单位',
           country: '所属国家',
@@ -28,15 +28,6 @@ export default {
           horizontal_velocity: '水平速度',
           vertical_speed: '垂直速度',
           azimuth: '方位角'
-        },
-        // 动态
-        dynamic: {
-          take_off_base: '起飞基地',
-          landing_base: '降落基地',
-          start_time: '2013-09-01 13:41:52', // 出发时间
-          pre_time: '2013-09-01 13:41:52', // 预计到达时间
-          longitude: '123.123123123', // 经度
-          latitude: '123.123123123' // 纬度
         },
         // 人员信息
         usr: {

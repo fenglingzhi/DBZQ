@@ -6,15 +6,19 @@ export default {
         // 缺资讯信息，
         // 基础信息
         base_info: {
-          name: '飞机名称',
-          attribute: '1', // 飞机性质（军用 0 /民用 1）
-          model: 'abc_123', // 机型
+          name: '船舶名称',
+          attribute: '1', // 船舶类型（军用 0 /民用 1）
+          MMSI: 'MMSI编号',
           sign_info: '注册信息',
           organization: '隶属单位',
-          country: '所属国家',
-          yd_code: '应答机编码',
-          radar_type: '飞机雷达型号',
-          ICAO: 'ICAO编号'
+          country: '注册国家',
+          status: '船舶状态',
+          tonnage: '吨位',
+          width: '船宽度',
+          length: '船长度',
+          height: '船高度',
+          speed: '最大航速',
+          phone: '电话等通联'
         },
         // 航班信息
         real_time_info: {
@@ -28,15 +32,6 @@ export default {
           horizontal_velocity: '水平速度',
           vertical_speed: '垂直速度',
           azimuth: '方位角'
-        },
-        // 动态
-        dynamic: {
-          take_off_base: '起飞基地',
-          landing_base: '降落基地',
-          start_time: '2013-09-01 13:41:52', // 出发时间
-          pre_time: '2013-09-01 13:41:52', // 预计到达时间
-          longitude: '123.123123123', // 经度
-          latitude: '123.123123123' // 纬度
         },
         // 人员信息
         usr: {
@@ -64,7 +59,7 @@ export default {
           leader: '主管领导',
           site: '机构网站'
         },
-        // 设施-机场
+        // 设施-港口
         facility: {
           name: '机场名称',
           code: '机场代码',

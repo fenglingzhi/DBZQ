@@ -51,9 +51,9 @@ export default {
         test(){}
       }`
     }).then(r => {
-      let resp = r.data.query;
-      this.test = r.data.query.test;
-      vm.title = resp.title;
+      let resp = r.data.query
+      this.test = r.data.query.test
+      vm.title = resp.title
       vm.list1 = resp.arr
     })
   }
