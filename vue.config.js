@@ -3,11 +3,11 @@ module.exports = {
   devServer: {
     port: 8003,
     proxy: {
-      '/googlemap': {
+      '/maptiles': {
         target: 'http://www.google.cn/maps',
         changeOrigin: true,
         pathRewrite: {
-          '^/googlemap': ''
+          '^/maptiles': ''
         }
       }
     }
