@@ -3,7 +3,7 @@
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="googleUrl"></tilelayer>
       <tilelayer :id="`googleLabellayer`" :url-template="gglLabelUrl"></tilelayer>
-      <uicomponent :position={top:10,left:10}>
+      <uicomponent :position={top:10,left:0}>
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>

@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import animate from 'animate.css'
 
+Vue.use(animate)
 Vue.config.productionTip = false
 
 // 仅开发环境使用的Mock数据
