@@ -7,10 +7,11 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <button>{{test}}</button>
+        <RelevantInformation></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
-        <button>{{test}}</button>
+        <button  v-if="!show_TargetrDetail_boolean" @click="show_TargetrDetail">展开弹窗</button>
+        <TargetrDetail v-if="show_TargetrDetail_boolean" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
       </uicomponent>
     </mapcan>
   </div>
@@ -22,15 +23,18 @@ import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
 import Uicomponent from './components/UIComponent'
 import filterwrap from './components/filter.vue'
+import TargetrDetail from './components/TargetrDetail/TargetrDetail'
+import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Uicomponent, filterwrap },
+  components: { Mapcan, Tilelayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
       test: false,
       title: '',
       list1: [],
-      get_obj: {}
+      get_obj: {},
+      show_TargetrDetail_boolean: true
     }
   },
   methods: {
@@ -42,10 +46,18 @@ export default {
     },
     gglLabelUrl(x, y, z) {
       return `/googlemap/vt?lyrs=h@852&gl=cn&x=${x}&y=${y}&z=${z}`
+    },
+    // 关闭下弹窗
+    close_TargetrDetail() {
+      this.show_TargetrDetail_boolean = false
+    },
+    // 展开下弹窗
+    show_TargetrDetail() {
+      this.show_TargetrDetail_boolean = true
     }
   },
   mounted () {
-    let vm = this;
+    let vm = this
     ax.post('/graphql', {
       query: `{
         test(){}
