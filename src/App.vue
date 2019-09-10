@@ -10,7 +10,8 @@
         <RelevantInformation></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
-        <TargetrDetail></TargetrDetail>
+        <button  v-if="!show_TargetrDetail_boolean" @click="show_TargetrDetail">展开弹窗</button>
+        <TargetrDetail v-if="show_TargetrDetail_boolean" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
       </uicomponent>
     </mapcan>
   </div>
@@ -32,7 +33,8 @@ export default {
       test: false,
       title: '',
       list1: [],
-      get_obj: {}
+      get_obj: {},
+      show_TargetrDetail_boolean:true,
     }
   },
   methods: {
@@ -44,6 +46,14 @@ export default {
     },
     gglLabelUrl(x, y, z) {
       return `/googlemap/vt?lyrs=h@852&gl=cn&x=${x}&y=${y}&z=${z}`
+    },
+    // 关闭下弹窗
+    close_TargetrDetail(){
+      this.show_TargetrDetail_boolean = false;
+    },
+    // 展开下弹窗
+    show_TargetrDetail(){
+      this.show_TargetrDetail_boolean = true;
     }
   },
   mounted () {
