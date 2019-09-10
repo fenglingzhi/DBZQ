@@ -10,7 +10,7 @@
         <button>{{test}}</button>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
-        <button>{{test}}</button>
+        <TargetrDetail></TargetrDetail>
       </uicomponent>
     </mapcan>
   </div>
@@ -22,9 +22,10 @@ import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
 import Uicomponent from './components/UIComponent'
 import filterwrap from './components/filter.vue'
+import TargetrDetail from './components/TargetrDetail'
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Uicomponent, filterwrap },
+  components: { Mapcan, Tilelayer, Uicomponent, filterwrap, TargetrDetail },
   data() {
     return {
       test: false,
