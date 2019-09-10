@@ -43,7 +43,6 @@ export default {
       tab_boolean: true,
       tab_show: 'TargetrInformation',
       container_height: 210
-
     }
   },
   mounted() {

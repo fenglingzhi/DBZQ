@@ -46,7 +46,6 @@
     background: #0000006b;
     border: 1px solid #009bef;
     box-shadow: 0 0 20px 2px #009bef;
-
     .RelevantInformation_container{
       .RelevantInformation_operator_tabs{
         display: flex;

@@ -3,9 +3,7 @@ export default {
     let params = JSON.parse(req.body)
     if (params.query.indexOf('test(')) {
       return {
-        // 缺资讯信息，
-        // 源1：http://58.213.124.43:10101/r/DBZQ-TX.git
-        // 源2：https://github.com/fenglingzhi/DBZQ.git
+        // 缺资讯信息，--allow-unrelated-histories
         // 基础信息
         base_info: {
           name: '飞机名称',
