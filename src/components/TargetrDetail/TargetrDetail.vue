@@ -1,11 +1,11 @@
 <template>
   <div class="TargetrDetail">
-    <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
+    <div class="TargetrDetail_container animated fadeInUp" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
       <div class="TargetrDetail_operator">
-        <svg class="TargetrDetail_operator_icon" @click="show1" width="16px" v-if="container_height != 210" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
-        <svg class="TargetrDetail_operator_icon" @click="hide" width="16px" height="16.00px" v-if="container_height == 210" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg>
-        <svg class="TargetrDetail_operator_icon" @click="close" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M587.7 511.9L912.3 187c20.9-21 20.9-54.8 0-75.8s-54.8-21-75.7 0L512 436.1 187.5 111.2c-20.9-21-54.8-21-75.7 0-20.9 21-20.9 54.8 0 75.8l324.5 324.8-324.5 324.9c-20.9 21-20.9 54.8 0 75.8 10.4 10.5 24.1 15.7 37.9 15.7 13.7 0 27.4-5.2 37.9-15.7L512 587.7l324.5 324.8c10.4 10.5 24.2 15.7 37.9 15.7s27.4-5.2 37.8-15.7c20.9-21 20.9-54.8 0-75.8L587.7 511.9z" /></svg>
+        <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="container_height != 210" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
+        <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="hide" width="16px" height="16.00px" v-if="container_height == 210" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg>
+        <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="close" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M587.7 511.9L912.3 187c20.9-21 20.9-54.8 0-75.8s-54.8-21-75.7 0L512 436.1 187.5 111.2c-20.9-21-54.8-21-75.7 0-20.9 21-20.9 54.8 0 75.8l324.5 324.8-324.5 324.9c-20.9 21-20.9 54.8 0 75.8 10.4 10.5 24.1 15.7 37.9 15.7 13.7 0 27.4-5.2 37.9-15.7L512 587.7l324.5 324.8c10.4 10.5 24.2 15.7 37.9 15.7s27.4-5.2 37.8-15.7c20.9-21 20.9-54.8 0-75.8L587.7 511.9z" /></svg>
       </div>
       <!-- tab切换 -->
       <div class="TargetrDetail_operator_tabs" v-if="tab_boolean">
@@ -23,15 +23,20 @@
         </div> -->
       </div>
       <!-- tab的content 展示 -->
-      <div class="TargetrDetail_content" v-if="tab_boolean"><span>1234</span></div>
+      <div class="TargetrDetail_content" v-if="tab_boolean">
+        <TargetrInformation></TargetrInformation>
+      </div>
 
     </div>
   </div>
 </template>
 
 <script>
+import ax from 'axios'
+import TargetrInformation from './TargetrInformation'
 export default {
   name: 'TargetrDetail',
+  components: { TargetrInformation },
   props: {
 
   },
@@ -66,7 +71,8 @@ export default {
     // tab切换
     changeTab(value) {
       this.tab_show = value
-    }
+    },
+    
   }
 }
 </script>
@@ -76,7 +82,7 @@ export default {
     width: calc(100vw - 20px);
   }
   .TargetrDetail_container{
-    width:1200px;
+    width:800px;
     height: 210px;
     background: rgba(0,0,0,.7);
     margin:0 auto;
@@ -94,7 +100,7 @@ export default {
   .TargetrDetail_operator{
     position: absolute;
     top: 6px;
-    right: calc(50vw - 604px);
+    right: calc(50vw - 404px);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -113,7 +119,7 @@ export default {
     fill:#fff;
     margin:0 2px;
   }
-  .TargetrDetail_operator_icon:hover {
+  .TargetrDetail_operator_icon_hover:hover {
     -webkit-box-shadow: 0 0 5px #ccc;
     box-shadow: 0 0 5px #ccc;
     fill:#ccc;
@@ -123,7 +129,7 @@ export default {
     position: relative;
     left: 6px;
     top: 6px;
-    max-width: 800px;
+    max-width: 400px;
   }
   .TargetrDetail_operator_tab{
     color:#fff;
@@ -133,18 +139,21 @@ export default {
     padding-right: 2px;
   }
   .TargetrDetail_operator_tab_active{
+    background: rgba(0,0,0);
     border: 1px solid;
     border-color:rgb(255, 255, 255 ,.6) rgb(255, 255, 255 ,.6) transparent rgb(255, 255, 255 ,.6);
     border-radius: 2px;
+    z-index: 10;
   }
   .TargetrDetail_content{
     /*background-color: rgb(255, 255, 255 , .8);*/
+    border-top: 1px solid rgb(255, 255, 255,.5);
     position: relative;
-    top: 6px;
+    top: 5px;
     margin:0 6px;
     border-radius: 0 0 2px 2px;
     height: 174px;
-
+    z-index: 9;
   }
 
   /* 呼吸灯动画 */
