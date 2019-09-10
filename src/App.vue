@@ -85,4 +85,10 @@ html,body{
   height: 100%;
   width: 100%;
 }
+.ivu-collapse>.ivu-collapse-item>.ivu-collapse-header{
+  color: #fff !important;
+}
+.ivu-collapse-content{
+  background-color: transparent !important;
+}
 </style>
