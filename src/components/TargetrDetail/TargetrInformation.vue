@@ -1,81 +1,8 @@
 <template>
   <div class="TargetrInformation">
-
+    <Spin size="large" fix v-if="spinShow"></Spin>
     <!-- 飞机的目标信息 -->
-    <div class="airplane_container">
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'飞机名称'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.name"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'飞机性质'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'机型'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.model"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'注册信息'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'隶属单位'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.organization"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'所属国家'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.country"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'应答机编码'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.yd_code"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'飞机雷达型号'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.radar_type"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'ICAO编号'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.ICAO"></span>
-            </div>
-        </div>
-    </div>
+    <airplane_information :base_info="base_info"></airplane_information>
     
 
   </div>
@@ -83,37 +10,46 @@
 
 <script>
 import ax from 'axios'
+import airplane_information from './airplane_information'
 export default {
   name: 'TargetrInformation',
-  components: { },
+  components: { airplane_information },
   data() {
     return {
-        test: false,
-        data:[],
         base_info:[],
+        spinShow:false,
+        airplane_boolean:true,
     }
+  },
+  props: ["targetr_type_select", "targetr_id_select"],
+  watch:{
+    targetr_type_select(){
+        this.get_airplane();
+    },
+    targetr_id_select(){
+        this.get_airplane();
+    },
   },
   methods: {
     // 获取飞机信息
     get_airplane(){
-      let vm = this
-        ax.post('/air_plane', {
-        query: `{
-            test(){}
-        }`
-        }).then(r => {
-        let resp = r.data
-        this.data = resp
-        this.base_info = resp.base_info;
-        console.log(r.data)
-        // this.data = r.data.query.test
-        // vm.title = resp.title
-        // vm.list1 = resp.arr
-        })
+        if(this.airplane_boolean){
+            this.airplane_boolean = false;
+            let vm = this
+            ax.post('/air_plane', {
+            query: `{
+                test(){}
+            }`
+            }).then(r => {
+                this.airplane_boolean = true;
+                let resp = r.data
+                this.base_info = resp.base_info;
+            })
+        }
     }
   },
   mounted () {
-    this.get_airplane();
+    // this.get_airplane();
   }
 }
 </script>
@@ -121,7 +57,7 @@ export default {
 <style>
 .TargetrInformation {
   height: 100%;
-  padding:10px 19px 0 19px;
+  padding:10px 18px 0 18px;
   color: #fff;
   box-sizing: border-box;
   display: flex;

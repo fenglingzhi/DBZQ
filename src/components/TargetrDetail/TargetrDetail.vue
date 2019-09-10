@@ -24,7 +24,8 @@
       </div>
       <!-- tab的content 展示 -->
       <div class="TargetrDetail_content" v-if="tab_boolean">
-        <TargetrInformation></TargetrInformation>
+        <TargetrInformation :targetr_type_select="targetr_type" :targetr_id_select="targetr_id" ref="TargetrInformation_component" v-if="tab_show == 'TargetrInformation'"></TargetrInformation>
+        <TargetrTrajectory :targetr_type_select="targetr_type" :targetr_id_select="targetr_id" v-if="tab_show == 'Targetrtrajectory'"></TargetrTrajectory>
       </div>
 
     </div>
@@ -34,9 +35,10 @@
 <script>
 import ax from 'axios'
 import TargetrInformation from './TargetrInformation'
+import TargetrTrajectory from './TargetrTrajectory'
 export default {
   name: 'TargetrDetail',
-  components: { TargetrInformation },
+  components: { TargetrInformation, TargetrTrajectory },
   props: {
 
   },
@@ -47,8 +49,17 @@ export default {
     return {
       tab_boolean: true,
       tab_show: 'TargetrInformation',
-      container_height: 210
+      container_height: 210,
     }
+  },
+  props: ["targetr_type", "targetr_id"],
+  watch:{
+    targetr_type(){
+      this.tab_show = "TargetrInformation";
+    },
+    targetr_id(){
+      this.tab_show = "TargetrInformation";    
+    },
   },
   mounted() {
 
