@@ -28,17 +28,17 @@
 </template>
 
 <script type="text/ecmascript-6">
-    export default {
-      name: 'RelevantInformation',
-      data () {
-        return {
+export default {
+  name: 'RelevantInformation',
+  data () {
+    return {
 
-        }
-      },
-      methods: {
-
-      },
     }
+  },
+  methods: {
+
+  }
+}
 </script>
 <style scoped lang="scss">
   .RelevantInformation{
