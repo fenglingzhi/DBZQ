@@ -14,7 +14,6 @@ export default {
   components: { AirplaneTrajectory, ShipTrajectory },
   data() {
     return {
-
     }
   },
   props: ["targetr_type", "real_time_info"],

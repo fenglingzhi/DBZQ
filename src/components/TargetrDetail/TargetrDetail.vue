@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import ax from 'axios'
+// import ax from 'axios'
 import TargetrInformation from './TargetrInformation'
 import TargetrTrajectory from './TargetrTrajectory'
 export default {
@@ -57,6 +57,9 @@ export default {
       this.tab_show = "TargetrInformation";
       this.get_info();
     },
+    targetr_id() {
+      this.tab_show = 'TargetrInformation'
+    }
   },
   mounted() {
     this.get_info();
@@ -103,7 +106,6 @@ export default {
         this.targetr_info = resp;
       })
     }
-
   }
 }
 </script>

@@ -124,7 +124,7 @@
           border-color:#ffffff99 #ffffff99 transparent #ffffff99;
           border-radius: 2px;
           z-index: 10;
-          
+
         }
       }
       .RelevantInformation_content{

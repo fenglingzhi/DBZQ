@@ -20,6 +20,9 @@ export default {
     targetr_type(){
 
     },
+    targetr_id_select() {
+      this.get_airplane()
+    }
   },
   methods: { },
   mounted () {

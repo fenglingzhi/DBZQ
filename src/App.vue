@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="googleUrl"></tilelayer>
-      <tilelayer :id="`googleLabellayer`" :url-template="gglLabelUrl"></tilelayer>
-      <uicomponent :position={top:10,left:0}>
+      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer`">
+        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id" :json="plane.feature.geometry" :symbol="plane.symbol"/>
+      </vectorlayer>
+      <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
@@ -26,13 +28,16 @@
 import ax from 'axios'
 import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
+import Vectorlayer from './components/Vectorlayer'
+import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
 import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
+import { mapState } from 'vuex'
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
+  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
       test: false,
@@ -45,16 +50,10 @@ export default {
       targetr_id:'0',           //下弹窗展示类型的id
     }
   },
+  computed: {
+    ...mapState(['planeList'])
+  },
   methods: {
-    googleUrl(x, y, z, s) {
-      var burl = '/googlemap/vt?lyrs=s@852&gl=cn'
-      // console.log(`${burl}&x=${x}&y=${y}&z=${z}`)
-      // return `/googlemap/vt/pb=!1m4!1m3!1i${z}!2i${x}!3i${y}!2m2!1e5!2sshading!2m2!1e6!2scontours!2m3!1e0!2sm!3i480190268!3m8!3scn!5e1105!12m1!1e67!12m1!1e63!12m1!1e3!4e0!5m2!5f2!6b1`
-      return `${burl}&x=${x}&y=${y}&z=${z}`
-    },
-    gglLabelUrl(x, y, z) {
-      return `/googlemap/vt?lyrs=h@852&gl=cn&x=${x}&y=${y}&z=${z}`
-    },
     // 关闭下弹窗
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
