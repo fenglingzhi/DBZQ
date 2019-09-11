@@ -24,6 +24,10 @@ export default {
             {
               name: '大洋洲',
               value: '4'
+            },
+            {
+              name: '南极洲',
+              value: '4'
             }
           ],
           country: [
@@ -43,10 +47,10 @@ export default {
               name: '韩国',
               value: '3'
             },
-            {
-              name: '缅甸',
-              value: '4'
-            }
+            // {
+            //   name: '缅甸',
+            //   value: '4'
+            // }
           ],
           property: [
             {

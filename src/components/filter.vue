@@ -5,8 +5,8 @@
       <!--<Divider size="small" />-->
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
-        <TabPane label="目标/标签检索" tab="name1">
-          <Row>
+        <TabPane label="标签检索" tab="name1">
+          <Row style="margin-bottom: 20px;">
             <Col span="19">
               <Input v-model="value" size="small" placeholder="请输入要搜索的目标" />
             </Col>
@@ -30,10 +30,21 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <Col span="3" class="label">国家：</Col>
-                  <Col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in searchData.airCountry" :label="item.name"></Radio>
-                    </RadioGroup>
+                  <Col span="8">
+                    <Tag color="primary">美国</Tag>
+                    <Tag color="primary">日本</Tag>
+                    <Tag color="primary">韩国</Tag>
+                    <Tag color="primary">朝鲜</Tag>
+                  </Col>
+                </Row>
+                <Row class="row_margin">
+                  <Col span="12" offset="3">
+                    <!--<RadioGroup type="button" size="small" >-->
+                    <!--<Radio v-for="item in searchData.airCountry" :label="item.name"></Radio>-->
+                    <!--</RadioGroup>-->
+                    <Select multiple size="small">
+                      <Option v-for="item in searchData.airCountry" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                    </Select>
                   </Col>
                 </Row>
               </div>
@@ -378,60 +389,15 @@
                 </Col>
               </Row>
             </TabPane>
-            <TabPane label="专题" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <Col span="6" class="label">地区</Col>
-                <Col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </Col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <Col span="6" class="label">国家</Col>
-                <Col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </Col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <Col span="6" class="label">军民属性</Col>
-                <Col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </Col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <Col span="6" class="label">类型</Col>
-                <Col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </Col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <Col span="6" class="label">高度</Col>
-                <Col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </Col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <Col span="6" class="label">速度</Col>
-                <Col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </Col>
-              </Row>
-            </TabPane>
           </Tabs>
         </TabPane>
         <TabPane label="主题检索" name="name2">
-          主题检索
+          <div>
+            <Tag color="default">朝鲜商船</Tag>
+            <Tag color="default">美国舰船</Tag>
+            <Tag color="default">中国南海地区</Tag>
+            <Tag color="default">越南商船</Tag>
+          </div>
         </TabPane>
       </Tabs>
     </div>
