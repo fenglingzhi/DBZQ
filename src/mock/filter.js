@@ -171,7 +171,7 @@ export default {
               name: '民用',
               value: '1'
             }
-          ],
+          ]
         }
       }
     }
