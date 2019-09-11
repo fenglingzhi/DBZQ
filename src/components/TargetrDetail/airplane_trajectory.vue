@@ -1,76 +1,84 @@
 <template>
     <!-- 飞机的目标信息 -->
-    <div class="airplane_information">
+    <div class="airplane_trajectory">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机名称'"></span>
+                <span v-text="'起飞基地'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="real_time_info.take_off_base"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机性质'"></span>
+                <span v-text="'降落基地'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="real_time_info.landing_base"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'机型'"></span>
+                <span v-text="'出发时间'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.model"></span>
+                <span v-text="real_time_info.start_time"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'注册信息'"></span>
+                <span v-text="'预计到达时间'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
+                <span v-text="real_time_info.pre_time"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'隶属单位'"></span>
+                <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.organization"></span>
+                <span v-text="real_time_info.longitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'所属国家'"></span>
+                <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="real_time_info.latitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'应答机编码'"></span>
+                <span v-text="'高度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.yd_code"></span>
+                <span v-text="real_time_info.height"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机雷达型号'"></span>
+                <span v-text="'水平速度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.radar_type"></span>
+                <span v-text="real_time_info.horizontal_velocity"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'ICAO编号'"></span>
+                <span v-text="'垂直速度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.ICAO"></span>
+                <span v-text="real_time_info.vertical_speed"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'方位角'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="real_time_info.azimuth"></span>
             </div>
         </div>
     </div>
@@ -80,19 +88,19 @@
 
 <script>
 export default {
-  name: 'airplane_information',
+  name: 'airplane_trajectory',
   components: { },
   data() {
     return { }
   },
-  props: ["base_info" ],
+  props: ["real_time_info" ],
   methods: { },
   mounted () { }
 }
 </script>
 
 <style>
-.airplane_information{
+.airplane_trajectory{
     height: 100%;
     box-sizing: border-box;
     display: flex;
