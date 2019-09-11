@@ -94,10 +94,20 @@ html,body{
   height: 100%;
   width: 100%;
 }
-.ivu-collapse>.ivu-collapse-item>.ivu-collapse-header{
+.ivu-tabs-nav .ivu-tabs-tab-active{
   color: #fff !important;
 }
-.ivu-collapse-content{
-  background-color: transparent !important;
+.ivu-tabs-ink-bar{
+  background-color: #fff !important;
+}
+.ivu-tabs-tab{
+  color: #fff;
+  background: transparent !important;
+}
+/*.ivu-tabs-nav-container:focus .ivu-tabs-tab-focused {*/
+  /*border-color: #57a3f3!important;*/
+/*}*/
+.ivu-tabs-nav .ivu-tabs-tab:hover {
+  color: #FFF !important;
 }
 </style>
