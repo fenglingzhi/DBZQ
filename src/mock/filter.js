@@ -46,7 +46,7 @@ export default {
             {
               name: '韩国',
               value: '3'
-            },
+            }
             // {
             //   name: '缅甸',
             //   value: '4'
@@ -240,7 +240,7 @@ export default {
                   value: 0
                 }
               ]
-            },
+            }
           ]
         },
         satellite: {
@@ -299,7 +299,7 @@ export default {
             {
               name: '未知',
               value: '3'
-            },
+            }
           ]
         },
         // buoy: {
@@ -349,7 +349,7 @@ export default {
               name: '东南亚地区国家',
               value: '4'
             }
-          ],
+          ]
         },
         port: {
           country: [
@@ -373,7 +373,7 @@ export default {
               name: '东南亚地区国家',
               value: '4'
             }
-          ],
+          ]
         },
         launching: {
           country: [
@@ -397,7 +397,7 @@ export default {
               name: '东南亚地区国家',
               value: '4'
             }
-          ],
+          ]
         },
         theme: {
           country: [
@@ -421,7 +421,7 @@ export default {
               name: '东南亚地区国家',
               value: '4'
             }
-          ],
+          ]
         }
       }
     }

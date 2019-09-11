@@ -47,8 +47,8 @@ export default {
       get_obj: {},
       show_TargetrDetail_boolean: false,
       show_RelevantInformation_boolean: false,
-      targetr_type:'airplane',  //下弹窗展示类型
-      targetr_id:'0',           //下弹窗展示类型的id
+      targetr_type: 'airplane', // 下弹窗展示类型
+      targetr_id: '0' // 下弹窗展示类型的id
     }
   },
   computed: {
@@ -61,10 +61,10 @@ export default {
     },
     // 展开弹窗
     show_TargetrDetail(type) {
-      this.targetr_type = type;
-      this.targetr_id = this.targetr_id+"-1";
-      this.show_TargetrDetail_boolean = true;
-      this.show_RelevantInformation_boolean = true;
+      this.targetr_type = type
+      this.targetr_id = this.targetr_id + '-1'
+      this.show_TargetrDetail_boolean = true
+      this.show_RelevantInformation_boolean = true
     }
   },
   mounted () {
