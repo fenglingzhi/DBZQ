@@ -427,8 +427,8 @@ const GQL = {
   getRegionList: { query: `
     {
       regionList: getRegionList {
-        id, cname, ename,
-        countryList{ cname, ename, id }
+        id, cname,
+        countryList{ cname, id }
       }
     }`
   },

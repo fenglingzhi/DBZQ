@@ -3,7 +3,8 @@
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id" :json="plane.feature.geometry" :symbol="plane.symbol"/>
+        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id"
+        :json="plane.feature" :symbol="plane.symbol" @click="show_TargetrDetail('airplane')"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
