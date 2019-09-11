@@ -46,7 +46,7 @@ export default {
     }
   },
   mounted () {
-    // this.get_airplane()
+    this.get_airplane()
   }
 }
 </script>

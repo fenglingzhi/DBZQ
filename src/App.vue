@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=s&x={x}&y={y}&z={z}"></tilelayer>
+      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer`">
+        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id" :json="plane.feature.geometry" :symbol="plane.symbol"/>
+      </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
       </uicomponent>
@@ -25,13 +28,16 @@
 import ax from 'axios'
 import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
+import Vectorlayer from './components/Vectorlayer'
+import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
 import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
+import { mapState } from 'vuex'
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
+  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
       test: false,
@@ -42,6 +48,9 @@ export default {
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0' // 下弹窗展示类型的id
     }
+  },
+  computed: {
+    ...mapState(['planeList'])
   },
   methods: {
     // 关闭下弹窗
