@@ -17,15 +17,12 @@
           <svg class="TargetrDetail_operator_icon" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M677.7 830.8H292.2c-47.7 0.2-93.5-18.7-127.2-52.4s-52.6-79.5-52.4-127.2c0-99.8 79.8-179.6 179.6-179.6h438.9c26.5 0.3 52.1-10.2 70.8-28.9 18.8-18.8 29.2-44.3 28.9-70.8 0.3-26.5-10.2-52.1-28.9-70.8-18.8-18.8-44.3-29.2-70.8-28.9H345.7c-15.8 47.3-59.6 79.8-113.3 79.8-67.8 0-119.7-51.9-119.7-119.7 0-67.8 51.9-119.7 119.7-119.7 53.7 0 97.5 32.6 113.3 79.8h385.5c47.7-0.2 93.5 18.7 127.2 52.4S911 324.3 910.8 372c0.2 47.7-18.7 93.5-52.4 127.2s-79.5 52.6-127.2 52.4h-439c-26.5-0.3-52.1 10.2-70.8 28.9-18.8 18.8-29.2 44.3-28.9 70.8-0.3 26.5 10.2 52.1 28.9 70.8 18.8 18.8 44.3 29.2 70.8 28.9h385.5c15.8-47.3 59.6-79.8 113.3-79.8 67.8 0 119.7 51.9 119.7 119.7 0 67.8-51.9 119.7-119.7 119.7-53.7 0-97.5-32.5-113.3-79.8z m0 0" /></svg>
           <span>目标轨迹</span>
         </div>
-         <!-- <div :class="[tab_show == 'Targetrflight' ? 'TargetrDetail_operator_tab TargetrDetail_operator_tab_active' : 'TargetrDetail_operator_tab']" @click="changeTab('Targetrflight')">
-          <svg class="TargetrDetail_operator_icon" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M313.26 811.73h646.72v-99.49H313.26v99.49z m0-298.48h646.72v-99.49H313.26v99.49z m0-397.98v99.49h646.72v-99.49H313.26zM64.53 811.73h149.24v-99.49H64.53v99.49z m0-298.48h149.24v-99.49H64.53v99.49z m0-298.49h149.24v-99.49H64.53v99.49z" /></svg>
-          <span>航班信息</span>
-        </div> -->
       </div>
       <!-- tab的content 展示 -->
       <div class="TargetrDetail_content" v-if="tab_boolean">
-        <TargetrInformation :targetr_type_select="targetr_type" :targetr_id_select="targetr_id" ref="TargetrInformation_component" v-if="tab_show == 'TargetrInformation'"></TargetrInformation>
-        <TargetrTrajectory :targetr_type_select="targetr_type" :targetr_id_select="targetr_id" v-if="tab_show == 'Targetrtrajectory'"></TargetrTrajectory>
+        <Spin size="large" fix v-if="spinShow"></Spin>
+        <TargetrInformation :base_info="targetr_info.base_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow"></TargetrInformation>
+        <TargetrTrajectory :real_time_info="targetr_info.real_time_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory>
       </div>
 
     </div>
@@ -39,30 +36,30 @@ import TargetrTrajectory from './TargetrTrajectory'
 export default {
   name: 'TargetrDetail',
   components: { TargetrInformation, TargetrTrajectory },
-  props: {
-
-  },
-  destroyed() {
-
-  },
+  destroyed() { },
   data() {
     return {
       tab_boolean: true,
       tab_show: 'TargetrInformation',
       container_height: 210,
+      targetr_info: {},
+      spinShow: true,
+      get_data_boolean: true,
     }
   },
   props: ["targetr_type", "targetr_id"],
   watch:{
     targetr_type(){
       this.tab_show = "TargetrInformation";
+      this.get_airplane();
     },
     targetr_id(){
-      this.tab_show = "TargetrInformation";    
+      this.tab_show = "TargetrInformation";
+      this.get_airplane();
     },
   },
   mounted() {
-
+    this.get_airplane();
   },
   methods: {
     // 弹窗显示最大化
@@ -83,7 +80,30 @@ export default {
     changeTab(value) {
       this.tab_show = value
     },
-    
+
+    // 获取目标
+    get_airplane(){
+      this.spinShow = true;
+      let vm = this
+      let url;
+      if(this.targetr_type =='airplane'){
+        url = '/air_plane';
+      }else if(this.targetr_type =='ship'){
+        url = '/ship';
+      }else if(this.targetr_type =='satellite'){
+        url = '/satellite';
+      }
+      ax.post(url, {
+        query: `{
+            test(){}
+        }`
+      }).then(r => {
+        this.spinShow = false;
+        let resp = r.data;
+        this.targetr_info = resp;
+      })
+    }
+
   }
 }
 </script>

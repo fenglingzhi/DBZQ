@@ -1,76 +1,100 @@
 <template>
     <!-- 飞机的目标信息 -->
-    <div class="airplane_information">
+    <div class="ship_trajectory">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机名称'"></span>
+                <span v-text="'船首向'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="real_time_info.heading"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机性质'"></span>
+                <span v-text="'船迹向'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="real_time_info.ending"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'机型'"></span>
+                <span v-text="'航速'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.model"></span>
+                <span v-text="real_time_info.speed"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'注册信息'"></span>
+                <span v-text="'状态'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
+                <span v-text="real_time_info.status"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'隶属单位'"></span>
+                <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.organization"></span>
+                <span v-text="real_time_info.longitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'所属国家'"></span>
+                <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="real_time_info.latitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'应答机编码'"></span>
+                <span v-text="'吃水'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.yd_code"></span>
+                <span v-text="real_time_info.draught"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机雷达型号'"></span>
+                <span v-text="'始发港口'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.radar_type"></span>
+                <span v-text="real_time_info.start_port"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'ICAO编号'"></span>
+                <span v-text="'停靠港口'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.ICAO"></span>
+                <span v-text="real_time_info.mid_port"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'目的港口'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="real_time_info.end_port"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'预到时间'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="real_time_info.time"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'船舶任务'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="real_time_info.task"></span>
             </div>
         </div>
     </div>
@@ -80,19 +104,19 @@
 
 <script>
 export default {
-  name: 'airplane_information',
+  name: 'ship_trajectory',
   components: { },
   data() {
     return { }
   },
-  props: ["base_info" ],
+  props: ["real_time_info" ],
   methods: { },
   mounted () { }
 }
 </script>
 
 <style>
-.airplane_information{
+.ship_trajectory{
     height: 100%;
     box-sizing: border-box;
     display: flex;
