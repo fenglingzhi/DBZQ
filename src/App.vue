@@ -10,10 +10,10 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation></RelevantInformation>
+        <RelevantInformation v-if="show_RelevantInformation_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
-        <TargetrDetail :targetr_type="targetr_type" :targetr_id="targetr_id" v-if="show_TargetrDetail_boolean" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
+        <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
         <div>
           <button @click="show_TargetrDetail('airplane')">飞机</button>
           <button @click="show_TargetrDetail('ship')">船舶</button>
@@ -46,8 +46,9 @@ export default {
       list1: [],
       get_obj: {},
       show_TargetrDetail_boolean: false,
-      targetr_type: 'airplane', // 下弹窗展示类型
-      targetr_id: '0' // 下弹窗展示类型的id
+      show_RelevantInformation_boolean: false,
+      targetr_type:'airplane',  //下弹窗展示类型
+      targetr_id:'0',           //下弹窗展示类型的id
     }
   },
   computed: {
@@ -58,11 +59,12 @@ export default {
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
     },
-    // 展开下弹窗
+    // 展开弹窗
     show_TargetrDetail(type) {
-      this.targetr_type = type
-      this.targetr_id = this.targetr_id + '-1'
-      this.show_TargetrDetail_boolean = true
+      this.targetr_type = type;
+      this.targetr_id = this.targetr_id+"-1";
+      this.show_TargetrDetail_boolean = true;
+      this.show_RelevantInformation_boolean = true;
     }
   },
   mounted () {
@@ -94,10 +96,20 @@ html,body{
   height: 100%;
   width: 100%;
 }
-.ivu-collapse>.ivu-collapse-item>.ivu-collapse-header{
+.ivu-tabs-nav .ivu-tabs-tab-active{
   color: #fff !important;
 }
-.ivu-collapse-content{
-  background-color: transparent !important;
+.ivu-tabs-ink-bar{
+  background-color: #fff !important;
+}
+.ivu-tabs-tab{
+  color: #fff;
+  background: transparent !important;
+}
+/*.ivu-tabs-nav-container:focus .ivu-tabs-tab-focused {*/
+  /*border-color: #57a3f3!important;*/
+/*}*/
+.ivu-tabs-nav .ivu-tabs-tab:hover {
+  color: #FFF !important;
 }
 </style>

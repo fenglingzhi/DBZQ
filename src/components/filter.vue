@@ -3,418 +3,403 @@
     <div class="filter_wrap animated" :class = "show === true  ? 'fadeInLeft':'fadeOutLeft'">
       <!--<div class="title">飞机</div>-->
       <!--<Divider size="small" />-->
-      <collapse simple accordion>
-        <Panel  class="plane" name="1">
-          飞机
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small" v-model="conditions.region">
-                <Option v-for="item in regionOptions" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small" v-model="conditions.country">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in searchData.property" :value="item.value" :key="item.value">{{ item.name }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in searchData.type" :value="item.value" :key="item.value">{{ item.name }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in searchData.height" :value="item.value" :key="item.value">{{ item.name }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in searchData.speed" :value="item.value" :key="item.value">{{ item.name }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="2">
-          船舶
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="3">
-          卫星
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="4">
-          浮标
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="5">
-          机场
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="6">
-          港口
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="7">
-          发射场
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-        <Panel name="8">
-          专题
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">地区</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">国家</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">军民属性</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">类型</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">高度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-          <Row slot="content" class="row_margin">
-            <i-col span="6" class="label">速度</i-col>
-            <i-col span="18">
-              <Select size="small">
-                <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-              </Select>
-            </i-col>
-          </Row>
-        </Panel>
-      </collapse>
       <!--<input type="text" placeholder="请输入筛选项">-->
-      <div class="submit" @click="fadeChange()">搜索</div>
+      <Tabs name="name1">
+        <TabPane label="标签检索" tab="name1">
+          <Row style="margin-bottom: 20px;">
+            <Col span="19">
+              <Input v-model="value" size="small" placeholder="请输入要搜索的目标" />
+            </Col>
+            <Col span="4" offset="1">
+              <Button type="primary" size="small" @click="fadeChange()">搜索</Button>
+              <!--<div class="submit"></div>-->
+            </Col>
+          </Row>
+          <Tabs name="1-1" tab="name1">
+            <TabPane label="飞机" tab="1-1">
+              <div>
+                <Row slot="content" class="row_margin">
+                  <Col span="3" class="label">地区：</Col>
+                  <Col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in searchData.airArea" :label="item.name"></Radio>
+                    </RadioGroup>
+                  </Col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <Col span="3" class="label">国家：</Col>
+                  <Col span="8">
+                    <Tag color="primary">美国</Tag>
+                    <Tag color="primary">日本</Tag>
+                    <Tag color="primary">韩国</Tag>
+                    <Tag color="primary">朝鲜</Tag>
+                  </Col>
+                </Row>
+                <Row class="row_margin">
+                  <Col span="12" offset="3">
+                    <!--<RadioGroup type="button" size="small" >-->
+                    <!--<Radio v-for="item in searchData.airCountry" :label="item.name"></Radio>-->
+                    <!--</RadioGroup>-->
+                    <Select multiple size="small">
+                      <Option v-for="item in searchData.airCountry" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                    </Select>
+                  </Col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <Col span="3" class="label">军民属性：</Col>
+                  <Col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in searchData.property" :label="item.name"></Radio>
+                    </RadioGroup>
+                  </Col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <Col span="3" class="label">类型：</Col>
+                  <Col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in searchData.type" :label="item.name"></Radio>
+                    </RadioGroup>
+                  </Col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <Col span="3" class="label">高度：</Col>
+                  <Col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in searchData.height" :label="item.name"></Radio>
+                    </RadioGroup>
+                  </Col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <Col span="3" class="label">高度：</Col>
+                  <Col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in searchData.speed" :label="item.name"></Radio>
+                    </RadioGroup>
+                  </Col>
+                </Row>
+              </div>
+            </TabPane>
+            <TabPane label="船舶" tab="1-1">
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">地区</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">国家</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">军民属性</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">类型</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">高度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">速度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+            </TabPane>
+            <TabPane label="卫星" tab="1-1">
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">地区</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">国家</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">军民属性</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">类型</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">高度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">速度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+            </TabPane>
+            <TabPane label="浮标" tab="1-1">
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">地区</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">国家</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">军民属性</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">类型</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">高度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">速度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+            </TabPane>
+            <TabPane label="机场" tab="1-1">
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">地区</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">国家</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">军民属性</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">类型</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">高度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">速度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+            </TabPane>
+            <TabPane label="港口" tab="1-1">
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">地区</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">国家</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">军民属性</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">类型</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">高度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">速度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+            </TabPane>
+            <TabPane label="发射场" tab="1-1">
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">地区</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">国家</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">军民属性</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">类型</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">高度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row slot="content" class="row_margin">
+                <Col span="6" class="label">速度</Col>
+                <Col span="18">
+                  <Select size="small">
+                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                  </Select>
+                </Col>
+              </Row>
+            </TabPane>
+          </Tabs>
+        </TabPane>
+        <TabPane label="主题检索" name="name2">
+          <div>
+            <Tag color="default">朝鲜商船</Tag>
+            <Tag color="default">美国舰船</Tag>
+            <Tag color="default">中国南海地区</Tag>
+            <Tag color="default">越南商船</Tag>
+          </div>
+        </TabPane>
+      </Tabs>
     </div>
 
   </div>
@@ -451,56 +436,53 @@ export default {
   data() {
     return {
       show: true,
+      countryList: [],
       searchData: {
         airCountry: [],
         airArea: [],
         property: [],
         type: [],
         height: [],
-        speed: []
-      },
-      // 选中的搜索条件组合
-      conditions: { region: null, country: null },
-      // 大洲/国家 选项集合
-      regionOptions: []
-    }
-  },
-  computed: {
-    countryList() {
-      let region = find(this.regionOptions, { cname: this.conditions.region })
-      return region && region.countryList
+        speed: [],
+      }
     }
   },
   methods: {
     fadeChange() {
-      this.executeGql(GQL.searchPlane).then(r => {
-        this.$store.commit('planeList', r.planeList)
-      })
       this.show = !this.show
     },
-    executeGql(gql) {
-      return ax.post('/graphql', gql).then(({ data: { data } }) => data)
+    // 获取飞机搜索列表
+    getAirList() {
+      ax.post('/filter', {
+        query: `{
+        test(){}
+      }`
+      }).then(r => {
+        let plane = r.data.airplane
+        this.searchData.airCountry = plane.country
+        this.searchData.airArea = plane.area
+        this.searchData.property = plane.property
+        this.searchData.type = plane.type
+        this.searchData.height = plane.height
+        this.searchData.speed = plane.speed
+        console.log(plane)
+      })
+      console.log()
     }
   },
   mounted() {
-    // 获取搜索区域列表
-    this.executeGql(GQL.getRegionList).then(r => { this.regionOptions = r.regionList })
+    this.getAirList()
   }
 }
 </script>
 <style scoped lang="scss">
-  .ivu-divider-horizontal{
-    margin: 11px 0;
-  }
-  .ivu-collapse-simple{
-    background-color: transparent;
-  }
-  .ivu-collapse-simple>.ivu-collapse-item>.ivu-collapse-content>.ivu-collapse-content-box{
+  .ivu-radio-group-button .ivu-radio-wrapper-checked {
+    background: #2d8cf0;
     color: #fff;
   }
   .filter{
     .filter_wrap{
-      width: 300px;
+      /*width: 300px;*/
       padding: 10px;
       /*margin-left: 260px;*/
       /*height: 700px;*/
@@ -539,6 +521,7 @@ export default {
       color: #fff;
       margin: 20px 0;
       box-shadow: 0 0 10px 1px #253280;
+      border-radius: 4px;
     }
   }
 
