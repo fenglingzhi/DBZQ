@@ -1,6 +1,6 @@
 <template>
   <div class="TargetrDetail">
-    <div class="TargetrDetail_container animated fadeInUp" :style="{height:container_height+'px'}">
+    <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
       <div class="TargetrDetail_operator">
         <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="container_height != 210" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
@@ -51,15 +51,15 @@ export default {
   watch:{
     targetr_type(){
       this.tab_show = "TargetrInformation";
-      this.get_airplane();
+      this.get_info();
     },
     targetr_id(){
       this.tab_show = "TargetrInformation";
-      this.get_airplane();
+      this.get_info();
     },
   },
   mounted() {
-    this.get_airplane();
+    this.get_info();
   },
   methods: {
     // 弹窗显示最大化
@@ -82,7 +82,7 @@ export default {
     },
 
     // 获取目标
-    get_airplane(){
+    get_info(){
       this.spinShow = true;
       let vm = this
       let url;

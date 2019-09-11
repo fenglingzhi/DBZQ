@@ -7,7 +7,7 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation></RelevantInformation>
+        <RelevantInformation v-if="show_RelevantInformation_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
         <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
@@ -40,6 +40,7 @@ export default {
       list1: [],
       get_obj: {},
       show_TargetrDetail_boolean: false,
+      show_RelevantInformation_boolean: false,
       targetr_type:'airplane',  //下弹窗展示类型
       targetr_id:'0',           //下弹窗展示类型的id
     }
@@ -58,11 +59,12 @@ export default {
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
     },
-    // 展开下弹窗
+    // 展开弹窗
     show_TargetrDetail(type) {
       this.targetr_type = type;
       this.targetr_id = this.targetr_id+"-1";
       this.show_TargetrDetail_boolean = true;
+      this.show_RelevantInformation_boolean = true;
     }
   },
   mounted () {
