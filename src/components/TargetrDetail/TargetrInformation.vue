@@ -1,55 +1,31 @@
 <template>
   <div class="TargetrInformation">
-    <Spin size="large" fix v-if="spinShow"></Spin>
     <!-- 飞机的目标信息 -->
-    <airplane_information :base_info="base_info"></airplane_information>
-    
-
+    <AirplaneInformation :base_info="base_info" v-if="targetr_type=='airplane'"></AirplaneInformation>
+    <ShipInformation :base_info="base_info" v-if="targetr_type=='ship'"></ShipInformation>
   </div>
 </template>
 
 <script>
-import ax from 'axios'
-import airplane_information from './airplane_information'
+import AirplaneInformation from './airplane_information'
+import ShipInformation from './ship_information'
 export default {
   name: 'TargetrInformation',
-  components: { airplane_information },
+  components: { AirplaneInformation, ShipInformation },
   data() {
-    return {
-        base_info:[],
-        spinShow:false,
-        airplane_boolean:true,
-    }
+    return {}
   },
-  props: ["targetr_type_select", "targetr_id_select"],
+  props: ["targetr_type", "base_info"],
   watch:{
-    targetr_type_select(){
-        this.get_airplane();
+    targetr_type(){
+
     },
-    targetr_id_select(){
-        this.get_airplane();
-    },
-  },
-  methods: {
-    // 获取飞机信息
-    get_airplane(){
-        if(this.airplane_boolean){
-            this.airplane_boolean = false;
-            let vm = this
-            ax.post('/air_plane', {
-            query: `{
-                test(){}
-            }`
-            }).then(r => {
-                this.airplane_boolean = true;
-                let resp = r.data
-                this.base_info = resp.base_info;
-            })
-        }
+    targetr_id_select() {
+      this.get_airplane()
     }
   },
+  methods: { },
   mounted () {
-    // this.get_airplane();
   }
 }
 </script>
@@ -57,34 +33,10 @@ export default {
 <style>
 .TargetrInformation {
   height: 100%;
-  padding:10px 18px 0 18px;
+  padding:10px 20px 0 20px;
   color: #fff;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-}
-.airplane_container{
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-}
-.info-data-item{
-    width:250px;
-    margin-bottom: 10px;
-}
-.info-title{
-    color: #aaa;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.info-value{
-    color: #fff;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 </style>

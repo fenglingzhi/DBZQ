@@ -1,9 +1,9 @@
 <template>
     <!-- 飞机的目标信息 -->
-    <div class="airplane_information">
+    <div class="ship_information">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机名称'"></span>
+                <span v-text="'船舶名称'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.name"></span>
@@ -11,7 +11,7 @@
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机性质'"></span>
+                <span v-text="'船舶类型'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
@@ -19,15 +19,7 @@
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'机型'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.model"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'注册信息'"></span>
+                <span v-text="'MMSI编号'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.sign_info"></span>
@@ -43,7 +35,7 @@
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'所属国家'"></span>
+                <span v-text="'注册国家'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.country"></span>
@@ -51,34 +43,68 @@
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'应答机编码'"></span>
+                <span v-text="'船舶状态'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.yd_code"></span>
+                <span v-text="base_info.status"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机雷达型号'"></span>
+                <span v-text="'吨位'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.radar_type"></span>
+                <span v-text="base_info.tonnage"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'ICAO编号'"></span>
+                <span v-text="'船宽度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.ICAO"></span>
+                <span v-text="base_info.width"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'船长度'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="base_info.length"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'船高度'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="base_info.height"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'最大航速'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="base_info.speed"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'电话等通联'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="base_info.phone"></span>
             </div>
         </div>
     </div>
+    
+
 </template>
 
 <script>
 export default {
-  name: 'airplane_information',
+  name: 'ship_information',
   components: { },
   data() {
     return { }
@@ -90,7 +116,7 @@ export default {
 </script>
 
 <style>
-.airplane_information{
+.ship_information{
     height: 100%;
     box-sizing: border-box;
     display: flex;
