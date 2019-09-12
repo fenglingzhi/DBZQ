@@ -30,7 +30,7 @@
 </template>
 
 <script>
-// import ax from 'axios'
+import ax from 'axios'
 import TargetrInformation from './TargetrInformation'
 import TargetrTrajectory from './TargetrTrajectory'
 export default {
