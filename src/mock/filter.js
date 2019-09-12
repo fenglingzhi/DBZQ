@@ -46,7 +46,7 @@ export default {
             {
               name: '韩国',
               value: '3'
-            },
+            }
             // {
             //   name: '缅甸',
             //   value: '4'
@@ -240,7 +240,7 @@ export default {
                   value: 0
                 }
               ]
-            },
+            }
           ]
         },
         satellite: {
@@ -299,7 +299,7 @@ export default {
             {
               name: '未知',
               value: '3'
-            },
+            }
           ]
         },
         // buoy: {

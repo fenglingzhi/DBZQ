@@ -3,7 +3,8 @@
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id" :json="plane.feature.geometry" :symbol="plane.symbol"/>
+        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id"
+        :json="plane.feature" :symbol="plane.symbol" @click="show_TargetrDetail('airplane')"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
@@ -46,8 +47,8 @@ export default {
       get_obj: {},
       show_TargetrDetail_boolean: false,
       show_RelevantInformation_boolean: false,
-      targetr_type:'airplane',  //下弹窗展示类型
-      targetr_id:'0',           //下弹窗展示类型的id
+      targetr_type: 'airplane', // 下弹窗展示类型
+      targetr_id: '0' // 下弹窗展示类型的id
     }
   },
   computed: {
@@ -60,10 +61,10 @@ export default {
     },
     // 展开弹窗
     show_TargetrDetail(type) {
-      this.targetr_type = type;
-      this.targetr_id = this.targetr_id+"-1";
-      this.show_TargetrDetail_boolean = true;
-      this.show_RelevantInformation_boolean = true;
+      this.targetr_type = type
+      this.targetr_id = this.targetr_id + '-1'
+      this.show_TargetrDetail_boolean = true
+      this.show_RelevantInformation_boolean = true
     }
   },
   mounted () {
