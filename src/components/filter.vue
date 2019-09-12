@@ -9,6 +9,12 @@
           <Row style="margin-bottom: 20px;">
             <i-col span="19">
               <Input v-model="value" size="small" placeholder="请输入要搜索的目标" />
+              <div style="color: #fff;">
+                船舶 ：<i style="font-size: 22px;" class="iconfont iconchuanbo"></i><br>
+                飞机 ：<i style="font-size: 22px;" class="iconfont iconfeiji"></i><br>
+                卫星 ：<i style="font-size: 22px;" class="iconfont iconweixing"></i><br>
+                浮标 ：<i style="font-size: 22px;" class="iconfont iconfubiaobuoy"></i><br>
+              </div>
             </i-col>
             <i-col span="4" offset="1">
               <Button type="primary" size="small" @click="fadeChange()">搜索</Button>
@@ -461,7 +467,7 @@ export default {
       this.executeGql(GQL.searchPlane).then(r => {
         this.$store.commit('planeList', r.planeList)
       })
-      this.show = !this.show
+      // this.show = !this.show
     },
     executeGql(gql) {
       return ax.post('/graphql', gql).then(({ data: { data } }) => data)

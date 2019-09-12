@@ -4,6 +4,7 @@ import store from './store'
 import animate from 'animate.css'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import './assset/iconfont/iconfont.css'
 
 Vue.use(iView)
 Vue.use(animate)
