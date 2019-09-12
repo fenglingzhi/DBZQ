@@ -1,7 +1,7 @@
 module.exports = {
   lintOnSave: true,
   devServer: {
-    port: 8003,
+    port: 60009,
     proxy: {
       /* '/maptiles': {
         target: 'http://www.google.cn/maps',
