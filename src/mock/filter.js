@@ -172,6 +172,12 @@ export default {
               value: '1'
             }
           ],
+          type: [
+            {
+              name: '',
+              value: ''
+            }
+          ]
         }
       }
     }
