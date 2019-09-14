@@ -56,7 +56,7 @@
                   <i-col span="3" class="label">军民属性：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in searchData.property" :label="item.name"></Radio>
+                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -66,7 +66,7 @@
                   <i-col span="3" class="label">类型：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in searchData.type" :label="item.name"></Radio>
+                      <Radio v-for="item in planeModel" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -76,17 +76,17 @@
                   <i-col span="3" class="label">高度：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in searchData.height" :label="item.name"></Radio>
+                      <Radio v-for="item in planeHeight" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">高度：</i-col>
+                  <i-col span="3" class="label">速度：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in searchData.speed" :label="item.name"></Radio>
+                      <Radio v-for="item in planeSpeed" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -412,11 +412,26 @@
 import ax from 'axios'
 import { find, sampleSize } from 'lodash'
 const GQL = {
-  getRegionList: { query: `
+  getConditions: { query: `
     {
       regionList: getRegionList {
         id, cname,
         countryList{ cname, id }
+      }
+      dictTydefList: getDictTypeDef {
+        id value
+      }
+      planeUsage: getDict(tid:"t001") {
+        id value label
+      }
+      planeModel: getDict(tid:"t011"){
+        id value label
+      }
+      planeHeight: getDict(tid:"t021"){
+        id value label
+      }
+      planeSpeed: getDict(tid:"t022"){
+        id value label
       }
     }`
   },
@@ -447,10 +462,14 @@ export default {
         height: [],
         speed: []
       },
+      dictTydefList: [],
       // 选中的搜索条件组合
       conditions: { region: null, country: null },
-      // 大洲/国家 选项集合
-      regionOptions: []
+      regionOptions: [],  // 大洲/国家 选项集合
+      planeUsage: [],     // 飞机用途
+      planeModel: [],     // 飞机型号
+      planeHeight: [],    // 飞行高度
+      planeSpeed: []      // 飞行速度
     }
   },
   computed: {
@@ -458,7 +477,7 @@ export default {
       let region = find(this.regionOptions, { cname: this.conditions.region })
       return region && region.countryList
     },
-    countryTags(){
+    countryTags() {
       return sampleSize(this.countryList, 4)
     }
   },
@@ -475,7 +494,14 @@ export default {
   },
   mounted() {
     // 获取搜索区域列表
-    this.executeGql(GQL.getRegionList).then(r => { this.regionOptions = r.regionList })
+    this.executeGql(GQL.getConditions).then(r => {
+      this.regionOptions = r.regionList
+      this.planeUsage = r.planeUsage
+      this.dictTydefList = r.dictTydefList
+      this.planeModel = r.planeModel
+      this.planeHeight = r.planeHeight
+      this.planeSpeed = r.planeSpeed
+    })
   }
 }
 </script>

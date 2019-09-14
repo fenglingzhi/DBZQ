@@ -2,6 +2,7 @@ module.exports = {
   lintOnSave: true,
   devServer: {
     port: 8004,
+    // port: 8089,
     proxy: {
       /* '/maptiles': {
         target: 'http://www.google.cn/maps',
@@ -19,7 +20,8 @@ module.exports = {
         changeOrigin: true
       },
       '/graphql': {
-        target: 'http://47.111.29.26:8000',
+        // target: 'http://47.111.29.26:8000',
+        target: 'http://localhost:8000',
         changeOrigin: true
       }
     }

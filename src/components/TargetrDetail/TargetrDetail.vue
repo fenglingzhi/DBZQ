@@ -44,25 +44,22 @@ export default {
       container_height: 210,
       targetr_info: {},
       spinShow: true,
-      get_data_boolean: true,
+      get_data_boolean: true
     }
   },
-  props: ["targetr_type", "targetr_id"],
-  watch:{
-    targetr_type(){
-      this.tab_show = "TargetrInformation";
-      this.get_info();
-    },
-    targetr_id(){
-      this.tab_show = "TargetrInformation";
-      this.get_info();
+  props: ['targetr_type', 'targetr_id'],
+  watch: {
+    targetr_type() {
+      this.tab_show = 'TargetrInformation'
+      this.get_info()
     },
     targetr_id() {
       this.tab_show = 'TargetrInformation'
+      this.get_info()
     }
   },
   mounted() {
-    this.get_info();
+    this.get_info()
   },
   methods: {
     // 弹窗显示最大化
@@ -85,25 +82,24 @@ export default {
     },
 
     // 获取目标
-    get_info(){
-      this.spinShow = true;
-      let vm = this
-      let url;
-      if(this.targetr_type =='airplane'){
-        url = '/air_plane';
-      }else if(this.targetr_type =='ship'){
-        url = '/ship';
-      }else if(this.targetr_type =='satellite'){
-        url = '/satellite';
+    get_info() {
+      this.spinShow = true
+      let url
+      if (this.targetr_type === 'airplane') {
+        url = '/air_plane'
+      } else if (this.targetr_type === 'ship') {
+        url = '/ship'
+      } else if (this.targetr_type === 'satellite') {
+        url = '/satellite'
       }
       ax.post(url, {
         query: `{
             test(){}
         }`
       }).then(r => {
-        this.spinShow = false;
-        let resp = r.data;
-        this.targetr_info = resp;
+        this.spinShow = false
+        let resp = r.data
+        this.targetr_info = resp
       })
     }
   }

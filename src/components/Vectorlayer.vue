@@ -1,5 +1,5 @@
 <script>
-import { VectorLayer } from 'maptalks'
+// import { VectorLayer } from 'maptalks'
 export default {
   name: 'Vectorlayer',
   props: {
@@ -31,7 +31,7 @@ export default {
   },
   mounted() {
     // debugger
-    this.mapItem = new VectorLayer(this.id, {
+    this.mapItem = new mapcan.VectorLayer(this.id, {
       visible: !this.hide,
       enableSimplify: false,
       zIndex: this.zIndex

@@ -15,7 +15,6 @@
     "core-js": "^2.6.5",
     "iview": "^3.5.0",
     "lodash": "^4.17.15",
-    "maptalks": "^0.44.2",
     "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
@@ -43,6 +42,7 @@
     ],
     "rules": {
       "space-before-function-paren": "off",
+      "no-multi-spaces": "off",
       "no-debugger": "off"
     },
     "parserOptions": {
