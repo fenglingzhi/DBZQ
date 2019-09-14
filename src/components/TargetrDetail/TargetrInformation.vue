@@ -15,9 +15,9 @@ export default {
   data() {
     return {}
   },
-  props: ["targetr_type", "base_info"],
-  watch:{
-    targetr_type(){
+  props: ['targetr_type', 'base_info'],
+  watch: {
+    targetr_type() {
 
     },
     targetr_id_select() {

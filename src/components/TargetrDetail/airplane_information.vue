@@ -83,7 +83,7 @@ export default {
   data() {
     return { }
   },
-  props: ["base_info" ],
+  props: ['base_info'],
   methods: { },
   mounted () { }
 }

@@ -98,8 +98,6 @@
             </div>
         </div>
     </div>
-    
-
 </template>
 
 <script>
@@ -109,7 +107,7 @@ export default {
   data() {
     return { }
   },
-  props: ["real_time_info" ],
+  props: ['real_time_info'],
   methods: { },
   mounted () { }
 }

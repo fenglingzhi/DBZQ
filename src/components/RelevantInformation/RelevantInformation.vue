@@ -35,59 +35,58 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import ax from 'axios'
-  export default {
-    name: 'RelevantInformation',
-    data () {
-      return {
-        tab_show: 'installation',
-        spinShow: false,
-        targetr_info: {},
+import ax from 'axios'
+export default {
+  name: 'RelevantInformation',
+  data () {
+    return {
+      tab_show: 'installation',
+      spinShow: false,
+      targetr_info: {}
+    }
+  },
+  props: ['targetr_type', 'targetr_id'],
+  watch: {
+    targetr_type(newVal, oldVal) {
+      this.tab_show = 'installation'
+      this.get_info()
+    },
+    targetr_id() {
+      this.tab_show = 'installation'
+      this.get_info()
+    }
+  },
+  mounted() {
+    this.get_info()
+  },
+  methods: {
+    // tab切换
+    changeTab(value) {
+      this.tab_show = value
+    },
+    // 获取目标
+    get_info() {
+      this.spinShow = true
+      let url
+      if (this.targetr_type === 'airplane') {
+        url = '/air_plane'
+      } else if (this.targetr_type === 'ship') {
+        url = '/ship'
+      } else if (this.targetr_type === 'satellite') {
+        url = '/satellite'
       }
-    },
-    props: ["targetr_type", "targetr_id"],
-    watch:{
-      targetr_type(newVal,oldVal){
-        this.tab_show = "installation";
-        this.get_info();
-      },
-      targetr_id(){
-        this.tab_show = "installation";
-        this.get_info();
-      },
-    },
-    mounted() {
-      this.get_info();
-    },
-    methods: {
-      // tab切换
-      changeTab(value) {
-        this.tab_show = value
-      },
-      // 获取目标
-      get_info(){
-        this.spinShow = true;
-        let vm = this
-        let url;
-        if(this.targetr_type =='airplane'){
-          url = '/air_plane';
-        }else if(this.targetr_type =='ship'){
-          url = '/ship';
-        }else if(this.targetr_type =='satellite'){
-          url = '/satellite';
-        }
-        ax.post(url, {
-          query: `{
-              test(){}
-          }`
-        }).then(r => {
-          this.spinShow = false;
-          let resp = r.data;
-          this.targetr_info = resp;
-        })
-      }
-    },
+      ax.post(url, {
+        query: `{
+            test(){}
+        }`
+      }).then(r => {
+        this.spinShow = false
+        let resp = r.data
+        this.targetr_info = resp
+      })
+    }
   }
+}
 </script>
 <style scoped lang="scss">
   .RelevantInformation{

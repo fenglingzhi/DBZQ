@@ -2,7 +2,7 @@
 /**
  * 按geoJSON格式定义地图图元组件
  */
-import * as MAP from 'maptalks'
+// import * as mapcan from 'maptalks'
 export default {
   name: 'Geometry',
   props: {
@@ -28,14 +28,14 @@ export default {
     let that = this
     if (this.json) {
       // debugger
-      this.geometry = MAP.GeoJSON.toGeometry(this.json)
+      this.geometry = mapcan.GeoJSON.toGeometry(this.json)
       if (!this.geometry) return
       if (this.symbol) this.geometry.setSymbol(this.symbol)
       this.geometry.setOptions({
         simplifyTolerance: 0
       })
     } else if (this.type) {
-      this.geometry = new MAP[this.type](this.coordinations, {
+      this.geometry = new mapcan[this.type](this.coordinations, {
         id: this.id,
         symbol: this.symbol,
         visible: true,

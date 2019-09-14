@@ -1,8 +1,8 @@
 <script>
 // import { UUID } from '../commons'
 // import { each } from 'lodash'
-import * as mapcan from 'maptalks'
-import '../../node_modules/maptalks/dist/maptalks.css'
+// import * as mapcan from 'maptalks'
+// import '../../node_modules/maptalks/dist/maptalks.css'
 export default {
   name: 'MapControl',
   props: {

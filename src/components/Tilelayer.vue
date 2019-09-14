@@ -1,5 +1,5 @@
 <script>
-import * as mapcan from 'maptalks'
+// import * as mapcan from 'maptalks'
 
 export default {
   name: 'Tilelayer',
