@@ -60,7 +60,7 @@
                   <i-col span="3" class="label">类型：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeModel" :label="item.label" :key="item.id"></Radio>
+                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -403,37 +403,38 @@
 </template>
 
 <script type="text/ecmascript-6">
-import ax from 'axios'
+import { executeGQL } from '../commons'
 import { find, sampleSize } from 'lodash'
 const GQL = {
   getConditions: { query: `
     {
-      regionList: getRegionList {
+      regionList {
         id, cname,
         countryList{ cname, id }
       }
-      dictTydefList: getDictTypeDef {
+      dictTydefList: dictTypeDefs {
         id value
       }
-      planeUsage: getDict(tid:"t001") {
+      planeUsage: dictItem(tid:"t001") {
         id value label
       }
-      planeModel: getDict(tid:"t011"){
+      planeKind: dictItem(tid:"t011"){
         id value label
       }
-      planeHeight: getDict(tid:"t021"){
+      planeHeight: dictItem(tid:"t021"){
         id value label
       }
-      planeSpeed: getDict(tid:"t022"){
+      planeSpeed: dictItem(tid:"t022"){
         id value label
       }
     }`
   },
   searchPlane: { query: `
     {
-      planeList: searchPlanes {
+      planeList: filterPlanes {
+        id
         feature {
-          id, type,
+          type,
           geometry {
             type, coordinates
           }
@@ -461,7 +462,7 @@ export default {
       conditions: { region: null, country: null },
       regionOptions: [],  // 大洲/国家 选项集合
       planeUsage: [],     // 飞机用途
-      planeModel: [],     // 飞机型号
+      planeKind: [],     // 飞机型号
       planeHeight: [],    // 飞行高度
       planeSpeed: []      // 飞行速度
     }
@@ -477,22 +478,19 @@ export default {
   },
   methods: {
     fadeChange() {
-      this.executeGql(GQL.searchPlane).then(r => {
+      executeGQL(GQL.searchPlane).then(r => {
         this.$store.commit('planeList', r.planeList)
       })
       this.show = !this.show
-    },
-    executeGql(gql) {
-      return ax.post('/graphql', gql).then(({ data: { data } }) => data)
     }
   },
   mounted() {
     // 获取搜索区域列表
-    this.executeGql(GQL.getConditions).then(r => {
+    executeGQL(GQL.getConditions).then(r => {
       this.regionOptions = r.regionList
       this.planeUsage = r.planeUsage
       this.dictTydefList = r.dictTydefList
-      this.planeModel = r.planeModel
+      this.planeKind = r.planeKind
       this.planeHeight = r.planeHeight
       this.planeSpeed = r.planeSpeed
     })

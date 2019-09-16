@@ -21,8 +21,8 @@
       <!-- tab的content 展示 -->
       <div class="TargetrDetail_content" v-if="tab_boolean">
         <Spin size="large" fix v-if="spinShow"></Spin>
-        <TargetrInformation :base_info="targetr_info.base_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow"></TargetrInformation>
-        <TargetrTrajectory :real_time_info="targetr_info.real_time_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory>
+        <TargetrInformation :base_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow"></TargetrInformation>
+        <TargetrTrajectory :real_time_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory>
       </div>
 
     </div>
@@ -30,9 +30,33 @@
 </template>
 
 <script>
-import ax from 'axios'
+import { executeGQL } from '../../commons'
 import TargetrInformation from './TargetrInformation'
 import TargetrTrajectory from './TargetrTrajectory'
+import { mapState } from 'vuex'
+const GQL = {
+  queryPlaneByID: { query: `query($pid:ID!){
+    target(id:$pid){
+      ... on Plane{
+        id
+        name,
+        ICAO,
+        action{
+          landing{
+            name,
+            country{
+              cname
+            }
+          },
+          ETD,
+          azimuth,
+          alt
+        }
+      }
+    }
+  }`
+  }
+}
 export default {
   name: 'TargetrDetail',
   components: { TargetrInformation, TargetrTrajectory },
@@ -48,6 +72,9 @@ export default {
     }
   },
   props: ['targetr_type', 'targetr_id'],
+  computed: {
+    ...mapState(['selectedTarget'])
+  },
   watch: {
     targetr_type() {
       this.tab_show = 'TargetrInformation'
@@ -84,22 +111,9 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      let url
-      if (this.targetr_type === 'airplane') {
-        url = '/air_plane'
-      } else if (this.targetr_type === 'ship') {
-        url = '/ship'
-      } else if (this.targetr_type === 'satellite') {
-        url = '/satellite'
-      }
-      ax.post(url, {
-        query: `{
-            test(){}
-        }`
-      }).then(r => {
+      executeGQL(GQL.queryPlaneByID, { pid: this.targetr_id }).then(r => {
         this.spinShow = false
-        let resp = r.data
-        this.targetr_info = resp
+        this.targetr_info = r.target
       })
     }
   }
