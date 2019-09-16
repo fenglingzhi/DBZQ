@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <div class="filter_wrap animated" :class = "show === true  ? 'fadeInLeft':'fadeOutLeft'">
+    <div class="filter_wrap" :class = "show === true  ? 'filter_wrap':'filter_wrap_open'">
       <!--<div class="title">飞机</div>-->
       <!--<Divider size="small" />-->
       <!--<input type="text" placeholder="请输入筛选项">-->
@@ -255,7 +255,9 @@
         </TabPane>
       </Tabs>
     </div>
-
+    <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
+      <img src="../assets/images/button1.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -323,9 +325,6 @@ export default {
   data() {
     return {
       show: true,
-      fruit: [
-        'a', 'b', 'c', 'd'
-      ],
       searchData: {
         airCountry: [],
         airArea: [],
@@ -337,7 +336,7 @@ export default {
       checked: false,
       dictTydefList: [],
       // 选中的搜索条件组合
-      conditions: { region: null, country: null },
+      conditions: { region: '亚洲', country: null },
       regionOptions: [],  // 大洲/国家 选项集合
       planeUsage: [],     // 飞机用途
       planeKind: [],     // 飞机型号
@@ -352,7 +351,7 @@ export default {
       return region && region.countryList
     },
     countryTags() {
-      console.log('1111111',sampleSize(this.countryList, 100))
+      console.log('1111111', sampleSize(this.countryList, 20))
       return sampleSize(this.countryList, 100)
     }
   },
@@ -361,7 +360,7 @@ export default {
       executeGQL(GQL.searchPlane).then(r => {
         this.$store.commit('planeList', r.planeList)
       })
-      // this.show = !this.show
+      this.show = !this.show
     },
     // 国家选择
     countrySelect(index) {
@@ -374,6 +373,9 @@ export default {
       // }
       index.checked = !index.checked
       console.log(checked, name)
+    },
+    changeFilter() {
+      this.show = !this.show
     }
   },
   mounted() {
@@ -397,13 +399,14 @@ export default {
     .filter_wrap{
       width: 600px;
       padding: 10px;
-      /*margin-left: 260px;*/
-      /*height: 700px;*/
+      max-height: 440px;
       overflow: auto;
       background: #0000006b;
       border: 1px solid #009bef;
       box-shadow: 0 0 20px 2px #009bef;
       color:#fff;
+      margin-top: -450px;
+      transition: all 1s linear;
       .title{
         text-align: center;
         font-size: 12px;
@@ -426,6 +429,19 @@ export default {
         border: 1px solid #000;
         box-shadow: 0 0 1px 1px #084dff;
       }
+    }
+    .filter_wrap_open{
+      margin-top: 0;
+      transition: all 1s linear;
+    }
+    .open_wrap{
+      width: 100%;
+      text-align: center;
+      transition: all 1s linear;
+    }
+    .close_wrap{
+      transform: rotate(180deg);
+      transition: all 1s linear;
     }
     .submit{
       text-align: center;
