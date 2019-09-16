@@ -27,7 +27,7 @@
         <!-- tab的content 展示 -->
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
-
+          
         </div>
       </div>
     </div>
