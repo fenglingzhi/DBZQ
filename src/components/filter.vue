@@ -38,6 +38,7 @@
                   <i-col span="3" class="label">国家：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <span v-for="(item,index) in countryTags" :key="item.id" @click="countrySelect(index)">
+                    <!--<span v-for="(item,index) in fruit" :key="item.id" @click="countrySelect(index)">-->
                       <!--<Checkbox v-model="checked" label=""></Checkbox>-->
                       <Button v-if="checked" type="primary" size="small" style="margin:0 10px 10px 0;">{{item.cname}}</Button>
                       <Button v-else size="small" style="margin:0 10px 10px 0;" >{{item.cname}}</Button>
