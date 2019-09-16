@@ -21,8 +21,8 @@
               <!--<div class="submit"></div>-->
             </i-col>
           </Row>
-          <Tabs name="1-1" tab="name1">
-            <TabPane label="飞机" tab="1-1">
+          <Tabs name="1-1" tab="name1" v-model="targetType">
+            <TabPane label="飞机" tab="1-1" name="Plane">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -93,7 +93,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="船舶" tab="1-1">
+            <TabPane label="船舶" tab="1-1" name="Ship">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -304,16 +304,24 @@ const GQL = {
     // }
   },
   searchPlane: { query: `
-    {
-      planeList: filterPlanes {
-        id
+    query($type:String!){
+      planeList: filterTargets(targetType:$type) {
+        ...on Plane{id
         feature {
           type,
           geometry {
             type, coordinates
           }
         },
-        symbol
+        symbol}
+        ...on Ship{id
+        feature {
+          type,
+          geometry {
+            type, coordinates
+          }
+        },
+        symbol}
       }
     }`
   }
@@ -326,6 +334,7 @@ export default {
       fruit: [
         'a', 'b', 'c', 'd'
       ],
+      targetType: 'Plane',
       searchData: {
         airCountry: [],
         airArea: [],
@@ -358,7 +367,7 @@ export default {
   },
   methods: {
     fadeChange() {
-      executeGQL(GQL.searchPlane).then(r => {
+      executeGQL(GQL.searchPlane, { type: this.targetType }).then(r => {
         this.$store.commit('planeList', r.planeList)
       })
       // this.show = !this.show
