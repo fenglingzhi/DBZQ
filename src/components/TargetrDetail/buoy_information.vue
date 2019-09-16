@@ -1,9 +1,9 @@
 <template>
-    <!-- 船舶的目标信息 -->
-    <div class="ship_information">
+    <!-- 浮标的目标信息 -->
+    <div class="buoy_information">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶名称'"></span>
+                <span v-text="'站点名称'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.name"></span>
@@ -11,90 +11,74 @@
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶类型'"></span>
+                <span v-text="'观测站类型'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="base_info.satellite_attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'MMSI编号'"></span>
+                <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
+                <span v-text="base_info.longitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'隶属单位'"></span>
+                <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.organization"></span>
+                <span v-text="base_info.latitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'注册国家'"></span>
+                <span v-text="'浮标型号'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="base_info.buoy_model"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶状态'"></span>
+                <span v-text="'寿命'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.status"></span>
+                <span v-text="base_info.life"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'吨位'"></span>
+                <span v-text="'重量'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.tonnage"></span>
+                <span v-text="base_info.weight"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船宽度'"></span>
+                <span v-text="'标称吃水'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.width"></span>
+                <span v-text="base_info.nominal_draught"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船长度'"></span>
+                <span v-text="'雷达反射面积'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.length"></span>
+                <span v-text="base_info.radar_area"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船高度'"></span>
+                <span v-text="'材质'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.height"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'最大航速'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.speed"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'电话等通联'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.phone"></span>
+                <span v-text="base_info.material"></span>
             </div>
         </div>
     </div>
@@ -102,7 +86,7 @@
 
 <script>
 export default {
-  name: 'ship_information',
+  name: 'buoy_information',
   components: { },
   data() {
     return { }
@@ -114,7 +98,7 @@ export default {
 </script>
 
 <style>
-.ship_information{
+.buoy_information{
     height: 100%;
     box-sizing: border-box;
     display: flex;

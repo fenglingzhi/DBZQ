@@ -1,100 +1,100 @@
 <template>
-    <!-- 船舶的目标信息 -->
-    <div class="ship_information">
+    <!-- 卫星的目标信息 -->
+    <div class="buoy_trajectory">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶名称'"></span>
+                <span v-text="'风向'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="real_time_info.wind_direction"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶类型'"></span>
+                <span v-text="'风速'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="real_time_info.wind_speed"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'MMSI编号'"></span>
+                <span v-text="'GST（阵风速度）'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
+                <span v-text="real_time_info.GST"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'隶属单位'"></span>
+                <span v-text="'波高'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.organization"></span>
+                <span v-text="real_time_info.wave_height"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'注册国家'"></span>
+                <span v-text="'平均波方向'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="real_time_info.wave_direction"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶状态'"></span>
+                <span v-text="'平均周期'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.status"></span>
+                <span v-text="real_time_info.average_period"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'吨位'"></span>
+                <span v-text="'主导波周期'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.tonnage"></span>
+                <span v-text="real_time_info.dominant_period"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船宽度'"></span>
+                <span v-text="'海平面气压'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.width"></span>
+                <span v-text="real_time_info.sea_pressure"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船长度'"></span>
+                <span v-text="'气温'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.length"></span>
+                <span v-text="real_time_info.air_temperature"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船高度'"></span>
+                <span v-text="'海面温度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.height"></span>
+                <span v-text="real_time_info.sea_temperature"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'最大航速'"></span>
+                <span v-text="'水深'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.speed"></span>
+                <span v-text="real_time_info.depth_water"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'电话等通联'"></span>
+                <span v-text="'压力趋势'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.phone"></span>
+                <span v-text="real_time_info.pressure_trend"></span>
             </div>
         </div>
     </div>
@@ -102,19 +102,19 @@
 
 <script>
 export default {
-  name: 'ship_information',
+  name: 'buoy_trajectory',
   components: { },
   data() {
     return { }
   },
-  props: ['base_info'],
+  props: [ 'real_time_info' ],
   methods: { },
   mounted () { }
 }
 </script>
 
 <style>
-.ship_information{
+.buoy_trajectory{
     height: 100%;
     box-sizing: border-box;
     display: flex;

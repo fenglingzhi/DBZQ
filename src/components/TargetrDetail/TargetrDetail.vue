@@ -88,10 +88,6 @@ export default {
     ...mapState(['selectedTarget'])
   },
   watch: {
-    targetr_type() {
-      this.tab_show = 'TargetrInformation'
-      this.get_info()
-    },
     targetr_id() {
       this.tab_show = 'TargetrInformation'
       this.get_info()
@@ -193,6 +189,7 @@ export default {
   .TargetrDetail_operator_tab{
     color:#fff;
     display:flex;
+    cursor: pointer;
     align-items:center;
     font-size:12px;
     padding-right: 2px;

@@ -27,8 +27,7 @@
         <!-- tab的content 展示 -->
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
-          <!-- <TargetrInformation :base_info="targetr_info.base_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow"></TargetrInformation>
-          <TargetrTrajectory :real_time_info="targetr_info.real_time_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory> -->
+
         </div>
       </div>
     </div>
@@ -74,6 +73,8 @@ export default {
         url = '/ship'
       } else if (this.targetr_type === 'satellite') {
         url = '/satellite'
+      } else if (this.targetr_type === 'buoy') {
+        url = '/buoy'
       }
       ax.post(url, {
         query: `{
@@ -91,7 +92,7 @@ export default {
 <style scoped lang="scss">
   .RelevantInformation{
     padding: 10px;
-    background: #0000006b;
+    background: #000000b3;
     border: 1px solid #009bef;
     box-shadow: 0 0 20px 2px #009bef;
     .RelevantInformation_container{
@@ -101,6 +102,7 @@ export default {
         .RelevantInformation_operator_tab{
           color:#fff;
           display:flex;
+          cursor: pointer;
           align-items:center;
           font-size:12px;
           padding-right: 2px;
@@ -123,7 +125,6 @@ export default {
           border-color:#ffffff99 #ffffff99 transparent #ffffff99;
           border-radius: 2px;
           z-index: 10;
-
         }
       }
       .RelevantInformation_content{

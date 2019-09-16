@@ -3,15 +3,19 @@
     <!-- 飞机的目标信息 -->
     <AirplaneInformation :base_info="base_info" v-if="targetr_type=='airplane'"></AirplaneInformation>
     <ShipInformation :base_info="base_info" v-if="targetr_type=='ship'"></ShipInformation>
+    <SatelliteInformation :base_info="base_info" v-if="targetr_type=='satellite'"></SatelliteInformation>
+    <BuoyInformation :base_info="base_info" v-if="targetr_type=='buoy'"></BuoyInformation>
   </div>
 </template>
 
 <script>
 import AirplaneInformation from './airplane_information'
 import ShipInformation from './ship_information'
+import SatelliteInformation from './satellite_information'
+import BuoyInformation from './buoy_information'
 export default {
   name: 'TargetrInformation',
-  components: { AirplaneInformation, ShipInformation },
+  components: { AirplaneInformation, ShipInformation, SatelliteInformation, BuoyInformation },
   data() {
     return {}
   },
@@ -19,9 +23,6 @@ export default {
   watch: {
     targetr_type() {
 
-    },
-    targetr_id_select() {
-      this.get_airplane()
     }
   },
   methods: { },
