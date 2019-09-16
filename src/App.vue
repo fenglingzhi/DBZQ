@@ -57,7 +57,7 @@ export default {
       this.show_TargetrDetail_boolean = true
     },
     makeSymbol(symb) {
-      Object.assign(symb, { 
+      Object.assign(symb, {
         markerFile: require('./assets/images/plane.png'),
         markerVerticalAlignment: 'middle',
         markerHorizontalAlignment: 'middle'
@@ -70,7 +70,7 @@ export default {
         'markerWidth': 20,
         'markerHeight': 20,
         'markerOpacity': 1
-      },symb]
+      }, symb]
     },
     // 关闭下弹窗
     close_TargetrDetail() {
@@ -89,7 +89,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 html,body{
   height: 100%;
@@ -101,6 +101,9 @@ html,body{
 #app {
   height: 100%;
   width: 100%;
+  /*.ivu-tag-geekblue .ivu-tag-text {*/
+    /*color: #fff !important;*/
+  /*}*/
 }
 .ivu-tabs-nav .ivu-tabs-tab-active{
   color: #fff !important;
@@ -112,9 +115,7 @@ html,body{
   color: #fff;
   background: transparent !important;
 }
-/*.ivu-tabs-nav-container:focus .ivu-tabs-tab-focused {*/
-  /*border-color: #57a3f3!important;*/
-/*}*/
+
 .ivu-tabs-nav .ivu-tabs-tab:hover {
   color: #FFF !important;
 }

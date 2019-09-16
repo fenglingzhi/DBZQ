@@ -1,6 +1,7 @@
 module.exports = {
   lintOnSave: true,
   devServer: {
+    // port: 8004,
     port: 8089,
     proxy: {
       /* '/maptiles': {

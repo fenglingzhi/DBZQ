@@ -7,11 +7,17 @@
       <Tabs name="name1">
         <TabPane label="标签检索" tab="name1">
           <Row style="margin-bottom: 20px;">
-            <i-col span="19">
+            <i-col span="20">
               <Input v-model="value" size="small" placeholder="请输入要搜索的目标" />
+              <!--<div style="color: #fff;">-->
+                <!--船舶 ：<i style="font-size: 22px;" class="iconfont iconchuanbo"></i><br>-->
+                <!--飞机 ：<i style="font-size: 22px;" class="iconfont iconfeiji"></i><br>-->
+                <!--卫星 ：<i style="font-size: 22px;" class="iconfont iconweixing"></i><br>-->
+                <!--浮标 ：<i style="font-size: 22px;" class="iconfont iconfubiaobuoy"></i><br>-->
+              <!--</div>-->
             </i-col>
-            <i-col span="4" offset="1">
-              <Button type="primary" size="small" @click="fadeChange()">搜索</Button>
+            <i-col span="3" offset="1">
+              <Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>
               <!--<div class="submit"></div>-->
             </i-col>
           </Row>
@@ -30,18 +36,15 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag color="primary" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
-                  </i-col>
-                </Row>
-                <Row class="row_margin">
-                  <i-col span="12" offset="3">
-                    <!--<RadioGroup type="button" size="small" >-->
-                    <!--<Radio v-for="item in searchData.airCountry" :label="item.name"></Radio>-->
-                    <!--</RadioGroup>-->
-                    <Select multiple size="small" v-model="conditions.country">
-                      <Option v-for="item in countryList" :value="item.cname" :key="item.id">{{ item.cname }}</Option>
-                    </Select>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <span v-for="(item,index) in countryTags" :key="item.id" @click="countrySelect(index)">
+                      <!--<Checkbox v-model="checked" label=""></Checkbox>-->
+                      <Button v-if="checked" type="primary" size="small" style="margin:0 10px 10px 0;">{{item.cname}}</Button>
+                      <Button v-else size="small" style="margin:0 10px 10px 0;" >{{item.cname}}</Button>
+
+                    </span>
+                    <!--<Tag checkable @on-change="countrySelect(checked,item.id,index)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>-->
+
                   </i-col>
                 </Row>
               </div>
@@ -87,304 +90,154 @@
               </div>
             </TabPane>
             <TabPane label="船舶" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">地区</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">国家</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">军民属性</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">类型</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">高度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">速度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" v-model="conditions.region">
+                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="8">
+                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">军民属性：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">类型：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in planeModel" :label="item.label" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
             </TabPane>
             <TabPane label="卫星" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">地区</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">国家</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">军民属性</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">类型</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">高度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">速度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" v-model="conditions.region">
+                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="8">
+                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">军民属性：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
             </TabPane>
             <TabPane label="浮标" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">地区</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">国家</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">军民属性</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">类型</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">高度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">速度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" v-model="conditions.region">
+                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="8">
+                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  </i-col>
+                </Row>
+              </div>
             </TabPane>
             <TabPane label="机场" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">地区</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">国家</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">军民属性</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">类型</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">高度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">速度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" v-model="conditions.region">
+                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="8">
+                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  </i-col>
+                </Row>
+              </div>
             </TabPane>
             <TabPane label="港口" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">地区</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">国家</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">军民属性</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">类型</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">高度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">速度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" v-model="conditions.region">
+                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="8">
+                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  </i-col>
+                </Row>
+              </div>
             </TabPane>
             <TabPane label="发射场" tab="1-1">
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">地区</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">国家</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">军民属性</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">类型</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">高度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
-              <Row slot="content" class="row_margin">
-                <i-col span="6" class="label">速度</i-col>
-                <i-col span="18">
-                  <Select size="small">
-                    <Option v-for="item in countryList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                  </Select>
-                </i-col>
-              </Row>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="21">
+                    <RadioGroup type="button" size="small" v-model="conditions.region">
+                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                    </RadioGroup>
+                  </i-col>
+                </Row>
+              </div>
+              <div>
+                <Row slot="content" class="row_margin">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="8">
+                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  </i-col>
+                </Row>
+              </div>
             </TabPane>
           </Tabs>
         </TabPane>
@@ -429,6 +282,23 @@ const GQL = {
       }
     }`
   },
+  copyConditions: {
+    // dictTydefList: getDictTypeDef {
+    //   id value
+    // }
+    // planeUsage: getDict(tid:"t001") {
+    //   id value label
+    // }
+    // planeModel: getDict(tid:"t011"){
+    //   id value label
+    // }
+    // planeHeight: getDict(tid:"t021"){
+    //   id value label
+    // }
+    // planeSpeed: getDict(tid:"t022"){
+    //   id value label
+    // }
+  },
   searchPlane: { query: `
     {
       planeList: filterPlanes {
@@ -449,6 +319,9 @@ export default {
   data() {
     return {
       show: true,
+      fruit: [
+        'a', 'b', 'c', 'd'
+      ],
       searchData: {
         airCountry: [],
         airArea: [],
@@ -457,6 +330,7 @@ export default {
         height: [],
         speed: []
       },
+      checked: false,
       dictTydefList: [],
       // 选中的搜索条件组合
       conditions: { region: null, country: null },
@@ -470,10 +344,12 @@ export default {
   computed: {
     countryList() {
       let region = find(this.regionOptions, { cname: this.conditions.region })
+      console.log(this.conditions.country)
       return region && region.countryList
     },
     countryTags() {
-      return sampleSize(this.countryList, 4)
+      console.log(sampleSize(this.countryList))
+      return sampleSize(this.countryList, 100)
     }
   },
   methods: {
@@ -481,7 +357,19 @@ export default {
       executeGQL(GQL.searchPlane).then(r => {
         this.$store.commit('planeList', r.planeList)
       })
-      this.show = !this.show
+      // this.show = !this.show
+    },
+    // 国家选择
+    countrySelect(index) {
+      // if (checked === true) {
+      //   alert(this.searchData.airCountry)
+      //   this.checked = !checked
+      //   this.searchData.airCountry.push(id)
+      // } else {
+      //   this.checked = checked
+      // }
+      index.checked = !index.checked
+      console.log(checked, name)
     }
   },
   mounted() {
@@ -498,13 +386,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .ivu-radio-group-button .ivu-radio-wrapper-checked {
-    background: #2d8cf0;
-    color: #fff;
+  .ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked){
+    background: #ccc;
   }
   .filter{
     .filter_wrap{
-      /*width: 300px;*/
+      width: 600px;
       padding: 10px;
       /*margin-left: 260px;*/
       /*height: 700px;*/
