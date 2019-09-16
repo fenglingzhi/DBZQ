@@ -27,6 +27,21 @@
         <!-- tab的content 展示 -->
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
+          <div v-if="tab_show == 'installation'">
+            <AirplaneInstallation :facility = "targetr_info.facility"></AirplaneInstallation>
+          </div>
+          <div v-if="tab_show == 'dynamic'">
+            <AirplaneDynamic :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
+          </div>
+          <div v-if="tab_show == 'personnel'">
+            <personnel :usr = "targetr_info.usr"></personnel>
+          </div>
+          <div v-if="tab_show == 'organization'">
+            <organization :organization = "targetr_info.organization"></organization>
+          </div>
+          <div v-if="tab_show == 'information'">
+            <information :information = "targetr_info.information"></information>
+          </div>
           
         </div>
       </div>
@@ -34,9 +49,15 @@
 </template>
 
 <script type="text/ecmascript-6">
+import AirplaneInstallation from './installation/airplane_installation'
+import AirplaneDynamic from './dynamic/airplane_dynamic'
+import personnel from './personnel/personnel'
+import organization from './organization/organization'
+import information from './information/information'
 import ax from 'axios'
 export default {
   name: 'RelevantInformation',
+  components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information },
   data () {
     return {
       tab_show: 'installation',
@@ -129,11 +150,12 @@ export default {
       }
       .RelevantInformation_content{
         /*background-color: rgb(255, 255, 255 , .8);*/
+        padding-top: 10px;
         border-top: 1px solid #ffffff80;
         position: relative;
         top: -1px;
         border-radius: 0 0 2px 2px;
-        height: 174px;
+        // height: 174px;
         z-index: 9;
       }
     }

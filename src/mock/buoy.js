@@ -33,14 +33,7 @@ export default {
           pressure_trend: '压力趋势'
         },
         // 动态
-        dynamic: {
-          take_off_base: '起飞基地',
-          landing_base: '降落基地',
-          start_time: '2013-09-01 13:41:52', // 出发时间
-          pre_time: '2013-09-01 13:41:52', // 预计到达时间
-          longitude: '123.123123123', // 经度
-          latitude: '123.123123123' // 纬度
-        },
+        dynamic: { },
         // 人员信息
         usr: {
           name: '姓名',
@@ -68,15 +61,13 @@ export default {
           site: '机构网站'
         },
         // 设施-机场
-        facility: {
-          name: '机场名称',
-          code: '机场代码',
-          type: '机场类型',
-          country: '所属国家/地区',
-          date: '通航日期',
-          level: '飞行区等级',
-          area: '航站楼面积',
-          num: '机位数量'
+        facility: { },
+        // 资讯
+        information: {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
         }
       }
     }

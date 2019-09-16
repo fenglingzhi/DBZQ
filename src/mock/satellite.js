@@ -28,6 +28,13 @@ export default {
           launching_site: '发射场',
           current_time: '当前时间'
         },
+        // 动态
+        dynamic: {
+          launching_site: '发射场',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          now_time: '2013-09-01 13:41:52' // 当前时间
+        },
         // 人员信息
         usr: {
           name: '姓名',
@@ -57,6 +64,13 @@ export default {
         // 设施-发射场
         facility: {
           launch_site: '发射地点'
+        },
+        // 资讯
+        information: {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
         }
       }
     }

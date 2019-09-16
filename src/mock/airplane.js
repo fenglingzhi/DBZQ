@@ -3,7 +3,6 @@ export default {
     let params = JSON.parse(req.body)
     if (params.query.indexOf('test(')) {
       return {
-        // 缺资讯信息，--allow-unrelated-histories
         // 基础信息
         base_info: {
           name: '飞机名称',
@@ -14,7 +13,8 @@ export default {
           country: '所属国家',
           yd_code: '应答机编码',
           radar_type: '飞机雷达型号',
-          ICAO: 'ICAO编号'
+          ICAO: 'ICAO编号',
+          img_url:'airplane.jpg'
         },
         // 航班信息
         real_time_info: {
@@ -74,6 +74,13 @@ export default {
           level: '飞行区等级',
           area: '航站楼面积',
           num: '机位数量'
+        },
+        // 资讯
+        information: {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
         }
       }
     }
