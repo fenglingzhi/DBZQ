@@ -49,10 +49,6 @@ export default {
   },
   props: ['targetr_type', 'targetr_id'],
   watch: {
-    targetr_type() {
-      this.tab_show = 'TargetrInformation'
-      this.get_info()
-    },
     targetr_id() {
       this.tab_show = 'TargetrInformation'
       this.get_info()
@@ -91,6 +87,8 @@ export default {
         url = '/ship'
       } else if (this.targetr_type === 'satellite') {
         url = '/satellite'
+      } else if (this.targetr_type === 'buoy') {
+        url = '/buoy'
       }
       ax.post(url, {
         query: `{
@@ -163,6 +161,7 @@ export default {
   .TargetrDetail_operator_tab{
     color:#fff;
     display:flex;
+    cursor: pointer;
     align-items:center;
     font-size:12px;
     padding-right: 2px;

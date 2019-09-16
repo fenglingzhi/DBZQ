@@ -18,7 +18,7 @@
           <button @click="show_TargetrDetail('airplane')">飞机</button>
           <button @click="show_TargetrDetail('ship')">船舶</button>
           <button @click="show_TargetrDetail('satellite')">卫星</button>
-          <!-- <button @click="show_TargetrDetail('airplane')">浮标</button> -->
+          <button @click="show_TargetrDetail('buoy')">浮标</button>
         </div>
       </uicomponent>
     </mapcan>

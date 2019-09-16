@@ -1,41 +1,17 @@
 <template>
-    <!-- 船舶的目标信息 -->
-    <div class="ship_information">
+    <!-- 卫星的目标信息 -->
+    <div class="satellite_information">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶名称'"></span>
+                <span v-text="'卫星名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="base_info.satellite_name"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶类型'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'MMSI编号'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'隶属单位'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.organization"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'注册国家'"></span>
+                <span v-text="'所属国家'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.country"></span>
@@ -43,58 +19,66 @@
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶状态'"></span>
+                <span v-text="'卫星用途'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.status"></span>
+                <span v-text="base_info.satellite_attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'吨位'"></span>
+                <span v-text="'制造商'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.tonnage"></span>
+                <span v-text="base_info.manufacturer"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船宽度'"></span>
+                <span v-text="'NORAD编号'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.width"></span>
+                <span v-text="base_info.NORAD"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船长度'"></span>
+                <span v-text="'近地点（km）'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.length"></span>
+                <span v-text="base_info.perigee"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船高度'"></span>
+                <span v-text="'远地点(km)'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.height"></span>
+                <span v-text="base_info.apogee"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'最大航速'"></span>
+                <span v-text="'发射时间'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.speed"></span>
+                <span v-text="base_info.launch_time"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'电话等通联'"></span>
+                <span v-text="'发射地点'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.phone"></span>
+                <span v-text="base_info.launch_site"></span>
+            </div>
+        </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'干质量（kg）'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="base_info.dry_mass"></span>
             </div>
         </div>
     </div>
@@ -102,7 +86,7 @@
 
 <script>
 export default {
-  name: 'ship_information',
+  name: 'satellite_information',
   components: { },
   data() {
     return { }
@@ -114,7 +98,7 @@ export default {
 </script>
 
 <style>
-.ship_information{
+.satellite_information{
     height: 100%;
     box-sizing: border-box;
     display: flex;
