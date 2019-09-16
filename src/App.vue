@@ -3,8 +3,8 @@
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.feature.id"
-        :json="plane.feature" :symbol="{...plane.symbol,markerFile:require('./assets/images/plane.png')}" @click="show_TargetrDetail('airplane')"/>
+        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.id"
+        :json="plane" :symbol="makeSymbol(plane.symbol)" @click="setSelected(plane)"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import ax from 'axios'
+// import ax from 'axios'
 import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
 import Vectorlayer from './components/Vectorlayer'
@@ -35,16 +35,12 @@ import Uicomponent from './components/UIComponent'
 import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'app',
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
-      test: false,
-      title: '',
-      list1: [],
-      get_obj: {},
       show_TargetrDetail_boolean: false,
       show_RelevantInformation_boolean: false,
       targetr_type: 'airplane', // 下弹窗展示类型
@@ -55,6 +51,27 @@ export default {
     ...mapState(['planeList'])
   },
   methods: {
+    ...mapMutations(['setSomeState']),
+    setSelected(t) {
+      this.setSomeState(['selectedTarget', t])
+      this.show_TargetrDetail_boolean = true
+    },
+    makeSymbol(symb) {
+      Object.assign(symb, {
+        markerFile: require('./assets/images/plane.png'),
+        markerVerticalAlignment: 'middle',
+        markerHorizontalAlignment: 'middle'
+      })
+      return [{
+        'markerType': 'ellipse',
+        'markerFill': 'rgb(235,0  ,24)',
+        'markerFillOpacity': 0.4,
+        'markerLineColor': '#34495e',
+        'markerWidth': 20,
+        'markerHeight': 20,
+        'markerOpacity': 1
+      }, symb]
+    },
     // 关闭下弹窗
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
@@ -68,17 +85,6 @@ export default {
     }
   },
   mounted () {
-    let vm = this
-    ax.post('/graphql', {
-      query: `{
-        test(){}
-      }`
-    }).then(r => {
-      let resp = r.data.query
-      this.test = r.data.query.test
-      vm.title = resp.title
-      vm.list1 = resp.arr
-    })
   }
 }
 </script>

@@ -10,7 +10,7 @@ export default {
     type: String,
     coordinations: [Array, Object],
     properties: Object,
-    symbol: Object,
+    symbol: [Array, Object],
     json: Object
   },
   inject: ['layer', 'container'],
@@ -27,8 +27,7 @@ export default {
     // debugger
     let that = this
     if (this.json) {
-      // debugger
-      this.geometry = mapcan.GeoJSON.toGeometry(this.json)
+      this.geometry = this.json.feature ? mapcan.Geometry.fromJSON(this.json) : mapcan.GeoJSON.toGeometry(this.json)
       if (!this.geometry) return
       if (this.symbol) this.geometry.setSymbol(this.symbol)
       this.geometry.setOptions({

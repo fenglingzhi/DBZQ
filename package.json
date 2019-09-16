@@ -43,7 +43,8 @@
     "rules": {
       "space-before-function-paren": "off",
       "no-multi-spaces": "off",
-      "no-debugger": "off"
+      "no-debugger": "off",
+      "no-undef": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
