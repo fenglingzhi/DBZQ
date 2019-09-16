@@ -37,15 +37,17 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <span v-for="(item,index) in countryTags" :key="item.id" @click="countrySelect(index)">
-                    <!--<span v-for="(item,index) in fruit" :key="item.id" @click="countrySelect(index)">-->
-                      <!--<Checkbox v-model="checked" label=""></Checkbox>-->
-                      <Button v-if="checked" type="primary" size="small" style="margin:0 10px 10px 0;">{{item.cname}}</Button>
-                      <Button v-else size="small" style="margin:0 10px 10px 0;" >{{item.cname}}</Button>
+                    <!--<span v-for="(item,index) in countryTags" :key="item.id" @click="countrySelect(index)">-->
+                    <!--&lt;!&ndash;<span v-for="(item,index) in fruit" :key="item.id" @click="countrySelect(index)">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<Checkbox v-model="checked" label=""></Checkbox>&ndash;&gt;-->
+                      <!--<Button v-if="checked" type="primary" size="small" style="margin:0 10px 10px 0;">{{item.cname}}</Button>-->
+                      <!--<Button v-else size="small" style="margin:0 10px 10px 0;" >{{item.cname}}</Button>-->
 
-                    </span>
+                    <!--</span>-->
                     <!--<Tag checkable @on-change="countrySelect(checked,item.id,index)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>-->
-
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -53,6 +55,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">军民属性：</i-col>
                   <i-col span="21">
+                    {{item}}
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
@@ -349,7 +352,7 @@ export default {
       return region && region.countryList
     },
     countryTags() {
-      console.log(sampleSize(this.countryList))
+      console.log('1111111',sampleSize(this.countryList, 100))
       return sampleSize(this.countryList, 100)
     }
   },
