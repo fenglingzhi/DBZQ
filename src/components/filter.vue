@@ -352,7 +352,7 @@ export default {
       return region && region.countryList
     },
     countryTags() {
-      console.log('1111111',sampleSize(this.countryList, 100))
+      console.log('1111111', sampleSize(this.countryList, 100))
       return sampleSize(this.countryList, 100)
     }
   },
