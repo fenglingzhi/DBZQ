@@ -123,7 +123,7 @@
                   <i-col span="3" class="label">类型：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeModel" :label="item.label" :key="item.id"></Radio>
+                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>

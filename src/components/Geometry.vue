@@ -10,7 +10,7 @@ export default {
     type: String,
     coordinations: [Array, Object],
     properties: Object,
-    symbol: Object,
+    symbol: [Array, Object],
     json: Object
   },
   inject: ['layer', 'container'],

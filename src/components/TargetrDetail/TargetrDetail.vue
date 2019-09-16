@@ -38,17 +38,29 @@ const GQL = {
   queryPlaneByID: { query: `query($pid:ID!){
     target(id:$pid){
       ... on Plane{
-        id
+        id,
         name,
         ICAO,
+        kind { label },
+        usage{ label },
+        registration,
+        ORG {
+          cname,
+          country{
+            cname
+          }
+        },
+        radar{
+          model
+          responseCode
+        },
         action{
           landing{
             name,
-            country{
-              cname
-            }
+            country{ cname }
           },
           ETD,
+          ETA,
           azimuth,
           alt
         }
@@ -83,6 +95,10 @@ export default {
     targetr_id() {
       this.tab_show = 'TargetrInformation'
       this.get_info()
+    },
+    selectedTarget() {
+      this.tab_show = 'TargetrInformation'
+      this.get_info()
     }
   },
   mounted() {
@@ -111,7 +127,7 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      executeGQL(GQL.queryPlaneByID, { pid: this.targetr_id }).then(r => {
+      executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target
       })
