@@ -28,16 +28,16 @@
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
-            <AirplaneInstallation v-if="targetr_type == 'airplane'" :facility = "targetr_info"></AirplaneInstallation>
-            <ShipInstallation v-if="targetr_type == 'ship'" :facility = "targetr_info"></ShipInstallation>
-            <SatelliteInstallation v-if="targetr_type == 'satellite'" :facility = "targetr_info"></SatelliteInstallation>
-            <BuoyInstallation v-if="targetr_type == 'buoy'" :facility = "targetr_info"></BuoyInstallation>
+            <AirplaneInstallation v-if="targetr_type == 'Plane'" :facility = "targetr_info"></AirplaneInstallation>
+            <ShipInstallation v-if="targetr_type == 'Ship'" :facility = "targetr_info"></ShipInstallation>
+            <SatelliteInstallation v-if="targetr_type == 'Satellite'" :facility = "targetr_info"></SatelliteInstallation>
+            <BuoyInstallation v-if="targetr_type == 'Buoy'" :facility = "targetr_info"></BuoyInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic v-if="targetr_type == 'airplane'" :dynamic = "targetr_info"></AirplaneDynamic>
-            <ShiplaneDynamic v-if="targetr_type == 'ship'" :dynamic = "targetr_info"></ShiplaneDynamic>
-            <SatellitelaneDynamic v-if="targetr_type == 'satellite'" :dynamic = "targetr_info"></SatellitelaneDynamic>
-            <BuoyDynamic v-if="targetr_type == 'buoy'" :dynamic = "targetr_info"></BuoyDynamic>
+            <AirplaneDynamic v-if="targetr_type == 'Plane'" :dynamic = "targetr_info"></AirplaneDynamic>
+            <ShiplaneDynamic v-if="targetr_type == 'Ship'" :dynamic = "targetr_info"></ShiplaneDynamic>
+            <SatellitelaneDynamic v-if="targetr_type == 'Satellite'" :dynamic = "targetr_info"></SatellitelaneDynamic>
+            <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info"></BuoyDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
             <personnel :usr = "targetr_info"></personnel>
