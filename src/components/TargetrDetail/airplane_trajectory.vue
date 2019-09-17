@@ -107,17 +107,17 @@ export default {
     data() {
       return this.real_time_info.map(({ originated, landing, ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth }) => {
         let cdata = {
-          'oname': originated.name,
-          'lname': landing.name,
-          ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth }
+          oname: originated.name,
+          lname: landing.name,
+          ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth
+        }
         return cdata
       })
     }
   },
-  methods: { 
+  methods: {
     player(index) {
-      debugger
-      this.$root.mq.$emit('routePlay',this.real_time_info[index])
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }
   },
   mounted () {
