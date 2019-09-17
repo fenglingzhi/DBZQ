@@ -21,10 +21,10 @@ export default {
       var end = new mapcan.Point(this.end)
       var offset = end.sub(start)
       var marker = new mapcan.Marker(start, {
-        symbol: { ...this.symbol, markerRotation: 100+180*Math.atan2(offset.y,offset.x)/Math.PI}
+        symbol: { ...this.symbol, markerRotation: 100 + 180 * Math.atan2(offset.y, offset.x) / Math.PI }
       }).addTo(this.mapItem)
       var line = new mapcan.LineString([start, end], {
-        id: 'arrow',
+        id: 'arrow'
         // arrowStyle: 'classic',
         // arrowPlacement: 'vertex-last'
       }).addTo(this.mapItem)
