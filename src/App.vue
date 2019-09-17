@@ -60,7 +60,18 @@ const GQL = {
           },
           business,
           superior { cname },
-          leader { name },
+          leader {
+            name,
+            nation,
+            gender,
+            birthday,
+            nickname,
+            country { cname },
+            faith,
+            job,
+            EDU,
+            city
+          },
           homepage
         },
         radar{
