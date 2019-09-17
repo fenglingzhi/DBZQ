@@ -1,51 +1,51 @@
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_dynamic">
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'起飞基地'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="dynamic.take_off_base"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'降落基地'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="dynamic.landing_base"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'出发时间'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="dynamic.start_time"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'预计到达时间'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="dynamic.pre_time"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'经度'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="dynamic.longitude"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'纬度'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="dynamic.latitude"></span>
             </div>
         </div>
@@ -67,12 +67,12 @@ export default {
 
 <style>
 .airplane_dynamic{ }
-.info-data-item{
+.row-info-data-item{
     width:100%;
     margin-bottom: 10px;
     display: flex;
 }
-.info-title{
+.row-info-title{
     width: 150px;
     color: #aaa;
     font-size: 12px;
@@ -80,7 +80,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.info-value{
+.row-info-value{
     width: 200px;
     color: #fff;
     font-size: 12px;
