@@ -6,7 +6,7 @@
                 <span v-text="'机构名称'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.name"></span>
+                <span v-text="organization.ORG.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'外文名称'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.foreign_name"></span>
+                <span v-text="organization.ORG.ename"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'机构简称'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.short_name"></span>
+                <span v-text="organization.ORG.abbr"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'机构代码'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.code"></span>
+                <span v-text="organization.ORG.code"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'机构类型'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.type"></span>
+                <span v-text="organization.ORG.type"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'所在国家/地区'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.country"></span>
+                <span v-text="organization.ORG.country.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'业务方向'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.business"></span>
+                <span v-text="organization.ORG.business"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'上级机构'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.superior_org"></span>
+                <span v-text="organization.ORG.superior.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'主管领导'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.leader"></span>
+                <span v-text="organization.ORG.leader.name"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'机构网站'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.site"></span>
+                <span v-text="organization.ORG.homepage"></span>
             </div>
         </div>
     </div>

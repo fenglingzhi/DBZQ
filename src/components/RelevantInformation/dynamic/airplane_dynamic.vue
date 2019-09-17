@@ -36,7 +36,58 @@
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_dynamic">
+<<<<<<< HEAD
       <Table height="400" :columns="columns1" :data="data" size="small"></Table>
+=======
+        <div class="row-info-data-item">
+            <div class="row-info-title">
+                <span v-text="'起飞基地'"></span>
+            </div>
+            <div class="row-info-value">
+                <span v-text="dynamic.action.originated.name"></span>
+            </div>
+        </div>
+        <div class="row-info-data-item">
+            <div class="row-info-title">
+                <span v-text="'降落基地'"></span>
+            </div>
+            <div class="row-info-value">
+                <span v-text="dynamic.action.landing.name"></span>
+            </div>
+        </div>
+        <div class="row-info-data-item">
+            <div class="row-info-title">
+                <span v-text="'出发时间'"></span>
+            </div>
+            <div class="row-info-value">
+                <span v-text="dynamic.action.ETD"></span>
+            </div>
+        </div>
+        <div class="row-info-data-item">
+            <div class="row-info-title">
+                <span v-text="'预计到达时间'"></span>
+            </div>
+            <div class="row-info-value">
+                <span v-text="dynamic.action.ETA"></span>
+            </div>
+        </div>
+        <div class="row-info-data-item">
+            <div class="row-info-title">
+                <span v-text="'经度'"></span>
+            </div>
+            <div class="row-info-value">
+                <span v-text="dynamic.action.lon"></span>
+            </div>
+        </div>
+        <div class="row-info-data-item">
+            <div class="row-info-title">
+                <span v-text="'纬度'"></span>
+            </div>
+            <div class="row-info-value">
+                <span v-text="dynamic.action.lat"></span>
+            </div>
+        </div>
+>>>>>>> 72e4075fe246b57bdd40283bf7b984b130330d81
     </div>
 </template>
 

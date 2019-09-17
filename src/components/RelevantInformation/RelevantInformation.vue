@@ -28,25 +28,25 @@
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
-            <AirplaneInstallation v-if="targetr_type == 'airplane'" :facility = "targetr_info.facility"></AirplaneInstallation>
-            <ShipInstallation v-if="targetr_type == 'ship'" :facility = "targetr_info.facility"></ShipInstallation>
-            <SatelliteInstallation v-if="targetr_type == 'satellite'" :facility = "targetr_info.facility"></SatelliteInstallation>
-            <BuoyInstallation v-if="targetr_type == 'buoy'" :facility = "targetr_info.facility"></BuoyInstallation>
+            <AirplaneInstallation v-if="targetr_type == 'Plane'" :facility = "targetr_info"></AirplaneInstallation>
+            <ShipInstallation v-if="targetr_type == 'Ship'" :facility = "targetr_info"></ShipInstallation>
+            <SatelliteInstallation v-if="targetr_type == 'Satellite'" :facility = "targetr_info"></SatelliteInstallation>
+            <BuoyInstallation v-if="targetr_type == 'Buoy'" :facility = "targetr_info"></BuoyInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic v-if="targetr_type == 'airplane'" :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
-            <ShiplaneDynamic v-if="targetr_type == 'ship'" :dynamic = "targetr_info.dynamic"></ShiplaneDynamic>
-            <SatellitelaneDynamic v-if="targetr_type == 'satellite'" :dynamic = "targetr_info.dynamic"></SatellitelaneDynamic>
-            <BuoyDynamic v-if="targetr_type == 'buoy'" :dynamic = "targetr_info.dynamic"></BuoyDynamic>
+            <AirplaneDynamic v-if="targetr_type == 'Plane'" :dynamic = "targetr_info"></AirplaneDynamic>
+            <ShiplaneDynamic v-if="targetr_type == 'Ship'" :dynamic = "targetr_info"></ShiplaneDynamic>
+            <SatellitelaneDynamic v-if="targetr_type == 'Satellite'" :dynamic = "targetr_info"></SatellitelaneDynamic>
+            <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info"></BuoyDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
-            <personnel :usr = "targetr_info.usr"></personnel>
+            <personnel :usr = "targetr_info"></personnel>
           </div>
           <div v-if="tab_show == 'organization'">
-            <organization :organization = "targetr_info.organization"></organization>
+            <organization :organization = "targetr_info"></organization>
           </div>
           <div v-if="tab_show == 'information'">
-            <information :information = "targetr_info.information"></information>
+            <information :information = "targetr_info"></information>
           </div>
         </div>
       </div>
@@ -65,18 +65,18 @@ import BuoyDynamic from './dynamic/buoy_dynamic'
 import personnel from './personnel/personnel'
 import organization from './organization/organization'
 import information from './information/information'
-import ax from 'axios'
+// import ax from 'axios'
 export default {
   name: 'RelevantInformation',
   components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information, ShipInstallation, SatelliteInstallation, BuoyInstallation, ShiplaneDynamic, SatellitelaneDynamic, BuoyDynamic },
   data () {
     return {
-      tab_show: 'installation',
-      spinShow: false,
-      targetr_info: {}
+      tab_show: 'installation'
+      // spinShow: false
+      // targetr_info: {}
     }
   },
-  props: ['targetr_type', 'targetr_id'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow'],
   watch: {
     targetr_type(newVal, oldVal) {
       this.tab_show = 'installation'
@@ -98,25 +98,26 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      let url
-      if (this.targetr_type === 'airplane') {
-        url = '/air_plane'
-      } else if (this.targetr_type === 'ship') {
-        url = '/ship'
-      } else if (this.targetr_type === 'satellite') {
-        url = '/satellite'
-      } else if (this.targetr_type === 'buoy') {
-        url = '/buoy'
-      }
-      ax.post(url, {
-        query: `{
-            test(){}
-        }`
-      }).then(r => {
-        this.spinShow = false
-        let resp = r.data
-        this.targetr_info = resp
-      })
+      // let url
+      // if (this.targetr_type === 'airplane') {
+      //   url = '/air_plane'
+      // } else if (this.targetr_type === 'ship') {
+      //   url = '/ship'
+      // } else if (this.targetr_type === 'satellite') {
+      //   url = '/satellite'
+      // } else if (this.targetr_type === 'buoy') {
+      //   url = '/buoy'
+      // }
+      // ax.post(url, {
+      //   query: `{
+      //       test(){
+      //       }
+      //   }`
+      // }).then(r => {
+      //   this.spinShow = false
+      //   let resp = r.data
+      //   this.targetr_info = resp
+      // })
     }
   }
 }

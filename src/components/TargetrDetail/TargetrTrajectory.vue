@@ -1,10 +1,10 @@
 <template>
   <div class="TargetrTrajectory">
     <!-- 飞机的目标轨迹 -->
-    <AirplaneTrajectory :real_time_info="real_time_info" v-if="targetr_type=='airplane'"></AirplaneTrajectory>
-    <ShipTrajectory :real_time_info="real_time_info" v-if="targetr_type=='ship'"></ShipTrajectory>
-    <SatelliteTrajectory :real_time_info="real_time_info" v-if="targetr_type=='satellite'"></SatelliteTrajectory>
-    <BuoyTrajectory :real_time_info="real_time_info" v-if="targetr_type=='buoy'"></BuoyTrajectory>
+    <AirplaneTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Plane'"></AirplaneTrajectory>
+    <ShipTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Ship'"></ShipTrajectory>
+    <SatelliteTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
+    <BuoyTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Buoy'"></BuoyTrajectory>
   </div>
 </template>
 
@@ -48,6 +48,9 @@ export default {
   mounted () {
     this.get_info()
   }
+  // props: ['targetr_type', 'real_time_info', 'targetr_info'],
+  // methods: { },
+  // mounted () { }
 }
 </script>
 

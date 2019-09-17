@@ -10,10 +10,11 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation v-if="show_RelevantInformation_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id"></RelevantInformation>
+        <RelevantInformation v-if="show_RelevantInformation_boolean" :targetr_type="selectedTarget && selectedTarget.targetType" :targetr_id="targetr_id" :targetr_info="targetr_info" :spinShow="spinShow"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
-        <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
+        <!-- <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail> -->
+        <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="selectedTarget && selectedTarget.targetType" :targetr_id="targetr_id" :targetr_info="targetr_info" :spinShow="spinShow" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
         <!--<div>-->
           <!--<button @click="show_TargetrDetail('airplane')">飞机</button>-->
           <!--<button @click="show_TargetrDetail('ship')">船舶</button>-->
@@ -36,7 +37,92 @@ import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
-import { SVG } from './commons'
+import { SVG, executeGQL } from './commons'
+const GQL = {
+  queryPlaneByID: { query: `query($pid:ID!){
+    target(id:$pid){
+      ... on Plane{
+        targetType: __typename,
+        id,
+        name,
+        ICAO,
+        kind { label },
+        usage{ label },
+        registration,
+        ORG {
+          cname,
+          ename,
+          abbr,
+          code,
+          type,
+          country{
+            cname
+          },
+          business,
+          superior { cname },
+          leader {
+            name,
+            nation,
+            gender,
+            birthday,
+            nickname,
+            country { cname },
+            faith,
+            job,
+            EDU,
+            city
+          },
+          homepage
+        },
+        radar{
+          model
+          responseCode
+        },
+        action{
+          originated {
+            name,
+            code,
+            type,
+            country { cname },
+            openDate,
+            level,
+            area,
+            parkCount
+          }
+          landing{
+            name,
+            country{ cname }
+          },
+          ETD,
+          ETA,
+          lon,
+          lat,
+          alt,
+          horSpeed,
+          vetSpeed,
+          azimuth
+        }
+      }
+      ... on Ship{
+        targetType: __typename,
+        id,
+        name,
+        usage { typeid },
+        MMSI,
+        ORG { cname },
+        country { cname },
+        status,
+        tonnage,
+        width,
+        length,
+        height,
+        maxSpeed,
+        phone
+      }
+    }
+  }`
+  }
+}
 export default {
   name: 'app',
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
@@ -45,11 +131,22 @@ export default {
       show_TargetrDetail_boolean: false,
       show_RelevantInformation_boolean: false,
       targetr_type: 'airplane', // 下弹窗展示类型
-      targetr_id: '0' // 下弹窗展示类型的id
+      targetr_id: '0', // 下弹窗展示类型的id
+      targetr_info: {},
+      spinShow: true
     }
   },
   computed: {
-    ...mapState(['targetList'])
+    ...mapState(['targetList']),
+    ...mapState(['selectedTarget'])
+  },
+  watch: {
+    targetr_id() {
+      this.get_info()
+    },
+    selectedTarget() {
+      this.get_info()
+    }
   },
   methods: {
     ...mapMutations(['setSomeState']),
@@ -57,6 +154,7 @@ export default {
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
+      this.get_info()
     },
     makeSymbol(target) {
       let symb = target.symbol
@@ -83,9 +181,15 @@ export default {
       this.targetr_id = this.targetr_id + '-1'
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
+    },
+    // 获取目标
+    get_info() {
+      this.spinShow = true
+      executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
+        this.spinShow = false
+        this.targetr_info = r.target
+      })
     }
-  },
-  mounted () {
   }
 }
 </script>

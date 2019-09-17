@@ -30,62 +30,69 @@
 </template>
 
 <script>
-import { executeGQL } from '../../commons'
+// import { executeGQL } from '../../commons'
 import TargetrInformation from './TargetrInformation'
 import TargetrTrajectory from './TargetrTrajectory'
 import { mapState } from 'vuex'
-const GQL = {
-  queryPlaneByID: { query: `query($pid:ID!){
-    target(id:$pid){
-      ... on Plane{
-        targetType: __typename,
-        id,
-        name,
-        ICAO,
-        kind { label },
-        usage{ label },
-        registration,
-        ORG {
-          cname,
-          country{
-            cname
-          }
-        },
-        radar{
-          model
-          responseCode
-        },
-        action{
-          landing{
-            name,
-            country{ cname }
-          },
-          ETD,
-          ETA,
-          azimuth,
-          alt
-        }
-      }
-      ... on Ship{
-        targetType: __typename,
-        id,
-        name,
-        usage { typeid },
-        MMSI,
-        ORG { cname },
-        country { cname },
-        status,
-        tonnage,
-        width,
-        length,
-        height,
-        maxSpeed,
-        phone
-      }
-    }
-  }`
-  }
-}
+// const GQL = {
+//   queryPlaneByID: { query: `query($pid:ID!){
+//     target(id:$pid){
+//       ... on Plane{
+//         targetType: __typename,
+//         id,
+//         name,
+//         ICAO,
+//         kind { label },
+//         usage{ label },
+//         registration,
+//         ORG {
+//           cname,
+//           country{
+//             cname
+//           }
+//         },
+//         radar{
+//           model
+//           responseCode
+//         },
+//         action{
+//           originated {
+//             name,
+//           }
+//           landing{
+//             name,
+//             country{ cname }
+//           },
+//           ETD,
+//           ETA,
+//           lon,
+//           lat,
+//           alt,
+//           horSpeed,
+//           vetSpeed,
+//           azimuth
+//         }
+//       }
+//       ... on Ship{
+//         targetType: __typename,
+//         id,
+//         name,
+//         usage { typeid },
+//         MMSI,
+//         ORG { cname },
+//         country { cname },
+//         status,
+//         tonnage,
+//         width,
+//         length,
+//         height,
+//         maxSpeed,
+//         phone
+//       }
+//     }
+//   }`
+//   }
+// }
 export default {
   name: 'TargetrDetail',
   components: { TargetrInformation, TargetrTrajectory },
@@ -95,12 +102,11 @@ export default {
       tab_boolean: true,
       tab_show: 'TargetrInformation',
       container_height: 210,
-      targetr_info: {},
-      spinShow: true,
+      // targetr_info: {},
       get_data_boolean: true
     }
   },
-  props: ['targetr_type', 'targetr_id'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow'],
   computed: {
     ...mapState(['selectedTarget'])
   },
@@ -140,10 +146,10 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
-        this.spinShow = false
-        this.targetr_info = r.target
-      })
+      // executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
+      //   this.spinShow = false
+      //   this.targetr_info = r.target
+      // })
     }
   }
 }
