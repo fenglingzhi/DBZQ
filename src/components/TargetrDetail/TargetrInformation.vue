@@ -1,10 +1,21 @@
 <template>
   <div class="TargetrInformation">
+    <div class="TargetrInformation_img">
+      <img src="../../assets/images/airplane.jpg" alt="">
+    </div>
     <!-- 飞机的目标信息 -->
-    <AirplaneInformation :base_info="base_info" v-if="targetr_type=='airplane'"></AirplaneInformation>
-    <ShipInformation :base_info="base_info" v-if="targetr_type=='ship'"></ShipInformation>
-    <SatelliteInformation :base_info="base_info" v-if="targetr_type=='satellite'"></SatelliteInformation>
-    <BuoyInformation :base_info="base_info" v-if="targetr_type=='buoy'"></BuoyInformation>
+    <div style="flex:1;">
+      <AirplaneInformation :base_info="base_info" v-if="targetr_type=='airplane'"></AirplaneInformation>
+      <ShipInformation :base_info="base_info" v-if="targetr_type=='ship'"></ShipInformation>
+      <SatelliteInformation :base_info="base_info" v-if="targetr_type=='satellite'"></SatelliteInformation>
+      <BuoyInformation :base_info="base_info" v-if="targetr_type=='buoy'"></BuoyInformation>
+    </div>
+
+    <div class="TargetrInformation_chart">
+      <template>
+        <ve-line width="290px" height="160px" :legend-visible="false" :grid="grid" :data="chartData" :settings="chartSettings"></ve-line>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -17,7 +28,34 @@ export default {
   name: 'TargetrInformation',
   components: { AirplaneInformation, ShipInformation, SatelliteInformation, BuoyInformation },
   data() {
-    return {}
+    this.chartSettings = {
+      area: true,
+      scale: true
+    }
+    this.grid = {
+      show: true,
+      width: '250px',
+      height: '160px',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      color: '#fff',
+      backgroundColor: 'transparent',
+      borderColor: '#000'
+    }
+    return {
+      chartData: {
+        columns: ['时间', '垂直高度', '水平速度'],
+        rows: [
+          { '时间': '2019/09/17 09:56', '垂直高度': 393, '水平速度': 93 },
+          { '时间': '2019/09/17 10:56', '垂直高度': 530, '水平速度': 230 },
+          { '时间': '2019/09/17 11:56', '垂直高度': 923, '水平速度': 223 },
+          { '时间': '2019/09/17 12:56', '垂直高度': 723, '水平速度': 423 },
+          { '时间': '2019/09/17 13:56', '垂直高度': 792, '水平速度': 392 },
+          { '时间': '2019/09/17 14:56', '垂直高度': 593, '水平速度': 293 }
+        ]
+      }
+    }
   },
   props: ['targetr_type', 'base_info'],
   watch: {
@@ -38,6 +76,17 @@ export default {
   color: #fff;
   box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap;
+}
+.TargetrInformation_img{
+  width: 250px;
+}
+.TargetrInformation_img img{
+  max-height: 140px;
+  padding:10px 10px 0 0;
+}
+.TargetrInformation_chart{
+  padding:10px 10px 0 0;
+  width: 330px;
+  height: 160px;
 }
 </style>
