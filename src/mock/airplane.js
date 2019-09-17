@@ -226,12 +226,32 @@ export default {
           num: '218个（截至2017年9月）'
         }],
         // 资讯
-        information: {
+        information: [{
           title: '标题',
           content: '内容',
           source: '来源',
           release_time: '发布时间'
-        }
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }]
       }
     }
   }
