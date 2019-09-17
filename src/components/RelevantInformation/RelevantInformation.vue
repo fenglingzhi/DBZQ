@@ -42,7 +42,6 @@
           <div v-if="tab_show == 'information'">
             <information :information = "targetr_info.information"></information>
           </div>
-          
         </div>
       </div>
     </div>

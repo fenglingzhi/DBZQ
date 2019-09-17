@@ -14,7 +14,7 @@ export default {
           yd_code: '应答机编码',
           radar_type: '飞机雷达型号',
           ICAO: 'ICAO编号',
-          img_url:'airplane.jpg'
+          img_url: 'airplane.jpg'
         },
         // 航班信息
         real_time_info: {
