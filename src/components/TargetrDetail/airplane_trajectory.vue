@@ -1,86 +1,42 @@
+<style>
+  .airplane_trajectory{
+    height: 100%;
+    width: 100%;
+  }
+  .ivu-table-wrapper{
+    border: none !important;
+  }
+  .ivu-table th{
+    background-color:rgba(170, 170, 170, .5) !important;
+    color: #aaa;
+  }
+  .ivu-table, .ivu-table td{
+    background-color:transparent !important;
+    color: #fff;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+  }
+</style>
 <template>
     <!-- 飞机的目标信息 -->
     <div class="airplane_trajectory">
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'起飞基地'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.take_off_base"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'降落基地'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.landing_base"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'出发时间'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.start_time"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'预计到达时间'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.pre_time"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'经度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.longitude"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'纬度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.latitude"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'高度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.height"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'水平速度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.horizontal_velocity"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'垂直速度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.vertical_speed"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'方位角'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.azimuth"></span>
-            </div>
-        </div>
+      <Table height="163" :columns="columns1" :data="data">
+        <template slot="action">
+            <Icon type="md-play" />
+        </template>
+      </Table>
     </div>
 </template>
 
@@ -89,37 +45,75 @@ export default {
   name: 'airplane_trajectory',
   components: { },
   data() {
-    return { }
+    return {
+      columns1: [
+        {
+          title: '起飞基地',
+          key: 'take_off_base'
+        },
+        {
+          title: '降落基地',
+          key: 'landing_base'
+        },
+        {
+          title: '出发时间',
+          key: 'start_time'
+        },
+        {
+          title: '预计到达时间',
+          key: 'pre_time'
+        },
+        {
+          title: '经度',
+          key: 'longitude'
+        },
+        {
+          title: '纬度',
+          key: 'latitude'
+        },
+        {
+          title: '高度',
+          key: 'height'
+        },
+        {
+          title: '水平速度',
+          key: 'horizontal_velocity'
+        },
+        {
+          title: '垂直速度',
+          key: 'vertical_speed'
+        },
+        {
+          title: '方位角',
+          key: 'azimuth'
+        },
+        {
+          title: '操作',
+          slot: 'action',
+          width: 100,
+          align: 'center'
+        }
+      ],
+      data:[],
+    }
   },
-  props: [ 'real_time_info' ],
+  props: {
+    real_time_info: {
+      type: Array
+    }
+  },
+  watch: {
+    real_time_info() {
+      this.data = this.real_time_info
+    }
+  },
   methods: { },
-  mounted () { }
+  mounted () {
+    setTimeout(() => {
+      this.data = this.real_time_info
+    }, 0)
+   }
 }
 </script>
 
-<style>
-.airplane_trajectory{
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-}
-.info-data-item{
-    width:186px;
-    margin-bottom: 10px;
-}
-.info-title{
-    color: #aaa;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.info-value{
-    color: #fff;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-</style>
+

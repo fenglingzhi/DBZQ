@@ -5,12 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    planeList: [],
+    targetList: [],
     selectedTarget: null
   },
   mutations: {
-    planeList(state, vals) {
-      state.planeList = vals
+    targetList(state, vals) {
+      state.targetList = vals
     },
     selectedTarget(state, val) {
       state.selectedTarget = val

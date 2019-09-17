@@ -3,7 +3,6 @@ export default {
     let params = JSON.parse(req.body)
     if (params.query.indexOf('test(')) {
       return {
-        // 缺资讯信息，
         // 基础信息
         base_info: {
           name: '船舶名称',
@@ -35,6 +34,14 @@ export default {
           time: '预到时间',
           task: '船舶任务'
         },
+        // 动态
+        dynamic: {
+          take_off_base: '始发港口',
+          landing_base: '目的港口',
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        },
         // 人员信息
         usr: {
           name: '姓名',
@@ -65,13 +72,20 @@ export default {
         facility: {
           name: '港口名称',
           code: '港口代码',
-          type: '机场类型',
+          type: '港口类型',
           country: '所属地区',
           main_good: '主营货类',
           max_throughput: '最大吞吐量',
           area: '水域面积',
           opt_organization: '运行机构',
           phone: '联系电话'
+        },
+        // 资讯
+        information: {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
         }
       }
     }

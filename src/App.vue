@@ -3,8 +3,8 @@
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.id"
-        :json="plane" :symbol="makeSymbol(plane.symbol)" @click="setSelected(plane)"/>
+        <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
+        :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
@@ -36,19 +36,20 @@ import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
+import { SVG } from './commons'
 export default {
   name: 'app',
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
-      show_TargetrDetail_boolean: true,
-      show_RelevantInformation_boolean: true,
+      show_TargetrDetail_boolean: false,
+      show_RelevantInformation_boolean: false,
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0' // 下弹窗展示类型的id
     }
   },
   computed: {
-    ...mapState(['planeList'])
+    ...mapState(['targetList'])
   },
   methods: {
     ...mapMutations(['setSomeState']),
@@ -57,21 +58,20 @@ export default {
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
     },
-    makeSymbol(symb) {
+    makeSymbol(target) {
+      let symb = target.symbol
       Object.assign(symb, {
-        markerFile: require('./assets/images/plane.png'),
+        markerType: 'path',
+        markerPathWidth: 1024,
+        markerPathHeight: 1024,
+        markerFill: '#6fa8dc',
+        markerWidth: 20,
+        markerHeight: 20,
+        markerPath: SVG[target.targetType],
         markerVerticalAlignment: 'middle',
         markerHorizontalAlignment: 'middle'
       })
-      return [{
-        'markerType': 'ellipse',
-        'markerFill': 'rgb(235,0  ,24)',
-        'markerFillOpacity': 0.4,
-        'markerLineColor': '#34495e',
-        'markerWidth': 20,
-        'markerHeight': 20,
-        'markerOpacity': 1
-      }, symb]
+      return [symb]
     },
     // 关闭下弹窗
     close_TargetrDetail() {

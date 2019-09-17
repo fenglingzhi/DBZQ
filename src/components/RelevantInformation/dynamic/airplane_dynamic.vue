@@ -1,5 +1,5 @@
 <style>
-  .airplane_installation{
+  .airplane_dynamic{
     height: 100%;
     width: 100%;
   }
@@ -35,64 +35,56 @@
 </style>
 <template>
     <!-- 航班设施信息 -->
-    <div class="airplane_installation">
+    <div class="airplane_dynamic">
       <Table height="400" :columns="columns1" :data="data" size="small"></Table>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'airplane_installation',
+  name: 'airplane_dynamic',
   components: { },
   data() {
     return {
       columns1: [
         {
-          title: '机场名称',
-          key: 'name'
+          title: '起飞基地',
+          key: 'take_off_base'
         },
         {
-          title: '机场代码',
-          key: 'code'
+          title: '降落基地',
+          key: 'landing_base'
         },
         {
-          title: '机场类型',
-          key: 'type'
+          title: '出发时间',
+          key: 'start_time'
         },
         {
-          title: '所属国家/地区',
-          key: 'country'
+          title: '预计到达时间',
+          key: 'pre_time'
         },
         {
-          title: '通航日期',
-          key: 'date'
+          title: '经度',
+          key: 'longitude'
         },
         {
-          title: '飞行区等级',
-          key: 'level'
-        },
-        {
-          title: '航站楼面积',
-          key: 'area'
-        },
-        {
-          title: '机位数量',
-          key: 'num'
+          title: '纬度',
+          key: 'latitude'
         }
       ],
       data:[],
     }
   },
-  props: ['facility'],
+  props: ['dynamic'],
   watch: {
-    facility() {
-      this.data = this.facility
+    dynamic() {
+      this.data = this.dynamic
     }
   },
   methods: { },
   mounted () {
     setTimeout(() => {
-      this.data = this.facility
+      this.data = this.dynamic
     }, 0)
   }
 }

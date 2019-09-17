@@ -27,16 +27,48 @@
         <!-- tab的content 展示 -->
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
-          
+          <div v-if="tab_show == 'installation'">
+            <AirplaneInstallation v-if="targetr_type == 'airplane'" :facility = "targetr_info.facility"></AirplaneInstallation>
+            <ShipInstallation v-if="targetr_type == 'ship'" :facility = "targetr_info.facility"></ShipInstallation>
+            <SatelliteInstallation v-if="targetr_type == 'satellite'" :facility = "targetr_info.facility"></SatelliteInstallation>
+            <BuoyInstallation v-if="targetr_type == 'buoy'" :facility = "targetr_info.facility"></BuoyInstallation>
+          </div>
+          <div v-if="tab_show == 'dynamic'">
+            <AirplaneDynamic v-if="targetr_type == 'airplane'" :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
+            <ShiplaneDynamic v-if="targetr_type == 'ship'" :dynamic = "targetr_info.dynamic"></ShiplaneDynamic>
+            <SatellitelaneDynamic v-if="targetr_type == 'satellite'" :dynamic = "targetr_info.dynamic"></SatellitelaneDynamic>
+            <BuoyDynamic v-if="targetr_type == 'buoy'" :dynamic = "targetr_info.dynamic"></BuoyDynamic>
+          </div>
+          <div v-if="tab_show == 'personnel'">
+            <personnel :usr = "targetr_info.usr"></personnel>
+          </div>
+          <div v-if="tab_show == 'organization'">
+            <organization :organization = "targetr_info.organization"></organization>
+          </div>
+          <div v-if="tab_show == 'information'">
+            <information :information = "targetr_info.information"></information>
+          </div>
         </div>
       </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+import AirplaneInstallation from './installation/airplane_installation'
+import ShipInstallation from './installation/ship_installation'
+import SatelliteInstallation from './installation/satellite_installation'
+import BuoyInstallation from './installation/buoy_installation'
+import AirplaneDynamic from './dynamic/airplane_dynamic'
+import ShiplaneDynamic from './dynamic/ship_dynamic'
+import SatellitelaneDynamic from './dynamic/satellite_dynamic'
+import BuoyDynamic from './dynamic/buoy_dynamic'
+import personnel from './personnel/personnel'
+import organization from './organization/organization'
+import information from './information/information'
 import ax from 'axios'
 export default {
   name: 'RelevantInformation',
+  components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information, ShipInstallation, SatelliteInstallation, BuoyInstallation, ShiplaneDynamic, SatellitelaneDynamic, BuoyDynamic },
   data () {
     return {
       tab_show: 'installation',
@@ -129,12 +161,14 @@ export default {
       }
       .RelevantInformation_content{
         /*background-color: rgb(255, 255, 255 , .8);*/
+        padding-top: 10px;
         border-top: 1px solid #ffffff80;
         position: relative;
         top: -1px;
         border-radius: 0 0 2px 2px;
-        height: 174px;
+        // height: 174px;
         z-index: 9;
+        width:600px;
       }
     }
   }
