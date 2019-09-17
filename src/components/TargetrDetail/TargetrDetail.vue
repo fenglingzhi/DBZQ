@@ -38,6 +38,7 @@ const GQL = {
   queryPlaneByID: { query: `query($pid:ID!){
     target(id:$pid){
       ... on Plane{
+        targetType: __typename,
         id,
         name,
         ICAO,
@@ -66,6 +67,7 @@ const GQL = {
         }
       }
       ... on Ship{
+        targetType: __typename,
         id,
         name,
         usage { typeid },
