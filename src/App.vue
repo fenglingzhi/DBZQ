@@ -226,6 +226,13 @@ export default {
         this.targetr_info = r.target
       })
     }
+  },
+  mounted() {
+    debugger
+    this.$root.mq.$on('routePlay',(e) => {
+      debugger
+      console.log(e)
+    })
   }
 }
 </script>

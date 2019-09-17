@@ -17,5 +17,10 @@ if (process.env.NODE_ENV !== 'production') require('./mock')
 
 new Vue({
   store,
+  data () {
+    return {
+      mq: new Vue()
+    }
+  },
   render: h => h(App)
 }).$mount('#app')

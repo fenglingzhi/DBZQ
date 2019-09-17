@@ -34,7 +34,7 @@
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
         <template slot="action">
-            <Icon type="md-play" />
+            <Icon type="md-play" @click="player"/>
         </template>
       </Table>
         <!--<div class="info-data-item">-->
@@ -187,7 +187,11 @@ export default {
       this.data = this.real_time_info
     }
   },
-  methods: { },
+  methods: { 
+    player(action) {
+      this.$root.mq.$emit('routePlay',action)
+    }
+  },
   mounted () {
     setTimeout(() => {
       this.data = this.real_time_info
