@@ -49,43 +49,57 @@ export default {
       columns1: [
         {
           title: '起飞基地',
-          key: 'action.originated.name'
+          key: 'oname'
         },
         {
           title: '降落基地',
-          key: 'action.landing.name'
+          key: 'lname'
         },
         {
           title: '出发时间',
-          key: 'action.ETD'
+          key: 'ETD'
         },
         {
           title: '预计到达时间',
-          key: 'action.ETA'
+          key: 'ETA'
         },
         {
           title: '经度',
-          key: 'action.lon'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'action.lat'
+          key: 'lat'
         }
-      ],
-      data: []
+      ]
+      // data: []
     }
   },
   props: ['dynamic'],
-  watch: {
-    dynamic() {
-      this.data = this.dynamic.dynamic
+  computed: {
+    data() {
+      let cdata = {}
+      this.dynamic.forEach(item => {
+        // this.facility.map(({ originated, landing, ETD, ETA, lon, lelat }) => {
+        //   let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
+        //   return cdata
+        // })
+        item.recent.forEach(item1 => {
+          cdata.push({
+            'oname': item1.action.originated.name,
+            'lname': item1.action.landing.name,
+            'ETD': item1.action.ETD,
+            'ETA': item1.action.ETA,
+            'lon': item1.action.lon,
+            'lat': item1.action.lat
+          })
+        })
+      })
+      return cdata
     }
   },
   methods: { },
   mounted () {
-    setTimeout(() => {
-      this.data = this.dynamic.dynamic
-    }, 0)
   }
 }
 </script>

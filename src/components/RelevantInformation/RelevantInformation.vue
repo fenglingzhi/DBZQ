@@ -28,16 +28,16 @@
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
-            <AirplaneInstallation v-if="targetr_type == 'Plane'" :facility = "targetr_info_data"></AirplaneInstallation>
-            <ShipInstallation v-if="targetr_type == 'Ship'" :facility = "targetr_info_data"></ShipInstallation>
-            <SatelliteInstallation v-if="targetr_type == 'Satellite'" :facility = "targetr_info_data"></SatelliteInstallation>
-            <BuoyInstallation v-if="targetr_type == 'Buoy'" :facility = "targetr_info_data"></BuoyInstallation>
+            <AirplaneInstallation v-if="targetr_type == 'Plane'" :facility = "targetr_info.nearby"></AirplaneInstallation>
+            <ShipInstallation v-if="targetr_type == 'Ship'" :facility = "targetr_info.nearby"></ShipInstallation>
+            <SatelliteInstallation v-if="targetr_type == 'Satellite'" :facility = "targetr_info.nearby"></SatelliteInstallation>
+            <BuoyInstallation v-if="targetr_type == 'Buoy'" :facility = "targetr_info.nearby"></BuoyInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic v-if="targetr_type == 'Plane'" :dynamic = "targetr_info_data"></AirplaneDynamic>
-            <ShiplaneDynamic v-if="targetr_type == 'Ship'" :dynamic = "targetr_info_data"></ShiplaneDynamic>
-            <SatellitelaneDynamic v-if="targetr_type == 'Satellite'" :dynamic = "targetr_info_data"></SatellitelaneDynamic>
-            <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info_data"></BuoyDynamic>
+            <AirplaneDynamic v-if="targetr_type == 'Plane'" :dynamic = "targetr_info.nearby"></AirplaneDynamic>
+            <ShiplaneDynamic v-if="targetr_type == 'Ship'" :dynamic = "targetr_info.nearby"></ShiplaneDynamic>
+            <SatellitelaneDynamic v-if="targetr_type == 'Satellite'" :dynamic = "targetr_info.nearby"></SatellitelaneDynamic>
+            <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info.nearby"></BuoyDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
             <personnel :usr = "targetr_info_data"></personnel>

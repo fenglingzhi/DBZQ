@@ -18,7 +18,7 @@ export default {
           dry_mass: '干质量（kg）'
         },
         // 航班信息
-        real_time_info: {
+        real_time_info: [{
           RCS: 'RCS（雷达横切面）',
           longitude: '123.123123123', // 经度
           latitude: '123.123123123', // 纬度
@@ -27,14 +27,47 @@ export default {
           azimuth: '方位角',
           launching_site: '发射场',
           current_time: '当前时间'
-        },
+        }, {
+          RCS: 'RCS（雷达横切面）',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          altitude: '海拔',
+          speed: '速度',
+          azimuth: '方位角',
+          launching_site: '发射场',
+          current_time: '当前时间'
+        }, {
+          RCS: 'RCS（雷达横切面）',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          altitude: '海拔',
+          speed: '速度',
+          azimuth: '方位角',
+          launching_site: '发射场',
+          current_time: '当前时间'
+        }],
         // 动态
-        dynamic: {
+        dynamic: [{
           launching_site: '发射场',
           longitude: '123.123123123', // 经度
           latitude: '123.123123123', // 纬度
           now_time: '2013-09-01 13:41:52' // 当前时间
-        },
+        }, {
+          launching_site: '发射场',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          now_time: '2013-09-01 13:41:52' // 当前时间
+        }, {
+          launching_site: '发射场',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          now_time: '2013-09-01 13:41:52' // 当前时间
+        }, {
+          launching_site: '发射场',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          now_time: '2013-09-01 13:41:52' // 当前时间
+        }],
         // 人员信息
         usr: {
           name: '姓名',
@@ -62,16 +95,42 @@ export default {
           site: '机构网站'
         },
         // 设施-发射场
-        facility: {
+        facility: [{
           launch_site: '发射地点'
-        },
+        }, {
+          launch_site: '发射地点'
+        }, {
+          launch_site: '发射地点'
+        }, {
+          launch_site: '发射地点'
+        }],
         // 资讯
-        information: {
+        information: [{
           title: '标题',
           content: '内容',
           source: '来源',
           release_time: '发布时间'
-        }
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }]
       }
     }
   }

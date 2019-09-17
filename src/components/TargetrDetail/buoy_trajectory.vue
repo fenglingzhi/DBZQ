@@ -1,102 +1,42 @@
+<style>
+  .buoy_trajectory{
+    height: 100%;
+    width: 100%;
+  }
+  .ivu-table-wrapper{
+    border: none !important;
+  }
+  .ivu-table th{
+    background-color:rgba(170, 170, 170, .5) !important;
+    color: #aaa;
+  }
+  .ivu-table, .ivu-table td{
+    background-color:transparent !important;
+    color: #fff;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+  }
+</style>
 <template>
-    <!-- 卫星的目标信息 -->
+    <!-- 飞机的目标信息 -->
     <div class="buoy_trajectory">
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'风向'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.wind_direction"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'风速'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.wind_speed"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'GST（阵风速度）'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.GST"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'波高'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.wave_height"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'平均波方向'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.wave_direction"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'平均周期'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.average_period"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'主导波周期'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.dominant_period"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'海平面气压'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.sea_pressure"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'气温'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.air_temperature"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'海面温度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.sea_temperature"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'水深'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.depth_water"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'压力趋势'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.pressure_trend"></span>
-            </div>
-        </div>
+      <Table height="163" :columns="columns1" :data="data">
+        <template slot="action">
+            <Icon type="md-play" />
+        </template>
+      </Table>
     </div>
 </template>
 
@@ -105,37 +45,81 @@ export default {
   name: 'buoy_trajectory',
   components: { },
   data() {
-    return { }
+    return {
+      columns1: [
+        {
+          title: '风向',
+          key: 'wind_direction'
+        },
+        {
+          title: '风速',
+          key: 'wind_speed'
+        },
+        {
+          title: 'GST（阵风速度）',
+          key: 'GST'
+        },
+        {
+          title: '波高',
+          key: 'wave_height'
+        },
+        {
+          title: '平均波方向',
+          key: 'wave_direction'
+        },
+        {
+          title: '平均周期',
+          key: 'average_period'
+        },
+        {
+          title: '主导波周期',
+          key: 'dominant_period'
+        },
+        {
+          title: '海平面气压',
+          key: 'sea_pressure'
+        },
+        {
+          title: '气温',
+          key: 'air_temperature'
+        },
+        {
+          title: '海面温度',
+          key: 'sea_temperature'
+        },
+        {
+          title: '水深',
+          key: 'depth_water'
+        },
+        {
+          title: '压力趋势',
+          key: 'pressure_trend'
+        },
+        {
+          title: '操作',
+          slot: 'action',
+          width: 100,
+          align: 'center'
+        }
+      ],
+      data: []
+    }
   },
-  props: [ 'real_time_info' ],
+  props: {
+    real_time_info: {
+      type: Array
+    }
+  },
+  watch: {
+    real_time_info() {
+      this.data = this.real_time_info
+    }
+  },
   methods: { },
-  mounted () { }
+  mounted () {
+    setTimeout(() => {
+      this.data = this.real_time_info
+    }, 0)
+  }
 }
 </script>
-
-<style>
-.buoy_trajectory{
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-}
-.info-data-item{
-    width:186px;
-    margin-bottom: 10px;
-}
-.info-title{
-    color: #aaa;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.info-value{
-    color: #fff;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-</style>
