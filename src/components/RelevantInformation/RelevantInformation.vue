@@ -34,10 +34,10 @@
             <BuoyInstallation v-if="targetr_type == 'Buoy'" :facility = "targetr_info_data"></BuoyInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic v-if="targetr_type == 'Plane'" :dynamic = "targetr_info_data"></AirplaneDynamic>
-            <ShiplaneDynamic v-if="targetr_type == 'Ship'" :dynamic = "targetr_info_data"></ShiplaneDynamic>
-            <SatellitelaneDynamic v-if="targetr_type == 'Satellite'" :dynamic = "targetr_info_data"></SatellitelaneDynamic>
-            <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info_data"></BuoyDynamic>
+            <AirplaneDynamic v-if="targetr_type == 'Plane'" :dynamic = "targetr_info_data.history"></AirplaneDynamic>
+            <ShiplaneDynamic v-if="targetr_type == 'Ship'" :dynamic = "targetr_info_data.history"></ShiplaneDynamic>
+            <SatellitelaneDynamic v-if="targetr_type == 'Satellite'" :dynamic = "targetr_info_data.history"></SatellitelaneDynamic>
+            <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info_data.history"></BuoyDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
             <personnel :usr = "targetr_info_data"></personnel>

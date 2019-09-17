@@ -83,7 +83,9 @@ const GQL = {
             name,
             code,
             type,
-            country { cname },
+            address {
+              country { cname }
+            },
             openDate,
             level,
             area,
@@ -91,7 +93,9 @@ const GQL = {
           }
           landing{
             name,
-            country{ cname }
+            address {
+              country { cname }
+            }
           },
           ETD,
           ETA,
@@ -107,7 +111,9 @@ const GQL = {
             name,
             code,
             type,
-            country { cname },
+            address {
+              country { cname }
+            },
             openDate,
             level,
             area,
@@ -115,7 +121,9 @@ const GQL = {
           }
           landing{
             name,
-            country{ cname }
+            address {
+              country { cname }
+            }
           },
           ETD,
           ETA,

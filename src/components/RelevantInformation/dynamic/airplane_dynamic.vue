@@ -49,43 +49,43 @@ export default {
       columns1: [
         {
           title: '起飞基地',
-          key: 'action.originated.name'
+          key: 'oname'
         },
         {
           title: '降落基地',
-          key: 'action.landing.name'
+          key: 'lname'
         },
         {
           title: '出发时间',
-          key: 'action.ETD'
+          key: 'ETD'
         },
         {
           title: '预计到达时间',
-          key: 'action.ETA'
+          key: 'ETA'
         },
         {
           title: '经度',
-          key: 'action.lon'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'action.lat'
+          key: 'lat'
         }
-      ],
-      data: []
+      ]
+      // data: []
     }
   },
   props: ['dynamic'],
-  watch: {
-    dynamic() {
-      this.data = this.dynamic.dynamic
+  computed: {
+    data() {
+      return this.dynamic.map(({ originated, landing, ETD, ETA, lon, lat }) => {
+        let cdata = { 'oname': originated.name, 'lname': landing.name, ETD, ETA, lon, lat }
+        return cdata
+      })
     }
   },
   methods: { },
   mounted () {
-    setTimeout(() => {
-      this.data = this.dynamic.dynamic
-    }, 0)
   }
 }
 </script>
