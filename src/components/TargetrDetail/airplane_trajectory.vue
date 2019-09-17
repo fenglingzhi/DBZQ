@@ -174,7 +174,7 @@ export default {
           align: 'center'
         }
       ],
-      data:[],
+      data: []
     }
   },
   props: {
@@ -192,8 +192,6 @@ export default {
     setTimeout(() => {
       this.data = this.real_time_info
     }, 0)
-   }
+  }
 }
 </script>
-
-
