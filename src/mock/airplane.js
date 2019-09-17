@@ -17,7 +17,7 @@ export default {
           img_url: 'airplane.jpg'
         },
         // 航班信息
-        real_time_info: {
+        real_time_info: [{
           take_off_base: '起飞基地',
           landing_base: '降落基地',
           start_time: '2013-09-01 13:41:52', // 出发时间
@@ -28,16 +28,121 @@ export default {
           horizontal_velocity: '水平速度',
           vertical_speed: '垂直速度',
           azimuth: '方位角'
-        },
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }, {
+          take_off_base: '起飞基地1',
+          landing_base: '降落基地2',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          height: '12312333333', // 高度
+          horizontal_velocity: '水平速度1',
+          vertical_speed: '垂直速度2',
+          azimuth: '方位角3'
+        }],
         // 动态
-        dynamic: {
+        dynamic: [{
           take_off_base: '起飞基地',
           landing_base: '降落基地',
           start_time: '2013-09-01 13:41:52', // 出发时间
           pre_time: '2013-09-01 13:41:52', // 预计到达时间
           longitude: '123.123123123', // 经度
           latitude: '123.123123123' // 纬度
-        },
+        }, {
+          take_off_base: '起飞基地',
+          landing_base: '降落基地',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }, {
+          take_off_base: '起飞基地',
+          landing_base: '降落基地',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }, {
+          take_off_base: '起飞基地',
+          landing_base: '降落基地',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }, {
+          take_off_base: '起飞基地',
+          landing_base: '降落基地',
+          start_time: '2013-09-01 13:41:52', // 出发时间
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }],
         // 人员信息
         usr: {
           name: '姓名',
@@ -65,7 +170,7 @@ export default {
           site: '机构网站'
         },
         // 设施-机场
-        facility: {
+        facility: [{
           name: '上海浦东国际机场',
           code: 'IATA：PVG，ICAO：ZSPD',
           type: '民用运输机场',
@@ -74,7 +179,52 @@ export default {
           level: '4F级',
           area: '62.2万平方米（截至2019年）',
           num: '218个（截至2017年9月）'
-        },
+        }, {
+          name: '上海浦东国际机场',
+          code: 'IATA：PVG，ICAO：ZSPD',
+          type: '民用运输机场',
+          country: '中国上海市浦东新区',
+          date: '1999年9月16日',
+          level: '4F级',
+          area: '62.2万平方米（截至2019年）',
+          num: '218个（截至2017年9月）'
+        }, {
+          name: '上海浦东国际机场',
+          code: 'IATA：PVG，ICAO：ZSPD',
+          type: '民用运输机场',
+          country: '中国上海市浦东新区',
+          date: '1999年9月16日',
+          level: '4F级',
+          area: '62.2万平方米（截至2019年）',
+          num: '218个（截至2017年9月）'
+        }, {
+          name: '上海浦东国际机场',
+          code: 'IATA：PVG，ICAO：ZSPD',
+          type: '民用运输机场',
+          country: '中国上海市浦东新区',
+          date: '1999年9月16日',
+          level: '4F级',
+          area: '62.2万平方米（截至2019年）',
+          num: '218个（截至2017年9月）'
+        }, {
+          name: '上海浦东国际机场',
+          code: 'IATA：PVG，ICAO：ZSPD',
+          type: '民用运输机场',
+          country: '中国上海市浦东新区',
+          date: '1999年9月16日',
+          level: '4F级',
+          area: '62.2万平方米（截至2019年）',
+          num: '218个（截至2017年9月）'
+        }, {
+          name: '上海浦东国际机场',
+          code: 'IATA：PVG，ICAO：ZSPD',
+          type: '民用运输机场',
+          country: '中国上海市浦东新区',
+          date: '1999年9月16日',
+          level: '4F级',
+          area: '62.2万平方米（截至2019年）',
+          num: '218个（截至2017年9月）'
+        }],
         // 资讯
         information: {
           title: '标题',

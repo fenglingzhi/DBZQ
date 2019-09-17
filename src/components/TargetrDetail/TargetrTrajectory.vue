@@ -13,6 +13,7 @@ import AirplaneTrajectory from './airplane_trajectory'
 import ShipTrajectory from './ship_trajectory'
 import SatelliteTrajectory from './satellite_trajectory'
 import BuoyTrajectory from './buoy_trajectory'
+import ax from 'axios'
 export default {
   name: 'TargetrTrajectory',
   components: { AirplaneTrajectory, ShipTrajectory, SatelliteTrajectory, BuoyTrajectory },
@@ -21,8 +22,32 @@ export default {
     }
   },
   props: ['targetr_type', 'real_time_info'],
-  methods: { },
-  mounted () { }
+  methods: {
+    // 获取目标
+    get_info() {
+      let url
+      if (this.targetr_type === 'airplane') {
+        url = '/air_plane'
+      } else if (this.targetr_type === 'ship') {
+        url = '/ship'
+      } else if (this.targetr_type === 'satellite') {
+        url = '/satellite'
+      } else if (this.targetr_type === 'buoy') {
+        url = '/buoy'
+      }
+      ax.post(url, {
+        query: `{
+            test(){}
+        }`
+      }).then(r => {
+        let resp = r.data
+        this.real_time_info = resp.real_time_info
+      })
+    }
+  },
+  mounted () {
+    this.get_info()
+  }
 }
 </script>
 
