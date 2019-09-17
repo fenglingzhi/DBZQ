@@ -30,7 +30,7 @@ export default {
   data() {
     this.chartSettings = {
       area: true,
-      scale:true,
+      scale: true
     }
     this.grid = {
       show: true,
@@ -39,7 +39,7 @@ export default {
       top: 0,
       left: 0,
       bottom: 0,
-      color: "#fff",
+      color: '#fff',
       backgroundColor: 'transparent',
       borderColor: '#000'
     }
