@@ -152,7 +152,7 @@ export default {
     width: calc(100vw - 20px);
   }
   .TargetrDetail_container{
-    width:800px;
+    width:1200px;
     height: 210px;
     background: rgba(0,0,0,.7);
     margin:0 auto;
@@ -170,7 +170,7 @@ export default {
   .TargetrDetail_operator{
     position: absolute;
     top: 6px;
-    right: calc(50vw - 404px);
+    right: calc(50vw - 604px);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

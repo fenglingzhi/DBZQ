@@ -41,8 +41,8 @@ export default {
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
-      show_TargetrDetail_boolean: true,
-      show_RelevantInformation_boolean: true,
+      show_TargetrDetail_boolean: false,
+      show_RelevantInformation_boolean: false,
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0' // 下弹窗展示类型的id
     }

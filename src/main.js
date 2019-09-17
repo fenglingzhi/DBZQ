@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VCharts from 'v-charts'
 import App from './App.vue'
 import store from './store'
 import animate from 'animate.css'
@@ -8,6 +9,7 @@ import './assset/iconfont/iconfont.css'
 
 Vue.use(iView)
 Vue.use(animate)
+Vue.use(VCharts)
 Vue.config.productionTip = false
 
 // 仅开发环境使用的Mock数据
