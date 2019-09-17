@@ -6,7 +6,7 @@
                 <span v-text="'起飞基地'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.take_off_base"></span>
+                <span v-text="real_time_info.action.originated.name"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'降落基地'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.landing_base"></span>
+                <span v-text="real_time_info.action.landing.name"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'出发时间'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.start_time"></span>
+                <span v-text="real_time_info.action.ETD"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'预计到达时间'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.pre_time"></span>
+                <span v-text="real_time_info.action.ETA"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.longitude"></span>
+                <span v-text="real_time_info.action.lon"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.latitude"></span>
+                <span v-text="real_time_info.action.lat"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'高度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.height"></span>
+                <span v-text="real_time_info.action.alt"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'水平速度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.horizontal_velocity"></span>
+                <span v-text="real_time_info.action.horSpeed"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'垂直速度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.vertical_speed"></span>
+                <span v-text="real_time_info.action.vetSpeed"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'方位角'"></span>
             </div>
             <div class="info-value">
-                <span v-text="real_time_info.azimuth"></span>
+                <span v-text="real_time_info.action.azimuth"></span>
             </div>
         </div>
     </div>

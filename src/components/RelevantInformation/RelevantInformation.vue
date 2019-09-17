@@ -28,19 +28,19 @@
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
-            <AirplaneInstallation :facility = "targetr_info.facility"></AirplaneInstallation>
+            <AirplaneInstallation :facility = "targetr_info"></AirplaneInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
+            <AirplaneDynamic :dynamic = "targetr_info"></AirplaneDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
-            <personnel :usr = "targetr_info.usr"></personnel>
+            <personnel :usr = "targetr_info"></personnel>
           </div>
           <div v-if="tab_show == 'organization'">
-            <organization :organization = "targetr_info.organization"></organization>
+            <organization :organization = "targetr_info"></organization>
           </div>
           <div v-if="tab_show == 'information'">
-            <information :information = "targetr_info.information"></information>
+            <information :information = "targetr_info"></information>
           </div>
         </div>
       </div>
@@ -53,18 +53,18 @@ import AirplaneDynamic from './dynamic/airplane_dynamic'
 import personnel from './personnel/personnel'
 import organization from './organization/organization'
 import information from './information/information'
-import ax from 'axios'
+// import ax from 'axios'
 export default {
   name: 'RelevantInformation',
   components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information },
   data () {
     return {
       tab_show: 'installation',
-      spinShow: false,
-      targetr_info: {}
+      // spinShow: false
+      // targetr_info: {}
     }
   },
-  props: ['targetr_type', 'targetr_id'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow'],
   watch: {
     targetr_type(newVal, oldVal) {
       this.tab_show = 'installation'
@@ -86,25 +86,26 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      let url
-      if (this.targetr_type === 'airplane') {
-        url = '/air_plane'
-      } else if (this.targetr_type === 'ship') {
-        url = '/ship'
-      } else if (this.targetr_type === 'satellite') {
-        url = '/satellite'
-      } else if (this.targetr_type === 'buoy') {
-        url = '/buoy'
-      }
-      ax.post(url, {
-        query: `{
-            test(){}
-        }`
-      }).then(r => {
-        this.spinShow = false
-        let resp = r.data
-        this.targetr_info = resp
-      })
+      // let url
+      // if (this.targetr_type === 'airplane') {
+      //   url = '/air_plane'
+      // } else if (this.targetr_type === 'ship') {
+      //   url = '/ship'
+      // } else if (this.targetr_type === 'satellite') {
+      //   url = '/satellite'
+      // } else if (this.targetr_type === 'buoy') {
+      //   url = '/buoy'
+      // }
+      // ax.post(url, {
+      //   query: `{
+      //       test(){
+      //       }
+      //   }`
+      // }).then(r => {
+      //   this.spinShow = false
+      //   let resp = r.data
+      //   this.targetr_info = resp
+      // })
     }
   }
 }

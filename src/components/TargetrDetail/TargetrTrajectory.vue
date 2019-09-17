@@ -20,7 +20,7 @@ export default {
     return {
     }
   },
-  props: ['targetr_type', 'real_time_info'],
+  props: ['targetr_type', 'real_time_info', 'targetr_info'],
   methods: { },
   mounted () { }
 }
