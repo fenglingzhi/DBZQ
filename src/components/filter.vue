@@ -308,7 +308,8 @@ const GQL = {
   searchPlane: { query: `
     query($type:String!){
       planeList: filterTargets(targetType:$type) {
-        ...on Plane{id
+        ...on Plane{
+        id
         feature {
           type,
           geometry {
@@ -316,7 +317,8 @@ const GQL = {
           }
         },
         symbol}
-        ...on Ship{id
+        ...on Ship{
+        id
         feature {
           type,
           geometry {
