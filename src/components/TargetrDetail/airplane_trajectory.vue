@@ -145,11 +145,11 @@ export default {
         },
         {
           title: '经度',
-          key: 'longitude'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'latitude'
+          key: 'lat'
         },
         {
           title: '高度',
