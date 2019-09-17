@@ -1,35 +1,35 @@
 <template>
     <!-- 航班设施信息 -->
     <div class="information">
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'标题'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="information.title"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'内容'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="information.content"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'来源'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="information.source"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'发布时间'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="information.release_time"></span>
             </div>
         </div>
@@ -51,12 +51,12 @@ export default {
 
 <style>
 .information{ }
-.info-data-item{
+.row-info-data-item{
     width:100%;
     margin-bottom: 10px;
     display: flex;
 }
-.info-title{
+.row-info-title{
     width: 150px;
     color: #aaa;
     font-size: 12px;
@@ -64,7 +64,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.info-value{
+.row-info-value{
     width: 200px;
     color: #fff;
     font-size: 12px;

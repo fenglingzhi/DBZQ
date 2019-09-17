@@ -1,67 +1,67 @@
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_installation">
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'机场名称'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.name"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'机场代码'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.code"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'机场类型'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.type"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'所属国家/地区'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.country"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'通航日期'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.date"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'飞行区等级'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.level"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'航站楼面积'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.area"></span>
             </div>
         </div>
-        <div class="info-data-item">
-            <div class="info-title">
+        <div class="row-info-data-item">
+            <div class="row-info-title">
                 <span v-text="'机位数量'"></span>
             </div>
-            <div class="info-value">
+            <div class="row-info-value">
                 <span v-text="facility.num"></span>
             </div>
         </div>
@@ -83,12 +83,12 @@ export default {
 
 <style>
 .airplane_installation{ }
-.info-data-item{
+.row-info-data-item{
     width:100%;
     margin-bottom: 10px;
     display: flex;
 }
-.info-title{
+.row-info-title{
     width: 150px;
     color: #aaa;
     font-size: 12px;
@@ -96,7 +96,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.info-value{
+.row-info-value{
     width: 200px;
     color: #fff;
     font-size: 12px;
