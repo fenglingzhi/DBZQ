@@ -169,6 +169,7 @@ export default {
         border-radius: 0 0 2px 2px;
         // height: 174px;
         z-index: 9;
+        width:600px;
       }
     }
   }
