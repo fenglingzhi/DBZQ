@@ -37,70 +37,6 @@
     <!-- 航班设施信息 -->
     <div class="airplane_installation">
       <Table height="400" :columns="columns1" :data="data" size="small"></Table>
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'机场名称'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.name"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'机场代码'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.code"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'机场类型'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.type"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'所属国家/地区'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.country.cname"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'通航日期'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.openDate"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'飞行区等级'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.level"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'航站楼面积'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.area"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row-info-data-item">-->
-            <!--<div class="row-info-title">-->
-                <!--<span v-text="'机位数量'"></span>-->
-            <!--</div>-->
-            <!--<div class="row-info-value">-->
-                <!--<span v-text="facility.action.originated.parkCount"></span>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 </template>
 
@@ -150,13 +86,13 @@ export default {
   props: ['facility'],
   watch: {
     facility() {
-      this.data = this.facility
+      this.data = this.facility.facility
     }
   },
   methods: { },
   mounted () {
     setTimeout(() => {
-      this.data = this.facility
+      this.data = this.facility.facility
     }, 0)
   }
 }
