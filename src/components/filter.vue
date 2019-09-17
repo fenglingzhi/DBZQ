@@ -8,7 +8,7 @@
         <TabPane label="标签检索" tab="name1">
           <Row style="margin-bottom: 20px;">
             <i-col span="20">
-              <Input v-model="value" size="small" placeholder="请输入要搜索的目标" />
+              <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />
               <!--<div style="color: #fff;">-->
                 <!--船舶 ：<i style="font-size: 22px;" class="iconfont iconchuanbo"></i><br>-->
                 <!--飞机 ：<i style="font-size: 22px;" class="iconfont iconfeiji"></i><br>-->
@@ -55,7 +55,6 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">军民属性：</i-col>
                   <i-col span="21">
-                    {{item}}
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
@@ -336,6 +335,7 @@ export default {
   name: 'filterwrap',
   data() {
     return {
+      searchString: '',
       show: true,
       targetType: 'Plane',
       searchData: {
@@ -360,11 +360,9 @@ export default {
   computed: {
     countryList() {
       let region = find(this.regionOptions, { cname: this.conditions.region })
-      console.log(this.conditions.country)
       return region && region.countryList
     },
     countryTags() {
-      console.log('1111111', sampleSize(this.countryList, 20))
       return sampleSize(this.countryList, 100)
     }
   },
