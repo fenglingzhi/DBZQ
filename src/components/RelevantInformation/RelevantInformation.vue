@@ -28,10 +28,16 @@
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
-            <AirplaneInstallation :facility = "targetr_info.facility"></AirplaneInstallation>
+            <AirplaneInstallation v-if="targetr_type == 'airplane'" :facility = "targetr_info.facility"></AirplaneInstallation>
+            <ShipInstallation v-if="targetr_type == 'ship'" :facility = "targetr_info.facility"></ShipInstallation>
+            <SatelliteInstallation v-if="targetr_type == 'satellite'" :facility = "targetr_info.facility"></SatelliteInstallation>
+            <BuoyInstallation v-if="targetr_type == 'buoy'" :facility = "targetr_info.facility"></BuoyInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
+            <AirplaneDynamic v-if="targetr_type == 'airplane'" :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
+            <ShiplaneDynamic v-if="targetr_type == 'ship'" :dynamic = "targetr_info.dynamic"></ShiplaneDynamic>
+            <SatellitelaneDynamic v-if="targetr_type == 'satellite'" :dynamic = "targetr_info.dynamic"></SatellitelaneDynamic>
+            <BuoyDynamic v-if="targetr_type == 'buoy'" :dynamic = "targetr_info.dynamic"></BuoyDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
             <personnel :usr = "targetr_info.usr"></personnel>
@@ -49,14 +55,20 @@
 
 <script type="text/ecmascript-6">
 import AirplaneInstallation from './installation/airplane_installation'
+import ShipInstallation from './installation/ship_installation'
+import SatelliteInstallation from './installation/satellite_installation'
+import BuoyInstallation from './installation/buoy_installation'
 import AirplaneDynamic from './dynamic/airplane_dynamic'
+import ShiplaneDynamic from './dynamic/ship_dynamic'
+import SatellitelaneDynamic from './dynamic/satellite_dynamic'
+import BuoyDynamic from './dynamic/buoy_dynamic'
 import personnel from './personnel/personnel'
 import organization from './organization/organization'
 import information from './information/information'
 import ax from 'axios'
 export default {
   name: 'RelevantInformation',
-  components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information },
+  components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information, ShipInstallation, SatelliteInstallation, BuoyInstallation, ShiplaneDynamic, SatellitelaneDynamic, BuoyDynamic },
   data () {
     return {
       tab_show: 'installation',
