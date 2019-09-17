@@ -308,22 +308,26 @@ const GQL = {
   searchPlane: { query: `
     query($type:String!){
       planeList: filterTargets(targetType:$type) {
-        ...on Plane{id
-        feature {
-          type,
-          geometry {
-            type, coordinates
-          }
-        },
-        symbol}
-        ...on Ship{id
-        feature {
-          type,
-          geometry {
-            type, coordinates
-          }
-        },
-        symbol}
+        ...on Plane{
+          __targetname,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Ship{
+          __targetname,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
       }
     }`
   }
