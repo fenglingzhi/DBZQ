@@ -228,7 +228,6 @@ export default {
     }
   },
   mounted() {
-    debugger
     this.$root.mq.$on('routePlay',(e) => {
       debugger
       console.log(e)

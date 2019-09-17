@@ -33,8 +33,8 @@
     <!-- 飞机的目标信息 -->
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
-        <template slot="action">
-            <Icon type="md-play" @click="player"/>
+        <template slot="action" slot-scope="{row}">
+            <Icon type="md-play" @click="player(row)"/>
         </template>
       </Table>
     </div>
