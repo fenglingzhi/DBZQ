@@ -49,19 +49,19 @@ export default {
       columns1: [
         {
           title: '起飞基地',
-          key: 'take_off_base'
+          key: 'oname'
         },
         {
           title: '降落基地',
-          key: 'landing_base'
+          key: 'lname'
         },
         {
           title: '出发时间',
-          key: 'start_time'
+          key: 'ETD'
         },
         {
           title: '预计到达时间',
-          key: 'pre_time'
+          key: 'ETA'
         },
         {
           title: '经度',
@@ -73,15 +73,15 @@ export default {
         },
         {
           title: '高度',
-          key: 'height'
+          key: 'alt'
         },
         {
           title: '水平速度',
-          key: 'horizontal_velocity'
+          key: 'horSpeed'
         },
         {
           title: '垂直速度',
-          key: 'vertical_speed'
+          key: 'vetSpeed'
         },
         {
           title: '方位角',
@@ -93,18 +93,25 @@ export default {
           width: 100,
           align: 'center'
         }
-      ],
-      data: []
+      ]
+      // data: []
     }
   },
   props: {
     real_time_info: {
-      type: Array
+      type: Array,
+      default: []
     }
   },
-  watch: {
-    real_time_info() {
-      this.data = this.real_time_info
+  computed: {
+    data() {
+      return this.real_time_info.map(({ originated, landing, ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth }) => {
+        let cdata = {
+          'oname': originated.name,
+          'lname': landing.name,
+          ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth }
+        return cdata
+      })
     }
   },
   methods: {
@@ -113,9 +120,6 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.data = this.real_time_info
-    }, 0)
   }
 }
 </script>
