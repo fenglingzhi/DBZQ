@@ -59,8 +59,8 @@ const GQL = {
             cname
           },
           business,
-          superior,
-          leader,
+          superior { cname },
+          leader { name },
           homepage
         },
         radar{
