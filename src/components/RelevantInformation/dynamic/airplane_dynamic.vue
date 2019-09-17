@@ -6,7 +6,7 @@
                 <span v-text="'起飞基地'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="dynamic.take_off_base"></span>
+                <span v-text="dynamic.action.originated.name"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'降落基地'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="dynamic.landing_base"></span>
+                <span v-text="dynamic.action.landing.name"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'出发时间'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="dynamic.start_time"></span>
+                <span v-text="dynamic.action.ETD"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'预计到达时间'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="dynamic.pre_time"></span>
+                <span v-text="dynamic.action.ETA"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="dynamic.longitude"></span>
+                <span v-text="dynamic.action.lon"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="dynamic.latitude"></span>
+                <span v-text="dynamic.action.lat"></span>
             </div>
         </div>
     </div>
