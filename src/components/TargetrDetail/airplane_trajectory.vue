@@ -34,89 +34,9 @@
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
         <template slot="action">
-            <Icon type="md-play" />
+            <Icon style="cursor: pointer" type="md-play" @click="player" />
         </template>
       </Table>
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'起飞基地'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.originated.name"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'降落基地'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.landing.name"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'出发时间'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.ETD"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'预计到达时间'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.ETA"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'经度'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.lon"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'纬度'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.lat"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'高度'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.alt"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'水平速度'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.horSpeed"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'垂直速度'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.vetSpeed"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info-data-item">-->
-            <!--<div class="info-title">-->
-                <!--<span v-text="'方位角'"></span>-->
-            <!--</div>-->
-            <!--<div class="info-value">-->
-                <!--<span v-text="real_time_info.action.azimuth"></span>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 </template>
 
@@ -171,7 +91,7 @@ export default {
           title: '操作',
           slot: 'action',
           width: 100,
-          align: 'center'
+          align: 'center',
         }
       ]
       // data: []
@@ -194,7 +114,11 @@ export default {
       })
     }
   },
-  methods: { },
+  methods: {
+    player() {
+      alert('播放轨迹')
+    }
+  },
   mounted () {
   }
 }

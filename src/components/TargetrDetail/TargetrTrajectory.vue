@@ -1,10 +1,15 @@
 <template>
   <div class="TargetrTrajectory">
     <!-- 飞机的目标轨迹 -->
-    <AirplaneTrajectory :real_time_info="real_time_info.history" v-if="targetr_type=='Plane'"></AirplaneTrajectory>
-    <ShipTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Ship'"></ShipTrajectory>
-    <SatelliteTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
-    <BuoyTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Buoy'"></BuoyTrajectory>
+    <AirplaneTrajectory :real_time_info="real_time_info_data" v-if="targetr_type=='Plane'"></AirplaneTrajectory>
+    <ShipTrajectory :real_time_info="real_time_info_data" v-if="targetr_type=='Ship'"></ShipTrajectory>
+    <SatelliteTrajectory :real_time_info="real_time_info_data" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
+    <BuoyTrajectory :real_time_info="real_time_info_data" v-if="targetr_type=='Buoy'"></BuoyTrajectory>
+
+    <!--<AirplaneTrajectory :real_time_info="real_time_info.history" v-if="targetr_type=='Plane'"></AirplaneTrajectory>-->
+    <!--<ShipTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Ship'"></ShipTrajectory>-->
+    <!--<SatelliteTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>-->
+    <!--<BuoyTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Buoy'"></BuoyTrajectory>-->
   </div>
 </template>
 
@@ -19,6 +24,7 @@ export default {
   components: { AirplaneTrajectory, ShipTrajectory, SatelliteTrajectory, BuoyTrajectory },
   data() {
     return {
+      real_time_info_data: []
     }
   },
   props: ['targetr_type', 'real_time_info'],
@@ -26,13 +32,13 @@ export default {
     // 获取目标
     get_info() {
       let url
-      if (this.targetr_type === 'airplane') {
+      if (this.targetr_type === 'Plane') {
         url = '/air_plane'
-      } else if (this.targetr_type === 'ship') {
+      } else if (this.targetr_type === 'Ship') {
         url = '/ship'
-      } else if (this.targetr_type === 'satellite') {
+      } else if (this.targetr_type === 'Satellite') {
         url = '/satellite'
-      } else if (this.targetr_type === 'buoy') {
+      } else if (this.targetr_type === 'Buoy') {
         url = '/buoy'
       }
       ax.post(url, {
@@ -41,7 +47,7 @@ export default {
         }`
       }).then(r => {
         let resp = r.data
-        this.real_time_info = resp.real_time_info
+        this.real_time_info_data = resp.real_time_info
       })
     }
   },
