@@ -65,6 +65,21 @@ const GQL = {
           alt
         }
       }
+      ... on Ship{
+        id,
+        name,
+        usage { typeid },
+        MMSI,
+        ORG { cname },
+        country { cname },
+        status,
+        tonnage,
+        width,
+        length,
+        height,
+        maxSpeed,
+        phone
+      }
     }
   }`
   }

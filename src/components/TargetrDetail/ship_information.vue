@@ -14,7 +14,7 @@
                 <span v-text="'船舶类型'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="base_info.usage && (base_info.usage.typeid =='0'?'军用':base_info.usage.typeid =='1'?'民用':'')"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'MMSI编号'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.sign_info"></span>
+                <span v-text="base_info.MMSI"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'隶属单位'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.organization"></span>
+                <span v-text="base_info.ORG && base_info.ORG.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'注册国家'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="base_info.country && base_info.country.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -86,7 +86,7 @@
                 <span v-text="'最大航速'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.speed"></span>
+                <span v-text="base_info.maxSpeed"></span>
             </div>
         </div>
         <div class="info-data-item">
