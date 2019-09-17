@@ -72,7 +72,7 @@ export default {
         facility: {
           name: '港口名称',
           code: '港口代码',
-          type: '机场类型',
+          type: '港口类型',
           country: '所属地区',
           main_good: '主营货类',
           max_throughput: '最大吞吐量',

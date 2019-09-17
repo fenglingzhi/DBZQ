@@ -37,14 +37,6 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <!--<span v-for="(item,index) in countryTags" :key="item.id" @click="countrySelect(index)">-->
-                    <!--&lt;!&ndash;<span v-for="(item,index) in fruit" :key="item.id" @click="countrySelect(index)">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<Checkbox v-model="checked" label=""></Checkbox>&ndash;&gt;-->
-                      <!--<Button v-if="checked" type="primary" size="small" style="margin:0 10px 10px 0;">{{item.cname}}</Button>-->
-                      <!--<Button v-else size="small" style="margin:0 10px 10px 0;" >{{item.cname}}</Button>-->
-
-                    <!--</span>-->
-                    <!--<Tag checkable @on-change="countrySelect(checked,item.id,index)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>-->
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
@@ -106,8 +98,10 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -146,8 +140,10 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -176,8 +172,10 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -196,8 +194,10 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -216,8 +216,10 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -236,8 +238,10 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="8">
-                    <Tag checkable @on-change="countrySelect(checked,item.id)" v-for="item in countryTags" :key="item.id">{{item.cname}}</Tag>
+                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
+                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    </RadioGroup>
                   </i-col>
                 </Row>
               </div>
@@ -286,23 +290,6 @@ const GQL = {
         id value label
       }
     }`
-  },
-  copyConditions: {
-    // dictTydefList: getDictTypeDef {
-    //   id value
-    // }
-    // planeUsage: getDict(tid:"t001") {
-    //   id value label
-    // }
-    // planeModel: getDict(tid:"t011"){
-    //   id value label
-    // }
-    // planeHeight: getDict(tid:"t021"){
-    //   id value label
-    // }
-    // planeSpeed: getDict(tid:"t022"){
-    //   id value label
-    // }
   },
   searchPlane: { query: `
     query($type:String!){
