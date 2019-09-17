@@ -49,27 +49,27 @@ export default {
       columns1: [
         {
           title: '起飞基地',
-          key: 'take_off_base'
+          key: 'action.originated.name'
         },
         {
           title: '降落基地',
-          key: 'landing_base'
+          key: 'action.landing.name'
         },
         {
           title: '出发时间',
-          key: 'start_time'
+          key: 'action.ETD'
         },
         {
           title: '预计到达时间',
-          key: 'pre_time'
+          key: 'action.ETA'
         },
         {
           title: '经度',
-          key: 'longitude'
+          key: 'action.lon'
         },
         {
           title: '纬度',
-          key: 'latitude'
+          key: 'action.lat'
         }
       ],
       data: []
