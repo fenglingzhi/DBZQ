@@ -3,8 +3,8 @@
     <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="plane in planeList" :id="plane.feature.id" :key="plane.id"
-        :json="plane" :symbol="makeSymbol(plane.symbol)" @click="setSelected(plane)"/>
+        <geometry v-for="plane in targetList" :id="plane.feature.id" :key="plane.id"
+        :json="plane" :symbol="makeSymbol(plane)" @click="setSelected(plane)"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
@@ -49,7 +49,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['planeList'])
+    ...mapState(['targetList'])
   },
   methods: {
     ...mapMutations(['setSomeState']),
@@ -59,7 +59,8 @@ export default {
       this.show_RelevantInformation_boolean = true
     },
     makeSymbol(target) {
-      Object.assign(target.symble, {
+      let symb = target.symbol
+      Object.assign(symb, {
         markerType: 'path',
         markerPathWidth: 1024,
         markerPathHeight: 1024,

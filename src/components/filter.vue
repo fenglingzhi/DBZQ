@@ -307,10 +307,9 @@ const GQL = {
   },
   searchPlane: { query: `
     query($type:String!){
-      planeList: filterTargets(targetType:$type) {
+      targetList: filterTargets(targetType:$type) {
         ...on Plane{
-<<<<<<< HEAD
-          __targetname,
+          targetType: __typename,
           id,
           feature {
             type,
@@ -320,7 +319,7 @@ const GQL = {
           },
           symbol}
         ...on Ship{
-          __targetname,
+          targetType: __typename,
           id,
           feature {
             type,
@@ -329,25 +328,6 @@ const GQL = {
             }
           },
           symbol}
-=======
-        id
-        feature {
-          type,
-          geometry {
-            type, coordinates
-          }
-        },
-        symbol}
-        ...on Ship{
-        id
-        feature {
-          type,
-          geometry {
-            type, coordinates
-          }
-        },
-        symbol}
->>>>>>> ac00c3aa57da8614c2d562aaa4d0edc15c970334
       }
     }`
   }
@@ -391,7 +371,7 @@ export default {
   methods: {
     fadeChange() {
       executeGQL(GQL.searchPlane, { type: this.targetType }).then(r => {
-        this.$store.commit('planeList', r.planeList)
+        this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
     },
