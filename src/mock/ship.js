@@ -20,7 +20,7 @@ export default {
           phone: '电话等通联'
         },
         // 航班信息
-        real_time_info: {
+        real_time_info: [{
           heading: '船首向',
           ending: '船迹向',
           speed: '航速', // 出发时间
@@ -33,15 +33,59 @@ export default {
           end_port: '目的港口',
           time: '预到时间',
           task: '船舶任务'
-        },
+        }, {
+          heading: '船首向',
+          ending: '船迹向',
+          speed: '航速', // 出发时间
+          status: '状态（在航等）',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          draught: '123123', // 吃水
+          start_port: '始发港口',
+          mid_port: '停靠港口',
+          end_port: '目的港口',
+          time: '预到时间',
+          task: '船舶任务'
+        }, {
+          heading: '船首向',
+          ending: '船迹向',
+          speed: '航速', // 出发时间
+          status: '状态（在航等）',
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123', // 纬度
+          draught: '123123', // 吃水
+          start_port: '始发港口',
+          mid_port: '停靠港口',
+          end_port: '目的港口',
+          time: '预到时间',
+          task: '船舶任务'
+        }],
         // 动态
-        dynamic: {
+        dynamic: [{
           take_off_base: '始发港口',
           landing_base: '目的港口',
           pre_time: '2013-09-01 13:41:52', // 预计到达时间
           longitude: '123.123123123', // 经度
           latitude: '123.123123123' // 纬度
-        },
+        }, {
+          take_off_base: '始发港口',
+          landing_base: '目的港口',
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }, {
+          take_off_base: '始发港口',
+          landing_base: '目的港口',
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }, {
+          take_off_base: '始发港口',
+          landing_base: '目的港口',
+          pre_time: '2013-09-01 13:41:52', // 预计到达时间
+          longitude: '123.123123123', // 经度
+          latitude: '123.123123123' // 纬度
+        }],
         // 人员信息
         usr: {
           name: '姓名',
@@ -69,7 +113,7 @@ export default {
           site: '机构网站'
         },
         // 设施-港口
-        facility: {
+        facility: [{
           name: '港口名称',
           code: '港口代码',
           type: '港口类型',
@@ -79,14 +123,74 @@ export default {
           area: '水域面积',
           opt_organization: '运行机构',
           phone: '联系电话'
-        },
+        }, {
+          name: '港口名称',
+          code: '港口代码',
+          type: '港口类型',
+          country: '所属地区',
+          main_good: '主营货类',
+          max_throughput: '最大吞吐量',
+          area: '水域面积',
+          opt_organization: '运行机构',
+          phone: '联系电话'
+        }, {
+          name: '港口名称',
+          code: '港口代码',
+          type: '港口类型',
+          country: '所属地区',
+          main_good: '主营货类',
+          max_throughput: '最大吞吐量',
+          area: '水域面积',
+          opt_organization: '运行机构',
+          phone: '联系电话'
+        }, {
+          name: '港口名称',
+          code: '港口代码',
+          type: '港口类型',
+          country: '所属地区',
+          main_good: '主营货类',
+          max_throughput: '最大吞吐量',
+          area: '水域面积',
+          opt_organization: '运行机构',
+          phone: '联系电话'
+        }, {
+          name: '港口名称',
+          code: '港口代码',
+          type: '港口类型',
+          country: '所属地区',
+          main_good: '主营货类',
+          max_throughput: '最大吞吐量',
+          area: '水域面积',
+          opt_organization: '运行机构',
+          phone: '联系电话'
+        }],
         // 资讯
-        information: {
+        information: [{
           title: '标题',
           content: '内容',
           source: '来源',
           release_time: '发布时间'
-        }
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }]
       }
     }
   }

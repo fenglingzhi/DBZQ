@@ -18,7 +18,7 @@ export default {
           material: '材质'
         },
         // 航班信息
-        real_time_info: {
+        real_time_info: [{
           wind_direction: '风向',
           wind_speed: '风速',
           GST: 'GST（阵风速度）',
@@ -31,9 +31,35 @@ export default {
           sea_temperature: '海面温度',
           depth_water: '水深',
           pressure_trend: '压力趋势'
-        },
+        }, {
+          wind_direction: '风向',
+          wind_speed: '风速',
+          GST: 'GST（阵风速度）',
+          wave_height: '波高',
+          wave_direction: '平均波方向',
+          average_period: '平均周期',
+          dominant_period: '主导波周期',
+          sea_pressure: '海平面气压',
+          air_temperature: '气温',
+          sea_temperature: '海面温度',
+          depth_water: '水深',
+          pressure_trend: '压力趋势'
+        }, {
+          wind_direction: '风向',
+          wind_speed: '风速',
+          GST: 'GST（阵风速度）',
+          wave_height: '波高',
+          wave_direction: '平均波方向',
+          average_period: '平均周期',
+          dominant_period: '主导波周期',
+          sea_pressure: '海平面气压',
+          air_temperature: '气温',
+          sea_temperature: '海面温度',
+          depth_water: '水深',
+          pressure_trend: '压力趋势'
+        }],
         // 动态
-        dynamic: { },
+        dynamic: [],
         // 人员信息
         usr: {
           name: '姓名',
@@ -61,14 +87,34 @@ export default {
           site: '机构网站'
         },
         // 设施-机场
-        facility: { },
+        facility: [ ],
         // 资讯
-        information: {
+        information: [{
           title: '标题',
           content: '内容',
           source: '来源',
           release_time: '发布时间'
-        }
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }, {
+          title: '标题',
+          content: '内容',
+          source: '来源',
+          release_time: '发布时间'
+        }]
       }
     }
   }

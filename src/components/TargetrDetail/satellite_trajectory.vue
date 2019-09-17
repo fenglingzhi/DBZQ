@@ -1,70 +1,42 @@
+<style>
+  .satellite_trajectory{
+    height: 100%;
+    width: 100%;
+  }
+  .ivu-table-wrapper{
+    border: none !important;
+  }
+  .ivu-table th{
+    background-color:rgba(170, 170, 170, .5) !important;
+    color: #aaa;
+  }
+  .ivu-table, .ivu-table td{
+    background-color:transparent !important;
+    color: #fff;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+  }
+</style>
 <template>
-    <!-- 卫星的目标信息 -->
+    <!-- 飞机的目标信息 -->
     <div class="satellite_trajectory">
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'RCS（雷达横切面）'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.RCS"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'经度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.longitude"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'纬度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.latitude"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'海拔'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.altitude"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'速度'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.speed"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'方位角'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.azimuth"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'发射场'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.launching_site"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'当前时间'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="real_time_info.current_time"></span>
-            </div>
-        </div>
+      <Table height="163" :columns="columns1" :data="data">
+        <template slot="action">
+            <Icon type="md-play" />
+        </template>
+      </Table>
     </div>
 </template>
 
@@ -73,37 +45,65 @@ export default {
   name: 'satellite_trajectory',
   components: { },
   data() {
-    return { }
+    return {
+      columns1: [
+        {
+          title: 'RCS',
+          key: 'RCS'
+        },
+        {
+          title: '经度',
+          key: 'longitude'
+        },
+        {
+          title: '纬度',
+          key: 'latitude'
+        },
+        {
+          title: '海拔',
+          key: 'altitude'
+        },
+        {
+          title: '速度',
+          key: 'speed'
+        },
+        {
+          title: '方位角',
+          key: 'azimuth'
+        },
+        {
+          title: '发射场',
+          key: 'launching_site'
+        },
+        {
+          title: '当前时间',
+          key: 'current_time'
+        },
+        {
+          title: '操作',
+          slot: 'action',
+          width: 100,
+          align: 'center'
+        }
+      ],
+      data: []
+    }
   },
-  props: [ 'real_time_info' ],
+  props: {
+    real_time_info: {
+      type: Array
+    }
+  },
+  watch: {
+    real_time_info() {
+      this.data = this.real_time_info
+    }
+  },
   methods: { },
-  mounted () { }
+  mounted () {
+    setTimeout(() => {
+      this.data = this.real_time_info
+    }, 0)
+  }
 }
 </script>
-
-<style>
-.satellite_trajectory{
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-}
-.info-data-item{
-    width:186px;
-    margin-bottom: 10px;
-}
-.info-title{
-    color: #aaa;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.info-value{
-    color: #fff;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-</style>
