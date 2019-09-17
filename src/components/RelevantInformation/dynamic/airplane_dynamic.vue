@@ -78,13 +78,13 @@ export default {
   props: ['dynamic'],
   watch: {
     dynamic() {
-      this.data = this.dynamic
+      this.data = this.dynamic.dynamic
     }
   },
   methods: { },
   mounted () {
     setTimeout(() => {
-      this.data = this.dynamic
+      this.data = this.dynamic.dynamic
     }, 0)
   }
 }
