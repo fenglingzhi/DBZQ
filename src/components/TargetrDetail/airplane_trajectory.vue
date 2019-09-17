@@ -91,7 +91,7 @@ export default {
           title: '操作',
           slot: 'action',
           width: 100,
-          align: 'center',
+          align: 'center'
         }
       ],
       data: []

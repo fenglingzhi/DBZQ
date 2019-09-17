@@ -62,7 +62,7 @@ export default {
         {
           title: '当前时间',
           key: 'now_time'
-        },
+        }
       ],
       data: []
     }
