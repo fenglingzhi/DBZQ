@@ -62,7 +62,7 @@
                 <span v-text="'上级机构'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.ORG.superior"></span>
+                <span v-text="organization.ORG.superior.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'主管领导'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.ORG.leader"></span>
+                <span v-text="organization.ORG.leader.name"></span>
             </div>
         </div>
         <div class="row-info-data-item">
