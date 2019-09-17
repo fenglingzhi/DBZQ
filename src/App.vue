@@ -133,6 +133,32 @@ const GQL = {
           horSpeed,
           vetSpeed,
           azimuth
+        },
+        nearby{
+          name,
+          code,
+          type,
+          address{
+            country{ cname }
+          },
+          openDate,
+          level,
+          area,
+          parkCount,
+          recent{
+            action{
+              originated {
+                name
+              }
+              landing{
+                name
+              },
+              ETD,
+              ETA,
+              lon,
+              lat
+            }
+          }
         }
       }
       ... on Ship{

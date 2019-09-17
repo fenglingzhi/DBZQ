@@ -79,21 +79,20 @@ export default {
           title: '机位数量',
           key: 'num'
         }
-      ],
-      data: []
+      ]
+      // data: []
     }
   },
   props: ['facility'],
-  watch: {
-    facility() {
-      this.data = this.facility.facility
+  computed: {
+    data() {
+      return this.facility.map(({ name, code, type, address, openDate, level, area, parkCount }) => {
+        let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
+        return cdata
+      })
     }
   },
   methods: { },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.facility.facility
-    }, 0)
-  }
+  mounted () {}
 }
 </script>
