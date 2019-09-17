@@ -14,7 +14,7 @@ export default {
           yd_code: '应答机编码',
           radar_type: '飞机雷达型号',
           ICAO: 'ICAO编号',
-          img_url:'airplane.jpg'
+          img_url: 'airplane.jpg'
         },
         // 航班信息
         real_time_info: {
@@ -66,14 +66,14 @@ export default {
         },
         // 设施-机场
         facility: {
-          name: '机场名称',
-          code: '机场代码',
-          type: '机场类型',
-          country: '所属国家/地区',
-          date: '通航日期',
-          level: '飞行区等级',
-          area: '航站楼面积',
-          num: '机位数量'
+          name: '上海浦东国际机场',
+          code: 'IATA：PVG，ICAO：ZSPD',
+          type: '民用运输机场',
+          country: '中国上海市浦东新区',
+          date: '1999年9月16日',
+          level: '4F级',
+          area: '62.2万平方米（截至2019年）',
+          num: '218个（截至2017年9月）'
         },
         // 资讯
         information: {
