@@ -397,7 +397,7 @@ export default {
     .filter_wrap{
       width: 600px;
       padding: 10px;
-      max-height: 440px;
+      height: 440px;
       overflow: auto;
       background: #0000006b;
       border: 1px solid #009bef;
