@@ -14,12 +14,12 @@
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
         <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
-        <div>
-          <button @click="show_TargetrDetail('airplane')">飞机</button>
-          <button @click="show_TargetrDetail('ship')">船舶</button>
-          <button @click="show_TargetrDetail('satellite')">卫星</button>
-          <!-- <button @click="show_TargetrDetail('airplane')">浮标</button> -->
-        </div>
+        <!--<div>-->
+          <!--<button @click="show_TargetrDetail('airplane')">飞机</button>-->
+          <!--<button @click="show_TargetrDetail('ship')">船舶</button>-->
+          <!--<button @click="show_TargetrDetail('satellite')">卫星</button>-->
+          <!--<button @click="show_TargetrDetail('buoy')">浮标</button>-->
+        <!--</div>-->
       </uicomponent>
     </mapcan>
   </div>
@@ -41,8 +41,8 @@ export default {
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
-      show_TargetrDetail_boolean: false,
-      show_RelevantInformation_boolean: false,
+      show_TargetrDetail_boolean: true,
+      show_RelevantInformation_boolean: true,
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0' // 下弹窗展示类型的id
     }
@@ -55,6 +55,7 @@ export default {
     setSelected(t) {
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
+      this.show_RelevantInformation_boolean = true
     },
     makeSymbol(symb) {
       Object.assign(symb, {

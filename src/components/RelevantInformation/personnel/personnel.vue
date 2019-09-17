@@ -1,100 +1,84 @@
 <template>
-    <!-- 船舶的目标信息 -->
-    <div class="ship_information">
+    <!-- 航班设施信息 -->
+    <div class="personnel">
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶名称'"></span>
+                <span v-text="'姓名'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="usr.name"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶类型'"></span>
+                <span v-text="'民族'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.usage && (base_info.usage.typeid =='0'?'军用':base_info.usage.typeid =='1'?'民用':'')"></span>
+                <span v-text="usr.nation"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'MMSI编号'"></span>
+                <span v-text="'性别'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.MMSI"></span>
+                <span v-text="usr.gender"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'隶属单位'"></span>
+                <span v-text="'出生日期'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.ORG && base_info.ORG.cname"></span>
+                <span v-text="usr.birthday"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'注册国家'"></span>
+                <span v-text="'别名'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country && base_info.country.cname"></span>
+                <span v-text="usr.o_name"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船舶状态'"></span>
+                <span v-text="'国籍'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.status"></span>
+                <span v-text="usr.country"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'吨位'"></span>
+                <span v-text="'宗教信仰'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.tonnage"></span>
+                <span v-text="usr.faith"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船宽度'"></span>
+                <span v-text="'工作方向'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.width"></span>
+                <span v-text="usr.job"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船长度'"></span>
+                <span v-text="'学历'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.length"></span>
+                <span v-text="usr.edu"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'船高度'"></span>
+                <span v-text="'常在城市'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.height"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'最大航速'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.maxSpeed"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'电话等通联'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="base_info.phone"></span>
+                <span v-text="usr.city"></span>
             </div>
         </div>
     </div>
@@ -102,29 +86,26 @@
 
 <script>
 export default {
-  name: 'ship_information',
+  name: 'personnel',
   components: { },
   data() {
     return { }
   },
-  props: ['base_info'],
+  props: ['usr'],
   methods: { },
   mounted () { }
 }
 </script>
 
 <style>
-.ship_information{
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-}
+.personnel{ }
 .info-data-item{
-    width:186px;
+    width:100%;
     margin-bottom: 10px;
+    display: flex;
 }
 .info-title{
+    width: 150px;
     color: #aaa;
     font-size: 12px;
     white-space: nowrap;
@@ -132,6 +113,7 @@ export default {
     overflow: hidden;
 }
 .info-value{
+    width: 200px;
     color: #fff;
     font-size: 12px;
     white-space: nowrap;

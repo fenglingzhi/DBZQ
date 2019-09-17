@@ -27,17 +27,37 @@
         <!-- tab的content 展示 -->
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
-          <!-- <TargetrInformation :base_info="targetr_info.base_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow"></TargetrInformation>
-          <TargetrTrajectory :real_time_info="targetr_info.real_time_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory> -->
+          <div v-if="tab_show == 'installation'">
+            <AirplaneInstallation :facility = "targetr_info.facility"></AirplaneInstallation>
+          </div>
+          <div v-if="tab_show == 'dynamic'">
+            <AirplaneDynamic :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
+          </div>
+          <div v-if="tab_show == 'personnel'">
+            <personnel :usr = "targetr_info.usr"></personnel>
+          </div>
+          <div v-if="tab_show == 'organization'">
+            <organization :organization = "targetr_info.organization"></organization>
+          </div>
+          <div v-if="tab_show == 'information'">
+            <information :information = "targetr_info.information"></information>
+          </div>
+          
         </div>
       </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+import AirplaneInstallation from './installation/airplane_installation'
+import AirplaneDynamic from './dynamic/airplane_dynamic'
+import personnel from './personnel/personnel'
+import organization from './organization/organization'
+import information from './information/information'
 import ax from 'axios'
 export default {
   name: 'RelevantInformation',
+  components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information },
   data () {
     return {
       tab_show: 'installation',
@@ -74,6 +94,8 @@ export default {
         url = '/ship'
       } else if (this.targetr_type === 'satellite') {
         url = '/satellite'
+      } else if (this.targetr_type === 'buoy') {
+        url = '/buoy'
       }
       ax.post(url, {
         query: `{
@@ -91,7 +113,7 @@ export default {
 <style scoped lang="scss">
   .RelevantInformation{
     padding: 10px;
-    background: #0000006b;
+    background: #000000b3;
     border: 1px solid #009bef;
     box-shadow: 0 0 20px 2px #009bef;
     .RelevantInformation_container{
@@ -101,6 +123,7 @@ export default {
         .RelevantInformation_operator_tab{
           color:#fff;
           display:flex;
+          cursor: pointer;
           align-items:center;
           font-size:12px;
           padding-right: 2px;
@@ -123,16 +146,16 @@ export default {
           border-color:#ffffff99 #ffffff99 transparent #ffffff99;
           border-radius: 2px;
           z-index: 10;
-
         }
       }
       .RelevantInformation_content{
         /*background-color: rgb(255, 255, 255 , .8);*/
+        padding-top: 10px;
         border-top: 1px solid #ffffff80;
         position: relative;
         top: -1px;
         border-radius: 0 0 2px 2px;
-        height: 174px;
+        // height: 174px;
         z-index: 9;
       }
     }
