@@ -101,6 +101,30 @@ const GQL = {
           horSpeed,
           vetSpeed,
           azimuth
+        },
+        history{
+          originated {
+            name,
+            code,
+            type,
+            country { cname },
+            openDate,
+            level,
+            area,
+            parkCount
+          }
+          landing{
+            name,
+            country{ cname }
+          },
+          ETD,
+          ETA,
+          lon,
+          lat,
+          alt,
+          horSpeed,
+          vetSpeed,
+          azimuth
         }
       }
       ... on Ship{
@@ -118,6 +142,18 @@ const GQL = {
         height,
         maxSpeed,
         phone
+      }
+      ... on Satellite{
+        name,
+        country { cname },
+        usage { label },
+        manufacturer { cname },
+        NORAD,
+        perigee,
+        apogee,
+        launchDate,
+        launchSite { city },
+        drySass
       }
     }
   }`

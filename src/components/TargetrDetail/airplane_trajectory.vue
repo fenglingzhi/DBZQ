@@ -34,7 +34,7 @@
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
         <template slot="action">
-            <Icon type="md-play" />
+            <Icon style="cursor: pointer" type="md-play" @click="player" />
         </template>
       </Table>
     </div>
@@ -65,11 +65,11 @@ export default {
         },
         {
           title: '经度',
-          key: 'longitude'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'latitude'
+          key: 'lat'
         },
         {
           title: '高度',
@@ -91,7 +91,7 @@ export default {
           title: '操作',
           slot: 'action',
           width: 100,
-          align: 'center'
+          align: 'center',
         }
       ],
       data: []
@@ -107,7 +107,11 @@ export default {
       this.data = this.real_time_info
     }
   },
-  methods: { },
+  methods: {
+    player() {
+      alert('播放轨迹')
+    }
+  },
   mounted () {
     setTimeout(() => {
       this.data = this.real_time_info
