@@ -71,7 +71,7 @@ export default {
   components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information, ShipInstallation, SatelliteInstallation, BuoyInstallation, ShiplaneDynamic, SatellitelaneDynamic, BuoyDynamic },
   data () {
     return {
-      tab_show: 'installation',
+      tab_show: 'installation'
       // spinShow: false
       // targetr_info: {}
     }

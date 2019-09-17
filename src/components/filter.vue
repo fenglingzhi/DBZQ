@@ -291,7 +291,7 @@ const GQL = {
       }
     }`
   },
-  searchPlane: { query: `
+  filterTargets: { query: `
     query($type:String!){
       targetList: filterTargets(targetType:$type) {
         ...on Plane{
@@ -355,7 +355,7 @@ export default {
   },
   methods: {
     fadeChange() {
-      executeGQL(GQL.searchPlane, { type: this.targetType }).then(r => {
+      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show

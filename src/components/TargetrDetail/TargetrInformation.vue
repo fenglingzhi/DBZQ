@@ -5,10 +5,10 @@
     </div>
     <!-- 飞机的目标信息 -->
     <div style="flex:1;">
-      <AirplaneInformation :base_info="base_info" v-if="targetr_type=='airplane'"></AirplaneInformation>
-      <ShipInformation :base_info="base_info" v-if="targetr_type=='ship'"></ShipInformation>
-      <SatelliteInformation :base_info="base_info" v-if="targetr_type=='satellite'"></SatelliteInformation>
-      <BuoyInformation :base_info="base_info" v-if="targetr_type=='buoy'"></BuoyInformation>
+      <AirplaneInformation :base_info="base_info" v-if="targetr_type=='Plane'"></AirplaneInformation>
+      <ShipInformation :base_info="base_info" v-if="targetr_type=='Ship'"></ShipInformation>
+      <SatelliteInformation :base_info="base_info" v-if="targetr_type=='Satellite'"></SatelliteInformation>
+      <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'"></BuoyInformation>
     </div>
 
     <div class="TargetrInformation_chart">
