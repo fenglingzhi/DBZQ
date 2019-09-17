@@ -120,9 +120,6 @@ const GQL = {
         phone
       }
       ... on Satellite{
-        name
-      }
-      ... on Satellite{
         name,
         country { cname },
         usage { label },

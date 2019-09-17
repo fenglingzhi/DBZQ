@@ -126,7 +126,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="卫星" tab="1-1">
+            <TabPane label="卫星" tab="1-1" name="Satellite">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -158,7 +158,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="浮标" tab="1-1">
+            <TabPane label="浮标" tab="1-1" name="Buoy">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -180,7 +180,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="机场" tab="1-1">
+            <TabPane label="机场" tab="1-1" name="Airport">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -202,7 +202,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="港口" tab="1-1">
+            <TabPane label="港口" tab="1-1" name="Port">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -224,7 +224,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="发射场" tab="1-1">
+            <TabPane label="发射场" tab="1-1" name="Plane">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">地区：</i-col>
@@ -305,6 +305,16 @@ const GQL = {
           },
           symbol}
         ...on Ship{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Satellite{
           targetType: __typename,
           id,
           feature {
