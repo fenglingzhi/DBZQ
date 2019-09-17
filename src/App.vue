@@ -119,6 +119,21 @@ const GQL = {
         maxSpeed,
         phone
       }
+      ... on Satellite{
+        name
+      }
+      ... on Satellite{
+        name,
+        country { cname },
+        usage { label },
+        manufacturer { cname },
+        NORAD,
+        perigee,
+        apogee,
+        launchDate,
+        launchSite { city },
+        drySass
+      }
     }
   }`
   }

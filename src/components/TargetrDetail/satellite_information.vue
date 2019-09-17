@@ -6,7 +6,7 @@
                 <span v-text="'卫星名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.satellite_name"></span>
+                <span v-text="base_info.name"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'所属国家'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="base_info.country.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'卫星用途'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.satellite_attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="base_info.usage.label"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'制造商'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.manufacturer"></span>
+                <span v-text="base_info.manufacturer.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'发射时间'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.launch_time"></span>
+                <span v-text="base_info.launchDate"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'发射地点'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.launch_site"></span>
+                <span v-text="base_info.launchSite.city"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'干质量（kg）'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.dry_mass"></span>
+                <span v-text="base_info.drySass"></span>
             </div>
         </div>
     </div>
