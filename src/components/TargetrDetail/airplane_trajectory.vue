@@ -33,8 +33,8 @@
     <!-- 飞机的目标信息 -->
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
-        <template slot="action" slot-scope="{row}">
-            <Icon type="md-play" @click="player(row)"/>
+        <template slot="action" slot-scope="{row,$index}">
+            <Icon style="cursor: pointer" type="md-play" @click="player($index)" />
         </template>
       </Table>
     </div>
@@ -91,7 +91,7 @@ export default {
           title: '操作',
           slot: 'action',
           width: 100,
-          align: 'center'
+          align: 'center',
         }
       ],
       data: []
@@ -108,8 +108,8 @@ export default {
     }
   },
   methods: { 
-    player(action) {
-      this.$root.mq.$emit('routePlay',action)
+    player(index) {
+      this.$root.mq.$emit('routePlay',real_time_info[index])
     }
   },
   mounted () {
