@@ -28,23 +28,16 @@
         <div class="RelevantInformation_content">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
-<<<<<<< HEAD
-            <AirplaneInstallation :facility = "targetr_info"></AirplaneInstallation>
-          </div>
-          <div v-if="tab_show == 'dynamic'">
-            <AirplaneDynamic :dynamic = "targetr_info"></AirplaneDynamic>
-=======
-            <AirplaneInstallation v-if="targetr_type == 'airplane'" :facility = "targetr_info.facility"></AirplaneInstallation>
-            <ShipInstallation v-if="targetr_type == 'ship'" :facility = "targetr_info.facility"></ShipInstallation>
-            <SatelliteInstallation v-if="targetr_type == 'satellite'" :facility = "targetr_info.facility"></SatelliteInstallation>
-            <BuoyInstallation v-if="targetr_type == 'buoy'" :facility = "targetr_info.facility"></BuoyInstallation>
+            <AirplaneInstallation v-if="targetr_type == 'airplane'" :facility = "targetr_info"></AirplaneInstallation>
+            <ShipInstallation v-if="targetr_type == 'ship'" :facility = "targetr_info"></ShipInstallation>
+            <SatelliteInstallation v-if="targetr_type == 'satellite'" :facility = "targetr_info"></SatelliteInstallation>
+            <BuoyInstallation v-if="targetr_type == 'buoy'" :facility = "targetr_info"></BuoyInstallation>
           </div>
           <div v-if="tab_show == 'dynamic'">
             <AirplaneDynamic v-if="targetr_type == 'airplane'" :dynamic = "targetr_info.dynamic"></AirplaneDynamic>
             <ShiplaneDynamic v-if="targetr_type == 'ship'" :dynamic = "targetr_info.dynamic"></ShiplaneDynamic>
             <SatellitelaneDynamic v-if="targetr_type == 'satellite'" :dynamic = "targetr_info.dynamic"></SatellitelaneDynamic>
             <BuoyDynamic v-if="targetr_type == 'buoy'" :dynamic = "targetr_info.dynamic"></BuoyDynamic>
->>>>>>> 51f978f23dbf486984c8ebcae971bc0dcfd63fbf
           </div>
           <div v-if="tab_show == 'personnel'">
             <personnel :usr = "targetr_info"></personnel>
