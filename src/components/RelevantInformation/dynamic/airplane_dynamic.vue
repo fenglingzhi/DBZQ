@@ -78,24 +78,20 @@ export default {
   props: ['dynamic'],
   computed: {
     data() {
-      let cdata = {}
-      this.dynamic.forEach(item => {
-        // this.facility.map(({ originated, landing, ETD, ETA, lon, lelat }) => {
-        //   let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
-        //   return cdata
-        // })
-        item.recent.forEach(item1 => {
-          cdata.push({
-            'oname': item1.action.originated.name,
-            'lname': item1.action.landing.name,
-            'ETD': item1.action.ETD,
-            'ETA': item1.action.ETA,
-            'lon': item1.action.lon,
-            'lat': item1.action.lat
-          })
+      return this.dynamic.map(({recent}) => {
+        return recent.map(({action}) => {
+          let adata = { 
+            'oname': action.originated.name,
+            'lname': action.landing.name,
+            'ETD': action.ETD,
+            'ETA': action.ETA,
+            'lon': action.lon,
+            'lat': action.lat
+          }
+          console.log(adata)
+          return adata
         })
-      })
-      return cdata
+      }).flat()
     }
   },
   methods: { },

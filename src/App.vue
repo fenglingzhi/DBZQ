@@ -281,7 +281,7 @@ html,body{
   /*}*/
 }
 .ivu-tabs-nav .ivu-tabs-tab-active{
-  color: #fff !important;
+  color: rgb(251, 255, 0) !important;
 }
 .ivu-tabs-ink-bar{
   background-color: #fff !important;
