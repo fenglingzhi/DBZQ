@@ -219,7 +219,20 @@ const GQL = {
           goods,
           capacity,
           operator{ cname },
-          phone
+          phone,
+          recent{
+            action{
+              loading{
+                name
+              },
+              destination{
+                name
+              },
+              ETA,
+              lon,
+              lat
+            }
+          }
         }
       }
       ... on Satellite{
@@ -248,7 +261,8 @@ export default {
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0', // 下弹窗展示类型的id
       targetr_info: {},
-      spinShow: true
+      spinShow: true,
+      warning: ''
     }
   },
   computed: {
@@ -361,9 +375,20 @@ html,body{
 .ivu-tabs-tab{
   color: #fff;
   background: transparent !important;
+  margin-right: 14px !important;
 }
 
 .ivu-tabs-nav .ivu-tabs-tab:hover {
   color: #FFF !important;
+}
+.ivu-tabs-nav-container,
+.ivu-table-header thead>tr {
+  font-size: 18px !important;
+}
+.ivu-table-header thead>tr {
+  line-height: 1 !important;
+}
+.ivu-tabs-nav-scrollable {
+  padding: 0 !important;
 }
 </style>

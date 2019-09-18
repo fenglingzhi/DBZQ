@@ -81,7 +81,7 @@ export default {
         },
         {
           title: '停靠港口',
-          key: 'destination'
+          key: ''
         },
         {
           title: '目的港口',
@@ -93,7 +93,7 @@ export default {
         },
         {
           title: '船舶任务',
-          key: 'ETA'
+          key: ''
         },
         {
           title: '操作',
