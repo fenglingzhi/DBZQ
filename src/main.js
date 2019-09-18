@@ -6,6 +6,7 @@ import animate from 'animate.css'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import './assset/iconfont/iconfont.css'
+import router from 'vue-router'
 
 Vue.use(iView)
 Vue.use(animate)
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV !== 'production') require('./mock')
 
 new Vue({
   store,
+  router,
   data () {
     return {
       mq: new Vue()
