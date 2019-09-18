@@ -13,7 +13,7 @@
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
-      <Routeplayer v-if="route" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
+      <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
       </uicomponent>
@@ -47,6 +47,7 @@ import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL } from './commons'
+import { delay } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: `query($pid:ID!){
     target(id:$pid){
@@ -254,27 +255,31 @@ export default {
       })
     },
     playOver() {
+      this.playStatus = 'remove'
       this.route = null
     }
   },
   mounted() {
     this.$root.mq.$on('routePlay', (e) => {
       this.playStatus = 'remove'
-      this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
-        markerSymbol: {
-          markerType: 'path',
-          markerPathWidth: 1024,
-          markerPathHeight: 1024,
-          markerFill: '#ffff00',
-          markerWidth: 30,
-          markerHeight: 30,
-          markerPath: SVG['Plane'],
-          markerVerticalAlignment: 'middle',
-          markerHorizontalAlignment: 'middle'
-        },
-        lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
-      }
-      this.playStatus = 'play'
+      delay(() => {
+        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
+          unitTime: 100,
+          markerSymbol: {
+            markerType: 'path',
+            markerPathWidth: 1024,
+            markerPathHeight: 1024,
+            markerFill: '#ffff00',
+            markerWidth: 30,
+            markerHeight: 30,
+            markerPath: SVG['Plane'],
+            markerVerticalAlignment: 'middle',
+            markerHorizontalAlignment: 'middle'
+          },
+          lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
+        }
+        this.playStatus = 'play'
+      }, 1000)
     })
   }
 }

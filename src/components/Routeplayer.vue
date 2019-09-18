@@ -6,7 +6,8 @@ export default {
     path: Array,
     lineSymbol: Object,
     markerSymbol: Object,
-    status: String
+    status: String,
+    unitTime: Number
   },
   data() {
     return {
@@ -39,7 +40,8 @@ export default {
     if (!this.container) return
     this.mapItem = new mapcan.RoutePlayer({ path: this.path }, this.container.map, {
       lineSymbol: this.lineSymbol,
-      markerSymbol: this.markerSymbol
+      markerSymbol: this.markerSymbol,
+      unitTime: this.unitTime || 1000
     })
     this.status === 'play' && this.mapItem.play()
     this.mapItem.on('playfinish', () => {
