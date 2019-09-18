@@ -18,11 +18,21 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation v-if="show_RelevantInformation_boolean" :targetr_type="selectedTarget && selectedTarget.targetType" :targetr_id="targetr_id" :targetr_info="targetr_info" :spinShow="spinShow"></RelevantInformation>
+        <RelevantInformation v-if="show_RelevantInformation_boolean"
+                             :targetr_type="selectedTarget && selectedTarget.targetType"
+                             :targetr_id="targetr_id"
+                             :targetr_info="targetr_info"
+                             :spinShow="spinShow"
+                             @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
         <!-- <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail> -->
-        <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="selectedTarget && selectedTarget.targetType" :targetr_id="targetr_id" :targetr_info="targetr_info" :spinShow="spinShow" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
+        <TargetrDetail v-if="show_TargetrDetail_boolean"
+                       :targetr_type="selectedTarget && selectedTarget.targetType"
+                       :targetr_id="targetr_id"
+                       :targetr_info="targetr_info"
+                       :spinShow="spinShow"
+                       @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
         <!--<div>-->
           <!--<button @click="show_TargetrDetail('airplane')">飞机</button>-->
           <!--<button @click="show_TargetrDetail('ship')">船舶</button>-->
@@ -31,6 +41,10 @@
         <!--</div>-->
       </uicomponent>
     </mapcan>
+    <div class="warning" :class="{'warning_true':warning === true}">
+      <div class="title" v-if="warning" @click="change_warning()">预警模式</div>
+      <div class="title" v-if="!warning" @click="change_warning()">正常模式</div>
+    </div>
   </div>
 </template>
 
@@ -93,7 +107,7 @@ const GQL = {
             name,
             code,
             type,
-            address { 
+            address {
               position,
               country { cname }
              },
@@ -123,7 +137,7 @@ const GQL = {
             name,
             code,
             type,
-            address { 
+            address {
               position,
               country { cname }
              },
@@ -134,7 +148,7 @@ const GQL = {
           }
           landing{
             name,
-            address { 
+            address {
               position,
               country { cname }
             },
@@ -239,6 +253,9 @@ export default {
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
     },
+    close_RelevantInformation() {
+      this.show_RelevantInformation_boolean = false
+    },
     // 展开弹窗
     show_TargetrDetail(type) {
       this.targetr_type = type
@@ -257,6 +274,13 @@ export default {
     playOver() {
       this.playStatus = 'remove'
       this.route = null
+    },
+    change_warning(){
+      this.warning = !this.warning
+      if(this.warning === false){
+        location.reload()
+      }
+
     }
   },
   mounted() {
@@ -297,9 +321,24 @@ html,body{
 #app {
   height: 100%;
   width: 100%;
-  /*.ivu-tag-geekblue .ivu-tag-text {*/
-    /*color: #fff !important;*/
-  /*}*/
+  .warning{
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    padding: 10px;
+    border-radius: 4px;
+    left: 50%;
+    margin-left: -30px;
+    cursor: pointer;
+    border: 1px solid #009bef;
+    box-shadow: 0 0 20px 2px #009bef;
+  }
+  .warning_true{
+    box-shadow: 0 0 20px 2px red;
+    border-color: red;
+  }
 }
 .ivu-tabs-nav .ivu-tabs-tab-active{
   color: #fff !important;
