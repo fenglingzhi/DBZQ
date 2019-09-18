@@ -33,8 +33,8 @@
     <!-- 飞机的目标信息 -->
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
-        <template slot="action">
-            <Icon style="cursor: pointer" type="md-play" @click="player" />
+        <template slot="action" slot-scope="{row,index}">
+            <Icon style="cursor: pointer" type="md-play" @click="player(index)" />
         </template>
       </Table>
     </div>
@@ -112,8 +112,8 @@ export default {
     }
   },
   methods: {
-    player() {
-      alert('播放轨迹')
+    player(index) {
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }
   },
   mounted () {

@@ -46,7 +46,8 @@
       "space-before-function-paren": "off",
       "no-multi-spaces": "off",
       "no-debugger": "off",
-      "no-undef": "off"
+      "no-undef": "off",
+      "object-property-newline": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
