@@ -101,7 +101,7 @@ export default {
           width: 100,
           align: 'center'
         }
-      ],
+      ]
     }
   },
   props: {

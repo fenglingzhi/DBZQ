@@ -63,7 +63,7 @@ export default {
           title: '发布时间',
           key: 'timestamp'
         }
-      ],
+      ]
       // data: []
     }
   },

@@ -83,7 +83,7 @@ export default {
           title: '联系电话',
           key: 'phone'
         }
-      ],
+      ]
       // data: []
     }
   },

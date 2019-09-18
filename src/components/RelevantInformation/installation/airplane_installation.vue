@@ -79,7 +79,7 @@ export default {
           title: '机位数量',
           key: 'num'
         }
-      ],
+      ]
       // data: {}
     }
   },
