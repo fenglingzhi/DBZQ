@@ -80,13 +80,20 @@ export default {
           key: 'num'
         }
       ]
-      // data: []
     }
   },
   props: ['facility'],
   computed: {
     data() {
       return this.facility.map(({ name, code, type, address, openDate, level, area, parkCount }) => {
+        let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
+        return cdata
+      })
+    }
+  },
+  watch: {
+    facility(n, o) {
+      this.data = this.n.map(({ name, code, type, address, openDate, level, area, parkCount }) => {
         let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
         return cdata
       })

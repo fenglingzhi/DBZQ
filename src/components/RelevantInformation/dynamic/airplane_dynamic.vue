@@ -88,7 +88,6 @@ export default {
             'lon': action.lon,
             'lat': action.lat
           }
-          console.log(adata)
           return adata
         })
       }).flat()

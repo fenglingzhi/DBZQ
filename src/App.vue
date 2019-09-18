@@ -1,19 +1,11 @@
 <template>
   <div id="app">
-    <mapcan v-if="warning" name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
+    <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
-    </mapcan>
-    <mapcan v-else name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
-      <vectorlayer :id="`featurelayer`">
-        <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
-      </vectorlayer>
-      <Routeplayer v-if="route" :symbol="route.symbol" :start="route.start" :end="route.end" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
       </uicomponent>
@@ -39,7 +31,6 @@
 import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
 import Vectorlayer from './components/Vectorlayer'
-import Routeplayer from './components/Routeplayer'
 import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
 import filterwrap from './components/filter.vue'
@@ -92,10 +83,9 @@ const GQL = {
             name,
             code,
             type,
-            address { 
-              position,
+            address {
               country { cname }
-             },
+            },
             openDate,
             level,
             area,
@@ -104,7 +94,6 @@ const GQL = {
           landing{
             name,
             address {
-              position,
               country { cname }
             }
           },
@@ -122,10 +111,9 @@ const GQL = {
             name,
             code,
             type,
-            address { 
-              position,
+            address {
               country { cname }
-             },
+            },
             openDate,
             level,
             area,
@@ -133,10 +121,9 @@ const GQL = {
           }
           landing{
             name,
-            address { 
-              position,
+            address {
               country { cname }
-            },
+            }
           },
           ETD,
           ETA,
@@ -145,9 +132,32 @@ const GQL = {
           alt,
           horSpeed,
           vetSpeed,
-          azimuth,
-          track {
-            lon, lat, alt, horSpeed, vetSpeed, timestamp, azimuth
+          azimuth
+        },
+        nearby{
+          name,
+          code,
+          type,
+          address{
+            country{ cname }
+          },
+          openDate,
+          level,
+          area,
+          parkCount,
+          recent{
+            action{
+              originated {
+                name
+              }
+              landing{
+                name
+              },
+              ETD,
+              ETA,
+              lon,
+              lat
+            }
           }
         }
       }
@@ -185,7 +195,7 @@ const GQL = {
 }
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
+  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
       show_TargetrDetail_boolean: false,
@@ -193,9 +203,7 @@ export default {
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0', // 下弹窗展示类型的id
       targetr_info: {},
-      spinShow: true,
-      route: null,
-      warning: false // 预警标志
+      spinShow: true
     }
   },
   computed: {
@@ -251,27 +259,7 @@ export default {
         this.spinShow = false
         this.targetr_info = r.target
       })
-    },
-    playOver() {
-      this.route = null
     }
-  },
-  mounted() {
-    this.$root.mq.$on('routePlay', (e) => {
-      let start = e.originated.address.position
-      let end = e.landing.address.position
-      this.route = { start, end, symbol: {
-        markerType: 'path',
-        markerPathWidth: 1024,
-        markerPathHeight: 1024,
-        markerFill: '#ffff00',
-        markerWidth: 30,
-        markerHeight: 30,
-        markerPath: SVG['Plane'],
-        markerVerticalAlignment: 'middle',
-        markerHorizontalAlignment: 'middle'
-      } }
-    })
   }
 }
 </script>
