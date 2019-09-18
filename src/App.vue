@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <mapcan v-if="warning" name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
+    <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
       <map-tip slot="maptip" :hide.sync="hideTip">
-        maptips
+        test
       </map-tip>
     </mapcan>
-    <mapcan v-else name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
+    <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
@@ -340,9 +340,9 @@ export default {
         markerType: 'path',
         markerPathWidth: 1024,
         markerPathHeight: 1024,
-        markerFill: '#6fa8dc',
-        markerWidth: 20,
-        markerHeight: 20,
+        markerFill: '#f2e239',
+        markerWidth: 25,
+        markerHeight: 25,
         markerPath: SVG[target.targetType],
         markerVerticalAlignment: 'middle',
         markerHorizontalAlignment: 'middle'

@@ -44,6 +44,7 @@ export default {
       return
     }
     this.geometry.on('click', e => {
+      // debugger
       that.container.mapTip && that.container.mapTip.show(that.geometry.getCenter())
       that.$emit('click', e)
     })

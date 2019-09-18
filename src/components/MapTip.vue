@@ -3,7 +3,6 @@ export default {
   name: 'MapTip',
   props: {
     title: String,
-    content: Object,
     hide: {
       type: Boolean,
       default: true
@@ -16,7 +15,7 @@ export default {
     }
   },
   mounted() {
-    // debugger
+    debugger
     let that = this
     this.tip = new mapcan.ui.InfoWindow({
       title: this.title,
@@ -35,7 +34,7 @@ export default {
       }, 500)
     }
     that.tip.on('showstart', () => {
-      console.log('showstart')
+      console.log('showstart', that.$slots)
       shouldHide = false
       that.tip.getMap().off('click', onMapClick)
     })
@@ -47,6 +46,8 @@ export default {
     that.tip.on('hide', () => {
       that.$emit('update:hide', true)
     })
+    // this.container && (this.container.mapTip = this.tip)
+    // this.tip.addTo(this.container.map)
   },
   watch: {
     hide(n, o) {
@@ -57,12 +58,12 @@ export default {
 </script>
 <template>
   <div ref="content">
-    <card>
-      <template slot="header">
+    <!-- <Card> -->
+      <!-- <template slot="title"> -->
         <slot name="header" />
-      </template>
+      <!-- </template> -->
       <slot />
-    </card>
+    <!-- </Card> -->
   </div>
 </template>
 
