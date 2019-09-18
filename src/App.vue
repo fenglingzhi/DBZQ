@@ -13,7 +13,7 @@
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
-      <Routeplayer v-if="route" :symbol="route.symbol" :start="route.start" :end="route.end" @finished="playOver"/>
+      <Routeplayer v-if="route" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
       </uicomponent>
@@ -195,6 +195,7 @@ export default {
       targetr_info: {},
       spinShow: true,
       route: null,
+      playStatus: '',
       warning: false // 预警标志
     }
   },
@@ -258,9 +259,8 @@ export default {
   },
   mounted() {
     this.$root.mq.$on('routePlay', (e) => {
-      let start = e.originated.address.position
-      let end = e.landing.address.position
-      this.route = { start, end,
+      this.playStatus = 'remove'
+      this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
         markerSymbol: {
           markerType: 'path',
           markerPathWidth: 1024,
@@ -274,6 +274,7 @@ export default {
         },
         lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
       }
+      this.playStatus = 'play'
     })
   }
 }

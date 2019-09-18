@@ -3,10 +3,10 @@ export default {
   name: 'Routeplayer',
   inject: ['container'],
   props: {
-    route: Array,
+    path: Array,
     lineSymbol: Object,
     markerSymbol: Object,
-    staus: String
+    status: String
   },
   data() {
     return {
@@ -35,12 +35,13 @@ export default {
     }
   },
   mounted() {
+    debugger
     if (!this.container) return
-    this.mapItem = new mapcan.RoutePlayer(this.route, this.container.map, {
+    this.mapItem = new mapcan.RoutePlayer({ path: this.path }, this.container.map, {
       lineSymbol: this.lineSymbol,
       markerSymbol: this.markerSymbol
     })
-    this.staus === 'play' && this.mapItem.play()
+    this.status === 'play' && this.mapItem.play()
     this.mapItem.on('playfinish', () => {
       this.$emit('finished')
       this.mapItem.remove()
