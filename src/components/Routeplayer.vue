@@ -3,9 +3,10 @@ export default {
   name: 'Routeplayer',
   inject: ['container'],
   props: {
-    start: Object,
-    end: Object,
-    symbol: Object
+    route: Array,
+    lineSymbol: Object,
+    markerSymbol: Object,
+    staus: String
   },
   data() {
     return {
@@ -16,38 +17,34 @@ export default {
     this.mapItem && this.mapItem.remove()
   },
   methods: {
-    play(map) {
-      var start = new mapcan.Point(this.start)
+    /** var start = new mapcan.Point(this.start)
       var end = new mapcan.Point(this.end)
       var offset = end.sub(start)
       var marker = new mapcan.Marker(start, {
-        symbol: { ...this.symbol, markerRotation: 100 + 180 * Math.atan2(offset.y, offset.x) / Math.PI }
-      }).addTo(this.mapItem)
-      var line = new mapcan.LineString([start, end], {
-        id: 'arrow'
-        // arrowStyle: 'classic',
-        // arrowPlacement: 'vertex-last'
-      }).addTo(this.mapItem)
-      marker.setCoordinates(start)
-      marker.bringToFront().animate({
-        // animation translate distance
-        translate: [offset['x'], offset['y']]
-      }, {
-        duration: 10000,
-        // let map focus on the marker
-        focus: true
-      }, ({ state }) => {
-        if (state.playState !== 'finished') return
-        this.$emit('finished')
-        marker.remove()
-        line.remove()
-      })
+        symbol: { ...this.symbol, markerRotation: 90 + 180 * Math.atan2(offset.y, offset.x) / Math.PI }
+      }).addTo(this.mapItem) */
+    play() { this.mapItem && this.mapItem.play() },
+    pause() { this.mapItem && this.mapItem.pause() },
+    cancel() { this.mapItem && this.mapItem.cancel() },
+    finish() { this.mapItem && this.mapItem.finish() },
+    remove() { this.mapItem && this.mapItem.remove() }
+  },
+  watch: {
+    status(n, o) {
+      this[n] && this[n]()
     }
   },
   mounted() {
     if (!this.container) return
-    this.mapItem = this.container.map.getLayer('routeplay') || new mapcan.VectorLayer('routeplay', { forceRenderOnMoving: true }).addTo(this.container.map)
-    this.play(this.container.map)
+    this.mapItem = new mapcan.RoutePlayer(this.route, this.container.map, {
+      lineSymbol: this.lineSymbol,
+      markerSymbol: this.markerSymbol
+    })
+    this.staus === 'play' && this.mapItem.play()
+    this.mapItem.on('playfinish', () => {
+      this.$emit('finished')
+      this.mapItem.remove()
+    })
   }
 }
 </script>

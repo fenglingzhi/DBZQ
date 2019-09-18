@@ -260,17 +260,20 @@ export default {
     this.$root.mq.$on('routePlay', (e) => {
       let start = e.originated.address.position
       let end = e.landing.address.position
-      this.route = { start, end, symbol: {
-        markerType: 'path',
-        markerPathWidth: 1024,
-        markerPathHeight: 1024,
-        markerFill: '#ffff00',
-        markerWidth: 30,
-        markerHeight: 30,
-        markerPath: SVG['Plane'],
-        markerVerticalAlignment: 'middle',
-        markerHorizontalAlignment: 'middle'
-      } }
+      this.route = { start, end,
+        markerSymbol: {
+          markerType: 'path',
+          markerPathWidth: 1024,
+          markerPathHeight: 1024,
+          markerFill: '#ffff00',
+          markerWidth: 30,
+          markerHeight: 30,
+          markerPath: SVG['Plane'],
+          markerVerticalAlignment: 'middle',
+          markerHorizontalAlignment: 'middle'
+        },
+        lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
+      }
     })
   }
 }
