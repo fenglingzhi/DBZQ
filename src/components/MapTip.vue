@@ -15,7 +15,7 @@ export default {
     }
   },
   mounted() {
-    debugger
+    // debugger
     let that = this
     this.tip = new mapcan.ui.InfoWindow({
       title: this.title,
