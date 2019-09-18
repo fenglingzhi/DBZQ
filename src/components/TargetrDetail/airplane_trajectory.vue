@@ -106,7 +106,7 @@ export default {
   computed: {
     data() {
       return this.real_time_info.map(({ originated, landing, ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth }) => {
-        let cdata = { 'oname': originated.name, 'lname': landing.name, ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth }
+        let cdata = { 'oname': originated.name, 'lname': landing.name, 'ETD': new Date(ETD).toLocaleString(), 'ETA': new Date(ETA).toLocaleString(), lon, lat, alt, horSpeed, vetSpeed, azimuth }
         return cdata
       })
     }

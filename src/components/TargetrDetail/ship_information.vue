@@ -14,7 +14,7 @@
                 <span v-text="'船舶类型'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.usage && (base_info.usage.typeid =='0'?'军用':base_info.usage.typeid =='1'?'民用':'')"></span>
+                <span v-text="base_info.usage.label"></span>
             </div>
         </div>
         <div class="info-data-item">

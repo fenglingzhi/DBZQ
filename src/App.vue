@@ -113,7 +113,7 @@ const GQL = {
             address {
               position,
               country { cname }
-             },
+            },
             openDate,
             level,
             area,
@@ -122,7 +122,6 @@ const GQL = {
           landing{
             name,
             address {
-              position,
               country { cname }
             }
           },
@@ -143,7 +142,7 @@ const GQL = {
             address {
               position,
               country { cname }
-             },
+            },
             openDate,
             level,
             area,
@@ -154,7 +153,7 @@ const GQL = {
             address {
               position,
               country { cname }
-            },
+            }
           },
           ETD,
           ETA,
@@ -163,9 +162,47 @@ const GQL = {
           alt,
           horSpeed,
           vetSpeed,
-          azimuth,
-          track {
-            lon, lat, alt, horSpeed, vetSpeed, timestamp, azimuth
+          azimuth
+          track{
+            lon,
+            lat,
+            alt,
+            timestamp,
+            horSpeed,
+            vetSpeed,
+            azimuth
+          }
+        },
+        news{
+          title,
+          content,
+          source,
+          timestamp
+        },
+        nearby{
+          name,
+          code,
+          type,
+          address{
+            country{ cname }
+          },
+          openDate,
+          level,
+          area,
+          parkCount,
+          recent{
+            action{
+              originated {
+                name
+              }
+              landing{
+                name
+              },
+              ETD,
+              ETA,
+              lon,
+              lat
+            }
           }
         }
       }
@@ -173,7 +210,7 @@ const GQL = {
         targetType: __typename,
         id,
         name,
-        usage { typeid },
+        usage { label },
         MMSI,
         ORG { cname },
         country { cname },
@@ -183,7 +220,29 @@ const GQL = {
         length,
         height,
         maxSpeed,
-        phone
+        phone,
+        history{
+          heading,
+          ending,
+          ETD,
+          status,
+          lon,
+          lat,
+          draught,
+          loading{ name },
+          destination{ name }
+          ETA
+        },
+        nearby{
+          name,
+          code,
+          type,
+          address{ country{ cname } },
+          goods,
+          capacity,
+          operator{ cname },
+          phone
+        }
       }
       ... on Satellite{
         name,
@@ -401,7 +460,7 @@ html,body{
   }
 }
 .ivu-tabs-nav .ivu-tabs-tab-active{
-  color: #fff !important;
+  color: rgb(251, 255, 0) !important;
 }
 .ivu-tabs-ink-bar{
   background-color: #fff !important;

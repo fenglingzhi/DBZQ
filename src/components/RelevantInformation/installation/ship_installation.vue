@@ -65,11 +65,11 @@ export default {
         },
         {
           title: '主营货类',
-          key: 'main_good'
+          key: 'goods'
         },
         {
           title: '最大吞吐量',
-          key: 'max_throughput'
+          key: 'capacity'
         },
         {
           title: '水域面积',
@@ -77,20 +77,27 @@ export default {
         },
         {
           title: '运行机构',
-          key: 'opt_organization'
+          key: 'operator'
         },
         {
           title: '联系电话',
           key: 'phone'
         }
-      ],
-      data: []
+      ]
+      // data: []
     }
   },
   props: ['facility'],
-  watch: {
-    facility() {
-      this.data = this.facility.facility
+  computed: {
+    data() {
+      // return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, area, operator }) => {
+      //   let cdata = { name, code, type, 'country': address.country.cname, goods, capacity, area, 'operator': operator.cname }
+      //   return cdata
+      // })
+      return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, operator }) => {
+        let cdata = { name, code, type, 'country': address.country.cname, goods, capacity, 'operator': operator.cname }
+        return cdata
+      })
     }
   },
   methods: { },
