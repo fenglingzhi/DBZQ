@@ -22,7 +22,8 @@
                              :targetr_type="selectedTarget && selectedTarget.targetType"
                              :targetr_id="targetr_id"
                              :targetr_info="targetr_info"
-                             :spinShow="spinShow"></RelevantInformation>
+                             :spinShow="spinShow"
+                             @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
         <!-- <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail> -->
@@ -249,6 +250,9 @@ export default {
     // 关闭下弹窗
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
+    },
+    close_RelevantInformation() {
+      this.show_RelevantInformation_boolean = false
     },
     // 展开弹窗
     show_TargetrDetail(type) {
