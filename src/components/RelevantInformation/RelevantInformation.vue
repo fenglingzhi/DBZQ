@@ -1,8 +1,13 @@
 <template>
     <div class="RelevantInformation">
       <div class="RelevantInformation_container">
+        <div class="RelevantInformation_operator">
+          <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="!container_show" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
+          <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="hide" width="16px" height="16.00px" v-if="container_show" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg>
+          <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="close" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M587.7 511.9L912.3 187c20.9-21 20.9-54.8 0-75.8s-54.8-21-75.7 0L512 436.1 187.5 111.2c-20.9-21-54.8-21-75.7 0-20.9 21-20.9 54.8 0 75.8l324.5 324.8-324.5 324.9c-20.9 21-20.9 54.8 0 75.8 10.4 10.5 24.1 15.7 37.9 15.7 13.7 0 27.4-5.2 37.9-15.7L512 587.7l324.5 324.8c10.4 10.5 24.2 15.7 37.9 15.7s27.4-5.2 37.8-15.7c20.9-21 20.9-54.8 0-75.8L587.7 511.9z" /></svg>
+        </div>
         <!-- tab切换 -->
-        <div class="RelevantInformation_operator_tabs">
+        <div class="RelevantInformation_operator_tabs" v-if="tab_boolean">
           <div :class="[tab_show == 'installation' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']" @click="changeTab('installation')">
             <svg class="RelevantInformation_operator_icon" width="16px" height="15.98px" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M160.672 245.408h184.192L252.256 146.496 159.616 245.408h1.056z m321.12 16.224v132.64h-117.696V289.28h24.224l16.128-37.248-57.44-61.312 56.832-60.64 107.776 115.008-7.136 16.544h-22.688zM138.336 395.2H29.216V261.632H7.04l-7.04-16.544L107.68 130.08l7.136 7.552L160.32 186.24 98.592 252 114.72 289.28h23.616v105.92z m109.952-100.032v54.368h-25.312V295.168h25.312z m36.192 0v54.368h-25.344V295.168h25.344z m48.192-163.168v50.784l-8.096-8.672-23.296-24.864v-17.312h-8.224v-17.632h48.576v17.632l-8.96 0.064z m17.92 143.776v118.816H151.84V275.776h-28.288l-9.056-20.96L251.52 108.48l9.088 9.664 127.968 136.672-9.056 20.96h-28.928z m-17.664 0H169.536v101.152h163.392V275.776zM1024.992 381.6c0 20.096-16.256 36.352-36.32 36.352h-314.016a36.384 36.384 0 0 1-36.416-36.352V67.584c0-20.128 16.352-36.416 36.416-36.416h314.016c20.064 0 36.32 16.288 36.32 36.416v314.016zM1024.992 905.344c0 20.096-16.256 36.32-36.32 36.32h-314.016a36.384 36.384 0 0 1-36.416-36.32v-314.016c0-20.16 16.352-36.384 36.416-36.384h314.016c20.064 0 36.32 16.224 36.32 36.384v314.016zM466.4 905.344c0 20.096-16.256 36.32-36.416 36.32H116.032c-20.16 0-36.416-16.224-36.416-36.32v-314.016c0-20.16 16.256-36.384 36.416-36.384h313.952c20.16 0 36.416 16.224 36.416 36.384v314.016z" /></svg>
             <span>设施</span>
@@ -25,7 +30,7 @@
           </div>
         </div>
         <!-- tab的content 展示 -->
-        <div class="RelevantInformation_content">
+        <div class="RelevantInformation_content" v-if="tab_boolean">
           <Spin size="large" fix v-if="spinShow"></Spin>
           <div v-if="tab_show == 'installation'">
             <AirplaneInstallation v-if="targetr_type == 'Plane'" :facility = "targetr_info.nearby"></AirplaneInstallation>
@@ -74,7 +79,9 @@ export default {
       tab_show: 'installation',
       // spinShow: false
       // targetr_info: {}
-      targetr_info_data: []
+      targetr_info_data: [],
+      container_show: true,
+      tab_boolean: true
     }
   },
   props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow'],
@@ -92,6 +99,23 @@ export default {
     this.get_info()
   },
   methods: {
+    // 弹窗显示最大化
+    show1() {
+      console.log('show1')
+      this.container_show = true
+      this.tab_boolean = true
+    },
+    // 弹窗显示最小化
+    hide() {
+      console.log('hide')
+      this.container_show = false
+      this.tab_boolean = false
+    },
+    // 弹窗关闭
+    close() {
+      console.log('close')
+      this.$emit('close_RelevantInformation')
+    },
     // tab切换
     changeTab(value) {
       this.tab_show = value
@@ -130,9 +154,10 @@ export default {
     border: 1px solid #009bef;
     box-shadow: 0 0 20px 2px #009bef;
     .RelevantInformation_container{
+      width: 623px;
+      min-height: 10px;
       .RelevantInformation_operator_tabs{
         display: flex;
-
         .RelevantInformation_operator_tab{
           color:#fff;
           display:flex;
@@ -173,5 +198,32 @@ export default {
         width:600px;
       }
     }
+  }
+  .TargetrDetail_operator_icon{
+    padding: 3px;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .3s;
+    font-weight: 700;
+    fill: currentColor;
+    overflow: hidden;
+    fill:#fff;
+    margin:0 2px;
+  }
+  .TargetrDetail_operator_icon_hover:hover {
+    -webkit-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    fill:#ccc;
+  }
+  .RelevantInformation_operator{
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
   }
 </style>
