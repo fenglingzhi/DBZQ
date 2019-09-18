@@ -1,11 +1,22 @@
 <template>
   <div id="app">
-    <mapcan name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
+    <mapcan v-if="warning" name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
+      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer`">
+        <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected(target)"/>
+      </vectorlayer>
+      <map-tip slot="maptip" :hide.sync="hideTip">
+        maptips
+      </map-tip>
+    </mapcan>
+    <mapcan v-else name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
+      <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
         <filterwrap></filterwrap>
       </uicomponent>
@@ -34,8 +45,7 @@
       </uicomponent>
     </mapcan>
     <div class="warning" :class="{'warning_true':warning === true}">
-      <div class="title" v-if="warning" @click="change_warning()">预警模式</div>
-      <div class="title" v-if="!warning" @click="change_warning()">正常模式</div>
+      <div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>
     </div>
   </div>
 </template>
@@ -45,13 +55,16 @@
 import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
 import Vectorlayer from './components/Vectorlayer'
+import Routeplayer from './components/Routeplayer'
 import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
+import MapTip from './components/MapTip'
 import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL } from './commons'
+import { delay } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: `query($pid:ID!){
     target(id:$pid){
@@ -150,6 +163,15 @@ const GQL = {
           horSpeed,
           vetSpeed,
           azimuth
+          track{
+            lon,
+            lat,
+            alt,
+            timestamp,
+            horSpeed,
+            vetSpeed,
+            azimuth
+          }
         },
         news{
           title,
@@ -249,11 +271,47 @@ const GQL = {
       }
     }
   }`
+  },
+  freshWarning: { query: `
+    query($type:String!){
+      targetList: filterTargets(targetType:$type,size:5) {
+        ...on Plane{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Ship{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Satellite{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+      }
+    }`
   }
 }
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
+  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
       show_TargetrDetail_boolean: false,
@@ -262,7 +320,11 @@ export default {
       targetr_id: '0', // 下弹窗展示类型的id
       targetr_info: {},
       spinShow: true,
-      warning: ''
+      route: null,
+      playStatus: '',
+      waringList: [],
+      hideTip: false,
+      warning: false // 预警标志
     }
   },
   computed: {
@@ -300,6 +362,21 @@ export default {
       })
       return [symb]
     },
+    makeWarningSymbol(target) {
+      let symb = target.symbol
+      Object.assign(symb, {
+        markerType: 'path',
+        markerPathWidth: 1024,
+        markerPathHeight: 1024,
+        markerFill: '#ff0000',
+        markerWidth: 25,
+        markerHeight: 25,
+        markerPath: SVG[target.targetType],
+        markerVerticalAlignment: 'middle',
+        markerHorizontalAlignment: 'middle'
+      })
+      return [symb]
+    },
     // 关闭下弹窗
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
@@ -323,6 +400,7 @@ export default {
       })
     },
     playOver() {
+      this.playStatus = 'remove'
       this.route = null
     },
     change_warning() {
@@ -331,6 +409,34 @@ export default {
         location.reload()
       }
     }
+  },
+  mounted() {
+    this.$root.mq.$on('routePlay', (e) => {
+      this.playStatus = 'remove'
+      delay(() => {
+        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
+          unitTime: 100,
+          markerSymbol: {
+            markerType: 'path',
+            markerPathWidth: 1024,
+            markerPathHeight: 1024,
+            markerFill: '#ffff00',
+            markerWidth: 30,
+            markerHeight: 30,
+            markerPath: SVG['Plane'],
+            markerVerticalAlignment: 'middle',
+            markerHorizontalAlignment: 'middle'
+          },
+          lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
+        }
+        this.playStatus = 'play'
+      }, 1000)
+    })
+    this.intv = setInterval(async () => {
+      let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
+      // debugger
+      this.waringList = ret.targetList
+    }, 5000)
   }
 }
 </script>
