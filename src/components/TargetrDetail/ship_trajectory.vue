@@ -49,51 +49,51 @@ export default {
       columns1: [
         {
           title: '船首向',
-          key: 'take_off_base'
+          key: 'heading'
         },
         {
           title: '船迹向',
-          key: 'landing_base'
+          key: 'ending'
         },
         {
           title: '出发时间',
-          key: 'start_time'
+          key: 'ETD'
         },
         {
           title: '状态（在航等）',
-          key: 'pre_time'
+          key: 'status'
         },
         {
           title: '经度',
-          key: 'longitude'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'latitude'
+          key: 'lat'
         },
         {
           title: '吃水',
-          key: 'height'
+          key: 'draught'
         },
         {
           title: '始发港口',
-          key: 'horizontal_velocity'
+          key: 'loading'
         },
         {
           title: '停靠港口',
-          key: 'vertical_speed'
+          key: 'destination'
         },
         {
           title: '目的港口',
-          key: 'azimuth'
+          key: 'destination'
         },
         {
           title: '预到时间',
-          key: 'azimuth'
+          key: 'ETA'
         },
         {
           title: '船舶任务',
-          key: 'azimuth'
+          key: 'ETA'
         },
         {
           title: '操作',
@@ -102,24 +102,23 @@ export default {
           align: 'center'
         }
       ],
-      data: []
     }
   },
   props: {
     real_time_info: {
-      type: Array
+      type: Array,
+      default: () => []
     }
   },
-  watch: {
-    real_time_info() {
-      this.data = this.real_time_info
+  computed: {
+    data() {
+      return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, destination, ETA }) => {
+        let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading.name, 'destination': destination.name, 'ETA': new Date(ETA).toLocaleString() }
+        return cdata
+      })
     }
   },
   methods: { },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.real_time_info
-    }, 0)
-  }
+  mounted () {}
 }
 </script>

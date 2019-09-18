@@ -40,13 +40,13 @@
             <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic = "targetr_info.nearby"></BuoyDynamic>
           </div>
           <div v-if="tab_show == 'personnel'">
-            <personnel :usr = "targetr_info_data"></personnel>
+            <personnel :usr = "targetr_info"></personnel>
           </div>
           <div v-if="tab_show == 'organization'">
-            <organization :organization = "targetr_info_data"></organization>
+            <organization :organization = "targetr_info"></organization>
           </div>
           <div v-if="tab_show == 'information'">
-            <information :information = "targetr_info_data"></information>
+            <information :information = "targetr_info.news"></information>
           </div>
         </div>
       </div>

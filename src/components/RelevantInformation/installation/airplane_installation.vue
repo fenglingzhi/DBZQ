@@ -79,22 +79,15 @@ export default {
           title: '机位数量',
           key: 'num'
         }
-      ]
+      ],
+      // data: {}
     }
   },
   props: ['facility'],
   computed: {
     data() {
-      return this.facility.map(({ name, code, type, address, openDate, level, area, parkCount }) => {
-        let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
-        return cdata
-      })
-    }
-  },
-  watch: {
-    facility(n, o) {
-      this.data = this.n.map(({ name, code, type, address, openDate, level, area, parkCount }) => {
-        let cdata = { name, code, type, 'country': address.country.cname, 'date': openDate, level, area, 'num': parkCount }
+      return this.facility && this.facility.map(({ name, code, type, address, openDate, level, area, parkCount }) => {
+        let cdata = { name, code, type, 'country': address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount }
         return cdata
       })
     }

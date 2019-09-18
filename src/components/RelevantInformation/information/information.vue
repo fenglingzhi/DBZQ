@@ -61,23 +61,21 @@ export default {
         },
         {
           title: '发布时间',
-          key: 'release_time'
+          key: 'timestamp'
         }
       ],
-      data: []
+      // data: []
     }
   },
   props: ['information'],
-  watch: {
-    facility() {
-      this.data = this.information.information
+  computed: {
+    data() {
+      return this.information.map(({ title, content, source, timestamp }) => {
+        return { title, content, source, 'timestamp': new Date(timestamp).toLocaleString() }
+      })
     }
   },
   methods: { },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.information.information
-    }, 0)
-  }
+  mounted () {}
 }
 </script>

@@ -134,6 +134,12 @@ const GQL = {
           vetSpeed,
           azimuth
         },
+        news{
+          title,
+          content,
+          source,
+          timestamp
+        },
         nearby{
           name,
           code,
@@ -165,7 +171,7 @@ const GQL = {
         targetType: __typename,
         id,
         name,
-        usage { typeid },
+        usage { label },
         MMSI,
         ORG { cname },
         country { cname },
@@ -175,7 +181,29 @@ const GQL = {
         length,
         height,
         maxSpeed,
-        phone
+        phone,
+        history{
+          heading,
+          ending,
+          ETD,
+          status,
+          lon,
+          lat,
+          draught,
+          loading{ name },
+          destination{ name }
+          ETA
+        },
+        nearby{
+          name,
+          code,
+          type,
+          address{ country{ cname } },
+          goods,
+          capacity,
+          operator{ cname },
+          phone
+        }
       }
       ... on Satellite{
         name,

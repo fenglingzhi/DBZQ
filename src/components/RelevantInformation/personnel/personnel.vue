@@ -30,7 +30,7 @@
                 <span v-text="'出生日期'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.birthday"></span>
+                <span v-text="new Date(usr.ORG.leader.birthday).toLocaleDateString()"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'国籍'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.country"></span>
+                <span v-text="usr.ORG.leader.country.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">

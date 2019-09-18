@@ -83,8 +83,8 @@ export default {
           let adata = {
             'oname': action.originated.name,
             'lname': action.landing.name,
-            'ETD': action.ETD,
-            'ETA': action.ETA,
+            'ETD': new Date(action.ETD).toLocaleString(),
+            'ETA': new Date(action.ETA).toLocaleString(),
             'lon': action.lon,
             'lat': action.lat
           }
