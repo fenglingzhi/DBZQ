@@ -3,9 +3,12 @@
     <mapcan v-if="warning" name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
+        <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected(target)"/>
       </vectorlayer>
+      <map-tip slot="maptip" :hide.sync="hideTip">
+        maptips
+      </map-tip>
     </mapcan>
     <mapcan v-else name="mainmap" :center="[100,31]" :zoom="4" style="height:100%">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
@@ -42,8 +45,7 @@
       </uicomponent>
     </mapcan>
     <div class="warning" :class="{'warning_true':warning === true}">
-      <div class="title" v-if="warning" @click="change_warning()">预警模式</div>
-      <div class="title" v-if="!warning" @click="change_warning()">正常模式</div>
+      <div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>
     </div>
   </div>
 </template>
@@ -56,6 +58,7 @@ import Vectorlayer from './components/Vectorlayer'
 import Routeplayer from './components/Routeplayer'
 import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
+import MapTip from './components/MapTip'
 import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
@@ -196,11 +199,47 @@ const GQL = {
       }
     }
   }`
+  },
+  freshWarning: { query: `
+    query($type:String!){
+      targetList: filterTargets(targetType:$type,size:5) {
+        ...on Plane{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Ship{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Satellite{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+      }
+    }`
   }
 }
 export default {
   name: 'app',
-  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
+  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
   data() {
     return {
       show_TargetrDetail_boolean: false,
@@ -211,6 +250,8 @@ export default {
       spinShow: true,
       route: null,
       playStatus: '',
+      waringList: [],
+      hideTip: false,
       warning: false // 预警标志
     }
   },
@@ -249,6 +290,21 @@ export default {
       })
       return [symb]
     },
+    makeWarningSymbol(target) {
+      let symb = target.symbol
+      Object.assign(symb, {
+        markerType: 'path',
+        markerPathWidth: 1024,
+        markerPathHeight: 1024,
+        markerFill: '#ff0000',
+        markerWidth: 25,
+        markerHeight: 25,
+        markerPath: SVG[target.targetType],
+        markerVerticalAlignment: 'middle',
+        markerHorizontalAlignment: 'middle'
+      })
+      return [symb]
+    },
     // 关闭下弹窗
     close_TargetrDetail() {
       this.show_TargetrDetail_boolean = false
@@ -275,12 +331,11 @@ export default {
       this.playStatus = 'remove'
       this.route = null
     },
-    change_warning(){
+    change_warning() {
       this.warning = !this.warning
-      if(this.warning === false){
+      if (this.warning === false) {
         location.reload()
       }
-
     }
   },
   mounted() {
@@ -305,6 +360,11 @@ export default {
         this.playStatus = 'play'
       }, 1000)
     })
+    this.intv = setInterval(async () => {
+      let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
+      // debugger
+      this.waringList = ret.targetList
+    }, 5000)
   }
 }
 </script>

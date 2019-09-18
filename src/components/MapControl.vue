@@ -60,7 +60,7 @@ export default {
         content: this.copyright || ''
       }
     })
-    // debugger
+    debugger
     vm.map.setBaseLayer(this.$slots.baselayer[0].componentInstance.mapItem)
 
     this.$slots.default && this.$slots.default.forEach(({ componentInstance: Inst }) => {
