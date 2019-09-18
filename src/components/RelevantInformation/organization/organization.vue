@@ -46,7 +46,7 @@
                 <span v-text="'所在国家/地区'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.country.cname"></span>
+                <span v-text="organization.base.country.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'上级机构'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.superior.cname"></span>
+                <span v-text="organization.superior.base.country.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
