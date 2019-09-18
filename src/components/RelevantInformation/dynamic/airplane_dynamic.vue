@@ -78,9 +78,9 @@ export default {
   props: ['dynamic'],
   computed: {
     data() {
-      return this.dynamic.map(({recent}) => {
-        return recent.map(({action}) => {
-          let adata = { 
+      return this.dynamic.map(({ recent }) => {
+        return recent.map(({ action }) => {
+          let adata = {
             'oname': action.originated.name,
             'lname': action.landing.name,
             'ETD': action.ETD,
