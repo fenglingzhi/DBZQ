@@ -62,7 +62,7 @@
                 <span v-text="'上级机构'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="organization.superior.base.country.cname"></span>
+                <span v-text="organization.superior.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
