@@ -18,11 +18,20 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation v-if="show_RelevantInformation_boolean" :targetr_type="selectedTarget && selectedTarget.targetType" :targetr_id="targetr_id" :targetr_info="targetr_info" :spinShow="spinShow"></RelevantInformation>
+        <RelevantInformation v-if="show_RelevantInformation_boolean"
+                             :targetr_type="selectedTarget && selectedTarget.targetType"
+                             :targetr_id="targetr_id"
+                             :targetr_info="targetr_info"
+                             :spinShow="spinShow"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
         <!-- <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail> -->
-        <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="selectedTarget && selectedTarget.targetType" :targetr_id="targetr_id" :targetr_info="targetr_info" :spinShow="spinShow" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
+        <TargetrDetail v-if="show_TargetrDetail_boolean"
+                       :targetr_type="selectedTarget && selectedTarget.targetType"
+                       :targetr_id="targetr_id"
+                       :targetr_info="targetr_info"
+                       :spinShow="spinShow"
+                       @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
         <!--<div>-->
           <!--<button @click="show_TargetrDetail('airplane')">飞机</button>-->
           <!--<button @click="show_TargetrDetail('ship')">船舶</button>-->
