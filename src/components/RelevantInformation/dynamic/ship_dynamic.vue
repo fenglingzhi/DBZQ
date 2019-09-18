@@ -49,39 +49,45 @@ export default {
       columns1: [
         {
           title: '始发港口',
-          key: 'take_off_base'
+          key: 'loading'
         },
         {
           title: '目的港口',
-          key: 'landing_base'
+          key: 'destination'
         },
         {
           title: '预计到达时间',
-          key: 'pre_time'
+          key: 'ETA'
         },
         {
           title: '经度',
-          key: 'longitude'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'latitude'
+          key: 'lat'
         }
-      ],
-      data: []
+      ]
     }
   },
   props: ['dynamic'],
-  watch: {
-    dynamic() {
-      this.data = this.dynamic.dynamic
+  computed: {
+    data() {
+      return this.dynamic.map(({ recent }) => {
+        return recent.map(({ action }) => {
+          let adata = {
+            'loading': action.loading.name,
+            'destination': action.destination.name,
+            'ETA': new Date(action.ETA).toLocaleString(),
+            'lon': action.lon,
+            'lat': action.lat
+          }
+          return adata
+        })
+      }).flat()
     }
   },
   methods: { },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.dynamic.dynamic
-    }, 0)
-  }
+  mounted () {}
 }
 </script>

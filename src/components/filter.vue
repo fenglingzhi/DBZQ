@@ -6,7 +6,7 @@
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
         <TabPane label="标签检索" tab="name1">
-          <Row style="margin-bottom: 20px;">
+          <Row style="margin-bottom: 10px;">
             <i-col span="20">
               <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />
               <!--<div style="color: #fff;">-->
@@ -407,13 +407,13 @@ export default {
     .filter_wrap{
       width: 600px;
       padding: 10px;
-      height: 440px;
+      min-height: 440px;
       overflow: auto;
       background: #0000006b;
       border: 1px solid #009bef;
       box-shadow: 0 0 20px 2px #009bef;
       color:#fff;
-      margin-top: -450px;
+      margin-top: -485px;
       transition: all 1s linear;
       .title{
         text-align: center;
@@ -461,5 +461,4 @@ export default {
       border-radius: 4px;
     }
   }
-
 </style>

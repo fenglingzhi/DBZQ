@@ -6,7 +6,7 @@
                 <span v-text="'姓名'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.name"></span>
+                <span v-text="usr.name"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'民族'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.nation"></span>
+                <span v-text="usr.nation"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'性别'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.gender"></span>
+                <span v-text="usr.gender"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'出生日期'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="new Date(usr.ORG.leader.birthday).toLocaleDateString()"></span>
+                <span v-text="new Date(usr.birthday).toLocaleDateString()"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'别名'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.nickname"></span>
+                <span v-text="usr.nickname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'国籍'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.country.cname"></span>
+                <span v-text="usr.country.cname"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'宗教信仰'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.faith"></span>
+                <span v-text="usr.faith"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'工作方向'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.job"></span>
+                <span v-text="usr.job"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'学历'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.EDU"></span>
+                <span v-text="usr.EDU"></span>
             </div>
         </div>
         <div class="row-info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'常在城市'"></span>
             </div>
             <div class="row-info-value">
-                <span v-text="usr.ORG.leader.city"></span>
+                <span v-text="usr.city"></span>
             </div>
         </div>
     </div>

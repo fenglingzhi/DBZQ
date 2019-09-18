@@ -53,15 +53,15 @@ export default {
         },
         {
           title: '经度',
-          key: 'longitude'
+          key: 'lon'
         },
         {
           title: '纬度',
-          key: 'latitude'
+          key: 'lat'
         },
         {
           title: '海拔',
-          key: 'altitude'
+          key: 'geocentric'
         },
         {
           title: '速度',
@@ -73,11 +73,11 @@ export default {
         },
         {
           title: '发射场',
-          key: 'launching_site'
+          key: 'city'
         },
         {
           title: '当前时间',
-          key: 'current_time'
+          key: 'GMT'
         },
         {
           title: '操作',
@@ -85,25 +85,24 @@ export default {
           width: 100,
           align: 'center'
         }
-      ],
-      data: []
+      ]
     }
   },
   props: {
     real_time_info: {
-      type: Array
+      type: Array,
+      default: () => []
     }
   },
-  watch: {
-    real_time_info() {
-      this.data = this.real_time_info
+  computed: {
+    data() {
+      return this.real_time_info && this.real_time_info.map(({ action, launchSite }) => {
+        let cdata = { 'RCS': action && action.RCS, 'lon': action && action.lon, 'lat': action && action.lat, 'geocentric': action && action.geocentric, 'speed': action && action.speed, 'city': launchSite && launchSite.city, 'GMT': action && new Date(action.GMT).toLocaleString() }
+        return cdata
+      })
     }
   },
   methods: { },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.real_time_info
-    }, 0)
-  }
+  mounted () { }
 }
 </script>

@@ -90,21 +90,13 @@ export default {
   props: ['facility'],
   computed: {
     data() {
-      // return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, area, operator }) => {
-      //   let cdata = { name, code, type, 'country': address.country.cname, goods, capacity, area, 'operator': operator.cname }
-      //   return cdata
-      // })
-      return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, operator }) => {
-        let cdata = { name, code, type, 'country': address.country.cname, goods, capacity, 'operator': operator.cname }
+      return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, operator, phone }) => {
+        let cdata = { name, code, type, 'country': address.country && address.country.cname, goods, capacity, 'operator': operator && operator.cname, phone }
         return cdata
       })
     }
   },
   methods: { },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.facility.facility
-    }, 0)
-  }
+  mounted () {}
 }
 </script>

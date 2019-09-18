@@ -82,8 +82,8 @@ const GQL = {
           abbr,
           code,
           type,
-          country{
-            cname
+          base{
+            country{ cname }
           },
           business,
           superior { cname },
@@ -109,7 +109,7 @@ const GQL = {
           originated {
             name,
             code,
-            type,
+            usage{ label },
             address {
               position,
               country { cname }
@@ -138,7 +138,7 @@ const GQL = {
           originated {
             name,
             code,
-            type,
+            usage{ label },
             address {
               position,
               country { cname }
@@ -182,7 +182,9 @@ const GQL = {
         nearby{
           name,
           code,
-          type,
+          usage{
+            label
+          },
           address{
             country{ cname }
           },
@@ -212,7 +214,31 @@ const GQL = {
         name,
         usage { label },
         MMSI,
-        ORG { cname },
+        ORG {
+          cname,
+          ename,
+          abbr,
+          code,
+          type,
+          base{
+            country{ cname }
+          },
+          business,
+          superior { cname },
+          leader {
+            name,
+            nation,
+            gender,
+            birthday,
+            nickname,
+            country { cname },
+            faith,
+            job,
+            EDU,
+            city
+          },
+          homepage
+        },
         country { cname },
         status,
         tonnage,
@@ -233,15 +259,34 @@ const GQL = {
           destination{ name }
           ETA
         },
+        news{
+          title,
+          content,
+          source,
+          timestamp
+        },
         nearby{
           name,
           code,
-          type,
+          usage{ label },
           address{ country{ cname } },
           goods,
           capacity,
           operator{ cname },
-          phone
+          phone,
+          recent{
+            action{
+              loading{
+                name
+              },
+              destination{
+                name
+              },
+              ETA,
+              lon,
+              lat
+            }
+          }
         }
       }
       ... on Satellite{
@@ -254,7 +299,15 @@ const GQL = {
         apogee,
         launchDate,
         launchSite { city },
-        drySass
+        drySass,
+        action{
+          RCS,
+          lon,
+          lat,
+          geocentric,
+          speed,
+          GMT
+        }
       }
     }
   }`
@@ -468,9 +521,20 @@ html,body{
 .ivu-tabs-tab{
   color: #fff;
   background: transparent !important;
+  margin-right: 14px !important;
 }
 
 .ivu-tabs-nav .ivu-tabs-tab:hover {
   color: #FFF !important;
+}
+.ivu-tabs-nav-container,
+.ivu-table-header thead>tr {
+  font-size: 18px !important;
+}
+.ivu-table-header thead>tr {
+  line-height: 1 !important;
+}
+.ivu-tabs-nav-scrollable {
+  padding: 0 !important;
 }
 </style>
