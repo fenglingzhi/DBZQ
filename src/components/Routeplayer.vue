@@ -36,7 +36,7 @@ export default {
     }
   },
   mounted() {
-    debugger
+    // debugger
     if (!this.container) return
     this.mapItem = new mapcan.RoutePlayer({ path: this.path }, this.container.map, {
       lineSymbol: this.lineSymbol,
