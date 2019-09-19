@@ -21,21 +21,23 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation v-if="show_RelevantInformation_boolean"
-                             :targetr_type="selectedTarget && selectedTarget.targetType"
+        <RelevantInformation :targetr_type="selectedTarget && selectedTarget.targetType"
                              :targetr_id="targetr_id"
                              :targetr_info="targetr_info"
                              :spinShow="spinShow"
+                             :show_RelevantInformation_boolean="show_RelevantInformation_boolean"
+                             :tab_show_Relevant="tab_show_Relevant"
                              @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10}>
         <!-- <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail> -->
-        <TargetrDetail v-if="show_TargetrDetail_boolean"
-                       :targetr_type="selectedTarget && selectedTarget.targetType"
+        <TargetrDetail :targetr_type="selectedTarget && selectedTarget.targetType"
                        :targetr_id="targetr_id"
                        :targetr_info="targetr_info"
                        :spinShow="spinShow"
-                       @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
+                       :show_TargetrDetail_boolean="show_TargetrDetail_boolean"
+                       @close_TargetrDetail = "close_TargetrDetail"
+                       @change_Relevant = "change_Relevant"></TargetrDetail>
         <!--<div>-->
           <!--<button @click="show_TargetrDetail('airplane')">飞机</button>-->
           <!--<button @click="show_TargetrDetail('ship')">船舶</button>-->
@@ -247,7 +249,8 @@ export default {
       waringList: [],
       hideTip: false,
       selectedGeo: null,
-      warning: false // 预警标志
+      warning: false, // 预警标志
+      tab_show_Relevant: 'installation'
     }
   },
   computed: {
@@ -343,6 +346,9 @@ export default {
         console.log()
         location.reload()
       }
+    },
+    change_Relevant(value) {
+      this.tab_show_Relevant = value
     }
   },
   mounted() {

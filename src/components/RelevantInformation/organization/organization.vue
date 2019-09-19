@@ -1,123 +1,94 @@
+<style>
+  .organization{
+    height: 100%;
+    width: 100%;
+  }
+  .ivu-table-wrapper{
+    border: none !important;
+  }
+  .ivu-table th{
+    background-color:rgba(170, 170, 170, .5) !important;
+    color: #aaa;
+    padding:0 5px;
+  }
+  .ivu-table-cell{
+    padding:0 5px !important;
+  }
+  .ivu-table, .ivu-table td{
+    background-color:transparent !important;
+    color: #fff;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+  }
+</style>
 <template>
     <!-- 航班设施信息 -->
     <div class="organization">
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'机构名称'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.cname"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'外文名称'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.ename"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'机构简称'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.abbr"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'机构代码'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.code"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'机构类型'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.type"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'所在国家/地区'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.base.country.cname"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'业务方向'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.business"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'上级机构'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.superior.cname"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'主管领导'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.leader.name"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'机构网站'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="organization.homepage"></span>
-            </div>
-        </div>
+      <Table height="400" :columns="columns1" :data="data" size="small"></Table>
     </div>
 </template>
 
 <script>
+import expandRow from './organization-expand.vue'
 export default {
   name: 'organization',
   components: { },
   data() {
-    return { }
+    return {
+      columns1: [
+        {
+          type: 'expand',
+          width: 50,
+          render: (h, params) => {
+            return h(expandRow, {
+              props: {
+                row: params.row
+              }
+            })
+          }
+        },
+        {
+          title: '机构名称',
+          key: 'cname'
+        },
+        {
+          title: '机构简称',
+          key: 'abbr'
+        },
+        {
+          title: '机构类型',
+          key: 'type'
+        },
+        {
+          title: '业务方向',
+          key: 'business'
+        },
+        {
+          title: '主管领导',
+          key: 'name'
+        }
+      ],
+      data: [ ]
+    }
   },
   props: ['organization'],
+  computed: {
+  },
   methods: { },
-  mounted () { }
+  mounted () {
+    this.data.push(this.organization)
+  }
 }
 </script>
-
-<style>
-.organization{ }
-.row-info-data-item{
-    width:100%;
-    margin-bottom: 10px;
-    display: flex;
-}
-.row-info-title{
-    width: 150px;
-    color: #aaa;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.row-info-value{
-    width: 200px;
-    color: #fff;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-</style>

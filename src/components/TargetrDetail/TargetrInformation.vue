@@ -5,7 +5,7 @@
     </div>
     <!-- 飞机的目标信息 -->
     <div style="flex:1;">
-      <AirplaneInformation :base_info="base_info" v-if="targetr_type=='Plane'"></AirplaneInformation>
+      <AirplaneInformation :base_info="base_info" v-if="targetr_type=='Plane'" @change_Relevant = "change_Relevant"></AirplaneInformation>
       <ShipInformation :base_info="base_info" v-if="targetr_type=='Ship'"></ShipInformation>
       <SatelliteInformation :base_info="base_info" v-if="targetr_type=='Satellite'"></SatelliteInformation>
       <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'"></BuoyInformation>
@@ -63,7 +63,11 @@ export default {
 
     }
   },
-  methods: { },
+  methods: {
+    change_Relevant(value) {
+      this.$emit('change_Relevant', value)
+    }
+  },
   mounted () {
   }
 }

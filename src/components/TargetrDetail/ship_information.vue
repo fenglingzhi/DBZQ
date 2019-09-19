@@ -1,7 +1,7 @@
 <template>
     <!-- 船舶的目标信息 -->
     <div class="ship_information">
-        <div class="info-data-item">
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('information')">
             <div class="info-title">
                 <span v-text="'船舶名称'"></span>
             </div>
@@ -25,7 +25,7 @@
                 <span v-text="base_info.MMSI"></span>
             </div>
         </div>
-        <div class="info-data-item">
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
             <div class="info-title">
                 <span v-text="'隶属单位'"></span>
             </div>
@@ -108,7 +108,11 @@ export default {
     return { }
   },
   props: ['base_info'],
-  methods: { },
+  methods: {
+    change_Relevant(value) {
+        this.$emit('change_Relevant', value)
+    }
+  },
   mounted () { }
 }
 </script>
