@@ -4,7 +4,7 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected(target)"/>
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected($event,target)"/>
       </vectorlayer>
       <map-tip slot="maptip" :hide.sync="hideTip">
         test
@@ -14,7 +14,7 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeSymbol(target)" @click="setSelected(target)"/>
+        :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
       </vectorlayer>
       <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
@@ -63,90 +63,54 @@ import filterwrap from './components/filter.vue'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
-import { SVG, executeGQL } from './commons'
+import { SVG, executeGQL, gql } from './commons'
 import { delay } from 'lodash'
 const GQL = {
-  queryPlaneByID: { query: `query($pid:ID!){
+  queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
         targetType: __typename,
-        id,
-        name,
-        ICAO,
+        id, name, ICAO,
         kind { label },
         usage{ label },
         registration,
         ORG {
-          cname,
-          ename,
-          abbr,
-          code,
-          type,
-          base{
-            country{ cname }
-          },
+          cname, ename, abbr, code, type,
+          base{ country{ cname } },
           business,
           superior { cname },
           leader {
-            name,
-            nation,
-            gender,
-            birthday,
-            nickname,
+            name, nation, gender, birthday, nickname,
             country { cname },
-            faith,
-            job,
-            EDU,
-            city
+            faith, job, EDU, city
           },
           homepage
         },
-        radar{
-          model
-          responseCode
-        },
+        radar{ model, responseCode },
         action{
-          originated {
-            name,
-            code,
+          originated { name, code,
             usage{ label },
             address {
               position,
               country { cname }
             },
-            openDate,
-            level,
-            area,
-            parkCount
+            openDate, level, area, parkCount
           }
           landing{
             name,
-            address {
-              country { cname }
-            }
+            address { country { cname } }
           },
-          ETD,
-          ETA,
-          lon,
-          lat,
-          alt,
-          horSpeed,
-          vetSpeed,
-          azimuth
+          ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth
         },
         history{
           originated {
-            name,
-            code,
+            name, code,
             usage{ label },
             address {
               position,
               country { cname }
             },
-            openDate,
-            level,
-            area,
-            parkCount
+            openDate, level, area, parkCount
           }
           landing{
             name,
@@ -155,136 +119,64 @@ const GQL = {
               country { cname }
             }
           },
-          ETD,
-          ETA,
-          lon,
-          lat,
-          alt,
-          horSpeed,
-          vetSpeed,
-          azimuth
-          track{
-            lon,
-            lat,
-            alt,
-            timestamp,
-            horSpeed,
-            vetSpeed,
-            azimuth
-          }
+          ETD, ETA, lon, lat, alt, horSpeed, vetSpeed, azimuth,
+          track{ lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }
         },
-        news{
-          title,
-          content,
-          source,
-          timestamp
+        news{ title, content, source, timestamp
         },
         nearby{
-          name,
-          code,
-          usage{
-            label
-          },
-          address{
-            country{ cname }
-          },
-          openDate,
-          level,
-          area,
-          parkCount,
+          name, code,
+          usage{ label },
+          address{ country{ cname } },
+          openDate, level, area, parkCount,
           recent{
             action{
-              originated {
-                name
-              }
-              landing{
-                name
-              },
-              ETD,
-              ETA,
-              lon,
-              lat
+              originated { name }
+              landing{ name },
+              ETD, ETA, lon, lat
             }
           }
         }
       }
       ... on Ship{
         targetType: __typename,
-        id,
-        name,
+        id, name,
         usage { label },
         MMSI,
         ORG {
-          cname,
-          ename,
-          abbr,
-          code,
-          type,
-          base{
-            country{ cname }
-          },
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
           business,
           superior { cname },
           leader {
-            name,
-            nation,
-            gender,
-            birthday,
-            nickname,
+            name,nation,gender,birthday,nickname,
             country { cname },
-            faith,
-            job,
-            EDU,
-            city
+            faith,job,EDU,city
           },
           homepage
         },
         country { cname },
-        status,
-        tonnage,
-        width,
-        length,
-        height,
-        maxSpeed,
-        phone,
+        status,tonnage,width,length,height,maxSpeed,phone,
         history{
-          heading,
-          ending,
-          ETD,
-          status,
-          lon,
-          lat,
+          heading,ending,ETD,status,lon,lat,
           draught,
           loading{ name },
           destination{ name }
           ETA
         },
-        news{
-          title,
-          content,
-          source,
-          timestamp
-        },
+        news{ title, content, source, timestamp },
         nearby{
-          name,
-          code,
+          name, code,
           usage{ label },
           address{ country{ cname } },
-          goods,
-          capacity,
+          goods, capacity,
           operator{ cname },
           phone,
           recent{
             action{
-              loading{
-                name
-              },
-              destination{
-                name
-              },
-              ETA,
-              lon,
-              lat
+              loading{ name },
+              destination{ name },
+              ETA, lon, lat
             }
           }
         }
@@ -294,25 +186,15 @@ const GQL = {
         country { cname },
         usage { label },
         manufacturer { cname },
-        NORAD,
-        perigee,
-        apogee,
-        launchDate,
+        NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
-        action{
-          RCS,
-          lon,
-          lat,
-          geocentric,
-          speed,
-          GMT
-        }
+        action{ RCS, lon, lat, geocentric, speed, GMT }
       }
     }
   }`
   },
-  freshWarning: { query: `
+  freshWarning: { query: gql`
     query($type:String!){
       targetList: filterTargets(targetType:$type,size:5) {
         ...on Plane{
@@ -364,6 +246,7 @@ export default {
       playStatus: '',
       waringList: [],
       hideTip: false,
+      selectedGeo: null,
       warning: false // 预警标志
     }
   },
@@ -375,13 +258,24 @@ export default {
     targetr_id() {
       this.get_info()
     },
-    selectedTarget() {
+    selectedTarget(n, o) {
       this.get_info()
     }
   },
   methods: {
     ...mapMutations(['setSomeState']),
-    setSelected(t) {
+    setSelected(p, t) {
+      this.selectedGeo && this.selectedGeo.updateSymbol({
+        markerWidth: 25,
+        markerHeight: 25,
+        markerFill: '#f2e239'
+      })
+      p.target.updateSymbol({
+        markerWidth: 35,
+        markerHeight: 35,
+        markerFill: '#ff0000'
+      })
+      this.selectedGeo = p.target
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
