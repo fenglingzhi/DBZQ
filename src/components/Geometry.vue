@@ -48,6 +48,7 @@ export default {
       that.container.mapTip && that.container.mapTip.show(that.geometry.getCenter())
       that.$emit('click', e)
     })
+    ['mouseenter', 'mouseout'].forEach(en => that.geometry.on(en, e => that.$emit(en, e)))
     if (this.layer.mapItem) this.layer.mapItem.addGeometry(this.geometry)
   },
   watch: {

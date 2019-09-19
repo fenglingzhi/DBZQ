@@ -452,6 +452,8 @@ export default {
   },
   mounted() {
     this.$root.mq.$on('routePlay', (e) => {
+      if (this.playStatus === 'play') return (this.playStatus = 'pause')
+      if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
