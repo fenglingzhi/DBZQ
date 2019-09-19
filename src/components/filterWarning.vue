@@ -5,16 +5,10 @@
       <!--<Divider size="small" />-->
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
-        <TabPane label="标签检索" tab="name1">
+        <TabPane label="标签检索1111111" tab="name1">
           <Row style="margin-bottom: 10px;">
             <i-col span="20">
               <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />
-              <!--<div style="color: #fff;">-->
-                <!--船舶 ：<i style="font-size: 22px;" class="iconfont iconchuanbo"></i><br>-->
-                <!--飞机 ：<i style="font-size: 22px;" class="iconfont iconfeiji"></i><br>-->
-                <!--卫星 ：<i style="font-size: 22px;" class="iconfont iconweixing"></i><br>-->
-                <!--浮标 ：<i style="font-size: 22px;" class="iconfont iconfubiaobuoy"></i><br>-->
-              <!--</div>-->
             </i-col>
             <i-col span="3" offset="1">
               <Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>
@@ -248,7 +242,7 @@
             </TabPane>
           </Tabs>
         </TabPane>
-        <TabPane label="主题检索" name="name2">
+        <TabPane label="主题检索22222" name="name2">
           <div>
             <Tag color="default">朝鲜商船</Tag>
             <Tag color="default">美国舰船</Tag>
@@ -259,7 +253,7 @@
       </Tabs>
     </div>
     <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
-      <img src="../assets/images/button1.png" alt="">
+      <img src="../assets/images/button1.png" alt="">sssssssssss
     </div>
   </div>
 </template>
@@ -329,7 +323,7 @@ const GQL = {
   }
 }
 export default {
-  name: 'filterwrap',
+  name: 'filterWarning',
   data() {
     return {
       searchString: '',
@@ -413,7 +407,7 @@ export default {
       border: 1px solid #009bef;
       box-shadow: 0 0 20px 2px #009bef;
       color:#fff;
-      margin-top: -465px;
+      margin-top: -485px;
       transition: all 1s linear;
       .title{
         text-align: center;
