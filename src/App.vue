@@ -446,6 +446,7 @@ export default {
     change_warning() {
       this.warning = !this.warning
       if (this.warning === false) {
+        console.log()
         location.reload()
       }
     }
