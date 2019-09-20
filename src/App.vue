@@ -52,7 +52,15 @@
         <div class="title" @click="change_warning()">预警模式</div>
       </div>
     </div>
-    <!-- <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button> -->
+    <div class="notice" :class="{'notice_show': nitice_flag === true}">
+      <div class="close" @click="closeNnotice">
+        <Icon type="ios-close" />
+      </div>
+      <div class="content">
+        {{notice}}
+      </div>
+    </div>
+     <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button>
   </div>
 </template>
 
@@ -255,7 +263,9 @@ export default {
       hideTip: false,
       selectedGeo: null,
       warning: false, // 预警标志
-      tab_show_Relevant: 'installation'
+      tab_show_Relevant: 'installation',
+      notice: '这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息',
+      nitice_flag: true
     }
   },
   computed: {
@@ -355,12 +365,11 @@ export default {
     change_Relevant(value) {
       this.tab_show_Relevant = value
     },
-    open (nodesc) {
-      this.$Notice.open({
-        title: '警告标题',
-        desc: nodesc || '警告内容',
-        duration: 4 //弹窗显示时间，设为0为永久显示
-      });
+    open (data) {
+      this.nitice_flag = true
+    },
+    closeNnotice() {
+      this.nitice_flag = false
     }
   },
   mounted() {
@@ -415,6 +424,37 @@ export default {
     border: 1px solid #009bef;
     box-shadow: 0 0 20px 2px #009bef;
   }
+  .notice{
+    position: fixed;
+    z-index: 99999;
+    top: -110px;
+    right: 10px;
+    width: 300px;
+    height: 100px;
+    padding: 0 10px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #009bef;
+    box-shadow: 0 0 20px 2px #009bef;
+    color: #fff;
+    transition: all 1s linear;
+    overflow: hidden;
+    .close{
+      font-size: 20px;
+      float: right;
+      cursor: pointer;
+      margin-top: -6px;
+    }
+    .content{
+      clear: both;
+      height: 60px;
+      padding-right: 12px;
+      margin-right: -30px;
+      overflow: auto;
+    }
+  }
+  .notice_show{
+    top: 10px;
+  }
 html,body{
   height: 100%;
   width: 100%;
@@ -427,7 +467,7 @@ html,body{
   width: 100%;
   .warning{
     color: #fff;
-    padding: 8px;
+    padding: 4px 6px;
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
     cursor: pointer;
