@@ -9,23 +9,16 @@
           <Row style="margin-bottom: 10px;">
             <i-col span="20">
               <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />
-              <!--<div style="color: #fff;">-->
-                <!--船舶 ：<i style="font-size: 22px;" class="iconfont iconchuanbo"></i><br>-->
-                <!--飞机 ：<i style="font-size: 22px;" class="iconfont iconfeiji"></i><br>-->
-                <!--卫星 ：<i style="font-size: 22px;" class="iconfont iconweixing"></i><br>-->
-                <!--浮标 ：<i style="font-size: 22px;" class="iconfont iconfubiaobuoy"></i><br>-->
-              <!--</div>-->
             </i-col>
             <i-col span="3" offset="1">
               <Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>
-              <!--<div class="submit"></div>-->
             </i-col>
           </Row>
           <Tabs name="1-1" tab="name1" v-model="targetType">
             <TabPane label="飞机" tab="1-1" name="Plane">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="3" class="label">区域：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -35,7 +28,7 @@
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
@@ -250,16 +243,20 @@
         </TabPane>
         <TabPane label="主题检索" name="name2">
           <div>
-            <Tag color="default">朝鲜商船</Tag>
-            <Tag color="default">美国舰船</Tag>
-            <Tag color="default">中国南海地区</Tag>
-            <Tag color="default">越南商船</Tag>
+            <RadioGroup type="button" size="small" >
+              <Radio v-for="item in theme" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+            </RadioGroup>
+            <Row>
+              <i-col span="4">
+                <Button type="primary" size="small" style="width: 100%;" @click="themeSelect()">搜索</Button>
+              </i-col>
+            </Row>
           </div>
         </TabPane>
       </Tabs>
     </div>
     <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
-      <img src="../assets/images/button1.png" alt="">
+      <img src="../assets/images/button1.png" alt="" style="width: 40px;">
     </div>
   </div>
 </template>
@@ -351,7 +348,21 @@ export default {
       planeUsage: [],     // 飞机用途
       planeKind: [],     // 飞机型号
       planeHeight: [],    // 飞行高度
-      planeSpeed: []      // 飞行速度
+      planeSpeed: [],      // 飞行速度
+      theme: [
+        {
+          name: '南海联合军演',
+          id: '1'
+        },
+        {
+          name: '台湾局势',
+          id: '1'
+        },
+        {
+          name: '南海动态',
+          id: '1'
+        }
+      ]
     }
   },
   computed: {
@@ -369,6 +380,9 @@ export default {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
+    },
+    themeSelect() {
+      alert('主题检索')
     },
     // 国家选择
     countrySelect(index) {

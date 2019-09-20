@@ -1,19 +1,16 @@
 <template>
   <div id="app">
-    <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%">
+    <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%" key="0">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected($event,target)"/>
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring"/>
       </vectorlayer>
-      <!--<uicomponent v-if="warning" :position={top:40,left:2000}>-->
-        <!--<filterwarning></filterwarning>-->
-      <!--</uicomponent>-->
-      <map-tip slot="maptip" :hide.sync="hideTip">
-        test
-      </map-tip>
+      <uicomponent :position={top:10,left:10}>
+        <filterwarning></filterwarning>
+      </uicomponent>
     </mapcan>
-    <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%">
+    <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%" key="1">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
@@ -24,31 +21,48 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation v-if="show_RelevantInformation_boolean"
-                             :targetr_type="selectedTarget && selectedTarget.targetType"
+        <RelevantInformation :targetr_type="selectedTarget && selectedTarget.targetType"
                              :targetr_id="targetr_id"
                              :targetr_info="targetr_info"
                              :spinShow="spinShow"
+                             :show_RelevantInformation_boolean="show_RelevantInformation_boolean"
+                             :tab_show_Relevant="tab_show_Relevant"
                              @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
       </uicomponent>
-      <uicomponent :position={bottom:10,left:10}>
-        <TargetrDetail v-if="show_TargetrDetail_boolean"
-                       :targetr_type="selectedTarget && selectedTarget.targetType"
+      <uicomponent :position={bottom:10,left:10} style="z-index: 9999">
+        <TargetrDetail :targetr_type="selectedTarget && selectedTarget.targetType"
                        :targetr_id="targetr_id"
                        :targetr_info="targetr_info"
                        :spinShow="spinShow"
-                       @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
+                       :show_TargetrDetail_boolean="show_TargetrDetail_boolean"
+                       @close_TargetrDetail = "close_TargetrDetail"
+                       @change_Relevant = "change_Relevant"></TargetrDetail>
       </uicomponent>
     </mapcan>
-    <!--<router-view/>-->
-    <div class="warning" :class="{'warning_true':warning === true}">
-      <div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>
+    <div class="tab_wrap">
+      <div class="warning" :class="{'warning_true':warning === false}">
+        <!--<div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>-->
+        <div class="title" @click="change_warning()">正常模式</div>
+      </div>
+      <div class="warning warning_right" :class="{'warning_true':warning === true}">
+        <!--<div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>-->
+        <div class="title" @click="change_warning()">预警模式</div>
+      </div>
     </div>
+    <div class="notice" :class="{'notice_show': nitice_flag === true}">
+      <div class="close" @click="closeNnotice">
+        <Icon type="ios-close" />
+      </div>
+      <div class="content">
+        {{notice}}
+      </div>
+    </div>
+     <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button>
   </div>
 </template>
 
 <script>
-import ax from 'axios'
+// import ax from 'axios'
 import Mapcan from './components/MapControl'
 import Tilelayer from './components/Tilelayer'
 import Vectorlayer from './components/Vectorlayer'
@@ -62,7 +76,7 @@ import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
-import { delay } from 'lodash'
+import { delay,sample } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -245,7 +259,10 @@ export default {
       waringList: [],
       hideTip: false,
       selectedGeo: null,
-      warning: false // 预警标志
+      warning: false, // 预警标志
+      tab_show_Relevant: 'installation',
+      notice: '这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息',
+      nitice_flag: false
     }
   },
   computed: {
@@ -271,7 +288,7 @@ export default {
       p.target.updateSymbol({
         markerWidth: 35,
         markerHeight: 35,
-        markerFill: '#ff0000'
+        markerFill: '#ff8000'
       })
       this.selectedGeo = p.target
       this.setSomeState(['selectedTarget', t])
@@ -338,9 +355,26 @@ export default {
     change_warning() {
       this.warning = !this.warning
       if (this.warning === false) {
-        console.log()
         location.reload()
       }
+    },
+    change_Relevant(value) {
+      this.tab_show_Relevant = value
+    },
+    open (data) {
+      this.nitice_flag = true
+    },
+    closeNnotice() {
+      this.nitice_flag = false
+    },
+    setSelectedWaring () {
+      this.$Notice.open({
+        title: '警告标题',
+        desc: sample([
+        '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
+        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']),
+        duration: 4 //弹窗显示时间，设为0为永久显示
+      });
     }
   },
   mounted() {
@@ -355,9 +389,9 @@ export default {
             markerType: 'path',
             markerPathWidth: 1024,
             markerPathHeight: 1024,
-            markerFill: '#ffff00',
-            markerWidth: 30,
-            markerHeight: 30,
+            markerFill: '#ff8000',
+            markerWidth: 35,
+            markerHeight: 35,
             markerPath: SVG['Plane'],
             markerVerticalAlignment: 'middle',
             markerHorizontalAlignment: 'middle'
@@ -368,7 +402,8 @@ export default {
       }, 1000)
     })
     this.intv = setInterval(async () => {
-      let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
+      // let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
+      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWaring' })
       // debugger
       this.waringList = ret.targetList
     }, 5000)
@@ -377,7 +412,52 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .tab_wrap{
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 50%;
+    width: 140px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: -70px;
+    padding: 4px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    border: 1px solid #009bef;
+    box-shadow: 0 0 20px 2px #009bef;
+  }
+  .notice{
+    position: fixed;
+    z-index: 99999;
+    top: -110px;
+    right: 10px;
+    width: 300px;
+    height: 100px;
+    padding: 0 10px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #009bef;
+    box-shadow: 0 0 20px 2px #009bef;
+    color: #fff;
+    transition: all 1s linear;
+    overflow: hidden;
+    .close{
+      font-size: 20px;
+      float: right;
+      cursor: pointer;
+      margin-top: -6px;
+    }
+    .content{
+      clear: both;
+      height: 60px;
+      padding-right: 12px;
+      margin-right: -30px;
+      overflow: auto;
+    }
+  }
+  .notice_show{
+    top: 10px;
+  }
 html,body{
   height: 100%;
   width: 100%;
@@ -389,22 +469,25 @@ html,body{
   height: 100%;
   width: 100%;
   .warning{
-    position: fixed;
-    z-index: 99999;
-    top: 0;
     color: #fff;
-    background: rgba(0,0,0,0.6);
-    padding: 10px;
-    border-radius: 4px;
-    left: 50%;
-    margin-left: -30px;
+    padding: 4px 6px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
     cursor: pointer;
-    border: 1px solid #009bef;
-    box-shadow: 0 0 20px 2px #009bef;
+  }
+  .warning_right{
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
   .warning_true{
-    box-shadow: 0 0 20px 2px red;
-    border-color: red;
+    background: #2196f3;
+    /*box-shadow: 0 0 20px 2px red;*/
+    /*border-color: red;*/
+  }
+  .ivu-notice{
+    box-shadow: 0 0 20px 2px #009bef !important;
   }
 }
 .ivu-tabs-nav .ivu-tabs-tab-active{

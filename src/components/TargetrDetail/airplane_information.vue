@@ -1,7 +1,7 @@
 <template>
     <!-- 飞机的目标信息 -->
     <div class="airplane_information">
-        <div class="info-data-item">
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('information')">
             <div class="info-title">
                 <span v-text="'飞机名称'"></span>
             </div>
@@ -33,7 +33,7 @@
                 <span>{{base_info.registration}}</span>
             </div>
         </div>
-        <div class="info-data-item">
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
             <div class="info-title">
                 <span v-text="'隶属单位'"></span>
             </div>
@@ -84,7 +84,11 @@ export default {
     return { }
   },
   props: ['base_info'],
-  methods: { },
+  methods: {
+    change_Relevant(value) {
+        this.$emit('change_Relevant', value)
+    }
+  },
   mounted () { }
 }
 </script>
