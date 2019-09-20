@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
-      <vectorlayer :id="`featurelayer`">
+    <mapcan v-if="warning" name="mainmap0" key="mainmap0" :center="[100,31]" :zoom="4" style="height:100%">
+      <tilelayer slot="baselayer" :id="`googlelayer0`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer0`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected($event,target)"/>
       </vectorlayer>
@@ -10,9 +10,9 @@
         test
       </map-tip>
     </mapcan>
-    <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
-      <vectorlayer :id="`featurelayer`">
+    <mapcan v-else name="mainmap1" key="mainmap1" :center="[100,31]" :zoom="4" style="height:100%">
+      <tilelayer slot="baselayer" :id="`googlelayer1`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer1`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
       </vectorlayer>
@@ -273,7 +273,7 @@ export default {
       p.target.updateSymbol({
         markerWidth: 35,
         markerHeight: 35,
-        markerFill: '#ff0000'
+        markerFill: '#ff8000'
       })
       this.selectedGeo = p.target
       this.setSomeState(['selectedTarget', t])
@@ -356,9 +356,9 @@ export default {
             markerType: 'path',
             markerPathWidth: 1024,
             markerPathHeight: 1024,
-            markerFill: '#ffff00',
-            markerWidth: 30,
-            markerHeight: 30,
+            markerFill: '#ff8000',
+            markerWidth: 35,
+            markerHeight: 35,
             markerPath: SVG['Plane'],
             markerVerticalAlignment: 'middle',
             markerHorizontalAlignment: 'middle'
