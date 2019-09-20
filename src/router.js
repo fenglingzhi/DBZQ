@@ -15,6 +15,9 @@ export default new Router({
       path: '/warning',
       name: 'warning',
       component: warning
+    },{
+      path: '*',
+      redirect: '/'
     }
   ]
 })

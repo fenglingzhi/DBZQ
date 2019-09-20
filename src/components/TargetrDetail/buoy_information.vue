@@ -1,7 +1,7 @@
 <template>
     <!-- 浮标的目标信息 -->
     <div class="buoy_information">
-        <div class="info-data-item">
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('information')">
             <div class="info-title">
                 <span v-text="'站点名称'"></span>
             </div>
@@ -92,7 +92,11 @@ export default {
     return { }
   },
   props: ['base_info'],
-  methods: { },
+  methods: {
+    change_Relevant(value) {
+        this.$emit('change_Relevant', value)
+    }
+  },
   mounted () { }
 }
 </script>

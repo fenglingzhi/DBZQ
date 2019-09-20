@@ -1,5 +1,5 @@
 <template>
-  <div class="TargetrDetail">
+  <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true  ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
     <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
       <div class="TargetrDetail_operator">
@@ -21,7 +21,7 @@
       <!-- tab的content 展示 -->
       <div class="TargetrDetail_content" v-if="tab_boolean">
         <Spin size="large" fix v-if="spinShow"></Spin>
-        <TargetrInformation :base_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow"></TargetrInformation>
+        <TargetrInformation :base_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow" @change_Relevant = "change_Relevant"></TargetrInformation>
         <TargetrTrajectory :real_time_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory>
       </div>
 
@@ -106,7 +106,7 @@ export default {
       get_data_boolean: true
     }
   },
-  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean'],
   computed: {
     ...mapState(['selectedTarget'])
   },
@@ -118,7 +118,11 @@ export default {
     selectedTarget() {
       this.tab_show = 'TargetrInformation'
       this.get_info()
-    }
+    },
+    targetr_info() {
+      this.container_height = 210
+      this.tab_boolean = true
+    },
   },
   mounted() {
     this.get_info()
@@ -142,7 +146,6 @@ export default {
     changeTab(value) {
       this.tab_show = value
     },
-
     // 获取目标
     get_info() {
       this.spinShow = true
@@ -150,6 +153,9 @@ export default {
       //   this.spinShow = false
       //   this.targetr_info = r.target
       // })
+    },
+    change_Relevant(value) {
+      this.$emit('change_Relevant', value)
     }
   }
 }
@@ -158,6 +164,14 @@ export default {
 <style scoped>
   .TargetrDetail{
     width: calc(100vw - 20px);
+  }
+  .TargetrDetail_wrap{
+    margin-bottom: -240px;
+    transition: all 1s linear;
+  }
+  .TargetrDetail_wrap_open{
+    margin-bottom: 0;
+    transition: all 1s linear;
   }
   .TargetrDetail_container{
     width:1200px;

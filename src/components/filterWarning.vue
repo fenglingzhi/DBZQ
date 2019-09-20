@@ -6,19 +6,20 @@
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
         <TabPane label="标签检索" tab="name1">
-          <Row style="margin-bottom: 10px;">
-            <i-col span="20">
-              <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />
-            </i-col>
-            <i-col span="3" offset="1">
-              <Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>
-            </i-col>
-          </Row>
+          <!--<Row style="margin-bottom: 10px;">-->
+            <!--<i-col span="20">-->
+              <!--<Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />-->
+            <!--</i-col>-->
+            <!--<i-col span="3" offset="1">-->
+              <!--<Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>-->
+              <!--&lt;!&ndash;<div class="submit"></div>&ndash;&gt;-->
+            <!--</i-col>-->
+          <!--</Row>-->
           <Tabs name="1-1" tab="name1" v-model="targetType">
             <TabPane label="飞机" tab="1-1" name="Plane">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
+                  <i-col span="3" class="label">地区：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -28,50 +29,10 @@
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">军民属性：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">类型：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">高度：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeHeight" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">速度：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeSpeed" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -91,29 +52,9 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">军民属性：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">类型：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -133,19 +74,9 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">军民属性：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -165,73 +96,7 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-            </TabPane>
-            <TabPane label="机场" tab="1-1" name="Airport">
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-            </TabPane>
-            <TabPane label="港口" tab="1-1" name="Port">
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-            </TabPane>
-            <TabPane label="发射场" tab="1-1" name="fashechang">
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
@@ -326,7 +191,7 @@ const GQL = {
   }
 }
 export default {
-  name: 'filterwrap',
+  name: 'filterWarning',
   data() {
     return {
       searchString: '',
@@ -427,7 +292,7 @@ export default {
       border: 1px solid #009bef;
       box-shadow: 0 0 20px 2px #009bef;
       color:#fff;
-      margin-top: -465px;
+      margin-top: -455px;
       transition: all 1s linear;
       .title{
         text-align: center;

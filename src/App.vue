@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <mapcan v-if="warning" name="mainmap0" key="mainmap0" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer0`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
-      <vectorlayer :id="`featurelayer0`">
+    <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%" key="0">
+      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected($event,target)"/>
       </vectorlayer>
+      <uicomponent :position={top:10,left:10}>
+        <filterwarning></filterwarning>
+      </uicomponent>
       <map-tip slot="maptip" :hide.sync="hideTip">
         test
       </map-tip>
     </mapcan>
-    <mapcan v-else name="mainmap1" key="mainmap1" :center="[100,31]" :zoom="4" style="height:100%">
-      <tilelayer slot="baselayer" :id="`googlelayer1`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
-      <vectorlayer :id="`featurelayer1`">
+    <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%" key="1">
+      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
       </vectorlayer>
@@ -21,32 +24,35 @@
         <filterwrap></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
-        <RelevantInformation v-if="show_RelevantInformation_boolean"
-                             :targetr_type="selectedTarget && selectedTarget.targetType"
+        <RelevantInformation :targetr_type="selectedTarget && selectedTarget.targetType"
                              :targetr_id="targetr_id"
                              :targetr_info="targetr_info"
                              :spinShow="spinShow"
+                             :show_RelevantInformation_boolean="show_RelevantInformation_boolean"
+                             :tab_show_Relevant="tab_show_Relevant"
                              @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
       </uicomponent>
-      <uicomponent :position={bottom:10,left:10}>
-        <!-- <TargetrDetail v-if="show_TargetrDetail_boolean" :targetr_type="targetr_type" :targetr_id="targetr_id" @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail> -->
-        <TargetrDetail v-if="show_TargetrDetail_boolean"
-                       :targetr_type="selectedTarget && selectedTarget.targetType"
+      <uicomponent :position={bottom:10,left:10} style="z-index: 9999">
+        <TargetrDetail :targetr_type="selectedTarget && selectedTarget.targetType"
                        :targetr_id="targetr_id"
                        :targetr_info="targetr_info"
                        :spinShow="spinShow"
-                       @close_TargetrDetail = "close_TargetrDetail"></TargetrDetail>
-        <!--<div>-->
-          <!--<button @click="show_TargetrDetail('airplane')">飞机</button>-->
-          <!--<button @click="show_TargetrDetail('ship')">船舶</button>-->
-          <!--<button @click="show_TargetrDetail('satellite')">卫星</button>-->
-          <!--<button @click="show_TargetrDetail('buoy')">浮标</button>-->
-        <!--</div>-->
+                       :show_TargetrDetail_boolean="show_TargetrDetail_boolean"
+                       @close_TargetrDetail = "close_TargetrDetail"
+                       @change_Relevant = "change_Relevant"></TargetrDetail>
       </uicomponent>
     </mapcan>
-    <div class="warning" :class="{'warning_true':warning === true}">
-      <div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>
+    <div class="tab_wrap">
+      <div class="warning" :class="{'warning_true':warning === false}">
+        <!--<div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>-->
+        <div class="title" @click="change_warning()">正常模式</div>
+      </div>
+      <div class="warning warning_right" :class="{'warning_true':warning === true}">
+        <!--<div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>-->
+        <div class="title" @click="change_warning()">预警模式</div>
+      </div>
     </div>
+    <!-- <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button> -->
   </div>
 </template>
 
@@ -60,11 +66,12 @@ import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
 import MapTip from './components/MapTip'
 import filterwrap from './components/filter.vue'
+import filterwarning from './components/filterWarning'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
-import { delay } from 'lodash'
+import { delay,sampleSize } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -233,7 +240,7 @@ const GQL = {
 }
 export default {
   name: 'app',
-  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation },
+  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
   data() {
     return {
       show_TargetrDetail_boolean: false,
@@ -247,7 +254,8 @@ export default {
       waringList: [],
       hideTip: false,
       selectedGeo: null,
-      warning: false // 预警标志
+      warning: false, // 预警标志
+      tab_show_Relevant: 'installation'
     }
   },
   computed: {
@@ -340,8 +348,19 @@ export default {
     change_warning() {
       this.warning = !this.warning
       if (this.warning === false) {
+        console.log()
         location.reload()
       }
+    },
+    change_Relevant(value) {
+      this.tab_show_Relevant = value
+    },
+    open (nodesc) {
+      this.$Notice.open({
+        title: '警告标题',
+        desc: nodesc || '警告内容',
+        duration: 4 //弹窗显示时间，设为0为永久显示
+      });
     }
   },
   mounted() {
@@ -369,16 +388,33 @@ export default {
       }, 1000)
     })
     this.intv = setInterval(async () => {
-      let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
+      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWaring' })
       // debugger
       this.waringList = ret.targetList
+      sampleSize([
+        '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
+        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']).forEach(c=>this.warning&&c&&this.open(c))
     }, 5000)
   }
 }
 </script>
 
 <style lang="scss">
-
+  .tab_wrap{
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 50%;
+    width: 140px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: -70px;
+    padding: 4px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    border: 1px solid #009bef;
+    box-shadow: 0 0 20px 2px #009bef;
+  }
 html,body{
   height: 100%;
   width: 100%;
@@ -390,22 +426,25 @@ html,body{
   height: 100%;
   width: 100%;
   .warning{
-    position: fixed;
-    z-index: 99999;
-    top: 0;
     color: #fff;
-    background: rgba(0,0,0,0.6);
-    padding: 10px;
-    border-radius: 4px;
-    left: 50%;
-    margin-left: -30px;
+    padding: 8px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
     cursor: pointer;
-    border: 1px solid #009bef;
-    box-shadow: 0 0 20px 2px #009bef;
+  }
+  .warning_right{
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
   .warning_true{
-    box-shadow: 0 0 20px 2px red;
-    border-color: red;
+    background: #2196f3;
+    /*box-shadow: 0 0 20px 2px red;*/
+    /*border-color: red;*/
+  }
+  .ivu-notice{
+    box-shadow: 0 0 20px 2px #009bef !important;
   }
 }
 .ivu-tabs-nav .ivu-tabs-tab-active{
