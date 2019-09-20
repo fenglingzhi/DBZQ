@@ -56,18 +56,9 @@ export default {
       if (this.geometry) this.geometry.setCoordinates(n)
     },
     json(n, o) {
-      let that = this
-      this.geometry.remove()
-      this.geometry = n.feature ? mapcan.Geometry.fromJSON(n) : mapcan.GeoJSON.toGeometry(n)
-      if (!this.geometry) return
-      if (this.symbol) this.geometry.setSymbol(this.symbol)
-      if (this.layer.mapItem) this.layer.mapItem.addGeometry(this.geometry)
-      this.geometry.on('click', e => {
-        // debugger
-        that.container.mapTip && that.container.mapTip.show(that.geometry.getCenter())
-        that.$emit('click', e)
-      });
-      ['mouseenter', 'mouseout'].forEach(en => that.geometry.on(en, e => that.$emit(en, e)))
+      let geometry = n.feature ? mapcan.Geometry.fromJSON(n) : mapcan.GeoJSON.toGeometry(n)
+      if (!geometry) return
+      this.geometry.setCoordinates(geometry.getCoordinates())
     }
   }
 }

@@ -4,7 +4,7 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring"/>
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
         <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
         :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
@@ -265,6 +265,7 @@ export default {
       waringList: [],
       hideTip: false,
       selectedGeo: null,
+      selectWarningGeo: null,
       warning: false, // 预警标志
       tab_show_Relevant: 'installation',
       notice: '这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息',
@@ -373,7 +374,16 @@ export default {
     closeNnotice() {
       this.nitice_flag = false
     },
-    setSelectedWaring () {
+    setSelectedWaring (e) {
+      this.selectWarningGeo && this.selectWarningGeo.updateSymbol({
+        markerWidth: 25,
+        markerHeight: 25
+      })
+      e.target.updateSymbol({
+        markerWidth: 35,
+        markerHeight: 35
+      })
+      this.selectWarningGeo = e.target
       this.nitice_flag = true
       this.notice = sample([
         '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
