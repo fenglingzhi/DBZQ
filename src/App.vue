@@ -5,7 +5,9 @@
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring"/>
-
+        <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -70,14 +72,14 @@ import Vectorlayer from './components/Vectorlayer'
 import Routeplayer from './components/Routeplayer'
 import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
-import MapTip from './components/MapTip'
+// import MapTip from './components/MapTip'
 import filterwrap from './components/filter.vue'
 import filterwarning from './components/filterWarning'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
-import { delay,sample } from 'lodash'
+import { delay, sample } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -249,7 +251,7 @@ const GQL = {
 }
 export default {
   name: 'app',
-  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
+  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
   data() {
     return {
       show_TargetrDetail_boolean: false,
