@@ -166,7 +166,7 @@ export default {
     width: calc(100vw - 20px);
   }
   .TargetrDetail_wrap{
-    margin-bottom: -220px;
+    margin-bottom: -240px;
     transition: all 1s linear;
   }
   .TargetrDetail_wrap_open{
