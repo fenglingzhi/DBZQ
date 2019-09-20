@@ -4,14 +4,11 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelected($event,target)"/>
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
       </uicomponent>
-      <map-tip slot="maptip" :hide.sync="hideTip">
-        test
-      </map-tip>
     </mapcan>
     <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%" key="1">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
@@ -71,7 +68,7 @@ import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
-import { delay,sampleSize } from 'lodash'
+import { delay,sample } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -348,17 +345,18 @@ export default {
     change_warning() {
       this.warning = !this.warning
       if (this.warning === false) {
-        console.log()
         location.reload()
       }
     },
     change_Relevant(value) {
       this.tab_show_Relevant = value
     },
-    open (nodesc) {
+    setSelectedWaring () {
       this.$Notice.open({
         title: '警告标题',
-        desc: nodesc || '警告内容',
+        desc: sample([
+        '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
+        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']),
         duration: 4 //弹窗显示时间，设为0为永久显示
       });
     }
@@ -391,9 +389,6 @@ export default {
       let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWaring' })
       // debugger
       this.waringList = ret.targetList
-      sampleSize([
-        '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
-        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']).forEach(c=>this.warning&&c&&this.open(c))
     }, 5000)
   }
 }
