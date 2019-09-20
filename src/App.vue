@@ -5,6 +5,7 @@
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring"/>
+        
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -200,7 +201,7 @@ const GQL = {
   },
   freshWarning: { query: gql`
     query($type:String!){
-      targetList: filterTargets(targetType:$type,size:5) {
+      targetList: filterTargets(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -210,6 +211,9 @@ const GQL = {
               type, coordinates
             }
           },
+          action{
+            track{ lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }
+          }
           symbol}
         ...on Ship{
           targetType: __typename,
@@ -386,7 +390,7 @@ export default {
       }, 1000)
     })
     this.intv = setInterval(async () => {
-      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWaring' })
+      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
       // debugger
       this.waringList = ret.targetList
     }, 5000)

@@ -262,10 +262,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { executeGQL } from '../commons'
+import { executeGQL, gql } from '../commons'
 import { find, sampleSize } from 'lodash'
 const GQL = {
-  getConditions: { query: `
+  getConditions: { query: gql`
     {
       regionList {
         id, cname,
@@ -288,7 +288,7 @@ const GQL = {
       }
     }`
   },
-  filterTargets: { query: `
+  filterTargets: { query: gql`
     query($type:String!){
       targetList: filterTargets(targetType:$type) {
         ...on Plane{
