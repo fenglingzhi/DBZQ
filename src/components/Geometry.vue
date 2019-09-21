@@ -54,6 +54,11 @@ export default {
   watch: {
     coordinations(n, o) {
       if (this.geometry) this.geometry.setCoordinates(n)
+    },
+    json(n, o) {
+      let geometry = n.feature ? mapcan.Geometry.fromJSON(n) : mapcan.GeoJSON.toGeometry(n)
+      if (!geometry) return
+      this.geometry.setCoordinates(geometry.getCoordinates())
     }
   }
 }

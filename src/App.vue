@@ -4,7 +4,10 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
-        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring"/>
+        :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
+        <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -57,7 +60,7 @@
         {{notice}}
       </div>
     </div>
-     <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button>
+     <!-- <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button> -->
   </div>
 </template>
 
@@ -69,14 +72,14 @@ import Vectorlayer from './components/Vectorlayer'
 import Routeplayer from './components/Routeplayer'
 import Geometry from './components/Geometry'
 import Uicomponent from './components/UIComponent'
-import MapTip from './components/MapTip'
+// import MapTip from './components/MapTip'
 import filterwrap from './components/filter.vue'
 import filterwarning from './components/filterWarning'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
 import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
-import { delay,sample } from 'lodash'
+import { delay, sample } from 'lodash'
 const GQL = {
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -208,7 +211,7 @@ const GQL = {
   },
   freshWarning: { query: gql`
     query($type:String!){
-      targetList: filterTargets(targetType:$type,size:5) {
+      targetList: filterTargets(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -218,6 +221,9 @@ const GQL = {
               type, coordinates
             }
           },
+          action{
+            track{ lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }
+          }
           symbol}
         ...on Ship{
           targetType: __typename,
@@ -245,7 +251,7 @@ const GQL = {
 }
 export default {
   name: 'app',
-  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
+  components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
   data() {
     return {
       show_TargetrDetail_boolean: false,
@@ -259,6 +265,7 @@ export default {
       waringList: [],
       hideTip: false,
       selectedGeo: null,
+      selectWarningGeo: null,
       warning: false, // 预警标志
       tab_show_Relevant: 'installation',
       notice: '这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息',
@@ -367,14 +374,27 @@ export default {
     closeNnotice() {
       this.nitice_flag = false
     },
-    setSelectedWaring () {
-      this.$Notice.open({
-        title: '警告标题',
-        desc: sample([
+    setSelectedWaring (e) {
+      this.selectWarningGeo && this.selectWarningGeo.updateSymbol({
+        markerWidth: 25,
+        markerHeight: 25
+      })
+      e.target.updateSymbol({
+        markerWidth: 35,
+        markerHeight: 35
+      })
+      this.selectWarningGeo = e.target
+      this.nitice_flag = true
+      this.notice = sample([
         '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
-        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']),
-        duration: 4 //弹窗显示时间，设为0为永久显示
-      });
+        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意'])
+      // this.$Notice.open({
+      //   title: '警告标题',
+      //   desc: sample([
+      //   '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
+      //   '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']),
+      //   duration: 4 // 弹窗显示时间，设为0为永久显示
+      // })
     }
   },
   mounted() {
@@ -402,8 +422,7 @@ export default {
       }, 1000)
     })
     this.intv = setInterval(async () => {
-      // let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
-      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWaring' })
+      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
       // debugger
       this.waringList = ret.targetList
     }, 5000)
