@@ -233,8 +233,8 @@ export default {
     align-items: center;
   }
   .RelevantInformation_wrap{
-    /*margin-top: -600px;*/
-    margin-top: 0px;
+    margin-top: -600px;
+    /*margin-top: 0px;*/
     transition: all 1s linear;
   }
   .RelevantInformation_open{
