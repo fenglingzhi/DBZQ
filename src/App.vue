@@ -412,52 +412,52 @@ export default {
 </script>
 
 <style lang="scss">
-  .tab_wrap{
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    left: 50%;
-    width: 140px;
-    display: flex;
-    justify-content: space-evenly;
-    margin-left: -70px;
-    padding: 4px;
-    background: rgba(0,0,0,0.6);
-    border-radius: 20px;
-    border: 1px solid #009bef;
-    box-shadow: 0 0 20px 2px #009bef;
+.tab_wrap{
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 50%;
+  width: 140px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: -70px;
+  padding: 4px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 20px;
+  border: 1px solid #009bef;
+  box-shadow: 0 0 20px 2px #009bef;
+}
+.notice{
+  position: fixed;
+  z-index: 99999;
+  top: -110px;
+  right: 10px;
+  width: 300px;
+  height: 100px;
+  padding: 0 10px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid #009bef;
+  box-shadow: 0 0 20px 2px #009bef;
+  color: #fff;
+  transition: all 1s linear;
+  overflow: hidden;
+  .close{
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+    margin-top: -6px;
   }
-  .notice{
-    position: fixed;
-    z-index: 99999;
-    top: -110px;
-    right: 10px;
-    width: 300px;
-    height: 100px;
-    padding: 0 10px;
-    background: rgba(0,0,0,0.6);
-    border: 1px solid #009bef;
-    box-shadow: 0 0 20px 2px #009bef;
-    color: #fff;
-    transition: all 1s linear;
-    overflow: hidden;
-    .close{
-      font-size: 20px;
-      float: right;
-      cursor: pointer;
-      margin-top: -6px;
-    }
-    .content{
-      clear: both;
-      height: 60px;
-      padding-right: 12px;
-      margin-right: -30px;
-      overflow: auto;
-    }
+  .content{
+    clear: both;
+    height: 60px;
+    padding-right: 12px;
+    margin-right: -30px;
+    overflow: auto;
   }
-  .notice_show{
-    top: 10px;
-  }
+}
+.notice_show{
+  top: 10px;
+}
 html,body{
   height: 100%;
   width: 100%;
