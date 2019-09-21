@@ -29,7 +29,7 @@
                 <span class="expand-value" v-text="row.type"></span>
             </Col>
             <Col span="8">
-                <span class="expand-key">所在国家/地区: </span>
+                <span class="expand-key">国家/地区: </span>
                 <span class="expand-value" v-text="row.base.country.cname"></span>
             </Col>
         </Row>

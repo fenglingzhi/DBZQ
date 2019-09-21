@@ -42,13 +42,11 @@
                        @change_Relevant = "change_Relevant"></TargetrDetail>
       </uicomponent>
     </mapcan>
-    <div class="tab_wrap">
+    <div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">
       <div class="warning" :class="{'warning_true':warning === false}">
-        <!--<div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>-->
         <div class="title" @click="change_warning()">正常模式</div>
       </div>
-      <div class="warning warning_right" :class="{'warning_true':warning === true}">
-        <!--<div class="title" @click="change_warning()">{{warning ? '预警': '正常'}}模式</div>-->
+      <div class="warning warning_right" :class="{'warning_color':warning === true}">
         <div class="title" @click="change_warning()">预警模式</div>
       </div>
     </div>
@@ -60,7 +58,7 @@
         {{notice}}
       </div>
     </div>
-     <!-- <Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button> -->
+      <!--<Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button>-->
   </div>
 </template>
 
@@ -436,15 +434,19 @@ export default {
   z-index: 99999;
   top: 0;
   left: 50%;
-  width: 140px;
+  width: 160px;
   display: flex;
   justify-content: space-evenly;
-  margin-left: -70px;
+  margin-left: -80px;
   padding: 4px;
   background: rgba(0,0,0,0.6);
   border-radius: 20px;
   border: 1px solid #009bef;
   box-shadow: 0 0 20px 2px #009bef;
+}
+.tab_wrap_warning{
+  border: 1px solid red;
+  box-shadow: 0 0 20px 2px red;
 }
 .notice{
   position: fixed;
@@ -489,7 +491,7 @@ html,body{
   width: 100%;
   .warning{
     color: #fff;
-    padding: 4px 6px;
+    padding: 4px 10px;
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
     cursor: pointer;
@@ -504,6 +506,9 @@ html,body{
     background: #2196f3;
     /*box-shadow: 0 0 20px 2px red;*/
     /*border-color: red;*/
+  }
+  .warning_color{
+    background: red;
   }
   .ivu-notice{
     box-shadow: 0 0 20px 2px #009bef !important;

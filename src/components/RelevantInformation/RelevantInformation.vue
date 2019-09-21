@@ -169,11 +169,11 @@ export default {
           display:flex;
           cursor: pointer;
           align-items:center;
-          font-size:12px;
+          font-size: 18px;
           padding-right: 2px;
 
           .RelevantInformation_operator_icon{
-            padding: 3px;
+            /*padding: 3px;*/
             cursor: pointer;
             display: inline-block;
             transition: all .3s;
@@ -233,7 +233,8 @@ export default {
     align-items: center;
   }
   .RelevantInformation_wrap{
-    margin-top: -600px;
+    /*margin-top: -600px;*/
+    margin-top: 0px;
     transition: all 1s linear;
   }
   .RelevantInformation_open{

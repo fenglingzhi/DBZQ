@@ -68,7 +68,7 @@ export default {
           key: 'goods'
         },
         {
-          title: '最大吞吐量',
+          title: '吞吐量',
           key: 'capacity'
         },
         {

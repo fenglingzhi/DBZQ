@@ -228,7 +228,7 @@ export default {
     display:flex;
     cursor: pointer;
     align-items:center;
-    font-size:12px;
+    font-size:18px;
     padding-right: 2px;
   }
   .TargetrDetail_operator_tab_active{
