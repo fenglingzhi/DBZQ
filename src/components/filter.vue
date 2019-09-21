@@ -382,7 +382,7 @@ export default {
       this.show = !this.show
     },
     themeSelect() {
-      alert('主题检索')
+//      alert('主题检索')
     },
     // 国家选择
     countrySelect(index) {
