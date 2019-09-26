@@ -58,10 +58,14 @@
         {{notice}}
       </div>
     </div>
-      <!--<Button style="position: absolute;top: 0;right: 0;" type="primary" @click="open(false)">警告触发</Button>-->
+    <div id="clock">
+      <span class="date">{{ date }}</span>
+      <span class="time" style="margin-left: 10px;">{{ time }}</span>
+    </div>
   </div>
 </template>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
 <script>
 // import ax from 'axios'
 import Mapcan from './components/MapControl'
@@ -247,6 +251,7 @@ const GQL = {
     }`
   }
 }
+var week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 export default {
   name: 'app',
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
@@ -267,7 +272,9 @@ export default {
       warning: false, // 预警标志
       tab_show_Relevant: 'installation',
       notice: '这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息',
-      nitice_flag: false
+      nitice_flag: false,
+      time: '',
+      date: ''
     }
   },
   computed: {
@@ -393,9 +400,24 @@ export default {
       //   '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意']),
       //   duration: 4 // 弹窗显示时间，设为0为永久显示
       // })
+    },
+    updateTime() {
+      var cd = new Date();
+      this.time = this.zeroPadding(cd.getHours(), 2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
+      this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+    },
+
+    zeroPadding(num, digit) {
+      var zero = '';
+      for(var i = 0; i < digit; i++) {
+        zero += '0';
+      }
+      return (zero + num).slice(-digit);
     }
   },
   mounted() {
+    this.updateTime();
+    setInterval(this.updateTime, 1000)
     this.$root.mq.$on('routePlay', (e) => {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
@@ -429,7 +451,38 @@ export default {
 </script>
 
 <style lang="scss">
-.tab_wrap{
+  #clock {
+    font-family: 'Share Tech Mono', monospace;
+    text-align: center;
+    position: absolute;
+    right: -100px;
+    top: 20px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /*color: #daf6ff;*/
+    color: #fff;
+    text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+    background: rgba(0,0,0,0.6);
+    padding: 4px 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 20px 2px #009bef;
+  }
+  #clock .time {
+    letter-spacing: 0.05em;
+    font-size: 12px;
+    padding: 5px 0;
+  }
+  #clock .date {
+    letter-spacing: 0.1em;
+    font-size: 12px;
+  }
+  #clock .text {
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    padding: 20px 0 0;
+  }
+
+  .tab_wrap{
   position: fixed;
   z-index: 99999;
   top: 0;

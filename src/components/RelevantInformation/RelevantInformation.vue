@@ -238,7 +238,7 @@ export default {
     transition: all 1s linear;
   }
   .RelevantInformation_open{
-    margin-top: 0;
+    margin-top: 30px;
     transition: all 1s linear;
   }
 </style>

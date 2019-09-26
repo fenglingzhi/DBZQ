@@ -16,15 +16,15 @@ module.exports = {
         changeOrigin: true
       } */
       '/maptiles': {
-        // target: 'http://47.111.29.26:8000',
+        target: 'http://47.111.29.26:8000',
         // target: 'http://192.168.199.217:8000',
-        target: 'http://localhost:8000',
+        // target: 'http://localhost:8000',
         changeOrigin: true
       },
       '/graphql': {
-        // target: 'http://47.111.29.26:8000',
+        target: 'http://47.111.29.26:8000',
         // target: 'http://192.168.199.217:8000',
-        target: 'http://localhost:8000',
+        // target: 'http://localhost:8000',
         changeOrigin: true
       }
     }

@@ -67,10 +67,10 @@ export default {
           title: '通航日期',
           key: 'date'
         },
-        {
-          title: '飞行区等级',
-          key: 'level'
-        },
+//        {
+//          title: '飞行区等级',
+//          key: 'level'
+//        },
 //        {
 //          title: '航站楼面积',
 //          key: 'area'

@@ -60,7 +60,7 @@ export default {
           key: 'ETD'
         },
         {
-          title: '预计到达时间',
+          title: '到达时间',
           key: 'ETA'
         },
         {
