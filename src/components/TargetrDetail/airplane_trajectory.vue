@@ -34,7 +34,8 @@
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
         <template slot="action" slot-scope="{row,index}">
-            <Icon style="cursor: pointer" type="md-play" @click="player(index)" />
+            <Icon style="cursor: pointer" type="md-play" @click="player(index)"  v-if="activeIndex !== index"/>
+            <Icon style="cursor: pointer" type="md-pause" @click="pause(index)" v-if="activeIndex === index"/>
         </template>
       </Table>
     </div>
@@ -93,7 +94,8 @@ export default {
           width: 100,
           align: 'center'
         }
-      ]
+      ],
+      activeIndex: ''
     }
   },
   props: {
@@ -112,6 +114,11 @@ export default {
   },
   methods: {
     player(index) {
+      this.activeIndex = index
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+    },
+    pause(index){
+      this.activeIndex = ''
       this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }
   },

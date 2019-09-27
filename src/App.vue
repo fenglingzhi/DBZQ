@@ -419,6 +419,7 @@ export default {
     this.updateTime();
     setInterval(this.updateTime, 1000)
     this.$root.mq.$on('routePlay', (e) => {
+      this.show_RelevantInformation_boolean = false
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
