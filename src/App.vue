@@ -317,7 +317,7 @@ export default {
         markerFill: '#f2e239',
         markerWidth: 25,
         markerHeight: 25,
-        markerPath: SVG[target.targetType],
+        markerPath: SVG[target.targetType] || SVG.Unknow,
         markerVerticalAlignment: 'middle',
         markerHorizontalAlignment: 'middle'
       })
