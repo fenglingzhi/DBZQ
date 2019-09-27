@@ -49,11 +49,11 @@ export default {
       columns1: [
         {
           title: '风向',
-          key: 'wind_direction'
+          key: 'windDirection'
         },
         {
           title: '风速',
-          key: 'wind_speed'
+          key: 'windSpeed'
         },
         {
           title: 'GST（阵风速度）',
@@ -61,39 +61,39 @@ export default {
         },
         {
           title: '波高',
-          key: 'wave_height'
+          key: 'waveHeight'
         },
         {
           title: '平均波方向',
-          key: 'wave_direction'
+          key: 'waveDirection'
         },
         {
           title: '平均周期',
-          key: 'average_period'
+          key: 'averagePeriod'
         },
         {
           title: '主导波周期',
-          key: 'dominant_period'
+          key: 'dominantPeriod'
         },
         {
           title: '海平面气压',
-          key: 'sea_pressure'
+          key: 'seaPressure'
         },
         {
           title: '气温',
-          key: 'air_temperature'
+          key: 'airTemperature'
         },
         {
           title: '海面温度',
-          key: 'sea_temperature'
+          key: 'seaTemperature'
         },
         {
           title: '水深',
-          key: 'depth_water'
+          key: 'depthWater'
         },
         {
           title: '压力趋势',
-          key: 'pressure_trend'
+          key: 'pressureTrend'
         },
         {
           title: '操作',
@@ -101,8 +101,8 @@ export default {
           width: 100,
           align: 'center'
         }
-      ],
-      data: []
+      ]
+      // data: []
     }
   },
   props: {
@@ -110,12 +110,14 @@ export default {
       type: Array
     }
   },
-  watch: {
-    real_time_info() {
-      this.data = this.real_time_info
+  computed: {
+    data() {
+      return this.real_time_info.map(({ windDirection, windSpeed, GST, waveHeight, waveDirection, averagePeriod, dominantPeriod, seaPressure, airTemperature, seaTemperature, depthWater, pressureTrend }) => {
+        let cdata = { windDirection, windSpeed, GST, waveHeight, waveDirection, averagePeriod, dominantPeriod, seaPressure, airTemperature, seaTemperature, depthWater, pressureTrend }
+        return cdata
+      })
     }
   },
-  methods: { },
   mounted () {
     setTimeout(() => {
       this.data = this.real_time_info

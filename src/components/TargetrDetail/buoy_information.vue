@@ -14,7 +14,7 @@
                 <span v-text="'观测站类型'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.satellite_attribute =='0'?'军用':base_info.attribute =='1'?'民用':''"></span>
+                <span v-text="base_info.usage.label"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.longitude"></span>
+                <span v-text="base_info.action.lon"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.latitude"></span>
+                <span v-text="base_info.action.lat"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'浮标型号'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.buoy_model"></span>
+                <span v-text="base_info.model.label"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'标称吃水'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.nominal_draught"></span>
+                <span v-text="base_info.draught"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'雷达反射面积'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.radar_area"></span>
+                <span v-text="base_info.radarArea"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -94,7 +94,7 @@ export default {
   props: ['base_info'],
   methods: {
     change_Relevant(value) {
-        this.$emit('change_Relevant', value)
+      this.$emit('change_Relevant', value)
     }
   },
   mounted () { }
