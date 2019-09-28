@@ -36,7 +36,7 @@
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_installation">
-      <Table height="400" :columns="columns1" :data="data" size="small"></Table>
+      <Table height="400" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
     </div>
 </template>
 
@@ -92,7 +92,12 @@ export default {
       })
     }
   },
-  methods: { },
-  mounted () {}
+  methods: {
+    showRow (data) {
+      console.log('设施行项目的点击操作以及data')
+      console.log(data)
+    }
+  },
+  mounted () { }
 }
 </script>

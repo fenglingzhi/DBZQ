@@ -1,5 +1,6 @@
 <template>
   <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true  ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
+    <!-- <div class="TargetrDetail_charts"></div> -->
     <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
       <div class="TargetrDetail_operator">
@@ -122,7 +123,7 @@ export default {
     targetr_info() {
       this.container_height = 210
       this.tab_boolean = true
-    },
+    }
   },
   mounted() {
     this.get_info()
@@ -173,6 +174,16 @@ export default {
     margin-bottom: 0;
     transition: all 1s linear;
   }
+  .TargetrDetail_charts{
+    width:1200px;
+    height: 30px;
+    background: rgba(0,0,0,.7);
+    margin:0 auto;
+    border-radius: 6px;
+    border: 1px solid #2b92d4;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
   .TargetrDetail_container{
     width:1200px;
     height: 210px;
@@ -182,17 +193,12 @@ export default {
     border: 1px solid #2b92d4;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     overflow: hidden;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-name: breathe;
-    -webkit-animation-duration: 10000ms;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1),visibility 0.5s cubic-bezier(0.645, 0.045, 0.355, 1),-webkit-transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-  }
+    position: relative;
+    }
   .TargetrDetail_operator{
     position: absolute;
     top: 6px;
-    right: calc(50vw - 604px);
+    right: 10px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
