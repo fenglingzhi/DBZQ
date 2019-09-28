@@ -129,10 +129,10 @@ export default {
       this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }
   },
-  mounted () {
-    setTimeout(() => {
-      this.data = this.real_time_info
-    }, 0)
-  }
+//  mounted () {
+//    setTimeout(() => {
+//      this.data = this.real_time_info
+//    }, 0)
+//  }
 }
 </script>
