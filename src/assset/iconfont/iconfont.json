@@ -1,0 +1,58 @@
+{
+  "id": "1409744",
+  "name": "dbzq",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "608268",
+      "name": "浮标",
+      "font_class": "fubiaobuoy",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "2268046",
+      "name": "卫星",
+      "font_class": "weixing",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "3588526",
+      "name": "飞机",
+      "font_class": "feiji",
+      "unicode": "e6f2",
+      "unicode_decimal": 59122
+    },
+    {
+      "icon_id": "5314385",
+      "name": "旅游城市建筑city-电梯商场航天发射场",
+      "font_class": "lvyouchengshijianzhucity-diantishangchanghangtianfashechang",
+      "unicode": "e6bf",
+      "unicode_decimal": 59071
+    },
+    {
+      "icon_id": "9783505",
+      "name": "wb_滨海机场",
+      "font_class": "binhaijichang",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "9783506",
+      "name": "wb_港口码头",
+      "font_class": "gangkoumatou",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "10487453",
+      "name": "船舶",
+      "font_class": "chuanbo",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    }
+  ]
+}
