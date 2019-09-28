@@ -36,16 +36,16 @@
                   </i-col>
                 </Row>
               </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">军民属性：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
+              <!--<div>-->
+                <!--<Row slot="content" class="row_margin">-->
+                  <!--<i-col span="3" class="label">军民属性：</i-col>-->
+                  <!--<i-col span="21">-->
+                    <!--<RadioGroup type="button" size="small" >-->
+                      <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
+                    <!--</RadioGroup>-->
+                  <!--</i-col>-->
+                <!--</Row>-->
+              <!--</div>-->
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">类型：</i-col>
@@ -98,16 +98,16 @@
                   </i-col>
                 </Row>
               </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">军民属性：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
+              <!--<div>-->
+                <!--<Row slot="content" class="row_margin">-->
+                  <!--<i-col span="3" class="label">军民属性：</i-col>-->
+                  <!--<i-col span="21">-->
+                    <!--<RadioGroup type="button" size="small" >-->
+                      <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
+                    <!--</RadioGroup>-->
+                  <!--</i-col>-->
+                <!--</Row>-->
+              <!--</div>-->
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">类型：</i-col>
@@ -140,16 +140,16 @@
                   </i-col>
                 </Row>
               </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">军民属性：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
+              <!--<div>-->
+                <!--<Row slot="content" class="row_margin">-->
+                  <!--<i-col span="3" class="label">军民属性：</i-col>-->
+                  <!--<i-col span="21">-->
+                    <!--<RadioGroup type="button" size="small" >-->
+                      <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
+                    <!--</RadioGroup>-->
+                  <!--</i-col>-->
+                <!--</Row>-->
+              <!--</div>-->
             </TabPane>
             <TabPane label="浮标" tab="1-1" name="Buoy">
               <div>

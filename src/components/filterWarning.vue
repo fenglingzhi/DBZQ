@@ -5,7 +5,7 @@
       <!--<Divider size="small" />-->
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
-        <TabPane label="标签检索" tab="name1">
+        <TabPane label="异特情检索" tab="name1">
           <!--<Row style="margin-bottom: 10px;">-->
             <!--<i-col span="20">-->
               <!--<Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />-->
@@ -106,18 +106,18 @@
             </TabPane>
           </Tabs>
         </TabPane>
-        <TabPane label="主题检索" name="name2">
-          <div>
-            <RadioGroup type="button" size="small" >
-              <Radio v-for="item in theme" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-            </RadioGroup>
-            <Row>
-              <i-col span="4">
-                <Button type="primary" size="small" style="width: 100%;" @click="themeSelect()">搜索</Button>
-              </i-col>
-            </Row>
-          </div>
-        </TabPane>
+        <!--<TabPane label="主题检索" name="name2">-->
+          <!--<div>-->
+            <!--<RadioGroup type="button" size="small" >-->
+              <!--<Radio v-for="item in theme" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>-->
+            <!--</RadioGroup>-->
+            <!--<Row>-->
+              <!--<i-col span="4">-->
+                <!--<Button type="primary" size="small" style="width: 100%;" @click="themeSelect()">搜索</Button>-->
+              <!--</i-col>-->
+            <!--</Row>-->
+          <!--</div>-->
+        <!--</TabPane>-->
       </Tabs>
     </div>
     <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
@@ -289,8 +289,8 @@ export default {
       min-height: 440px;
       overflow: auto;
       background: #0000006b;
-      border: 1px solid #009bef;
-      box-shadow: 0 0 20px 2px #009bef;
+      border: 1px solid red;
+      box-shadow: 0 0 20px 2px red;
       color:#fff;
       margin-top: -455px;
       transition: all 1s linear;
@@ -314,7 +314,7 @@ export default {
       }
       input:focus{
         border: 1px solid #000;
-        box-shadow: 0 0 1px 1px #084dff;
+        box-shadow: 0 0 1px 1px red;
       }
     }
     .filter_wrap_open{
