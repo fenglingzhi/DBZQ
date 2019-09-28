@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <div class="filter_wrap" :class = "show === true  ? 'filter_wrap':'filter_wrap_open'">
+    <div class="filter_wrap_warning" :class = "show === true  ? 'filter_wrap_warning':'filter_wrap_open'">
       <!--<div class="title">飞机</div>-->
       <!--<Divider size="small" />-->
       <!--<input type="text" placeholder="请输入筛选项">-->
@@ -121,7 +121,8 @@
       </Tabs>
     </div>
     <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
-      <img src="../assets/images/button1.png" alt="" style="width: 40px;">
+      <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
+      <Icon type="ios-arrow-down" class="icon_w"/>
     </div>
   </div>
 </template>
@@ -283,7 +284,7 @@ export default {
     background: #ccc;
   }
   .filter{
-    .filter_wrap{
+    .filter_wrap_warning{
       width: 600px;
       padding: 10px;
       min-height: 440px;
@@ -292,7 +293,7 @@ export default {
       border: 1px solid red;
       box-shadow: 0 0 20px 2px red;
       color:#fff;
-      margin-top: -455px;
+      margin-top: -466px;
       transition: all 1s linear;
       .title{
         text-align: center;
@@ -325,6 +326,11 @@ export default {
       width: 100%;
       text-align: center;
       transition: all 1s linear;
+    }
+    .icon_w{
+      font-size: 50px;
+      color: red;
+      text-shadow: 0 1px 20px #000;
     }
     .close_wrap{
       transform: rotate(180deg);

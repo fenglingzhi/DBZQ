@@ -256,7 +256,8 @@
       </Tabs>
     </div>
     <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
-      <img src="../assets/images/button1.png" alt="" style="width: 40px;">
+      <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
+      <Icon type="ios-arrow-down" class="icon_n"/>
     </div>
   </div>
 </template>
@@ -457,7 +458,7 @@ export default {
       border: 1px solid #009bef;
       box-shadow: 0 0 20px 2px #009bef;
       color:#fff;
-      margin-top: -465px;
+      margin-top: -460px;
       transition: all 1s linear;
       .title{
         text-align: center;
@@ -490,6 +491,11 @@ export default {
       width: 100%;
       text-align: center;
       transition: all 1s linear;
+    }
+    .icon_n{
+      font-size: 50px;
+      color: #009bef;
+      text-shadow: 0 1px 20px #000;
     }
     .close_wrap{
       transform: rotate(180deg);

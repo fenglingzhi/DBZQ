@@ -119,7 +119,6 @@ export default {
       })
     }
   },
-<<<<<<< HEAD
   methods: {
     player(index) {
       this.activeIndex = index
@@ -130,8 +129,6 @@ export default {
       this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }
   },
-=======
->>>>>>> a225fe4a948d5c19b92408ef9830fbc505990dd7
   mounted () {
     setTimeout(() => {
       this.data = this.real_time_info

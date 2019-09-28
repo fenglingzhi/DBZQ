@@ -217,18 +217,18 @@ const GQL = {
         model { label },
         action{ lon, lat },
         history {
-          windDirection, 
-          windSpeed, 
-          GST, 
-          waveHeight, 
-          waveDirection, 
-          averagePeriod, 
-          dominantPeriod, 
-          seaPressure, 
-          airTemperature, 
-          seaTemperature, 
-          depthWater, 
-          pressureTrend          
+          windDirection,
+          windSpeed,
+          GST,
+          waveHeight,
+          waveDirection,
+          averagePeriod,
+          dominantPeriod,
+          seaPressure,
+          airTemperature,
+          seaTemperature,
+          depthWater,
+          pressureTrend
         },
         ORG {
           cname, ename, abbr, code, type,
@@ -547,8 +547,8 @@ export default {
   height: 100px;
   padding: 0 10px;
   background: rgba(0,0,0,0.6);
-  border: 1px solid #009bef;
-  box-shadow: 0 0 20px 2px #009bef;
+  border: 1px solid red;
+  box-shadow: 0 0 20px 2px red;
   color: #fff;
   transition: all 1s linear;
   overflow: hidden;
