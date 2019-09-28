@@ -311,6 +311,36 @@ const GQL = {
             }
           },
           symbol}
+        ...on Buoy{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Airport{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
+        ...on Port{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
         ...on Satellite{
           targetType: __typename,
           id,
@@ -371,7 +401,7 @@ export default {
       return region && region.countryList
     },
     countryTags() {
-      return sampleSize(this.countryList, 100)
+      return this.countryList
     }
   },
   methods: {

@@ -199,6 +199,7 @@ const GQL = {
         }
       }
       ... on Satellite{
+        targetType: __typename,
         name,
         country { cname },
         usage { label },
@@ -207,6 +208,41 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT }
+      }
+      ... on Buoy{
+        targetType: __typename,
+        name,
+        life,weight,weight,radarArea
+        usage { label },
+        model { label },
+        action{ lon, lat },
+        history {
+          windDirection, 
+          windSpeed, 
+          GST, 
+          waveHeight, 
+          waveDirection, 
+          averagePeriod, 
+          dominantPeriod, 
+          seaPressure, 
+          airTemperature, 
+          seaTemperature, 
+          depthWater, 
+          pressureTrend          
+        },
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
+        news{ title, content, source, timestamp },
       }
     }
   }`
@@ -317,7 +353,7 @@ export default {
         markerFill: '#f2e239',
         markerWidth: 25,
         markerHeight: 25,
-        markerPath: SVG[target.targetType],
+        markerPath: SVG[target.targetType] || SVG.Unknow,
         markerVerticalAlignment: 'middle',
         markerHorizontalAlignment: 'middle'
       })
