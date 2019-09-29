@@ -108,7 +108,7 @@ export default {
       this.activeIndex = index
       this.$root.mq.$emit('routePlay', this.real_time_info[index])
     },
-    pause(index){
+    pause(index) {
       this.activeIndex = ''
       this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true  ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
+  <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true && filter_show  ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
     <!-- <div class="TargetrDetail_charts"></div> -->
     <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
@@ -14,7 +14,7 @@
           <svg class="TargetrDetail_operator_icon" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M836.2 957.3H189.8c-50.7 0-92-41.3-92-92V158.2c0-50.7 41.3-92 92-92h646.5c50.7 0 92 41.3 92 92v707.1c-0.1 50.7-41.3 92-92.1 92zM189.8 130.2c-15.4 0-28 12.6-28 28v707.1c0 15.4 12.6 28 28 28h646.5c15.4 0 28-12.6 28-28V158.2c0-15.4-12.6-28-28-28H189.8z"></path><path d="M781 251.7H388c-17.7 0-32 14.3-32 32s14.3 32 32 32h393c17.7 0 32-14.3 32-32s-14.3-32-32-32z m-501 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zM781 476.7H388c-17.7 0-32 14.3-32 32s14.3 32 32 32h393c17.7 0 32-14.3 32-32s-14.3-32-32-32z m-501 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zM781 701.7H388c-17.7 0-32 14.3-32 32s14.3 32 32 32h393c17.7 0 32-14.3 32-32s-14.3-32-32-32z m-501 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"></path></svg>
           <span>目标信息</span>
         </div>
-         <div :class="[tab_show == 'Targetrtrajectory' ? 'TargetrDetail_operator_tab TargetrDetail_operator_tab_active' : 'TargetrDetail_operator_tab']" @click="changeTab('Targetrtrajectory')">
+         <div v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port'" :class="[tab_show == 'Targetrtrajectory' ? 'TargetrDetail_operator_tab TargetrDetail_operator_tab_active' : 'TargetrDetail_operator_tab']" @click="changeTab('Targetrtrajectory')">
           <svg class="TargetrDetail_operator_icon" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M677.7 830.8H292.2c-47.7 0.2-93.5-18.7-127.2-52.4s-52.6-79.5-52.4-127.2c0-99.8 79.8-179.6 179.6-179.6h438.9c26.5 0.3 52.1-10.2 70.8-28.9 18.8-18.8 29.2-44.3 28.9-70.8 0.3-26.5-10.2-52.1-28.9-70.8-18.8-18.8-44.3-29.2-70.8-28.9H345.7c-15.8 47.3-59.6 79.8-113.3 79.8-67.8 0-119.7-51.9-119.7-119.7 0-67.8 51.9-119.7 119.7-119.7 53.7 0 97.5 32.6 113.3 79.8h385.5c47.7-0.2 93.5 18.7 127.2 52.4S911 324.3 910.8 372c0.2 47.7-18.7 93.5-52.4 127.2s-79.5 52.6-127.2 52.4h-439c-26.5-0.3-52.1 10.2-70.8 28.9-18.8 18.8-29.2 44.3-28.9 70.8-0.3 26.5 10.2 52.1 28.9 70.8 18.8 18.8 44.3 29.2 70.8 28.9h385.5c15.8-47.3 59.6-79.8 113.3-79.8 67.8 0 119.7 51.9 119.7 119.7 0 67.8-51.9 119.7-119.7 119.7-53.7 0-97.5-32.5-113.3-79.8z m0 0" /></svg>
           <span>目标轨迹</span>
         </div>
@@ -23,7 +23,7 @@
       <div class="TargetrDetail_content" v-if="tab_boolean">
         <Spin size="large" fix v-if="spinShow"></Spin>
         <TargetrInformation :base_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'TargetrInformation') && !spinShow" @change_Relevant = "change_Relevant"></TargetrInformation>
-        <TargetrTrajectory :real_time_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory>
+        <TargetrTrajectory :status="status" :real_time_info="targetr_info" :targetr_type="targetr_type" v-if="(tab_show == 'Targetrtrajectory') && !spinShow"></TargetrTrajectory>
       </div>
 
     </div>
@@ -107,7 +107,7 @@ export default {
       get_data_boolean: true
     }
   },
-  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show'],
   computed: {
     ...mapState(['selectedTarget'])
   },
