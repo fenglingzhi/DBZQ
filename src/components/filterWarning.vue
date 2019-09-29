@@ -19,7 +19,7 @@
             <TabPane label="飞机" tab="1-1" name="Plane">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="3" class="label">区域：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -29,7 +29,7 @@
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
@@ -41,7 +41,7 @@
             <TabPane label="船舶" tab="1-1" name="Ship">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="3" class="label">区域：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -51,7 +51,7 @@
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
@@ -63,7 +63,7 @@
             <TabPane label="卫星" tab="1-1" name="Satellite">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="3" class="label">区域：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -73,7 +73,7 @@
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
@@ -85,7 +85,7 @@
             <TabPane label="浮标" tab="1-1" name="Buoy">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">地区：</i-col>
+                  <i-col span="3" class="label">区域：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -95,7 +95,7 @@
               </div>
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家：</i-col>
+                  <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
