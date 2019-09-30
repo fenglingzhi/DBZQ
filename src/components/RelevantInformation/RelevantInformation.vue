@@ -87,17 +87,17 @@ export default {
   props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'tab_show_Relevant', 'show_RelevantInformation_boolean', 'filter_show'],
   watch: {
     targetr_type(newVal, oldVal) {
-      if( newVal === 'AirPort' || newVal === 'Port' ){
+      if (newVal === 'AirPort' || newVal === 'Port') {
         this.tab_show = 'personnel'
-      }else{
+      } else {
         this.tab_show = 'installation'
       }
       this.get_info()
     },
     targetr_id() {
-      if( this.targetr_type === 'AirPort' || this.targetr_type === 'Port' ){
+      if (this.targetr_type === 'AirPort' || this.targetr_type === 'Port') {
         this.tab_show = 'personnel'
-      }else{
+      } else {
         this.tab_show = 'installation'
       }
       this.get_info()

@@ -290,7 +290,8 @@ const GQL = {
     }`
   }
 }
-var week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+const week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+const staticTarget = ['Airport', 'Port', 'Launcher']
 export default {
   name: 'app',
   components: { Mapcan, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
@@ -332,17 +333,13 @@ export default {
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
-      console.log('11111111111111111111111111111111')
-      this.selectedGeo && this.selectedGeo.updateSymbol({
-        markerWidth: 25,
-        markerHeight: 25,
-        markerFill: '#f2e239'
-      })
-      p.target.updateSymbol({
-        markerWidth: 35,
-        markerHeight: 35,
-        markerFill: '#ff8000'
-      })
+      if (!SVG.Selected[t.targetType]){
+        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerFill: '#f2e239' })
+        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
+      } else {
+        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[t.targetType] })
+        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerPath: SVG.Selected[t.targetType] })
+      }
       this.selectedGeo = p.target
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
@@ -352,7 +349,7 @@ export default {
     },
     makeSymbol(target) {
       let symb = target.symbol
-      let isStatic = ['Airport', 'Port', 'Launcher'].includes(target.targetType)
+      let isStatic = staticTarget.includes(target.targetType)
       Object.assign(symb, {
         markerType: 'path',
         markerPathWidth: 1024,
