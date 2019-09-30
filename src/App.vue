@@ -21,13 +21,14 @@
       </vectorlayer>
       <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
-        <filterwrap></filterwrap>
+        <filterwrap @change_filter_show = "change_filter_show"></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
         <RelevantInformation :targetr_type="selectedTarget && selectedTarget.targetType"
                              :targetr_id="targetr_id"
                              :targetr_info="targetr_info"
                              :spinShow="spinShow"
+                             :filter_show = "filter_show"
                              :show_RelevantInformation_boolean="show_RelevantInformation_boolean"
                              :tab_show_Relevant="tab_show_Relevant"
                              @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
@@ -37,7 +38,9 @@
                        :targetr_id="targetr_id"
                        :targetr_info="targetr_info"
                        :spinShow="spinShow"
+                       :filter_show = "filter_show"
                        :show_TargetrDetail_boolean="show_TargetrDetail_boolean"
+                       :status="playStatus"
                        @close_TargetrDetail = "close_TargetrDetail"
                        @change_Relevant = "change_Relevant"></TargetrDetail>
       </uicomponent>
@@ -310,7 +313,8 @@ export default {
       notice: '这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息,这是一条预警信息',
       nitice_flag: false,
       time: '',
-      date: ''
+      date: '',
+      filter_show: true
     }
   },
   computed: {
@@ -328,6 +332,7 @@ export default {
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
+      console.log('11111111111111111111111111111111')
       this.selectedGeo && this.selectedGeo.updateSymbol({
         markerWidth: 25,
         markerHeight: 25,
@@ -342,6 +347,7 @@ export default {
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
+      this.filter_show = true
       this.get_info()
     },
     makeSymbol(target) {
@@ -416,6 +422,13 @@ export default {
     },
     closeNnotice() {
       this.nitice_flag = false
+    },
+    change_filter_show (value) {
+      this.filter_show = value
+      if( this.filter_show ){
+        this.show_TargetrDetail_boolean = false
+        this.show_RelevantInformation_boolean = false
+      }
     },
     setSelectedWaring (e) {
       this.selectWarningGeo && this.selectWarningGeo.updateSymbol({

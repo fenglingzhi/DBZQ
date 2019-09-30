@@ -411,6 +411,7 @@ export default {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
+      this.$emit("change_filter_show", this.show)
     },
     themeSelect() {
 //      alert('主题检索')
@@ -432,6 +433,7 @@ export default {
     },
     changeFilter() {
       this.show = !this.show
+      this.$emit("change_filter_show", this.show)
     }
   },
   mounted() {

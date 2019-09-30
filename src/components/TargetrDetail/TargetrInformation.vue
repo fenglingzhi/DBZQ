@@ -6,9 +6,11 @@
     <!-- 飞机的目标信息 -->
     <div style="flex:1;">
       <AirplaneInformation :base_info="base_info" v-if="targetr_type=='Plane'" @change_Relevant = "change_Relevant"></AirplaneInformation>
-      <ShipInformation :base_info="base_info" v-if="targetr_type=='Ship'"></ShipInformation>
-      <SatelliteInformation :base_info="base_info" v-if="targetr_type=='Satellite'"></SatelliteInformation>
-      <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'"></BuoyInformation>
+      <ShipInformation :base_info="base_info" v-if="targetr_type=='Ship'" @change_Relevant = "change_Relevant"></ShipInformation>
+      <SatelliteInformation :base_info="base_info" v-if="targetr_type=='Satellite'" @change_Relevant = "change_Relevant"></SatelliteInformation>
+      <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'" @change_Relevant = "change_Relevant"></BuoyInformation>
+      <AirportInformation :base_info="base_info" v-if="targetr_type=='AirPort'" @change_Relevant = "change_Relevant"></AirportInformation>
+      <PortInformation :base_info="base_info" v-if="targetr_type=='Port'" @change_Relevant = "change_Relevant"></PortInformation>
     </div>
 
     <div class="TargetrInformation_chart">
@@ -24,9 +26,11 @@ import AirplaneInformation from './airplane_information'
 import ShipInformation from './ship_information'
 import SatelliteInformation from './satellite_information'
 import BuoyInformation from './buoy_information'
+import AirportInformation from './airport_information'
+import PortInformation from './port_information'
 export default {
   name: 'TargetrInformation',
-  components: { AirplaneInformation, ShipInformation, SatelliteInformation, BuoyInformation },
+  components: { AirplaneInformation, ShipInformation, SatelliteInformation, BuoyInformation, AirportInformation, PortInformation },
   data() {
     this.chartSettings = {
       area: true,
