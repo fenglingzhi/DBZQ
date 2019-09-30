@@ -414,6 +414,9 @@ export default {
     },
     themeSelect() {
 //      alert('主题检索')
+      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
+        this.$store.commit('targetList', r.targetList)
+      })
     },
     // 国家选择
     countrySelect(index) {
