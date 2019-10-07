@@ -9,6 +9,14 @@
                 <span v-text="base_info.name"></span>
             </div>
         </div>
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
+            <div class="info-title">
+                <span v-text="'隶属单位'"></span>
+            </div>
+            <div class="info-value">
+                <span>{{base_info.ORG.cname}}</span>
+            </div>
+        </div>
         <div class="info-data-item">
             <div class="info-title">
                 <span v-text="'飞机性质'"></span>
@@ -31,14 +39,6 @@
             </div>
             <div class="info-value">
                 <span>{{base_info.registration}}</span>
-            </div>
-        </div>
-        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
-            <div class="info-title">
-                <span v-text="'隶属单位'"></span>
-            </div>
-            <div class="info-value">
-                <span>{{base_info.ORG.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">

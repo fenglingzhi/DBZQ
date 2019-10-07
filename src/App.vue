@@ -29,9 +29,12 @@
                              :targetr_info="targetr_info"
                              :spinShow="spinShow"
                              :filter_show = "filter_show"
+                             :status="playStatus"
                              :show_RelevantInformation_boolean="show_RelevantInformation_boolean"
                              :tab_show_Relevant="tab_show_Relevant"
-                             @close_RelevantInformation = "close_RelevantInformation"></RelevantInformation>
+                             :show="show_RelevantInformation_filter"
+                             @close_RelevantInformation = "close_RelevantInformation"
+                             @change_filter_RelevantInformation="change_filter_RelevantInformation"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10} style="z-index: 9999">
         <TargetrDetail :targetr_type="selectedTarget && selectedTarget.targetType"
@@ -41,8 +44,10 @@
                        :filter_show = "filter_show"
                        :show_TargetrDetail_boolean="show_TargetrDetail_boolean"
                        :status="playStatus"
+                       :show="show_TargetrDetail_filter"
                        @close_TargetrDetail = "close_TargetrDetail"
-                       @change_Relevant = "change_Relevant"></TargetrDetail>
+                       @change_Relevant = "change_Relevant"
+                       @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
       </uicomponent>
     </mapcan>
     <div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">
@@ -298,6 +303,8 @@ export default {
     return {
       show_TargetrDetail_boolean: false,
       show_RelevantInformation_boolean: false,
+      show_RelevantInformation_filter: true,
+      show_TargetrDetail_filter: false,
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0', // 下弹窗展示类型的id
       targetr_info: {},
@@ -314,7 +321,7 @@ export default {
       nitice_flag: false,
       time: '',
       date: '',
-      filter_show: true
+      filter_show: false
     }
   },
   computed: {
@@ -332,7 +339,6 @@ export default {
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
-      console.log('11111111111111111111111111111111')
       this.selectedGeo && this.selectedGeo.updateSymbol({
         markerWidth: 25,
         markerHeight: 25,
@@ -464,6 +470,16 @@ export default {
         zero += '0';
       }
       return (zero + num).slice(-digit);
+    },
+    change_filter_RelevantInformation() {
+      this.show_RelevantInformation_filter = !this.show_RelevantInformation_filter
+      this.show_RelevantInformation_boolean = !this.show_RelevantInformation_boolean 
+      if (!this.show_RelevantInformation_filter) {
+        this.show_RelevantInformation_boolean = true 
+      }
+    },
+    change_filter_TargetrDetail() {
+      this.show_TargetrDetail_filter = !this.show_TargetrDetail_filter
     }
   },
   mounted() {
@@ -471,6 +487,7 @@ export default {
     setInterval(this.updateTime, 1000)
     this.$root.mq.$on('routePlay', (e) => {
       this.show_RelevantInformation_boolean = false
+      this.show_RelevantInformation_filter = true
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'

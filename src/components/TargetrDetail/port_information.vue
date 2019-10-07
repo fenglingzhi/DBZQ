@@ -9,20 +9,20 @@
                 <span v-text="base_info.name"></span>
             </div>
         </div>
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
+            <div class="info-title">
+                <span v-text="'所在国家'"></span>
+            </div>
+            <div class="info-value">
+                <span v-text="country"></span>
+            </div>
+        </div>
         <div class="info-data-item">
             <div class="info-title">
                 <span v-text="'港口代码'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.code"></span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'所在国家'"></span>
-            </div>
-            <div class="info-value">
-                <span v-text="country"></span>
             </div>
         </div>
         <div class="info-data-item">

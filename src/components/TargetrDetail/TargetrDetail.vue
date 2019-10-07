@@ -1,11 +1,18 @@
 <template>
-  <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true && filter_show  ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
+  <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true && filter_show && !show ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
+    {{filter_show}}
+    {{show_TargetrDetail_boolean}}
+    {{show}}
+    <div class="open_wrap" @click="changeFilter" v-if="show_TargetrDetail_boolean" :class = "show === true ? 'open_wrap':'close_wrap'">
+      <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
+      <Icon type="ios-arrow-down" class="icon_n"/>
+    </div>
     <!-- <div class="TargetrDetail_charts"></div> -->
     <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
       <div class="TargetrDetail_operator">
-        <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="container_height != 210" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
-        <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="hide" width="16px" height="16.00px" v-if="container_height == 210" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg>
+        <!-- <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="container_height != 210" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
+        <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="hide" width="16px" height="16.00px" v-if="container_height == 210" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg> -->
         <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="close" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M587.7 511.9L912.3 187c20.9-21 20.9-54.8 0-75.8s-54.8-21-75.7 0L512 436.1 187.5 111.2c-20.9-21-54.8-21-75.7 0-20.9 21-20.9 54.8 0 75.8l324.5 324.8-324.5 324.9c-20.9 21-20.9 54.8 0 75.8 10.4 10.5 24.1 15.7 37.9 15.7 13.7 0 27.4-5.2 37.9-15.7L512 587.7l324.5 324.8c10.4 10.5 24.2 15.7 37.9 15.7s27.4-5.2 37.8-15.7c20.9-21 20.9-54.8 0-75.8L587.7 511.9z" /></svg>
       </div>
       <!-- tab切换 -->
@@ -104,10 +111,10 @@ export default {
       tab_show: 'TargetrInformation',
       container_height: 210,
       // targetr_info: {},
-      get_data_boolean: true
+      get_data_boolean: true,
     }
   },
-  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show', 'show'],
   computed: {
     ...mapState(['selectedTarget'])
   },
@@ -157,6 +164,9 @@ export default {
     },
     change_Relevant(value) {
       this.$emit('change_Relevant', value)
+    },
+    changeFilter() {
+      this.$emit("change_filter_TargetrDetail")
     }
   }
 }
@@ -287,5 +297,21 @@ export default {
         box-shadow: 0 1px 30px #0093df, 0 1px 20px #0093df inset;
     }
   } */
+  .open_wrap{
+    width: 100%;
+    text-align: center;
+    transition: all 1s linear;
+  }
+  .icon_n{
+    font-size: 50px;
+    color: #009bef;
+    text-shadow: 0 1px 20px #000;
+    transform: rotate(180deg);
+    transition: all 1s linear;
+  }
+  .close_wrap{
+    transform: rotate(-180deg);
+    transition: all 1s linear;
+  }
 
 </style>
