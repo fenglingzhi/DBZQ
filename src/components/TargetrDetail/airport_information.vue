@@ -9,6 +9,14 @@
                 <span v-text="base_info.name"></span>
             </div>
         </div>
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
+            <div class="info-title">
+                <span v-text="'所属国家'"></span>
+            </div>
+            <div class="info-value">
+                <span>{{base_info.ORG.base.country.cname}}</span>
+            </div>
+        </div>
         <div class="info-data-item">
             <div class="info-title">
                 <span v-text="'机场性质'"></span>
@@ -23,14 +31,6 @@
             </div>
             <div class="info-value">
                 <span>{{base_info.ICAO}}</span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'所属国家'"></span>
-            </div>
-            <div class="info-value">
-                <span>{{base_info.ORG.base.country.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -65,7 +65,6 @@
                 <span>{{base_info.num}}</span>
             </div>
         </div>
-        
     </div>
 </template>
 
