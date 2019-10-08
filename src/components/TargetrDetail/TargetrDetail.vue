@@ -3,9 +3,9 @@
     {{filter_show}}
     {{show_TargetrDetail_boolean}}
     {{show}}
-    <div class="open_wrap" @click="changeFilter" v-if="show_TargetrDetail_boolean" :class = "show === true ? 'open_wrap':'close_wrap'">
+    <div class="open_wrap" @click="changeFilter" v-if="show_TargetrDetail_boolean" :class = "show === true ? 'open_wrap':'close_wrap_a'">
       <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
-      <Icon type="ios-arrow-down" class="icon_n"/>
+      <Icon type="ios-arrow-down" class="icon_a"/>
     </div>
     <!-- <div class="TargetrDetail_charts"></div> -->
     <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
@@ -302,14 +302,14 @@ export default {
     text-align: center;
     transition: all 1s linear;
   }
-  .icon_n{
+  .icon_a{
     font-size: 50px;
     color: #009bef;
     text-shadow: 0 1px 20px #000;
     transform: rotate(180deg);
     transition: all 1s linear;
   }
-  .close_wrap{
+  .close_wrap_a{
     transform: rotate(-180deg);
     transition: all 1s linear;
   }

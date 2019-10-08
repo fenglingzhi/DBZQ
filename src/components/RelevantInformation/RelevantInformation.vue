@@ -2,7 +2,7 @@
     <div class="RelevantInformation">
       <div class="open_wrap" @click="changeFilterWrap" v-if=" show_RelevantInformation_boolean || filter_show" :class = "show === true  ? 'open_wrap':'close_wrap'">
         <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
-        <Icon type="ios-arrow-down" class="icon_n"/>
+        <Icon type="ios-arrow-down" class="icon_b"/>
       </div>
       <div class="RelevantInformation_container" :class = "show_RelevantInformation_boolean === true && filter_show && show === false  ? 'RelevantInformation_open':'RelevantInformation_wrap'">
         <div class="RelevantInformation_operator">
@@ -268,7 +268,7 @@ export default {
     text-align: center;
     transition: all 1s linear;
   }
-  .icon_n{
+  .icon_b{
     font-size: 50px;
     color: #009bef;
     transform: rotate(90deg);
