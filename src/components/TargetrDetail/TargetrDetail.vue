@@ -1,13 +1,24 @@
 <template>
   <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true && filter_show && !show ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
-    {{filter_show}}
-    {{show_TargetrDetail_boolean}}
-    {{show}}
     <div class="open_wrap" @click="changeFilter" v-if="show_TargetrDetail_boolean" :class = "show === true ? 'open_wrap':'close_wrap_a'">
       <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
       <Icon type="ios-arrow-down" class="icon_a"/>
     </div>
-    <!-- <div class="TargetrDetail_charts"></div> -->
+    <!-- 高度echarts -->
+    <div class="TargetrDetail_charts" v-if = "show_TargetrDetail_boolean === true && filter_show && !show">
+      <div style="padding:0 60px 0 0;">
+        <ve-line width="1100px" ref="chart" height="30px" :legend-visible="false" :tooltip-visible="false" :colors="colors" :grid="grid" :extend="extend" :data="chartData" :settings="chartSettings"></ve-line>
+      </div>
+      <div style="display: flex;justify-content: space-between;align-items: center;position: relative;top: -10px;">
+        <div style="flex: 1;height: 2px;background: #666;border-radius: 4px;">
+          <div style="height: 2px;background: #fff;border-radius: 4px;" :style="{ width: chartlength + 'px' }"></div>
+        </div>
+        <div style="width:80px;margin-left:20px;color:#fff;text-align: center;">
+          <span data-v-79e1caf0="">00:37</span> <span data-v-79e1caf0="">/</span> <span data-v-79e1caf0="">04:56</span>
+        </div>
+      </div>
+    </div>
+
     <div class="TargetrDetail_container" :style="{height:container_height+'px'}">
       <!-- 关闭&最小化按钮 -->
       <div class="TargetrDetail_operator">
@@ -42,76 +53,195 @@
 import TargetrInformation from './TargetrInformation'
 import TargetrTrajectory from './TargetrTrajectory'
 import { mapState } from 'vuex'
-// const GQL = {
-//   queryPlaneByID: { query: `query($pid:ID!){
-//     target(id:$pid){
-//       ... on Plane{
-//         targetType: __typename,
-//         id,
-//         name,
-//         ICAO,
-//         kind { label },
-//         usage{ label },
-//         registration,
-//         ORG {
-//           cname,
-//           country{
-//             cname
-//           }
-//         },
-//         radar{
-//           model
-//           responseCode
-//         },
-//         action{
-//           originated {
-//             name,
-//           }
-//           landing{
-//             name,
-//             country{ cname }
-//           },
-//           ETD,
-//           ETA,
-//           lon,
-//           lat,
-//           alt,
-//           horSpeed,
-//           vetSpeed,
-//           azimuth
-//         }
-//       }
-//       ... on Ship{
-//         targetType: __typename,
-//         id,
-//         name,
-//         usage { typeid },
-//         MMSI,
-//         ORG { cname },
-//         country { cname },
-//         status,
-//         tonnage,
-//         width,
-//         length,
-//         height,
-//         maxSpeed,
-//         phone
-//       }
-//     }
-//   }`
-//   }
-// }
+
 export default {
   name: 'TargetrDetail',
   components: { TargetrInformation, TargetrTrajectory },
   destroyed() { },
   data() {
+    this.chartSettings = {
+      area: true,
+      scale: true
+    }
+    this.grid = {
+      show: true,
+      width: '1080px',
+      height: '30px',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      color: '#fff',
+      backgroundColor: 'transparent',
+      borderColor: '#000',
+      borderWidth:0
+    }
+    this.colors = ['transparent']
+    this.extend = {
+      xAxis: {
+        axisLabel: {
+          show : false,
+          interval: 2
+        },
+        splitLine: {show : false}
+      },
+      yAxis: {
+        max: 500,
+        axisLabel: {show : false},
+        splitLine: {show : false}
+      },
+      series: {
+        smooth: false,
+        symbol: "none",
+        areaStyle:{
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0, color: '#1356b5' // 0% 处的颜色
+            }, {
+              offset: 0.5, color: '#37938b' // 100% 处的颜色
+            },{
+              offset: 1, color: '#4bb574' // 100% 处的颜色
+            }],
+            global: false // 缺省为 false
+          }
+        }
+      }
+    }
     return {
       tab_boolean: true,
       tab_show: 'TargetrInformation',
       container_height: 210,
       // targetr_info: {},
       get_data_boolean: true,
+      chartlength: 1140,
+      chartData: {
+        columns: ['时间', '高度'],
+        rows: [
+          { '时间': '00:00', '高度': 5 },
+          { '时间': '00:01', '高度': 10 },
+          { '时间': '00:02', '高度': 15 },
+          { '时间': '00:03', '高度': 20 },
+          { '时间': '00:04', '高度': 30 },
+          { '时间': '00:05', '高度': 40 },
+          { '时间': '00:06', '高度': 50 },
+          { '时间': '00:07', '高度': 60 },
+          { '时间': '00:08', '高度': 70 },
+          { '时间': '00:09', '高度': 80 },
+          { '时间': '00:10', '高度': 100 },
+          { '时间': '00:11', '高度': 120 },
+          { '时间': '00:12', '高度': 140 },
+          { '时间': '00:13', '高度': 180 },
+          { '时间': '00:14', '高度': 180 },
+          { '时间': '00:15', '高度': 180 },
+          { '时间': '00:16', '高度': 180 },
+          { '时间': '00:17', '高度': 180 },
+          { '时间': '00:18', '高度': 180 },
+          { '时间': '00:19', '高度': 180 },
+          { '时间': '00:20', '高度': 180 },
+          { '时间': '00:21', '高度': 200 },
+          { '时间': '00:22', '高度': 210 },
+          { '时间': '00:23', '高度': 210 },
+          { '时间': '00:24', '高度': 210 },
+          { '时间': '00:25', '高度': 210 },
+          { '时间': '00:26', '高度': 210 },
+          { '时间': '00:27', '高度': 210 },
+          { '时间': '00:28', '高度': 210 },
+          { '时间': '00:29', '高度': 210 },
+          { '时间': '00:30', '高度': 210 },
+          { '时间': '00:31', '高度': 210 },
+          { '时间': '00:32', '高度': 210 },
+          { '时间': '00:33', '高度': 210 },
+          { '时间': '00:34', '高度': 210 },
+          { '时间': '00:35', '高度': 210 },
+          { '时间': '00:36', '高度': 210 },
+          { '时间': '00:37', '高度': 210 },
+          { '时间': '00:38', '高度': 210 },
+          { '时间': '00:39', '高度': 210 },
+          { '时间': '00:40', '高度': 210 },
+          { '时间': '00:41', '高度': 210 },
+          { '时间': '00:42', '高度': 210 },
+          { '时间': '00:43', '高度': 210 },
+          { '时间': '00:45', '高度': 210 },
+          { '时间': '00:46', '高度': 210 },
+          { '时间': '00:47', '高度': 210 },
+          { '时间': '00:48', '高度': 210 },
+          { '时间': '00:49', '高度': 210 },
+          { '时间': '00:50', '高度': 210 },
+          { '时间': '00:51', '高度': 210 },
+          { '时间': '00:52', '高度': 210 },
+          { '时间': '00:53', '高度': 210 },
+          { '时间': '00:54', '高度': 210 },
+          { '时间': '00:55', '高度': 210 },
+          { '时间': '00:56', '高度': 210 },
+          { '时间': '00:57', '高度': 210 },
+          { '时间': '00:58', '高度': 210 },
+          { '时间': '00:59', '高度': 210 },
+          { '时间': '01:00', '高度': 210 },
+          { '时间': '01:01', '高度': 210 },
+          { '时间': '01:02', '高度': 215 },
+          { '时间': '01:03', '高度': 220 },
+          { '时间': '01:04', '高度': 230 },
+          { '时间': '01:05', '高度': 240 },
+          { '时间': '01:06', '高度': 250 },
+          { '时间': '01:07', '高度': 260 },
+          { '时间': '01:08', '高度': 270 },
+          { '时间': '01:09', '高度': 280 },
+          { '时间': '01:10', '高度': 200 },
+          { '时间': '01:11', '高度': 220 },
+          { '时间': '01:12', '高度': 240 },
+          { '时间': '01:13', '高度': 280 },
+          { '时间': '01:14', '高度': 280 },
+          { '时间': '01:15', '高度': 280 },
+          { '时间': '01:16', '高度': 280 },
+          { '时间': '01:17', '高度': 280 },
+          { '时间': '01:18', '高度': 280 },
+          { '时间': '01:19', '高度': 280 },
+          { '时间': '01:20', '高度': 280 },
+          { '时间': '01:21', '高度': 300 },
+          { '时间': '01:22', '高度': 310 },
+          { '时间': '01:23', '高度': 310 },
+          { '时间': '01:24', '高度': 310 },
+          { '时间': '01:25', '高度': 310 },
+          { '时间': '01:26', '高度': 310 },
+          { '时间': '01:27', '高度': 310 },
+          { '时间': '01:28', '高度': 310 },
+          { '时间': '01:29', '高度': 320 },
+          { '时间': '01:30', '高度': 330 },
+          { '时间': '01:31', '高度': 340 },
+          { '时间': '01:32', '高度': 360 },
+          { '时间': '01:33', '高度': 370 },
+          { '时间': '01:34', '高度': 370 },
+          { '时间': '01:35', '高度': 370 },
+          { '时间': '01:36', '高度': 380 },
+          { '时间': '01:37', '高度': 380 },
+          { '时间': '01:38', '高度': 390 },
+          { '时间': '01:39', '高度': 390 },
+          { '时间': '01:40', '高度': 400 },
+          { '时间': '01:41', '高度': 430 },
+          { '时间': '01:42', '高度': 450 },
+          { '时间': '01:43', '高度': 450 },
+          { '时间': '01:45', '高度': 450 },
+          { '时间': '01:46', '高度': 450 },
+          { '时间': '01:47', '高度': 460 },
+          { '时间': '01:48', '高度': 440 },
+          { '时间': '01:49', '高度': 480 },
+          { '时间': '01:50', '高度': 480 },
+          { '时间': '01:51', '高度': 480 },
+          { '时间': '01:52', '高度': 480 },
+          { '时间': '01:53', '高度': 460 },
+          { '时间': '01:54', '高度': 440 },
+          { '时间': '01:55', '高度': 430 },
+          { '时间': '01:56', '高度': 420 },
+          { '时间': '01:57', '高度': 410 },
+          { '时间': '01:58', '高度': 390 },
+          { '时间': '01:59', '高度': 290 },
+          { '时间': '02:00', '高度': 190 },
+        ]
+      }
     }
   },
   props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show', 'show'],
@@ -130,10 +260,18 @@ export default {
     targetr_info() {
       this.container_height = 210
       this.tab_boolean = true
+    },
+    // echarts resize调用
+    chartlength(v) {
+      this.grid.width = v + 'px'
+      this.$nextTick(_ => {
+        this.$refs.chart.echarts.resize()
+      })
     }
   },
   mounted() {
     this.get_info()
+    this.chartlength = 480
   },
   methods: {
     // 弹窗显示最大化
@@ -166,7 +304,7 @@ export default {
       this.$emit('change_Relevant', value)
     },
     changeFilter() {
-      this.$emit("change_filter_TargetrDetail")
+      this.$emit('change_filter_TargetrDetail')
     }
   }
 }
@@ -186,12 +324,8 @@ export default {
   }
   .TargetrDetail_charts{
     width:1200px;
-    height: 30px;
-    background: rgba(0,0,0,.7);
+    height: 40px;
     margin:0 auto;
-    border-radius: 6px;
-    border: 1px solid #2b92d4;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     position: relative;
   }
   .TargetrDetail_container{
