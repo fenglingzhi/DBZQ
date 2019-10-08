@@ -340,7 +340,6 @@ export default {
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
-<<<<<<< HEAD
       this.selectedGeo && this.selectedGeo.updateSymbol({
         markerWidth: 25,
         markerHeight: 25,
@@ -351,15 +350,13 @@ export default {
         markerHeight: 35,
         markerFill: '#ff8000'
       })
-=======
-      if (!SVG.Selected[t.targetType]){
-        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerFill: '#f2e239' })
-        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
-      } else {
-        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[t.targetType] })
-        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerPath: SVG.Selected[t.targetType] })
-      }
->>>>>>> 7f16de4a955c7afbc56778e006821bb3b1e5ca0e
+//      if (!SVG.Selected[t.targetType]){
+//        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerFill: '#f2e239' })
+//        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
+//      } else {
+//        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[t.targetType] })
+//        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerPath: SVG.Selected[t.targetType] })
+//      }
       this.selectedGeo = p.target
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
@@ -484,9 +481,9 @@ export default {
     },
     change_filter_RelevantInformation() {
       this.show_RelevantInformation_filter = !this.show_RelevantInformation_filter
-      this.show_RelevantInformation_boolean = !this.show_RelevantInformation_boolean 
+      this.show_RelevantInformation_boolean = !this.show_RelevantInformation_boolean
       if (!this.show_RelevantInformation_filter) {
-        this.show_RelevantInformation_boolean = true 
+        this.show_RelevantInformation_boolean = true
       }
     },
     change_filter_TargetrDetail() {
