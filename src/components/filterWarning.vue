@@ -129,7 +129,7 @@
 
 <script type="text/ecmascript-6">
 import { executeGQL, gql } from '../commons'
-import { find, sampleSize } from 'lodash'
+import { find } from 'lodash'
 const GQL = {
   getConditions: { query: gql`
     {
@@ -225,26 +225,26 @@ export default {
   name: 'filterWarning',
   data() {
     return {
-//      searchString: '',
-//      show: true,
-//      targetType: 'Plane',
-//      searchData: {
-//        airCountry: [],
-//        airArea: [],
-//        property: [],
-//        type: [],
-//        height: [],
-//        speed: []
-//      },
-//      checked: false,
-//      dictTydefList: [],
-//      // 选中的搜索条件组合
-//      conditions: { region: '亚洲', country: null },
-//      regionOptions: [],  // 大洲/国家 选项集合
-//      planeUsage: [],     // 飞机用途
-//      planeKind: [],     // 飞机型号
-//      planeHeight: [],    // 飞行高度
-//      planeSpeed: [],      // 飞行速度
+      /* searchString: '',
+      show: true,
+      targetType: 'Plane',
+      searchData: {
+        airCountry: [],
+        airArea: [],
+        property: [],
+        type: [],
+        height: [],
+        speed: []
+      },
+      checked: false,
+      dictTydefList: [],
+      // 选中的搜索条件组合
+      conditions: { region: '亚洲', country: null },
+      regionOptions: [],  // 大洲/国家 选项集合
+      planeUsage: [],     // 飞机用途
+      planeKind: [],     // 飞机型号
+      planeHeight: [],    // 飞行高度
+      planeSpeed: [],      // 飞行速度 */
       searchString: '',
       show: true,
       targetType: 'Plane',
@@ -287,24 +287,24 @@ export default {
       return region && region.countryList
     },
     countryTags() {
-//      return sampleSize(this.countryList, 100)
+      //  return sampleSize(this.countryList, 100)
       return this.countryList
     }
   },
   methods: {
     fadeChange() {
-//      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
-//        this.$store.commit('targetList', r.targetList)
-//      })
-//      this.show = !this.show
+      /* executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
+        this.$store.commit('targetList', r.targetList)
+      })
+      this.show = !this.show */
       executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
-      this.$emit("change_filter_show", this.show)
+      this.$emit('change_filter_show', this.show)
     },
     themeSelect() {
-//      alert('主题检索')
+    //  alert('主题检索')
     },
     // 国家选择
     countrySelect(index) {
@@ -320,18 +320,18 @@ export default {
     },
     changeFilter() {
       this.show = !this.show
-      this.$emit("change_filter_show", this.show)
+      this.$emit('change_filter_show', this.show)
     }
   },
   mounted() {
     // 获取搜索区域列表
     executeGQL(GQL.getConditions).then(r => {
-//      this.regionOptions = r.regionList
-//      this.planeUsage = r.planeUsage
-//      this.dictTydefList = r.dictTydefList
-//      this.planeKind = r.planeKind
-//      this.planeHeight = r.planeHeight
-//      this.planeSpeed = r.planeSpeed
+    /* this.regionOptions = r.regionList
+      this.planeUsage = r.planeUsage
+      this.dictTydefList = r.dictTydefList
+      this.planeKind = r.planeKind
+      this.planeHeight = r.planeHeight
+      this.planeSpeed = r.planeSpeed */
       this.regionOptions = r.regionList
       this.planeUsage = r.planeUsage
       this.dictTydefList = r.dictTydefList

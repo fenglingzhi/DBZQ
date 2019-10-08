@@ -264,7 +264,7 @@
 
 <script type="text/ecmascript-6">
 import { executeGQL, gql } from '../commons'
-import { find, sampleSize } from 'lodash'
+import { find } from 'lodash'
 const GQL = {
   getConditions: { query: gql`
     {
@@ -411,10 +411,10 @@ export default {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
-      this.$emit("change_filter_show", this.show)
+      this.$emit('change_filter_show', this.show)
     },
     themeSelect() {
-//      alert('主题检索')
+      //  alert('主题检索')
       executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
@@ -433,7 +433,7 @@ export default {
     },
     changeFilter() {
       this.show = !this.show
-      this.$emit("change_filter_show", this.show)
+      this.$emit('change_filter_show', this.show)
     }
   },
   mounted() {

@@ -66,6 +66,63 @@
             </div>
         </div>
     </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'机场性质'"></span>
+      </div>
+      <div class="info-value">
+        <span> {{base_info.usage.label}}</span>
+      </div>
+    </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'ICAO编号'"></span>
+      </div>
+      <div class="info-value">
+        <span>{{base_info.ICAO}}</span>
+      </div>
+    </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'所属国家'"></span>
+      </div>
+      <div class="info-value">
+        <span>{{base_info.ORG.base.country.cname}}</span>
+      </div>
+    </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'经度'"></span>
+      </div>
+      <div class="info-value">
+        <span>{{base_info.longitude}}</span>
+      </div>
+    </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'纬度'"></span>
+      </div>
+      <div class="info-value">
+        <span>{{base_info.latitude}}</span>
+      </div>
+    </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'航站楼面积'"></span>
+      </div>
+      <div class="info-value">
+        <span>{{base_info.area}}</span>
+      </div>
+    </div>
+    <div class="info-data-item">
+      <div class="info-title">
+        <span v-text="'机位数量'"></span>
+      </div>
+      <div class="info-value">
+        <span>{{base_info.num}}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -78,7 +135,7 @@ export default {
   props: ['base_info'],
   methods: {
     change_Relevant(value) {
-        this.$emit('change_Relevant', value)
+      this.$emit('change_Relevant', value)
     }
   },
   mounted () { }
