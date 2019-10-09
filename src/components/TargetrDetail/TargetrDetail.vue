@@ -73,26 +73,26 @@ export default {
       color: '#fff',
       backgroundColor: 'transparent',
       borderColor: '#000',
-      borderWidth:0
+      borderWidth: 0
     }
     this.colors = ['transparent']
     this.extend = {
       xAxis: {
         axisLabel: {
-          show : false,
+          show: false,
           interval: 2
         },
-        splitLine: {show : false}
+        splitLine: { show: false }
       },
       yAxis: {
         max: 500,
-        axisLabel: {show : false},
-        splitLine: {show : false}
+        axisLabel: { show: false },
+        splitLine: { show: false }
       },
       series: {
         smooth: false,
-        symbol: "none",
-        areaStyle:{
+        symbol: 'none',
+        areaStyle: {
           color: {
             type: 'linear',
             x: 0,
@@ -103,7 +103,7 @@ export default {
               offset: 0, color: '#1356b5' // 0% 处的颜色
             }, {
               offset: 0.5, color: '#37938b' // 100% 处的颜色
-            },{
+            }, {
               offset: 1, color: '#4bb574' // 100% 处的颜色
             }],
             global: false // 缺省为 false
@@ -239,12 +239,12 @@ export default {
           { '时间': '01:57', '高度': 410 },
           { '时间': '01:58', '高度': 390 },
           { '时间': '01:59', '高度': 290 },
-          { '时间': '02:00', '高度': 190 },
+          { '时间': '02:00', '高度': 190 }
         ]
       }
     }
   },
-  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show', 'show'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show', 'show', 'detailchar'],
   computed: {
     ...mapState(['selectedTarget'])
   },

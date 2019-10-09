@@ -13,11 +13,14 @@
         <filterwarning></filterwarning>
       </uicomponent>
     </mapcan>
-    <mapcan v-else name="mainmap1" :center="[100,31]" :zoom="4" style="height:100%" key="1">
+    <mapcan v-else name="mainmap1" :center="centerXY" :zoom="4" style="height:100%" key="1">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
+        <geometry :id="selectinfoTarget.name"
+        v-if="selectinfoTarget.code !== undefined"
+        :json="selectinfoTarget" :symbol="makeSymbol(selectinfoTarget)"/>
       </vectorlayer>
       <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
@@ -45,6 +48,7 @@
                        :show_TargetrDetail_boolean="show_TargetrDetail_boolean"
                        :status="playStatus"
                        :show="show_TargetrDetail_filter"
+                       :detailchar="detailchar"
                        @close_TargetrDetail = "close_TargetrDetail"
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
@@ -150,9 +154,13 @@ const GQL = {
         news{ title, content, source, timestamp
         },
         nearby{
+          targetType: __typename,
           name, code,
           usage{ label },
-          address{ country{ cname } },
+          address{
+            position,
+            country{ cname }
+          },
           openDate, level, area, parkCount,
           recent{
             action{
@@ -160,7 +168,14 @@ const GQL = {
               landing{ name },
               ETD, ETA, lon, lat
             }
-          }
+          },
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol
         }
       }
       ... on Ship{
@@ -186,6 +201,7 @@ const GQL = {
           heading,ending,ETD,status,lon,lat,
           draught,
           loading{ name },
+          parking{ name },
           destination{ name }
           ETA
         },
@@ -200,6 +216,7 @@ const GQL = {
           recent{
             action{
               loading{ name },
+              parking{ name },
               destination{ name },
               ETA, lon, lat
             }
@@ -322,12 +339,16 @@ export default {
       nitice_flag: false,
       time: '',
       date: '',
-      filter_show: false
+      filter_show: false,
+      clickinfo: false,
+      centerXY: {x: 100, y: 31},
+      detailchar: {}
     }
   },
   computed: {
     ...mapState(['targetList']),
-    ...mapState(['selectedTarget'])
+    ...mapState(['selectedTarget']),
+    ...mapState(['selectinfoTarget'])
   },
   watch: {
     targetr_id() {
@@ -335,6 +356,13 @@ export default {
     },
     selectedTarget(n, o) {
       this.get_info()
+    },
+    targetList() {
+      this.clearinfo()
+    },
+    selectinfoTarget() {
+      // this.centerXY = this.selectinfoTarget.position
+      this.centerXY = this.selectinfoTarget.feature.geometry.coordinates
     }
   },
   methods: {
@@ -352,6 +380,7 @@ export default {
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
       this.filter_show = true
+      this.$store.commit('selectinfoTarget', {})
       this.get_info()
     },
     makeSymbol(target) {
@@ -407,6 +436,9 @@ export default {
         this.spinShow = false
         this.targetr_info = r.target
       })
+    },
+    clearinfo() {
+      this.$store.commit('selectinfoTarget', {})
     },
     playOver() {
       this.playStatus = 'remove'
@@ -490,7 +522,7 @@ export default {
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
       delay(() => {
-        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
+        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.alt, p.timestamp ])),
           unitTime: 100,
           markerSymbol: {
             markerType: 'path',
@@ -506,6 +538,7 @@ export default {
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
         this.playStatus = 'play'
+        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime: 100 }
       }, 1000)
     })
     this.intv = setInterval(async () => {

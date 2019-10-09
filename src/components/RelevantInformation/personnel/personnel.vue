@@ -83,16 +83,20 @@ export default {
           title: '常在城市',
           key: 'city'
         }
-      ],
-      data: [ ]
+      ]
     }
   },
   props: ['usr'],
   computed: {
+    data() {
+      return [this.usr] && [this.usr].map(({ name, nickname, country, birthday, job, city }) => {
+        let cdata = { name, nickname, 'country': country && country.cname, birthday, job, city }
+        return cdata
+      })
+    }
   },
   methods: { },
   mounted () {
-    this.data.push(this.usr)
   }
 }
 </script>
