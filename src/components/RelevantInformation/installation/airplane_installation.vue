@@ -86,8 +86,8 @@ export default {
   props: ['facility'],
   computed: {
     data() {
-      return this.facility && this.facility.map(({ name, code, usage, address, openDate, level, area, parkCount }) => {
-        let cdata = { name, code, 'type': usage.label, 'country': address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount }
+      return this.facility && this.facility.map(({ targetType, name, code, usage, address, openDate, level, area, parkCount, feature, symbol }) => {
+        let cdata = { targetType, name, code, 'type': usage.label, 'country': address.country && address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount, 'position': address.position, feature, 'symbol': symbol }
         return cdata
       })
     }
@@ -96,6 +96,7 @@ export default {
     showRow (data) {
       console.log('设施行项目的点击操作以及data')
       console.log(data)
+      this.$store.commit('selectinfoTarget', data)
     }
   },
   mounted () { }

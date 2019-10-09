@@ -18,6 +18,9 @@
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
+        <geometry :id="selectinfoTarget.name"
+        v-if="selectinfoTarget.code !== undefined"
+        :json="selectinfoTarget" :symbol="makeSymbol(selectinfoTarget)"/>
       </vectorlayer>
       <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
@@ -150,9 +153,13 @@ const GQL = {
         news{ title, content, source, timestamp
         },
         nearby{
+          targetType: __typename,
           name, code,
           usage{ label },
-          address{ country{ cname } },
+          address{
+            position,
+            country{ cname }
+          },
           openDate, level, area, parkCount,
           recent{
             action{
@@ -160,7 +167,14 @@ const GQL = {
               landing{ name },
               ETD, ETA, lon, lat
             }
-          }
+          },
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol
         }
       }
       ... on Ship{
@@ -322,12 +336,14 @@ export default {
       nitice_flag: false,
       time: '',
       date: '',
-      filter_show: false
+      filter_show: false,
+      clickinfo: false
     }
   },
   computed: {
     ...mapState(['targetList']),
-    ...mapState(['selectedTarget'])
+    ...mapState(['selectedTarget']),
+    ...mapState(['selectinfoTarget'])
   },
   watch: {
     targetr_id() {
@@ -335,6 +351,9 @@ export default {
     },
     selectedTarget(n, o) {
       this.get_info()
+    },
+    targetList() {
+      this.clearinfo()
     }
   },
   methods: {
@@ -352,6 +371,7 @@ export default {
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
       this.filter_show = true
+      this.$store.commit('selectinfoTarget', {})
       this.get_info()
     },
     makeSymbol(target) {
@@ -407,6 +427,9 @@ export default {
         this.spinShow = false
         this.targetr_info = r.target
       })
+    },
+    clearinfo() {
+      this.$store.commit('selectinfoTarget', {})
     },
     playOver() {
       this.playStatus = 'remove'
