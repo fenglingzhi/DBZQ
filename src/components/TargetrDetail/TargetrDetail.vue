@@ -244,7 +244,7 @@ export default {
       }
     }
   },
-  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show', 'show'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'show_TargetrDetail_boolean', 'status', 'filter_show', 'show', 'detailchar'],
   computed: {
     ...mapState(['selectedTarget'])
   },
