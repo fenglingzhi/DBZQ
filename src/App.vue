@@ -340,23 +340,13 @@ export default {
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
-      this.selectedGeo && this.selectedGeo.updateSymbol({
-        markerWidth: 25,
-        markerHeight: 25,
-        markerFill: '#f2e239'
-      })
-      p.target.updateSymbol({
-        markerWidth: 35,
-        markerHeight: 35,
-        markerFill: '#ff8000'
-      })
-//      if (!SVG.Selected[t.targetType]){
-//        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerFill: '#f2e239' })
-//        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
-//      } else {
-//        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[t.targetType] })
-//        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerPath: SVG.Selected[t.targetType] })
-//      }
+     if (!SVG.Selected[t.targetType]){
+       this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerFill: '#f2e239' })
+       p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
+     } else {
+       this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[t.targetType] })
+       p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerPath: SVG.Selected[t.targetType] })
+     }
       this.selectedGeo = p.target
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
