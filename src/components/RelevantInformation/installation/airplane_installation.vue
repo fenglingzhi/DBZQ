@@ -32,11 +32,17 @@
     border-radius: 0;
     background: rgba(0,0,0,0.1);
   }
+  .ivu-table .demo-table-info-row td{
+    background-color: #2db7f5 !important;
+    color: #fff;
+  }
 </style>
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_installation">
-      <Table height="400" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
+      <button @click="showActiveColumn(parseInt(Math.random()*5))">点击</button>
+      <button @click="reset()">清除</button>
+      <Table height="400" :row-class-name = "rowClassName" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
     </div>
 </template>
 
@@ -79,7 +85,8 @@ export default {
           title: '机位数量',
           key: 'num'
         }
-      ]
+      ],
+      activeIndex: ''
       // data: {}
     }
   },
@@ -96,6 +103,18 @@ export default {
     showRow (data) {
       console.log('设施行项目的点击操作以及data')
       console.log(data)
+    },
+    showActiveColumn (index) {
+      this.activeIndex = index
+    },
+    rowClassName (row, index) {
+      if (index === this.activeIndex) {
+        return 'demo-table-info-row';
+      }
+      return '';
+    },
+    reset () {
+      this.activeIndex = ''
     }
   },
   mounted () { }
