@@ -1,3 +1,10 @@
+// 192.168.199.217 || localhost
+let defaultProxyHost = '47.111.29.26'
+let npmArgv = JSON.parse(process.env.npm_config_argv).cooked
+let pid = npmArgv.indexOf('--proxy')
+if(~pid) defaultProxyHost = npmArgv[pid+1]
+
+console.log(defaultProxyHost)
 module.exports = {
   lintOnSave: true,
   devServer: {
@@ -16,15 +23,11 @@ module.exports = {
         changeOrigin: true
       } */
       '/maptiles': {
-        target: 'http://47.111.29.26:8000',
-        // target: 'http://192.168.199.217:8000' ,
-        // target: 'http://localhost:8000',
+        target: `http://${defaultProxyHost}:8000`,
         changeOrigin: true
       },
       '/graphql': {
-        target: 'http://47.111.29.26:8000',
-        // target: 'http://192.168.199.217:8000',
-        // target: 'http://localhost:8000',
+        target: `http://${defaultProxyHost}:8000`,
         changeOrigin: true
       }
     }
