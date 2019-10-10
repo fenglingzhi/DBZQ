@@ -2,7 +2,7 @@
   <div class="filter">
     <div class="filter_wrap" :class = "show === true  ? 'filter_wrap':'filter_wrap_open'">
       <!--<div class="title">飞机</div>-->
-      <!--<Divider size="small" />-->
+      <!--<Divider size="small"/>-->
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
         <TabPane label="标签检索" tab="name1">
