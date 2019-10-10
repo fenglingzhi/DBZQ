@@ -32,11 +32,17 @@
     border-radius: 0;
     background: rgba(0,0,0,0.1);
   }
+  .ivu-table .demo-table-info-row td{
+    background-color: #2db7f5 !important;
+    color: #fff;
+  }
 </style>
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_installation">
-      <Table height="400" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
+      <button @click="showActiveColumn(parseInt(Math.random()*5))">点击</button>
+      <button @click="reset()">清除</button>
+      <Table height="400" :row-class-name = "rowClassName" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
     </div>
 </template>
 
@@ -59,35 +65,36 @@ export default {
           title: '机场类型',
           key: 'type'
         },
-        //  {
-        //    title: '国家/地区',
-        //    key: 'country'
-        //  },
+//        {
+//          title: '国家/地区',
+//          key: 'country'
+//        },
         {
           title: '通航日期',
           key: 'date'
         },
-        //  {
-        //    title: '飞行区等级',
-        //    key: 'level'
-        //  },
-        //  {
-        //    title: '航站楼面积',
-        //    key: 'area'
-        //  },
+//        {
+//          title: '飞行区等级',
+//          key: 'level'
+//        },
+//        {
+//          title: '航站楼面积',
+//          key: 'area'
+//        },
         {
           title: '机位数量',
           key: 'num'
         }
-      ]
+      ],
+      activeIndex: ''
       // data: {}
     }
   },
   props: ['facility'],
   computed: {
     data() {
-      return this.facility && this.facility.map(({ targetType, name, code, usage, address, openDate, level, area, parkCount, feature, symbol }) => {
-        let cdata = { targetType, name, code, 'type': usage.label, 'country': address.country && address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount, 'position': address.position, feature, 'symbol': symbol }
+      return this.facility && this.facility.map(({ name, code, usage, address, openDate, level, area, parkCount }) => {
+        let cdata = { name, code, 'type': usage.label, 'country': address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount }
         return cdata
       })
     }
@@ -96,7 +103,18 @@ export default {
     showRow (data) {
       console.log('设施行项目的点击操作以及data')
       console.log(data)
-      this.$store.commit('selectinfoTarget', data)
+    },
+    showActiveColumn (index) {
+      this.activeIndex = index
+    },
+    rowClassName (row, index) {
+      if (index === this.activeIndex) {
+        return 'demo-table-info-row';
+      }
+      return '';
+    },
+    reset () {
+      this.activeIndex = ''
     }
   },
   mounted () { }
