@@ -22,7 +22,7 @@
         v-if="selectinfoTarget.code !== undefined"
         :json="selectinfoTarget" :symbol="makeSymbol(selectinfoTarget)"/>
       </vectorlayer>
-      <Routeplayer v-if="route" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
+      <Routeplayer v-if="route" :direction="false" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
         <filterwrap @change_filter_show = "change_filter_show"></filterwrap>
       </uicomponent>
@@ -545,6 +545,7 @@ export default {
             markerWidth: 35,
             markerHeight: 35,
             markerPath: SVG['Plane'],
+            markerRotation: 180,
             markerVerticalAlignment: 'middle',
             markerHorizontalAlignment: 'middle'
           },
