@@ -203,7 +203,16 @@ const GQL = {
           loading{ name },
           parking{ name },
           destination{ name }
-          ETA
+          ETA,
+          track{
+            lon,
+            lat,
+            alt,
+            timestamp,
+            horSpeed,
+            vetSpeed,
+            azimuth
+          }
         },
         news{ title, content, source, timestamp },
         nearby{
@@ -362,7 +371,11 @@ export default {
     },
     selectinfoTarget() {
       // this.centerXY = this.selectinfoTarget.position
-      this.centerXY = this.selectinfoTarget.feature.geometry.coordinates
+      if (this.selectinfoTarget && this.selectinfoTarget.feature) {
+        this.centerXY = this.selectinfoTarget.feature.geometry.coordinates
+      } else {
+        this.centerXY = {x: 100, y: 31}
+      }
     }
   },
   methods: {
@@ -522,7 +535,7 @@ export default {
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
       delay(() => {
-        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.alt, p.timestamp ])),
+        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime: 100,
           markerSymbol: {
             markerType: 'path',
@@ -538,7 +551,7 @@ export default {
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
         this.playStatus = 'play'
-        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime: 100 }
+        this.detailchar = { path: e.track.map(p => ([ p.timestamp ])), alt: e.track.map(p => ([ p.alt ])), unitTime: 100 }
       }, 1000)
     })
     this.intv = setInterval(async () => {
