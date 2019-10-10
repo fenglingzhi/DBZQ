@@ -8,7 +8,7 @@
 
     <AirplaneTrajectory :status="status" :real_time_info="real_time_info.history" v-if="targetr_type=='Plane'"></AirplaneTrajectory>
     <ShipTrajectory :status="status" :real_time_info="real_time_info.history" v-if="targetr_type=='Ship'"></ShipTrajectory>
-    <SatelliteTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
+    <SatelliteTrajectory :status="status" :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
     <BuoyTrajectory :real_time_info="real_time_info.history" v-if="targetr_type=='Buoy'"></BuoyTrajectory>
   </div>
 </template>

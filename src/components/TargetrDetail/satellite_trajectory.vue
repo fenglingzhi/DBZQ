@@ -33,9 +33,9 @@
     <!-- 飞机的目标信息 -->
     <div class="satellite_trajectory">
       <Table height="163" :columns="columns1" :data="data">
-        <template slot="action">
-          <Icon style="cursor: pointer" type="md-play" @click="player(index)"  v-if="activeIndex !== index"/>
-          <Icon style="cursor: pointer" type="md-pause" @click="pause(index)" v-if="activeIndex === index"/>
+        <template slot="action" slot-scope="{row,index}">
+          <Icon style="cursor: pointer" type="md-play" @click="player(index)"  v-if="activeIndex !== index || status !== 'play'"/>
+          <Icon style="cursor: pointer" type="md-pause" @click="pause(index)" v-if="activeIndex === index && status === 'play'"/>
         </template>
       </Table>
     </div>
@@ -93,6 +93,10 @@ export default {
     real_time_info: {
       type: Array,
       default: () => []
+    },
+    status: {
+      type: String,
+      default: ' '
     }
   },
   computed: {
