@@ -335,6 +335,7 @@ export default {
       targetr_type: 'airplane', // 下弹窗展示类型
       targetr_id: '0', // 下弹窗展示类型的id
       targetr_info: {},
+      selectedtype: '',
       spinShow: true,
       route: null,
       playStatus: '',
@@ -448,6 +449,7 @@ export default {
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target
+        this.selectedtype = r.target.targetType
       })
     },
     clearinfo() {
@@ -544,7 +546,8 @@ export default {
             markerFill: '#ff8000',
             markerWidth: 35,
             markerHeight: 35,
-            markerPath: SVG['Plane'],
+            // markerPath: SVG['Plane'],
+            markerPath: SVG[this.selectedtype],
             markerVerticalAlignment: 'middle',
             markerHorizontalAlignment: 'middle'
           },
