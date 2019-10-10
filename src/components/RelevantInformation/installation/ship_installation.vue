@@ -111,9 +111,9 @@ export default {
     },
     rowClassName (row, index) {
       if (index === this.activeIndex) {
-        return 'demo-table-info-row';
+        return 'demo-table-info-row'
       }
-      return '';
+      return ''
     },
     reset () {
       this.activeIndex = ''

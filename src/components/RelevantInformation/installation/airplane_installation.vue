@@ -65,22 +65,22 @@ export default {
           title: '机场类型',
           key: 'type'
         },
-//        {
-//          title: '国家/地区',
-//          key: 'country'
-//        },
+        //  {
+        //    title: '国家/地区',
+        //    key: 'country'
+        //  },
         {
           title: '通航日期',
           key: 'date'
         },
-//        {
-//          title: '飞行区等级',
-//          key: 'level'
-//        },
-//        {
-//          title: '航站楼面积',
-//          key: 'area'
-//        },
+        //  {
+        //    title: '飞行区等级',
+        //    key: 'level'
+        //  },
+        //  {
+        //    title: '航站楼面积',
+        //    key: 'area'
+        //  },
         {
           title: '机位数量',
           key: 'num'
@@ -109,9 +109,9 @@ export default {
     },
     rowClassName (row, index) {
       if (index === this.activeIndex) {
-        return 'demo-table-info-row';
+        return 'demo-table-info-row'
       }
-      return '';
+      return ''
     },
     reset () {
       this.activeIndex = ''
