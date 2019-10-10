@@ -113,7 +113,7 @@ export default {
   },
   computed: {
     data() {
-      return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, parking, destination, ETA }) => {
+      return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, parking, destination, ETA, track }) => {
         let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading && loading.name, 'parking': parking && parking.name, 'destination': destination && destination.name, 'ETA': new Date(ETA).toLocaleString() }
         return cdata
       })
@@ -122,11 +122,11 @@ export default {
   methods: {
     player(index) {
       this.activeIndex = index
-      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+      this.$root.mq.$emit('routePlay', this.real_time_info.history[index])
     },
-    pause(index){
+    pause(index) {
       this.activeIndex = ''
-      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+      this.$root.mq.$emit('routePlay', this.real_time_info.history[index])
     }
   },
   mounted () {}

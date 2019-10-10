@@ -551,7 +551,7 @@ export default {
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
         this.playStatus = 'play'
-        this.detailchar = { path: e.track.map(p => ([ p.timestamp ])), alt: e.track.map(p => ([ p.alt ])), unitTime: 100 }
+        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime: 100 }
       }, 1000)
     })
     this.intv = setInterval(async () => {
