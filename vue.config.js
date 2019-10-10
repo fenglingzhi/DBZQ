@@ -1,5 +1,5 @@
 // npm run serve --proxy=192.168.199.217
-// npm run serve --proxy=ocalhost
+// npm run serve --proxy=localhost
 let defaultProxyHost = '47.111.29.26'
 let npmArgv = JSON.parse(process.env.npm_config_argv).cooked
 let pid = npmArgv.indexOf('--proxy')
