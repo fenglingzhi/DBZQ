@@ -9,20 +9,8 @@ console.log(defaultProxyHost)
 module.exports = {
   lintOnSave: true,
   devServer: {
-    // port: 8004,
     port: 8089,
     proxy: {
-      /* '/maptiles': {
-        target: 'http://www.google.cn/maps',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/maptiles': ''
-        }
-      },
-      '/graphql': {
-        target: 'http://localhost:8000',
-        changeOrigin: true
-      } */
       '/maptiles': {
         target: `http://${defaultProxyHost}:8000`,
         changeOrigin: true
