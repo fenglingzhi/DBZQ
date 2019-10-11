@@ -9,7 +9,7 @@
       <ShipInformation :base_info="base_info" v-if="targetr_type=='Ship'" @change_Relevant = "change_Relevant"></ShipInformation>
       <SatelliteInformation :base_info="base_info" v-if="targetr_type=='Satellite'" @change_Relevant = "change_Relevant"></SatelliteInformation>
       <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'" @change_Relevant = "change_Relevant"></BuoyInformation>
-      <AirportInformation :base_info="base_info" v-if="targetr_type=='AirPort'" @change_Relevant = "change_Relevant"></AirportInformation>
+      <AirportInformation :base_info="base_info" v-if="targetr_type=='Airport'" @change_Relevant = "change_Relevant"></AirportInformation>
       <PortInformation :base_info="base_info" v-if="targetr_type=='Port'" @change_Relevant = "change_Relevant"></PortInformation>
     </div>
 

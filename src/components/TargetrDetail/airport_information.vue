@@ -5,7 +5,7 @@
         <span v-text="'机场名称'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.name"></span>
+        <!-- <span v-text="base_info.name"></span> -->
       </div>
     </div>
     <div class="info-data-item">
@@ -13,23 +13,23 @@
         <span v-text="'机场性质'"></span>
       </div>
       <div class="info-value">
-        <span> {{base_info.usage.label}}</span>
+        <span> {{base_info && base_info.usage && base_info.usage.label}}</span>
       </div>
     </div>
-    <div class="info-data-item">
+    <!-- <div class="info-data-item">
       <div class="info-title">
         <span v-text="'ICAO编号'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info.ICAO}}</span>
+        <span>{{base_info && base_info.code}}</span>
       </div>
-    </div>
+    </div> -->
     <div class="info-data-item">
       <div class="info-title">
         <span v-text="'所属国家'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info.ORG.base.country.cname}}</span>
+        <span>{{base_info && base_info.address && base_info.address.country && base_info.address.country.cname}}</span>
       </div>
     </div>
     <div class="info-data-item">
@@ -37,7 +37,7 @@
         <span v-text="'经度'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info.longitude}}</span>
+        <span>{{base_info && base_info.address && base_info.address.position && base_info.address.position.x}}</span>
       </div>
     </div>
     <div class="info-data-item">
@@ -45,7 +45,7 @@
         <span v-text="'纬度'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info.latitude}}</span>
+        <span>{{base_info && base_info.address && base_info.address.position && base_info.address.position.y}}</span>
       </div>
     </div>
     <div class="info-data-item">
@@ -53,7 +53,7 @@
         <span v-text="'航站楼面积'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info.area}}</span>
+        <span>{{base_info && base_info.area}}</span>
       </div>
     </div>
     <div class="info-data-item">
@@ -61,7 +61,7 @@
         <span v-text="'机位数量'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info.num}}</span>
+        <span>{{base_info && base_info.parkCount}}</span>
       </div>
     </div>
   </div>

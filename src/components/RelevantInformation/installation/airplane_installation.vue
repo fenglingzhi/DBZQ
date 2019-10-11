@@ -93,8 +93,8 @@ export default {
   props: ['facility'],
   computed: {
     data() {
-      return this.facility && this.facility.map(({ targetType, name, code, usage, address, openDate, level, area, parkCount, feature, symbol }) => {
-        let cdata = { targetType, name, code, 'type': usage.label, 'country': address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount, feature, symbol }
+      return this.facility && this.facility.map(({ targetType, id, name, code, usage, address, openDate, level, area, parkCount, feature, symbol }) => {
+        let cdata = { targetType, id, name, code, 'type': usage.label, 'country': address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount, feature, symbol }
         return cdata
       })
     }
