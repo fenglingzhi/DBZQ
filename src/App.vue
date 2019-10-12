@@ -579,7 +579,7 @@ export default {
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime: 100 }
       }, 1000)
     })
-    this.intv = setInterval(async () => {
+    this.intv = setInterval(async () => { return
       let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
       // debugger
       this.waringList = ret.targetList

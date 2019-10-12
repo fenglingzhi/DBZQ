@@ -30,7 +30,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
                   </i-col>
@@ -50,7 +50,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">类型：</i-col>
                   <i-col span="21">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.model">
                       <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
@@ -60,8 +60,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">高度：</i-col>
                   <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeHeight" :label="item.label" :key="item.id"></Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.height">
+                      <Radio v-for="item in planeHeight" :label="item.value" :key="item.id">{{ item.label }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -70,8 +70,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">速度：</i-col>
                   <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeSpeed" :label="item.label" :key="item.id"></Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.speed">
+                      <Radio v-for="item in planeSpeed" :label="item.value" :key="item.id">{{ item.label }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -290,8 +290,8 @@ const GQL = {
     }`
   },
   filterTargets: { query: gql`
-    query($type:String!){
-      targetList: filterTargets(targetType:$type) {
+    query($type:String!, $country:String, $model: String, $height: String, $speed: String){
+      targetList: filterTargets(targetType:$type, country:$country, model:$model, height:$height, speed:$speed) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -374,7 +374,7 @@ export default {
       checked: false,
       dictTydefList: [],
       // 选中的搜索条件组合
-      conditions: { region: '亚洲', country: null },
+      conditions: { region: '亚洲', country: '', model: '', height: '', speed: '' },
       regionOptions: [],  // 大洲/国家 选项集合
       planeUsage: [],     // 飞机用途
       planeKind: [],     // 飞机型号
@@ -407,7 +407,8 @@ export default {
   },
   methods: {
     fadeChange() {
-      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
+      // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
+      executeGQL(GQL.filterTargets, { type: this.targetType, country: '', model: '', height: this.conditions.height, speed: this.conditions.speed }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
