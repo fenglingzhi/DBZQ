@@ -20,7 +20,7 @@
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
         <geometry :id="selectinfoTarget.name"
         v-if="selectinfoTarget.code !== undefined"
-        :json="selectinfoTarget" :symbol="makeSymbol(selectinfoTarget)"/>
+        :json="selectinfoTarget" :symbol="makeSymbol(selectinfoTarget)" @click="setSelected($event,selectinfoTarget)"/>
       </vectorlayer>
       <Routeplayer v-if="route" :direction="selectedtype === 'Plane'" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
@@ -156,7 +156,7 @@ const GQL = {
         },
         nearby{
           targetType: __typename,
-          name, code,
+          id,name, code,
           usage{ label },
           address{
             position,
@@ -278,6 +278,23 @@ const GQL = {
           homepage
         },
         news{ title, content, source, timestamp },
+      },
+      ... on Airport{
+        targetType: __typename,
+        # name,
+        id,
+        usage{ label },
+        code,
+        address {
+          position,
+          country { cname }
+        },
+        area,
+        parkCount,
+        ,
+        news{
+          title, content, source, timestamp
+        }
       }
     }
   }`
@@ -383,19 +400,23 @@ export default {
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
-     if (!SVG.Selected[t.targetType]){
+      if (!SVG.Selected[this.selectedtype]){
        this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerFill: '#f2e239' })
-       p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
      } else {
-       this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[t.targetType] })
+       this.selectedGeo && this.selectedGeo.updateSymbol({ markerWidth: 25, markerHeight: 25, markerPath: SVG[this.selectedtype] })
+     }
+     if (!SVG.Selected[t.targetType]){
+       p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerFill: '#ff8000' })
+       this.$store.commit('selectinfoTarget', {})
+     } else {
        p.target.updateSymbol({ markerWidth: 35, markerHeight: 35, markerPath: SVG.Selected[t.targetType] })
      }
       this.selectedGeo = p.target
+      this.selectedtype = t.targetType
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
       this.show_RelevantInformation_boolean = true
       this.filter_show = true
-      this.$store.commit('selectinfoTarget', {})
       this.get_info()
     },
     makeSymbol(target) {
@@ -560,7 +581,7 @@ export default {
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime: 100 }
       }, 1000)
     })
-    this.intv = setInterval(async () => {
+    this.intv = setInterval(async () => { return
       let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
       // debugger
       this.waringList = ret.targetList
