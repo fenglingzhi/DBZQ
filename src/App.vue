@@ -40,7 +40,8 @@
                              @change_filter_RelevantInformation="change_filter_RelevantInformation"></RelevantInformation>
       </uicomponent>
       <uicomponent :position={bottom:10,left:10} style="z-index: 9999">
-        <TargetrDetail :targetr_type="selectedTarget && selectedTarget.targetType"
+        <TargetrDetail ref="TargetrDetail"
+                       :targetr_type="selectedTarget && selectedTarget.targetType"
                        :targetr_id="targetr_id"
                        :targetr_info="targetr_info"
                        :spinShow="spinShow"
@@ -531,6 +532,7 @@ export default {
     this.updateTime();
     setInterval(this.updateTime, 1000)
     this.$root.mq.$on('routePlay', (e) => {
+      // this.$refs.TargetrDetail.changeChats()
       this.show_RelevantInformation_boolean = false
       this.show_RelevantInformation_filter = true
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
