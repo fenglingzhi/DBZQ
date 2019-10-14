@@ -184,8 +184,8 @@ export default {
       { '时间': '01:59', '高度': 290 },
       { '时间': '02:00', '高度': 190 }
     ]
-    this.timer = null,  // 定时器名称
-    this.timerIndex = 0,
+    this.timer = null // 定时器名称
+    this.timerIndex = 0
     this.chartSettings = {
       area: true,
       scale: true
@@ -276,11 +276,11 @@ export default {
       })
     },
     status (v) {
-      if (v == 'remove') {
+      if (v === 'remove') {
         this.timerIndex = 0
         clearInterval(this.timer)
-        this.timer = null;
-      } else if (v == 'play') {
+        this.timer = null
+      } else if (v === 'play') {
         this.changeChats()
       }
     }
@@ -296,16 +296,16 @@ export default {
         if (this.timerIndex === 0) {
           this.chartData.rows = []
         }
-        if (this.status == 'pause') {
+        if (this.status === 'pause') {
           console.log('-----------------------')
           return
-        } else if (this.status == 'play') {
+        } else if (this.status === 'play') {
           console.log('======================')
           this.chartData.rows.push(this.Data[this.timerIndex])
           this.chartlength = this.timerIndex * 2
           this.timerIndex++
           console.log(this.chartData.rows)
-          this.$refs.chart.init();
+          this.$refs.chart.init()
         }
       }, this.detailchar.unitTime)
     },
