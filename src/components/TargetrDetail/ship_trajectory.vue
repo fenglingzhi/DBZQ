@@ -113,7 +113,7 @@ export default {
   computed: {
     data() {
       return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, destination, ETA }) => {
-        let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading.name, 'destination': destination.name, 'ETA': new Date(ETA).toLocaleString() }
+        let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading && loading.name, 'destination': destination && destination.name, 'ETA': new Date(ETA).toLocaleString() }
         return cdata
       })
     }

@@ -90,16 +90,14 @@ export default {
   },
   props: {
     real_time_info: {
-      type: Array,
+      type: Object,
       default: () => []
     }
   },
   computed: {
     data() {
-      return this.real_time_info && this.real_time_info.map(({ action, launchSite }) => {
-        let cdata = { 'RCS': action && action.RCS, 'lon': action && action.lon, 'lat': action && action.lat, 'geocentric': action && action.geocentric, 'speed': action && action.speed, 'city': launchSite && launchSite.city, 'GMT': action && new Date(action.GMT).toLocaleString() }
-        return cdata
-      })
+      var real_time_info = this.real_time_info
+      return this.real_time_info && [{ 'RCS': real_time_info.action && real_time_info.action.RCS, 'lon': real_time_info.action && real_time_info.action.lon, 'lat': real_time_info.action && real_time_info.action.lat, 'geocentric': real_time_info.action && real_time_info.action.geocentric, 'speed': real_time_info.action && real_time_info.action.speed, 'city': real_time_info.launchSite && real_time_info.launchSite.city, 'GMT': real_time_info.action && new Date(real_time_info.action.GMT).toLocaleString() }]
     }
   },
   methods: { },

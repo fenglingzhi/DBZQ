@@ -58,13 +58,13 @@ export default {
   props: ['facility'],
   watch: {
     facility() {
-      this.data = this.facility.facility
+      this.data = this.facility
     }
   },
   methods: { },
   mounted () {
     setTimeout(() => {
-      this.data = this.facility.facility
+      this.data = this.facility
     }, 0)
   }
 }

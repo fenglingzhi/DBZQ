@@ -90,8 +90,8 @@ export default {
   props: ['facility'],
   computed: {
     data() {
-      return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, operator, phone }) => {
-        let cdata = { name, code, type, 'country': address.country && address.country.cname, goods, capacity, 'operator': operator && operator.cname, phone }
+      return this.facility && this.facility.map(({ name, code, usage, address, goods, capacity, operator, phone }) => {
+        let cdata = { name, code, 'type': usage && usage.label, 'country': address.country && address.country.cname, goods, capacity, 'operator': operator && operator.cname, phone }
         return cdata
       })
     }
