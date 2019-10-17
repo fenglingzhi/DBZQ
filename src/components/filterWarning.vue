@@ -1,19 +1,11 @@
 <template>
   <div class="filter">
-    <div class="filter_wrap" :class = "show === true  ? 'filter_wrap':'filter_wrap_open'">
+    <div class="filter_wrap_warning" :class = "show === true  ? 'filter_wrap_warning':'filter_wrap_open'">
       <!--<div class="title">飞机</div>-->
-      <!--<Divider size="small"/>-->
+      <!--<Divider size="small" />-->
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
-        <TabPane label="标签检索" tab="name1">
-          <Row style="margin-bottom: 10px;">
-            <i-col span="20">
-              <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />
-            </i-col>
-            <i-col span="3" offset="1">
-              <Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>
-            </i-col>
-          </Row>
+        <TabPane label="异特情检索" tab="name1">
           <Tabs name="1-1" tab="name1" v-model="targetType">
             <TabPane label="飞机" tab="1-1" name="Plane">
               <div>
@@ -29,49 +21,9 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
+                    <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <!--<div>-->
-                <!--<Row slot="content" class="row_margin">-->
-                  <!--<i-col span="3" class="label">军民属性：</i-col>-->
-                  <!--<i-col span="21">-->
-                    <!--<RadioGroup type="button" size="small" >-->
-                      <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
-                    <!--</RadioGroup>-->
-                  <!--</i-col>-->
-                <!--</Row>-->
-              <!--</div>-->
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">类型：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.model">
-                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">高度：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.height">
-                      <Radio v-for="item in planeHeight" :label="item.value" :key="item.id">{{ item.label }}</Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">速度：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.speed">
-                      <Radio v-for="item in planeSpeed" :label="item.value" :key="item.id">{{ item.label }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -91,29 +43,9 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <!--<div>-->
-                <!--<Row slot="content" class="row_margin">-->
-                  <!--<i-col span="3" class="label">军民属性：</i-col>-->
-                  <!--<i-col span="21">-->
-                    <!--<RadioGroup type="button" size="small" >-->
-                      <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
-                    <!--</RadioGroup>-->
-                  <!--</i-col>-->
-                <!--</Row>-->
-              <!--</div>-->
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">类型：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -133,23 +65,13 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
               </div>
-              <!--<div>-->
-                <!--<Row slot="content" class="row_margin">-->
-                  <!--<i-col span="3" class="label">军民属性：</i-col>-->
-                  <!--<i-col span="21">-->
-                    <!--<RadioGroup type="button" size="small" >-->
-                      <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
-                    <!--</RadioGroup>-->
-                  <!--</i-col>-->
-                <!--</Row>-->
-              <!--</div>-->
             </TabPane>
             <TabPane label="浮标" tab="1-1" name="Buoy">
               <div>
@@ -165,73 +87,7 @@
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-            </TabPane>
-            <TabPane label="机场" tab="1-1" name="Airport">
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-            </TabPane>
-            <TabPane label="港口" tab="1-1" name="Port">
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-            </TabPane>
-            <TabPane label="发射场" tab="1-1" name="fashechang">
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
-                  <i-col span="21">
-                    <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
-                    </RadioGroup>
-                  </i-col>
-                </Row>
-              </div>
-              <div>
-                <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">国家/地区：</i-col>
-                  <i-col span="21" style="max-height: 100px;overflow: auto">
+                  <i-col span="21" style="max-height: 300px;overflow: auto">
                     <RadioGroup type="button" size="small" >
                       <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
@@ -241,23 +97,32 @@
             </TabPane>
           </Tabs>
         </TabPane>
-        <TabPane label="主题检索" name="name2">
-          <div>
-            <RadioGroup type="button" size="small" >
-              <Radio v-for="item in theme" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
-            </RadioGroup>
-            <Row>
-              <i-col span="4">
-                <Button type="primary" size="small" style="width: 100%;" @click="themeSelect()">搜索</Button>
-              </i-col>
-            </Row>
-          </div>
-        </TabPane>
+        <!--<TabPane label="主题检索" name="name2">-->
+          <!--<div>-->
+            <!--<RadioGroup type="button" size="small" >-->
+              <!--<Radio v-for="item in theme" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>-->
+            <!--</RadioGroup>-->
+            <!--<Row>-->
+              <!--<i-col span="4">-->
+                <!--<Button type="primary" size="small" style="width: 100%;" @click="themeSelect()">搜索</Button>-->
+              <!--</i-col>-->
+            <!--</Row>-->
+          <!--</div>-->
+        <!--</TabPane>-->
       </Tabs>
+      <Row style="margin-bottom: 10px;">
+        <!--<i-col span="20">-->
+        <!--<Input v-model="searchString" size="small" placeholder="请输入要搜索的目标" />-->
+        <!--</i-col>-->
+        <i-col span="3" offset="20">
+          <Button type="error" size="small" style="width: 100%;background: red" @click="fadeChange()">搜索</Button>
+          <!--<div class="submit"></div>-->
+        </i-col>
+      </Row>
     </div>
     <div class="open_wrap" @click="changeFilter" :class = "show === true  ? 'open_wrap':'close_wrap'">
       <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
-      <Icon type="ios-arrow-down" class="icon_n"/>
+      <Icon type="ios-arrow-down" class="icon_w"/>
     </div>
   </div>
 </template>
@@ -290,8 +155,8 @@ const GQL = {
     }`
   },
   filterTargets: { query: gql`
-    query($type:String!, $country:String, $model: String, $height: String, $speed: String){
-      targetList: filterTargets(targetType:$type, country:$country, model:$model, height:$height, speed:$speed) {
+    query($type:String!){
+      targetList: filterTargets(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -357,9 +222,29 @@ const GQL = {
   }
 }
 export default {
-  name: 'filterwrap',
+  name: 'filterWarning',
   data() {
     return {
+      /* searchString: '',
+      show: true,
+      targetType: 'Plane',
+      searchData: {
+        airCountry: [],
+        airArea: [],
+        property: [],
+        type: [],
+        height: [],
+        speed: []
+      },
+      checked: false,
+      dictTydefList: [],
+      // 选中的搜索条件组合
+      conditions: { region: '亚洲', country: null },
+      regionOptions: [],  // 大洲/国家 选项集合
+      planeUsage: [],     // 飞机用途
+      planeKind: [],     // 飞机型号
+      planeHeight: [],    // 飞行高度
+      planeSpeed: [],      // 飞行速度 */
       searchString: '',
       show: true,
       targetType: 'Plane',
@@ -374,7 +259,7 @@ export default {
       checked: false,
       dictTydefList: [],
       // 选中的搜索条件组合
-      conditions: { region: '亚洲', country: '', model: '', height: '', speed: '' },
+      conditions: { region: '亚洲', country: null },
       regionOptions: [],  // 大洲/国家 选项集合
       planeUsage: [],     // 飞机用途
       planeKind: [],     // 飞机型号
@@ -386,7 +271,7 @@ export default {
           id: '1'
         },
         {
-          name: '台湾局势 ',
+          name: '台湾局势',
           id: '1'
         },
         {
@@ -402,23 +287,24 @@ export default {
       return region && region.countryList
     },
     countryTags() {
+      //  return sampleSize(this.countryList, 100)
       return this.countryList
     }
   },
   methods: {
     fadeChange() {
-      // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
-      executeGQL(GQL.filterTargets, { type: this.targetType, country: '', model: '', height: this.conditions.height, speed: this.conditions.speed }).then(r => {
+      /* executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
+        this.$store.commit('targetList', r.targetList)
+      })
+      this.show = !this.show */
+      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
       this.$emit('change_filter_show', this.show)
     },
     themeSelect() {
-      //  alert('主题检索')
-      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
-        this.$store.commit('targetList', r.targetList)
-      })
+    //  alert('主题检索')
     },
     // 国家选择
     countrySelect(index) {
@@ -440,6 +326,12 @@ export default {
   mounted() {
     // 获取搜索区域列表
     executeGQL(GQL.getConditions).then(r => {
+    /* this.regionOptions = r.regionList
+      this.planeUsage = r.planeUsage
+      this.dictTydefList = r.dictTydefList
+      this.planeKind = r.planeKind
+      this.planeHeight = r.planeHeight
+      this.planeSpeed = r.planeSpeed */
       this.regionOptions = r.regionList
       this.planeUsage = r.planeUsage
       this.dictTydefList = r.dictTydefList
@@ -455,16 +347,16 @@ export default {
     background: #ccc;
   }
   .filter{
-    .filter_wrap{
+    .filter_wrap_warning{
       width: 600px;
       padding: 10px;
       min-height: 440px;
       overflow: auto;
       background: #0000006b;
-      border: 1px solid #009bef;
-      box-shadow: 0 0 20px 2px #009bef;
+      border: 1px solid red;
+      box-shadow: 0 0 20px 2px red;
       color:#fff;
-      margin-top: -460px;
+      margin-top: -466px;
       transition: all 1s linear;
       .title{
         text-align: center;
@@ -486,7 +378,7 @@ export default {
       }
       input:focus{
         border: 1px solid #000;
-        box-shadow: 0 0 1px 1px #084dff;
+        box-shadow: 0 0 1px 1px red;
       }
     }
     .filter_wrap_open{
@@ -498,9 +390,9 @@ export default {
       text-align: center;
       transition: all 1s linear;
     }
-    .icon_n{
+    .icon_w{
       font-size: 50px;
-      color: #009bef;
+      color: red;
       text-shadow: 0 1px 20px #000;
     }
     .close_wrap{

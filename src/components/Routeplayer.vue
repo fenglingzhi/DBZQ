@@ -7,7 +7,11 @@ export default {
     lineSymbol: Object,
     markerSymbol: Object,
     status: String,
-    unitTime: Number
+    unitTime: Number,
+    direction: {
+      typye: Boolean,
+      default: true
+    }
   },
   data() {
     return {
@@ -36,12 +40,13 @@ export default {
     }
   },
   mounted() {
-    debugger
+    // debugger
     if (!this.container) return
     this.mapItem = new mapcan.RoutePlayer({ path: this.path }, this.container.map, {
       lineSymbol: this.lineSymbol,
       markerSymbol: this.markerSymbol,
-      unitTime: this.unitTime || 1000
+      unitTime: this.unitTime || 1000,
+      direction: this.direction
     })
     this.status === 'play' && this.mapItem.play()
     this.mapItem.on('playfinish', () => {

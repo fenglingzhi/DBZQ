@@ -14,7 +14,7 @@
     background-color:transparent !important;
     color: #fff;
   }
-  .ivu-table-overflowY::-webkit-scrollbar {/*滚动条整体样式*/
+  .ivu-table-overflowY::-webkit-scrollbar {/* 滚动条整体样式 */
     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
     height: 4px;
   }
@@ -34,7 +34,8 @@
     <div class="airplane_trajectory">
       <Table height="163" :columns="columns1" :data="data">
         <template slot="action" slot-scope="{row,index}">
-            <Icon style="cursor: pointer" type="md-play" @click="player(index)" />
+            <Icon style="cursor: pointer" type="md-play" @click="player(index)"  v-if="activeIndex !== index || status !== 'play'"/>
+            <Icon style="cursor: pointer" type="md-pause" @click="pause(index)" v-if="activeIndex === index && status === 'play'"/>
         </template>
       </Table>
     </div>
@@ -60,7 +61,7 @@ export default {
           key: 'ETD'
         },
         {
-          title: '预计到达时间',
+          title: '到达时间',
           key: 'ETA'
         },
         {
@@ -93,13 +94,18 @@ export default {
           width: 100,
           align: 'center'
         }
-      ]
+      ],
+      activeIndex: ''
     }
   },
   props: {
     real_time_info: {
       type: Array,
       default: () => []
+    },
+    status: {
+      type: String,
+      default: ' '
     }
   },
   computed: {
@@ -112,6 +118,11 @@ export default {
   },
   methods: {
     player(index) {
+      this.activeIndex = index
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+    },
+    pause(index) {
+      this.activeIndex = ''
       this.$root.mq.$emit('routePlay', this.real_time_info[index])
     }
   },

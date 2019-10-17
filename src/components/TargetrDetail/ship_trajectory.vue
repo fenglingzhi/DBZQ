@@ -33,8 +33,9 @@
     <!-- 飞机的目标信息 -->
     <div class="ship_trajectory">
       <Table height="163" :columns="columns1" :data="data">
-        <template slot="action">
-            <Icon type="md-play" />
+        <template slot="action" slot-scope="{row,index}">
+          <Icon style="cursor: pointer" type="md-play" @click="player(index)"  v-if="activeIndex !== index || status !== 'play'"/>
+          <Icon style="cursor: pointer" type="md-pause" @click="pause(index)" v-if="activeIndex === index && status === 'play'"/>
         </template>
       </Table>
     </div>
@@ -81,7 +82,7 @@ export default {
         },
         {
           title: '停靠港口',
-          key: ''
+          key: 'parking'
         },
         {
           title: '目的港口',
@@ -101,24 +102,38 @@ export default {
           width: 100,
           align: 'center'
         }
-      ]
+      ],
+      activeIndex: ''
     }
   },
   props: {
     real_time_info: {
       type: Array,
       default: () => []
+    },
+    status: {
+      type: String,
+      default: ' '
     }
   },
   computed: {
     data() {
-      return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, destination, ETA }) => {
-        let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading && loading.name, 'destination': destination && destination.name, 'ETA': new Date(ETA).toLocaleString() }
+      return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, parking, destination, ETA, track }) => {
+        let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading && loading.name, 'parking': parking && parking.name, 'destination': destination && destination.name, 'ETA': new Date(ETA).toLocaleString() }
         return cdata
       })
     }
   },
-  methods: { },
+  methods: {
+    player(index) {
+      this.activeIndex = index
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+    },
+    pause(index) {
+      this.activeIndex = ''
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+    }
+  },
   mounted () {}
 }
 </script>

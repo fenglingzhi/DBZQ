@@ -6,9 +6,9 @@
     <SatelliteTrajectory :real_time_info="real_time_info_data" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
     <BuoyTrajectory :real_time_info="real_time_info_data" v-if="targetr_type=='Buoy'"></BuoyTrajectory> -->
 
-    <AirplaneTrajectory :real_time_info="real_time_info.history" v-if="targetr_type=='Plane'"></AirplaneTrajectory>
-    <ShipTrajectory :real_time_info="real_time_info.history" v-if="targetr_type=='Ship'"></ShipTrajectory>
-    <SatelliteTrajectory :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
+    <AirplaneTrajectory :status="status" :real_time_info="real_time_info.history" v-if="targetr_type=='Plane'"></AirplaneTrajectory>
+    <ShipTrajectory :status="status" :real_time_info="real_time_info.history" v-if="targetr_type=='Ship'"></ShipTrajectory>
+    <SatelliteTrajectory :status="status" :real_time_info="real_time_info" v-if="targetr_type=='Satellite'"></SatelliteTrajectory>
     <BuoyTrajectory :real_time_info="real_time_info.history" v-if="targetr_type=='Buoy'"></BuoyTrajectory>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
       real_time_info_data: []
     }
   },
-  props: ['targetr_type', 'real_time_info'],
+  props: ['targetr_type', 'real_time_info', 'status'],
   methods: {
     // 获取目标
     get_info() {

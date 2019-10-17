@@ -47,12 +47,18 @@ export default {
       // debugger
       that.container.mapTip && that.container.mapTip.show(that.geometry.getCenter())
       that.$emit('click', e)
-    })
+    });
+    ['mouseenter', 'mouseout'].forEach(en => that.geometry.on(en, e => that.$emit(en, e)))
     if (this.layer.mapItem) this.layer.mapItem.addGeometry(this.geometry)
   },
   watch: {
     coordinations(n, o) {
       if (this.geometry) this.geometry.setCoordinates(n)
+    },
+    json(n, o) {
+      let geometry = n.feature ? mapcan.Geometry.fromJSON(n) : mapcan.GeoJSON.toGeometry(n)
+      if (!geometry) return
+      this.geometry.setCoordinates(geometry.getCoordinates())
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
-    <!-- 飞机的目标信息 -->
-    <div class="airplane_information">
+    <!-- 船舶的目标信息 -->
+    <div class="port_information">
         <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('information')">
             <div class="info-title">
-                <span v-text="'飞机名称'"></span>
+                <span v-text="'港口名称'"></span>
             </div>
             <div class="info-value">
                 <span v-text="base_info.name"></span>
@@ -11,66 +11,50 @@
         </div>
         <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
             <div class="info-title">
-                <span v-text="'隶属单位'"></span>
+                <span v-text="'所在国家'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ORG.cname}}</span>
+                <span v-text="country"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'飞机性质'"></span>
+                <span v-text="'港口代码'"></span>
             </div>
             <div class="info-value">
-                <span> {{base_info.usage.label}}</span>
+                <span v-text="base_info.code"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'机型'"></span>
+                <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span >{{base_info.kind.label}}</span>
+                <span v-text="base_info.longitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'注册信息'"></span>
+                <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.registration}}</span>
+                <span v-text="base_info.latitude"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'所属国家'"></span>
+                <span v-text="'码头数量'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ORG.base.country.cname}}</span>
+                <span v-text="base_info.area"></span>
             </div>
         </div>
         <div class="info-data-item">
             <div class="info-title">
-                <span v-text="'应答机编码'"></span>
+                <span v-text="'状态'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.radar.responseCode}}</span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'飞机雷达型号'"></span>
-            </div>
-            <div class="info-value">
-                <span>{{base_info.radar.model}}</span>
-            </div>
-        </div>
-        <div class="info-data-item">
-            <div class="info-title">
-                <span v-text="'ICAO编号'"></span>
-            </div>
-            <div class="info-value">
-                <span>{{base_info.ICAO}}</span>
+                <span v-text="base_info.status"></span>
             </div>
         </div>
     </div>
@@ -78,7 +62,7 @@
 
 <script>
 export default {
-  name: 'airplane_information',
+  name: 'port_information',
   components: { },
   data() {
     return { }
@@ -86,7 +70,7 @@ export default {
   props: ['base_info'],
   methods: {
     change_Relevant(value) {
-        this.$emit('change_Relevant', value)
+      this.$emit('change_Relevant', value)
     }
   },
   mounted () { }
@@ -94,7 +78,7 @@ export default {
 </script>
 
 <style>
-.airplane_information{
+.port_information{
     height: 100%;
     box-sizing: border-box;
     display: flex;

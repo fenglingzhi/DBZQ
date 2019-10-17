@@ -32,11 +32,15 @@
     border-radius: 0;
     background: rgba(0,0,0,0.1);
   }
+  .ivu-table .demo-table-info-row td{
+    background-color: #2db7f5 !important;
+    color: #fff;
+  }
 </style>
 <template>
     <!-- 航班设施信息 -->
     <div class="ship_installation">
-      <Table height="400" :columns="columns1" :data="data" size="small"></Table>
+      <Table height="400" :row-class-name = "rowClassName" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
     </div>
 </template>
 
@@ -68,7 +72,7 @@ export default {
           key: 'goods'
         },
         {
-          title: '最大吞吐量',
+          title: '吞吐量',
           key: 'capacity'
         },
         {
@@ -83,20 +87,38 @@ export default {
           title: '联系电话',
           key: 'phone'
         }
-      ]
+      ],
+      activeIndex: ''
       // data: []
     }
   },
   props: ['facility'],
   computed: {
     data() {
-      return this.facility && this.facility.map(({ name, code, usage, address, goods, capacity, operator, phone }) => {
-        let cdata = { name, code, 'type': usage && usage.label, 'country': address.country && address.country.cname, goods, capacity, 'operator': operator && operator.cname, phone }
+      return this.facility && this.facility.map(({ name, code, type, address, goods, capacity, operator, phone }) => {
+        let cdata = { name, code, type, 'country': address.country && address.country.cname, goods, capacity, 'operator': operator && operator.cname, phone }
         return cdata
       })
     }
   },
-  methods: { },
+  methods: {
+    showRow (data) {
+      console.log('设施行项目的点击操作以及data')
+      console.log(data)
+    },
+    showActiveColumn (index) {
+      this.activeIndex = index
+    },
+    rowClassName (row, index) {
+      if (index === this.activeIndex) {
+        return 'demo-table-info-row'
+      }
+      return ''
+    },
+    reset () {
+      this.activeIndex = ''
+    }
+  },
   mounted () {}
 }
 </script>

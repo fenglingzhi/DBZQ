@@ -56,7 +56,7 @@ export default {
           key: 'destination'
         },
         {
-          title: '预计到达时间',
+          title: '到达时间',
           key: 'ETA'
         },
         {

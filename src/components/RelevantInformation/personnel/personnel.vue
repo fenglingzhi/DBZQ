@@ -1,123 +1,102 @@
+<style>
+  .personnel{
+    height: 100%;
+    width: 100%;
+  }
+  .ivu-table-wrapper{
+    border: none !important;
+  }
+  .ivu-table th{
+    background-color:rgba(170, 170, 170, .5) !important;
+    color: #aaa;
+    padding:0 5px;
+  }
+  .ivu-table-cell{
+    padding:0 5px !important;
+  }
+  .ivu-table, .ivu-table td{
+    background-color:transparent !important;
+    color: #fff;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  .ivu-table-overflowY::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+  }
+</style>
 <template>
     <!-- 航班设施信息 -->
     <div class="personnel">
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'姓名'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.name"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'民族'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.nation"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'性别'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.gender"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'出生日期'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="new Date(usr.birthday).toLocaleDateString()"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'别名'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.nickname"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'国籍'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.country.cname"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'宗教信仰'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.faith"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'工作方向'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.job"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'学历'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.EDU"></span>
-            </div>
-        </div>
-        <div class="row-info-data-item">
-            <div class="row-info-title">
-                <span v-text="'常在城市'"></span>
-            </div>
-            <div class="row-info-value">
-                <span v-text="usr.city"></span>
-            </div>
-        </div>
+      <Table height="400" :columns="columns1" :data="data" size="small"></Table>
     </div>
 </template>
 
 <script>
+import expandRow from './personnel-expand.vue'
 export default {
   name: 'personnel',
   components: { },
   data() {
-    return { }
+    return {
+      columns1: [
+        {
+          type: 'expand',
+          width: 50,
+          render: (h, params) => {
+            return h(expandRow, {
+              props: {
+                  row: params.row
+              }
+            })
+          }
+        },
+        {
+          title: '姓名',
+          key: 'name'
+        },
+        {
+          title: '别名',
+          key: 'nickname'
+        },
+        {
+          title: '国籍',
+          key: 'country'
+        },
+        {
+          title: '出生日期',
+          key: 'birthday'
+        },
+        {
+          title: '工作方向',
+          key: 'job'
+        },
+        {
+          title: '常在城市',
+          key: 'city'
+        }
+      ]
+    }
   },
   props: ['usr'],
+  computed: {
+    data() {
+      return [this.usr] && [this.usr].map(({ name, nickname, country, birthday, job, city }) => {
+        let cdata = { name, nickname, 'country': country && country.cname, birthday, job, city }
+        return cdata
+      })
+    }
+  },
   methods: { },
-  mounted () { }
+  mounted () {
+  }
 }
 </script>
-
-<style>
-.personnel{ }
-.row-info-data-item{
-    width:100%;
-    margin-bottom: 10px;
-    display: flex;
-}
-.row-info-title{
-    width: 150px;
-    color: #aaa;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.row-info-value{
-    width: 200px;
-    color: #fff;
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-</style>

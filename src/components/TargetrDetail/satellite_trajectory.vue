@@ -33,8 +33,9 @@
     <!-- 飞机的目标信息 -->
     <div class="satellite_trajectory">
       <Table height="163" :columns="columns1" :data="data">
-        <template slot="action">
-            <Icon type="md-play" />
+        <template slot="action" slot-scope="{row,index}">
+          <Icon style="cursor: pointer" type="md-play" @click="player(index)"  v-if="activeIndex !== index || status !== 'play'"/>
+          <Icon style="cursor: pointer" type="md-pause" @click="pause(index)" v-if="activeIndex === index && status === 'play'"/>
         </template>
       </Table>
     </div>
@@ -92,15 +93,30 @@ export default {
     real_time_info: {
       type: Object,
       default: () => []
+    },
+    status: {
+      type: String,
+      default: ' '
     }
   },
   computed: {
     data() {
-      var real_time_info = this.real_time_info
-      return this.real_time_info && [{ 'RCS': real_time_info.action && real_time_info.action.RCS, 'lon': real_time_info.action && real_time_info.action.lon, 'lat': real_time_info.action && real_time_info.action.lat, 'geocentric': real_time_info.action && real_time_info.action.geocentric, 'speed': real_time_info.action && real_time_info.action.speed, 'city': real_time_info.launchSite && real_time_info.launchSite.city, 'GMT': real_time_info.action && new Date(real_time_info.action.GMT).toLocaleString() }]
+      return [this.real_time_info] && [this.real_time_info].map(({ action, launchSite }) => {
+        let cdata = { 'RCS': action && action.RCS, 'lon': action && action.lon, 'lat': action && action.lat, 'geocentric': action && action.geocentric, 'speed': action && action.speed, 'city': launchSite && launchSite.city, 'GMT': action && new Date(action.GMT).toLocaleString() }
+        return cdata
+      })
     }
   },
-  methods: { },
+  methods: {
+    player(index) {
+      this.activeIndex = index
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+    },
+    pause(index) {
+      this.activeIndex = ''
+      this.$root.mq.$emit('routePlay', this.real_time_info[index])
+    }
+  },
   mounted () { }
 }
 </script>

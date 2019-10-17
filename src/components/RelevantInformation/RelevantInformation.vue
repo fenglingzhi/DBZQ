@@ -1,18 +1,22 @@
 <template>
     <div class="RelevantInformation">
-      <div class="RelevantInformation_container">
+      <div class="open_wrap" @click="changeFilterWrap" v-if=" show_RelevantInformation_boolean || filter_show" :class = "show === true  ? 'open_wrap':'close_wrap'">
+        <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
+        <Icon type="ios-arrow-down" class="icon_b"/>
+      </div>
+      <div class="RelevantInformation_container" :class = "show_RelevantInformation_boolean === true && filter_show && show === false  ? 'RelevantInformation_open':'RelevantInformation_wrap'">
         <div class="RelevantInformation_operator">
-          <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="!container_show" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
-          <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="hide" width="16px" height="16.00px" v-if="container_show" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg>
+          <!-- <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="show1" width="16px" v-if="!container_show" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M959.72 0H294.216a63.96 63.96 0 0 0-63.96 63.96v127.92H64.28A63.96 63.96 0 0 0 0.32 255.84V959.4a63.96 63.96 0 0 0 63.96 63.96h703.56a63.96 63.96 0 0 0 63.96-63.96V792.465h127.92a63.96 63.96 0 0 0 63.96-63.96V63.96A63.96 63.96 0 0 0 959.72 0zM767.84 728.505V959.4H64.28V255.84h703.56z m189.322 0H831.8V255.84a63.96 63.96 0 0 0-63.96-63.96H294.216V63.96H959.72z" /></svg>
+          <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="hide" width="16px" height="16.00px" v-if="container_show" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M65.23884 456.152041 958.760137 456.152041l0 111.695918L65.23884 567.847959 65.23884 456.152041z" /></svg> -->
           <svg class="TargetrDetail_operator_icon TargetrDetail_operator_icon_hover" @click="close" width="16px" height="16.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M587.7 511.9L912.3 187c20.9-21 20.9-54.8 0-75.8s-54.8-21-75.7 0L512 436.1 187.5 111.2c-20.9-21-54.8-21-75.7 0-20.9 21-20.9 54.8 0 75.8l324.5 324.8-324.5 324.9c-20.9 21-20.9 54.8 0 75.8 10.4 10.5 24.1 15.7 37.9 15.7 13.7 0 27.4-5.2 37.9-15.7L512 587.7l324.5 324.8c10.4 10.5 24.2 15.7 37.9 15.7s27.4-5.2 37.8-15.7c20.9-21 20.9-54.8 0-75.8L587.7 511.9z" /></svg>
         </div>
         <!-- tab切换 -->
         <div class="RelevantInformation_operator_tabs" v-if="tab_boolean">
-          <div :class="[tab_show == 'installation' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']" @click="changeTab('installation')">
+          <div v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port'" :class="[tab_show == 'installation' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']" @click="changeTab('installation')">
             <svg class="RelevantInformation_operator_icon" width="16px" height="15.98px" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M160.672 245.408h184.192L252.256 146.496 159.616 245.408h1.056z m321.12 16.224v132.64h-117.696V289.28h24.224l16.128-37.248-57.44-61.312 56.832-60.64 107.776 115.008-7.136 16.544h-22.688zM138.336 395.2H29.216V261.632H7.04l-7.04-16.544L107.68 130.08l7.136 7.552L160.32 186.24 98.592 252 114.72 289.28h23.616v105.92z m109.952-100.032v54.368h-25.312V295.168h25.312z m36.192 0v54.368h-25.344V295.168h25.344z m48.192-163.168v50.784l-8.096-8.672-23.296-24.864v-17.312h-8.224v-17.632h48.576v17.632l-8.96 0.064z m17.92 143.776v118.816H151.84V275.776h-28.288l-9.056-20.96L251.52 108.48l9.088 9.664 127.968 136.672-9.056 20.96h-28.928z m-17.664 0H169.536v101.152h163.392V275.776zM1024.992 381.6c0 20.096-16.256 36.352-36.32 36.352h-314.016a36.384 36.384 0 0 1-36.416-36.352V67.584c0-20.128 16.352-36.416 36.416-36.416h314.016c20.064 0 36.32 16.288 36.32 36.416v314.016zM1024.992 905.344c0 20.096-16.256 36.32-36.32 36.32h-314.016a36.384 36.384 0 0 1-36.416-36.32v-314.016c0-20.16 16.352-36.384 36.416-36.384h314.016c20.064 0 36.32 16.224 36.32 36.384v314.016zM466.4 905.344c0 20.096-16.256 36.32-36.416 36.32H116.032c-20.16 0-36.416-16.224-36.416-36.32v-314.016c0-20.16 16.256-36.384 36.416-36.384h313.952c20.16 0 36.416 16.224 36.416 36.384v314.016z" /></svg>
             <span>设施</span>
           </div>
-          <div :class="[tab_show == 'dynamic' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']" @click="changeTab('dynamic')">
+          <div v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port'" :class="[tab_show == 'dynamic' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']" @click="changeTab('dynamic')">
             <svg class="RelevantInformation_operator_icon" width="16px" height="14.60px" viewBox="0 0 1122 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M2.198036 146.677641l-1.108241-16.882506-1.089821 17.302061 0.491187 7.79043 0 18.251689 0.024559 0.599657c0.010233 0.249687 0.25378 6.132674 0.581238 6.39464 0.007163 0.00614 0.013303 0.008186 0.020466 0.008186 0.321318 0 0.528026-6.009877 0.537236-6.271844l0.020466-0.592494 0-18.215874L2.198036 146.677641 2.198036 146.677641zM1.090819 134.228097l0.822738 12.538571-0.823761 13.1853-0.809435-12.856819L1.090819 134.228097 1.090819 134.228097zM1.54926 171.46314c-0.055259 1.357927-0.223081 4.848425-0.450255 4.680603-0.231267-0.185218-0.419556-3.669576-0.484024-5.033643L0.614981 156.865677l0.474814 7.544837 0.459464-7.354502L1.54926 171.46314 1.54926 171.46314zM1.54926 171.46314M699.554604 894.548696c-5.628184 0-10.980076-2.041496-15.173584-5.792936L486.108281 720.610178 241.311949 720.610178c-41.718147 0-75.656097-33.82334-75.656097-75.656097L165.655852 196.921975c0-41.664935 33.93795-75.65712 75.656097-75.65712l727.153198 0c41.828664 0 75.766614 33.993209 75.766614 75.65712l0 448.087365c0 41.831734-33.93795 75.656097-75.766614 75.656097L725.767616 720.665437l-2.594081 150.597927c-0.10847 9.270131-5.628184 17.328667-13.905708 21.025872C706.232701 893.778146 702.754483 894.548696 699.554604 894.548696L699.554604 894.548696 699.554604 894.548696zM241.311949 168.612209c-15.560394 0-28.308743 12.69309-28.308743 28.365025l0 448.091458c0 15.724123 12.748349 28.362978 28.308743 28.362978L494.549534 673.431669c5.684466 0 11.035334 2.042519 15.34243 5.629207l166.708859 141.599995 2.152013-123.94387c0.327458-12.912078 10.761088-23.285333 23.61893-23.285333l266.094404 0c15.616676 0 28.473495-12.639878 28.473495-28.362978L996.939665 196.97621c0-15.616676-12.803607-28.365025-28.473495-28.365025L241.311949 168.611186 241.311949 168.612209 241.311949 168.612209zM463.204642 304.528761l283.643082 0 0 47.237861L463.204642 351.766622 463.204642 304.528761 463.204642 304.528761 463.204642 304.528761zM463.204642 434.541861l283.643082 0 0 47.288003L463.204642 481.829863 463.204642 434.541861 463.204642 434.541861 463.204642 434.541861zM463.204642 434.541861" /></svg>
             <span>动态</span>
           </div>
@@ -76,24 +80,41 @@ export default {
   components: { AirplaneInstallation, AirplaneDynamic, personnel, organization, information, ShipInstallation, SatelliteInstallation, BuoyInstallation, ShiplaneDynamic, SatellitelaneDynamic, BuoyDynamic },
   data () {
     return {
-      tab_show: 'installation',
-      // spinShow: false
+      tab_show: this.tab_show_Relevant,
+      // spinShow: false,
       // targetr_info: {}
       targetr_info_data: [],
       container_show: true,
       tab_boolean: true
     }
   },
-  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow'],
+  props: ['targetr_type', 'targetr_id', 'targetr_info', 'spinShow', 'tab_show_Relevant', 'show_RelevantInformation_boolean', 'filter_show', 'status', 'show'],
   watch: {
     targetr_type(newVal, oldVal) {
-      this.tab_show = 'installation'
+      if (newVal === 'AirPort' || newVal === 'Port') {
+        this.tab_show = 'personnel'
+      } else {
+        this.tab_show = 'installation'
+      }
       this.get_info()
     },
     targetr_id() {
-      this.tab_show = 'installation'
+      if (this.targetr_type === 'AirPort' || this.targetr_type === 'Port') {
+        this.tab_show = 'personnel'
+      } else {
+        this.tab_show = 'installation'
+      }
       this.get_info()
+    },
+    targetr_info() {
+      this.container_show = true
+      this.tab_boolean = true
+    },
+    tab_show_Relevant() {
+      this.tab_show = this.tab_show_Relevant
     }
+  },
+  created() {
   },
   mounted() {
     this.get_info()
@@ -101,19 +122,17 @@ export default {
   methods: {
     // 弹窗显示最大化
     show1() {
-      console.log('show1')
       this.container_show = true
       this.tab_boolean = true
     },
     // 弹窗显示最小化
     hide() {
-      console.log('hide')
       this.container_show = false
       this.tab_boolean = false
     },
     // 弹窗关闭
     close() {
-      console.log('close')
+      this.show = !this.show
       this.$emit('close_RelevantInformation')
     },
     // tab切换
@@ -143,19 +162,27 @@ export default {
         let resp = r.data
         this.targetr_info_data = resp
       })
+    },
+    // 箭头切换
+    changeFilterWrap() {
+      this.$emit("change_filter_RelevantInformation")
     }
   }
 }
 </script>
 <style scoped lang="scss">
   .RelevantInformation{
-    padding: 10px;
-    background: #000000b3;
-    border: 1px solid #009bef;
-    box-shadow: 0 0 20px 2px #009bef;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
     .RelevantInformation_container{
+      padding: 10px;
+      background: #000000b3;
+      border: 1px solid #009bef;
+      box-shadow: 0 0 20px 2px #009bef;
       width: 623px;
-      min-height: 10px;
+      min-height: 460px;
+      position: relative;
       .RelevantInformation_operator_tabs{
         display: flex;
         .RelevantInformation_operator_tab{
@@ -163,11 +190,11 @@ export default {
           display:flex;
           cursor: pointer;
           align-items:center;
-          font-size:12px;
+          font-size: 18px;
           padding-right: 2px;
 
           .RelevantInformation_operator_icon{
-            padding: 3px;
+            /*padding: 3px;*/
             cursor: pointer;
             display: inline-block;
             transition: all .3s;
@@ -195,7 +222,7 @@ export default {
         border-radius: 0 0 2px 2px;
         // height: 174px;
         z-index: 9;
-        width:600px;
+        // width:600px;
       }
     }
   }
@@ -217,13 +244,39 @@ export default {
   }
   .RelevantInformation_operator{
     position: absolute;
-    top: 6px;
-    right: 4px;
+    top: 10px;
+    right: 10px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+  }
+  .RelevantInformation_wrap{
+    margin-right: -650px;
+    opacity: 0;
+    /*margin-top: 0px;*/
+    transition: all 1s linear;
+  }
+  .RelevantInformation_open{
+    margin-right: 0px;
+    opacity: 1;
+    transition: all 1s linear;
+  }
+  .open_wrap{
+    text-align: center;
+    transition: all 1s linear;
+  }
+  .icon_b{
+    font-size: 50px;
+    color: #009bef;
+    transform: rotate(90deg);
+    text-shadow: 0 1px 20px #000;
+    transition: all 1s linear;
+  }
+  .close_wrap{
+    transform: rotate(-180deg);
+    transition: all 1s linear;
   }
 </style>
