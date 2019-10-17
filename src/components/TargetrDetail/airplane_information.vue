@@ -86,7 +86,7 @@ export default {
   props: ['base_info'],
   methods: {
     change_Relevant(value) {
-        this.$emit('change_Relevant', value)
+      this.$emit('change_Relevant', value)
     }
   },
   mounted () { }
