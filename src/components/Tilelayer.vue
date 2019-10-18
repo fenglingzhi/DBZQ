@@ -40,7 +40,7 @@ export default {
       return new Promise((resolve, reject) =>
         mapcan.SpatialReference.loadArcgis(url, (err, conf) => err ? reject(err) : resolve(conf)))
     },
-    createLayerConfig() {
+    async createLayerConfig() {
       let layerCfg = {
         visible: !this.hide,
         // tileSystem: this.tileSystem,
@@ -65,7 +65,8 @@ export default {
   },
   async mounted() {
     // debugger
-    this.mapItem = new mapcan.TileLayer(this.id, this.createLayerConfig())
+    let cfg = await this.createLayerConfig()
+    this.mapItem = new mapcan.TileLayer(this.id, cfg)
     // this.base ? this.container.map.setBaseLayer(this.$layer) : this.container.map.addLayer(this.$layer)
   }
 }
