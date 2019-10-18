@@ -27,20 +27,20 @@ export default {
     hide(n, o) {
       n ? this.mapItem.hide() : this.mapItem.show()
     },
-    urlTemplate(n, o) {
-      if(n && o){
-        this.mapItem.remove();
-        this.mapItem = new mapcan.TileLayer(this.id, this.createLayerConfig())
-        this.base ? this.container.map.setBaseLayer(this.$layer) : this.container.map.addLayer(this.$layer)
-      }
-    }
+    // urlTemplate(n, o) {
+    //   if(n && o){
+    //     this.mapItem.remove();
+    //     this.mapItem = new mapcan.TileLayer(this.id, this.createLayerConfig())
+    //     this.base ? this.container.map.setBaseLayer(this.$layer) : this.container.map.addLayer(this.$layer)
+    //   }
+    // }
   },
   methods: {
     parseArcgisServerConfig(url) {
       return new Promise((resolve, reject) =>
         mapcan.SpatialReference.loadArcgis(url, (err, conf) => err ? reject(err) : resolve(conf)))
     },
-    createLayerConfig() {
+    async createLayerConfig() {
       let layerCfg = {
         visible: !this.hide,
         // tileSystem: this.tileSystem,
