@@ -14,7 +14,7 @@
       </uicomponent>
     </mapcan>
     <mapcan v-else name="mainmap1" :center="centerXY" :zoom="4" style="height:100%" key="mainmap1">
-      <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
+      <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
@@ -53,6 +53,9 @@
                        @close_TargetrDetail = "close_TargetrDetail"
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
+      </uicomponent>
+      <uicomponent :position={top:5,right:300} style="z-index: 9999">
+          <Button type="info" @click="changeMode()">切换地图模式</Button>
       </uicomponent>
     </mapcan>
     <div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">
@@ -370,7 +373,8 @@ export default {
       filter_show: false,
       clickinfo: false,
       centerXY: {x: 100, y: 31},
-      detailchar: {}
+      detailchar: {},
+      maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'
     }
   },
   computed: {
@@ -480,6 +484,13 @@ export default {
     playOver() {
       this.playStatus = 'remove'
       this.route = null
+    },
+    changeMode(){
+      if(this.maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'){
+        this.maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}'
+      }else{
+        this.maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'
+      }
     },
     change_warning() {
       this.warning = !this.warning
