@@ -54,7 +54,7 @@
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
       </uicomponent>
-      <uicomponent :position={top:5,right:300} style="z-index: 9999">
+      <uicomponent :position={top:5,right:400} style="z-index: 9999">
           <Button type="info" @click="changeMode()">切换地图模式</Button>
       </uicomponent>
     </mapcan>
@@ -74,7 +74,11 @@
         {{notice}}
       </div>
     </div>
-    <div id="clock">
+    <div class="clock">
+      <Divider style="color:#83bfff;font-size: 12px;margin:10px 0;">天文时间</Divider>
+      <span class="date">{{ date }}</span>
+      <span class="time" style="margin-left: 10px;">{{ time }}</span>
+      <Divider style="color:#83bfff;font-size: 12px;margin:10px 0;">作战时间</Divider>
       <span class="date">{{ date }}</span>
       <span class="time" style="margin-left: 10px;">{{ time }}</span>
     </div>
@@ -82,6 +86,7 @@
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
 <script>
 // import ax from 'axios'
 import Mapcan from './components/MapControl'
@@ -602,12 +607,16 @@ export default {
 </script>
 
 <style lang="scss">
-  #clock {
+  .ivu-divider-horizontal.ivu-divider-with-text-center:after, .ivu-divider-horizontal.ivu-divider-with-text-center:before, .ivu-divider-horizontal.ivu-divider-with-text-left:after, .ivu-divider-horizontal.ivu-divider-with-text-left:before, .ivu-divider-horizontal.ivu-divider-with-text-right:after, .ivu-divider-horizontal.ivu-divider-with-text-right:before{
+    border-color: #83bfff;
+  }
+  .clock {
     font-family: 'Share Tech Mono', monospace;
     text-align: center;
     position: absolute;
-    right: -100px;
-    top: 20px;
+    right: -90px;
+    bottom: -50px;
+    width: 300px;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     /*color: #daf6ff;*/
@@ -617,17 +626,22 @@ export default {
     padding: 4px 10px;
     border-radius: 4px;
     box-shadow: 0 0 20px 2px #009bef;
+    padding-bottom: 10px;
   }
-  #clock .time {
+  .military{
+    right: -100px;
+    top: 60px;
+  }
+  .clock .time {
     letter-spacing: 0.05em;
     font-size: 12px;
     padding: 5px 0;
   }
-  #clock .date {
+  .clock .date {
     letter-spacing: 0.1em;
     font-size: 12px;
   }
-  #clock .text {
+  .clock .text {
     letter-spacing: 0.1em;
     font-size: 12px;
     padding: 20px 0 0;
