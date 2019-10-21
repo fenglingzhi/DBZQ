@@ -295,7 +295,8 @@ const GQL = {
         news{
           title, content, source, timestamp
         }
-      }
+      },
+      ... on Port{}
     }
   }`
   },
