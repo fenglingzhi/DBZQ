@@ -32,7 +32,7 @@ export default {
         this.createLayerConfig().then(lyrCfg => {
           this.mapItem.remove()
           this.mapItem = new mapcan.TileLayer(this.id, lyrCfg)
-          this.base ? this.container.map.setBaseLayer(this.$layer) : this.container.map.addLayer(this.$layer)
+          this.base ? this.container.map.setBaseLayer(this.mapItem) : this.container.map.addLayer(this.mapItem)
         })
       }
     }

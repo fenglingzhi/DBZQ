@@ -31,7 +31,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -93,7 +93,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -135,7 +135,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -167,7 +167,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -189,7 +189,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -198,7 +198,7 @@
             <TabPane label="港口" tab="1-1" name="Port">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
+                  <i-col span="3" class="label">区域： </i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -211,7 +211,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -233,7 +233,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -270,7 +270,7 @@ const GQL = {
     {
       regionList {
         id, cname,
-        countryList{ cname, id }
+        countryList{ cname, ename, id }
       }
       dictTydefList: dictTypeDefs {
         id value
@@ -408,7 +408,7 @@ export default {
   methods: {
     fadeChange() {
       // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
-      executeGQL(GQL.filterTargets, { type: this.targetType, country: '', model: '', height: this.conditions.height, speed: this.conditions.speed }).then(r => {
+      executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: '', height: this.conditions.height, speed: this.conditions.speed }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
