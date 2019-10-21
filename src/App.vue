@@ -419,6 +419,7 @@ export default {
       this.selectedtype = t.targetType
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
+      this.show_TargetrDetail_filter = false
       this.show_RelevantInformation_boolean = true
       this.filter_show = true
       this.get_info()
@@ -500,6 +501,9 @@ export default {
     },
     change_Relevant(value) {
       this.tab_show_Relevant = value
+      this.show_RelevantInformation_filter = false
+      this.show_RelevantInformation_boolean = true
+      this.show_RelevantInformation_boolean = true
     },
     open (data) {
       this.nitice_flag = true
