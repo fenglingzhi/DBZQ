@@ -15,6 +15,10 @@
     </mapcan>
     <mapcan v-else name="mainmap1" :center="centerXY" :zoom="4" style="height:100%" key="mainmap1">
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
+      <vectorlayer id="boundarylayer">
+        <geometry v-for="boundary in boundaryList" :id="boundary.id" :key="boundary.id"
+          :json="boundary"></geometry>
+      </vectorlayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
@@ -99,6 +103,17 @@ import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
+  boundaryList: { query: gql`{
+    boundaryList{
+    type
+    properties
+    geometry{
+      coordinates
+      type
+    }
+  }
+}`
+  },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -374,7 +389,8 @@ export default {
       clickinfo: false,
       centerXY: {x: 100, y: 31},
       detailchar: {},
-      maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'
+      maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}',
+      boundaryList: []
     }
   },
   computed: {
@@ -400,6 +416,9 @@ export default {
         this.centerXY = {x: 100, y: 31}
       }
     }
+  },
+  created() {
+    this.get_binfo()
   },
   methods: {
     ...mapMutations(['setSomeState']),
@@ -476,6 +495,13 @@ export default {
         this.spinShow = false
         this.targetr_info = r.target
         this.selectedtype = r.target.targetType
+      })
+    },
+    get_binfo() {
+      debugger
+      executeGQL(GQL.boundaryList, {}).then(r => {
+        console.log(r)
+        this.boundaryList = r.boundaryList
       })
     },
     clearinfo() {
