@@ -18,7 +18,11 @@ module.exports = {
       '/graphql': {
         target: `http://${defaultProxyHost}:8000`,
         changeOrigin: true
-      }
+      },
+      '/api': {
+        target: `http://58.213.124.45:50001`,
+        changeOrigin: true
+      },
     }
   }
 }
