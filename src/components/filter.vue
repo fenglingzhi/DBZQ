@@ -92,7 +92,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
@@ -134,7 +134,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
@@ -166,7 +166,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
@@ -188,7 +188,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
@@ -210,7 +210,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
@@ -232,7 +232,7 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
                       <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
