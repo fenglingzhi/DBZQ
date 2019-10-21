@@ -89,7 +89,7 @@ export default {
   width: 250px;
 }
 .TargetrInformation_img img{
-  max-height: 140px;
+  max-width: 240px;
   padding:10px 10px 0 0;
 }
 .TargetrInformation_chart{
