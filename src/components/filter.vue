@@ -198,7 +198,7 @@
             <TabPane label="港口" tab="1-1" name="Port">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
+                  <i-col span="3" class="label">区域： </i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
