@@ -23,6 +23,10 @@ module.exports = {
         target: `http://58.213.124.45:50001`,
         changeOrigin: true
       },
+      '/Help': {
+        target: `http://58.213.124.45:50001`,
+        changeOrigin: true
+      },
     }
   }
 }
