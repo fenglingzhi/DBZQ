@@ -118,10 +118,10 @@ export default {
   },
   computed: {
     data() {
-      return this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, parking, destination, ETA, track }) => {
+      return this.real_time_info ? this.real_time_info.map(({ heading, ending, ETD, status, lon, lat, draught, loading, parking, destination, ETA, track }) => {
         let cdata = { heading, ending, 'ETD': new Date(ETD).toLocaleString(), status, lon, lat, draught, 'loading': loading && loading.name, 'parking': parking && parking.name, 'destination': destination && destination.name, 'ETA': new Date(ETA).toLocaleString() }
         return cdata
-      })
+      }) : []
     }
   },
   methods: {

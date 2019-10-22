@@ -6,7 +6,7 @@
                 <span v-text="'船舶名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="base_info && base_info.name"></span>
             </div>
         </div>
          <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
@@ -14,7 +14,7 @@
                 <span v-text="'隶属单位'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.ORG && base_info.ORG.cname"></span>
+                <span v-text="base_info && base_info.ORG && base_info.ORG.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'船舶类型'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.usage.label"></span>
+                <span v-text="base_info && base_info.usage.label"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'MMSI编号'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.MMSI"></span>
+                <span v-text="base_info && base_info.MMSI"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'注册国家'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country && base_info.country.cname"></span>
+                <span v-text="base_info && base_info.country && base_info.country.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'船舶状态'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.status"></span>
+                <span v-text="base_info && base_info.status"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'吨位'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.tonnage"></span>
+                <span v-text="base_info && base_info.tonnage"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'船宽度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.width"></span>
+                <span v-text="base_info && base_info.width"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'船长度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.length"></span>
+                <span v-text="base_info && base_info.length"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'船高度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.height"></span>
+                <span v-text="base_info && base_info.height"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -86,7 +86,7 @@
                 <span v-text="'最大航速'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.maxSpeed"></span>
+                <span v-text="base_info && base_info.maxSpeed"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -94,7 +94,7 @@
                 <span v-text="'电话等通联'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.phone"></span>
+                <span v-text="base_info && base_info.phone"></span>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@ export default {
   props: ['base_info'],
   methods: {
     change_Relevant(value) {
-        this.$emit('change_Relevant', value)
+      this.$emit('change_Relevant', value)
     }
   },
   mounted () { }
