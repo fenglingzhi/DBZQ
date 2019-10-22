@@ -73,6 +73,14 @@
                 <span>{{base_info.ICAO}}</span>
             </div>
         </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'MSN编号'"></span>
+            </div>
+            <div class="info-value">
+                <span>{{base_info.ICAO}}</span>
+            </div>
+        </div>
     </div>
 </template>
 
