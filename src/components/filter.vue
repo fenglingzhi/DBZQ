@@ -417,24 +417,24 @@ export default {
           id: '1'
         }
       ],
-      area:[
+      area: [
         {
-          name:'南海空管区域',
-          id:'1'
+          name: '南海空管区域',
+          id: '1'
         },
         {
-          name:'黄海空管区域',
-          id:'1'
+          name: '黄海空管区域',
+          id: '1'
         },
         {
-          name:'东海空管区域',
-          id:'1'
-        },
+          name: '东海空管区域',
+          id: '1'
+        }
       ],
-      Elongitude:'',
-      Wlongitude:'',
-      Nlongitude:'',
-      Slongitude:'',
+      Elongitude: '',
+      Wlongitude: '',
+      Nlongitude: '',
+      Slongitude: ''
     }
   },
   computed: {
@@ -461,7 +461,7 @@ export default {
         this.$store.commit('targetList', r.targetList)
       })
     },
-    areaSelect(){
+    areaSelect() {
 
     },
     // 国家选择
