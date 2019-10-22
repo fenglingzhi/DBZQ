@@ -1,4 +1,4 @@
- <script>
+<script>
 // import { UUID } from '../commons'
 // import { each } from 'lodash'
 // import * as mapcan from 'maptalks'

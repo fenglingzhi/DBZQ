@@ -15,6 +15,10 @@
     </mapcan>
     <mapcan v-else name="mainmap1" :center="centerXY" :zoom="4" style="height:100%" key="mainmap1">
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
+      <vectorlayer id="boundarylayer">
+        <geometry v-for="boundary in boundaryList" :id="boundary.id" :key="boundary.id"
+          :json="boundary" :symbol="{ lineColor : '#34495e', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
+      </vectorlayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeSymbol(target)" @click="setSelected($event,target)"/>
@@ -54,7 +58,7 @@
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
       </uicomponent>
-      <uicomponent :position={top:5,right:300} style="z-index: 9999">
+      <uicomponent :position={top:5,right:400} style="z-index: 9999">
           <Button type="info" @click="changeMode()">切换地图模式</Button>
       </uicomponent>
     </mapcan>
@@ -74,7 +78,11 @@
         {{notice}}
       </div>
     </div>
-    <div id="clock">
+    <div class="clock">
+      <Divider style="color:#83bfff;font-size: 12px;margin:10px 0;">天文时间</Divider>
+      <span class="date">{{ date }}</span>
+      <span class="time" style="margin-left: 10px;">{{ time }}</span>
+      <Divider style="color:#83bfff;font-size: 12px;margin:10px 0;">作战时间</Divider>
       <span class="date">{{ date }}</span>
       <span class="time" style="margin-left: 10px;">{{ time }}</span>
     </div>
@@ -82,6 +90,7 @@
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
 <script>
 // import ax from 'axios'
 import Mapcan from './components/MapControl'
@@ -99,6 +108,17 @@ import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
+  boundaryList: { query: gql`{
+    boundaryList{
+    type
+    properties
+    geometry{
+      coordinates
+      type
+    }
+  }
+}`
+  },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -375,7 +395,8 @@ export default {
       clickinfo: false,
       centerXY: {x: 100, y: 31},
       detailchar: {},
-      maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'
+      maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}',
+      boundaryList: []
     }
   },
   computed: {
@@ -402,6 +423,9 @@ export default {
       }
     }
   },
+  created() {
+    this.get_binfo()
+  },
   methods: {
     ...mapMutations(['setSomeState']),
     setSelected(p, t) {
@@ -420,6 +444,7 @@ export default {
       this.selectedtype = t.targetType
       this.setSomeState(['selectedTarget', t])
       this.show_TargetrDetail_boolean = true
+      this.show_TargetrDetail_filter = false
       this.show_RelevantInformation_boolean = true
       this.filter_show = true
       this.get_info()
@@ -479,6 +504,12 @@ export default {
         this.selectedtype = r.target.targetType
       })
     },
+    get_binfo() {
+      executeGQL(GQL.boundaryList, {}).then(r => {
+        console.log(r)
+        this.boundaryList = r.boundaryList
+      })
+    },
     clearinfo() {
       this.$store.commit('selectinfoTarget', {})
     },
@@ -501,6 +532,9 @@ export default {
     },
     change_Relevant(value) {
       this.tab_show_Relevant = value
+      this.show_RelevantInformation_filter = false
+      this.show_RelevantInformation_boolean = true
+      this.show_RelevantInformation_boolean = true
     },
     open (data) {
       this.nitice_flag = true
@@ -603,12 +637,16 @@ export default {
 </script>
 
 <style lang="scss">
-  #clock {
+  .ivu-divider-horizontal.ivu-divider-with-text-center:after, .ivu-divider-horizontal.ivu-divider-with-text-center:before, .ivu-divider-horizontal.ivu-divider-with-text-left:after, .ivu-divider-horizontal.ivu-divider-with-text-left:before, .ivu-divider-horizontal.ivu-divider-with-text-right:after, .ivu-divider-horizontal.ivu-divider-with-text-right:before{
+    border-color: #83bfff;
+  }
+  .clock {
     font-family: 'Share Tech Mono', monospace;
     text-align: center;
     position: absolute;
-    right: -100px;
-    top: 20px;
+    right: -90px;
+    bottom: -50px;
+    width: 300px;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     /*color: #daf6ff;*/
@@ -618,17 +656,22 @@ export default {
     padding: 4px 10px;
     border-radius: 4px;
     box-shadow: 0 0 20px 2px #009bef;
+    padding-bottom: 10px;
   }
-  #clock .time {
+  .military{
+    right: -100px;
+    top: 60px;
+  }
+  .clock .time {
     letter-spacing: 0.05em;
     font-size: 12px;
     padding: 5px 0;
   }
-  #clock .date {
+  .clock .date {
     letter-spacing: 0.1em;
     font-size: 12px;
   }
-  #clock .text {
+  .clock .text {
     letter-spacing: 0.1em;
     font-size: 12px;
     padding: 20px 0 0;

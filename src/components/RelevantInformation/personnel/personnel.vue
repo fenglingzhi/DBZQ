@@ -54,7 +54,7 @@ export default {
           render: (h, params) => {
             return h(expandRow, {
               props: {
-                  row: params.row
+                row: params.row
               }
             })
           }

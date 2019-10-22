@@ -73,6 +73,14 @@
                 <span>{{base_info.ICAO}}</span>
             </div>
         </div>
+        <div class="info-data-item">
+            <div class="info-title">
+                <span v-text="'MSN编号'"></span>
+            </div>
+            <div class="info-value">
+                <span>{{base_info.ICAO}}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -86,7 +94,7 @@ export default {
   props: ['base_info'],
   methods: {
     change_Relevant(value) {
-        this.$emit('change_Relevant', value)
+      this.$emit('change_Relevant', value)
     }
   },
   mounted () { }
