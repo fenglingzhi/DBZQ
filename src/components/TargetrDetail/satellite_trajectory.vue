@@ -91,7 +91,7 @@ export default {
   },
   props: {
     real_time_info: {
-      type: Array,
+      type: Object,
       default: () => []
     },
     status: {

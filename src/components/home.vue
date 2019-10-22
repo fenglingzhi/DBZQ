@@ -31,23 +31,23 @@
 </template>
 
 <script>
-  // import ax from 'axios'
-  import Mapcan from '../components/MapControl'
-  import Tilelayer from '../components/Tilelayer'
-  import Vectorlayer from '../components/Vectorlayer'
-  import Routeplayer from '../components/Routeplayer'
-  import Geometry from '../components/Geometry'
-  import Uicomponent from '../components/UIComponent'
-  import MapTip from '../components/MapTip'
-  import filterwrap from '../components/filter.vue'
-  import filterwarning from '../components/filterWarning'
-  import TargetrDetail from '../components/TargetrDetail/TargetrDetail'
-  import RelevantInformation from '../components/RelevantInformation/RelevantInformation'
-  import { mapState, mapMutations } from 'vuex'
-  import { SVG, executeGQL, gql } from '../commons'
-  import { delay } from 'lodash'
-  const GQL = {
-    queryPlaneByID: { query: gql`query($pid:ID!){
+// import ax from 'axios'
+import Mapcan from '../components/MapControl'
+import Tilelayer from '../components/Tilelayer'
+import Vectorlayer from '../components/Vectorlayer'
+import Routeplayer from '../components/Routeplayer'
+import Geometry from '../components/Geometry'
+import Uicomponent from '../components/UIComponent'
+import MapTip from '../components/MapTip'
+import filterwrap from '../components/filter.vue'
+import filterwarning from '../components/filterWarning'
+import TargetrDetail from '../components/TargetrDetail/TargetrDetail'
+import RelevantInformation from '../components/RelevantInformation/RelevantInformation'
+import { mapState, mapMutations } from 'vuex'
+import { SVG, executeGQL, gql } from '../commons'
+import { delay } from 'lodash'
+const GQL = {
+  queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
         targetType: __typename,
@@ -174,189 +174,189 @@
       }
     }
   }`
-    },
-    freshWarning: { query: gql`
-    query($type:String!){
-      targetList: filterTargets(targetType:$type,size:5) {
-        ...on Plane{
-          targetType: __typename,
-          id,
-          feature {
-            type,
-            geometry {
-              type, coordinates
-            }
-          },
-          symbol}
-        ...on Ship{
-          targetType: __typename,
-          id,
-          feature {
-            type,
-            geometry {
-              type, coordinates
-            }
-          },
-          symbol}
-        ...on Satellite{
-          targetType: __typename,
-          id,
-          feature {
-            type,
-            geometry {
-              type, coordinates
-            }
-          },
-          symbol}
-      }
-    }`
-    }
-  }
-  export default {
-    name: 'app',
-    components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
-    data() {
-      return {
-        show_TargetrDetail_boolean: false,
-        show_RelevantInformation_boolean: false,
-        targetr_type: 'airplane', // 下弹窗展示类型
-        targetr_id: '0', // 下弹窗展示类型的id
-        targetr_info: {},
-        spinShow: true,
-        route: null,
-        playStatus: '',
-        waringList: [],
-        hideTip: false,
-        selectedGeo: null,
-        warnings: false // 预警标志
-      }
-    },
-    computed: {
-      ...mapState(['targetList']),
-      ...mapState(['selectedTarget'])
-    },
-    watch: {
-      targetr_id() {
-        this.get_info()
-      },
-      selectedTarget(n, o) {
-        this.get_info()
-      }
-    },
-    methods: {
-      ...mapMutations(['setSomeState']),
-      setSelected(p, t) {
-        this.selectedGeo && this.selectedGeo.updateSymbol({
-          markerWidth: 25,
-          markerHeight: 25,
-          markerFill: '#f2e239'
-        })
-        p.target.updateSymbol({
-          markerWidth: 35,
-          markerHeight: 35,
-          markerFill: '#ff0000'
-        })
-        this.selectedGeo = p.target
-        this.setSomeState(['selectedTarget', t])
-        this.show_TargetrDetail_boolean = true
-        this.show_RelevantInformation_boolean = true
-        this.get_info()
-      },
-      makeSymbol(target) {
-        let symb = target.symbol
-        Object.assign(symb, {
-          markerType: 'path',
-          markerPathWidth: 1024,
-          markerPathHeight: 1024,
-          markerFill: '#f2e239',
-          markerWidth: 25,
-          markerHeight: 25,
-          markerPath: SVG[target.targetType],
-          markerVerticalAlignment: 'middle',
-          markerHorizontalAlignment: 'middle'
-        })
-        return [symb]
-      },
-      makeWarningSymbol(target) {
-        let symb = target.symbol
-        Object.assign(symb, {
-          markerType: 'path',
-          markerPathWidth: 1024,
-          markerPathHeight: 1024,
-          markerFill: '#ff0000',
-          markerWidth: 25,
-          markerHeight: 25,
-          markerPath: SVG[target.targetType],
-          markerVerticalAlignment: 'middle',
-          markerHorizontalAlignment: 'middle'
-        })
-        return [symb]
-      },
-      // 关闭下弹窗
-      close_TargetrDetail() {
-        this.show_TargetrDetail_boolean = false
-      },
-      close_RelevantInformation() {
-        this.show_RelevantInformation_boolean = false
-      },
-      // 展开弹窗
-      show_TargetrDetail(type) {
-        this.targetr_type = type
-        this.targetr_id = this.targetr_id + '-1'
-        this.show_TargetrDetail_boolean = true
-        this.show_RelevantInformation_boolean = true
-      },
-      // 获取目标
-      get_info() {
-        this.spinShow = true
-        executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
-          this.spinShow = false
-          this.targetr_info = r.target
-        })
-      },
-      playOver() {
-        this.playStatus = 'remove'
-        this.route = null
-      },
-      change_warning() {
-        this.warnings = !this.warnings
-        if (this.warnings === false) {
-          console.log()
-          location.reload()
-        }
-      }
-    },
-    mounted() {
-      this.$root.mq.$on('routePlay', (e) => {
-        if (this.playStatus === 'play') return (this.playStatus = 'pause')
-        if (this.playStatus === 'pause') return (this.playStatus = 'play')
-        this.playStatus = 'remove'
-        delay(() => {
-          this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
-            unitTime: 100,
-            markerSymbol: {
-              markerType: 'path',
-              markerPathWidth: 1024,
-              markerPathHeight: 1024,
-              markerFill: '#ffff00',
-              markerWidth: 30,
-              markerHeight: 30,
-              markerPath: SVG['Plane'],
-              markerVerticalAlignment: 'middle',
-              markerHorizontalAlignment: 'middle'
-            },
-            lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
+  },
+  freshWarning: { query: gql`
+  query($type:String!){
+    targetList: filterTargets(targetType:$type,size:5) {
+      ...on Plane{
+        targetType: __typename,
+        id,
+        feature {
+          type,
+          geometry {
+            type, coordinates
           }
-          this.playStatus = 'play'
-        }, 1000)
-      })
-      this.intv = setInterval(async () => {
-        let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
-        // debugger
-        this.waringList = ret.targetList
-      }, 5000)
+        },
+        symbol}
+      ...on Ship{
+        targetType: __typename,
+        id,
+        feature {
+          type,
+          geometry {
+            type, coordinates
+          }
+        },
+        symbol}
+      ...on Satellite{
+        targetType: __typename,
+        id,
+        feature {
+          type,
+          geometry {
+            type, coordinates
+          }
+        },
+        symbol}
     }
+  }`
   }
+}
+export default {
+  name: 'app',
+  components: { Mapcan, MapTip, Tilelayer, Vectorlayer, Geometry, Routeplayer, Uicomponent, filterwrap, TargetrDetail, RelevantInformation, filterwarning },
+  data() {
+    return {
+      show_TargetrDetail_boolean: false,
+      show_RelevantInformation_boolean: false,
+      targetr_type: 'airplane', // 下弹窗展示类型
+      targetr_id: '0', // 下弹窗展示类型的id
+      targetr_info: {},
+      spinShow: true,
+      route: null,
+      playStatus: '',
+      waringList: [],
+      hideTip: false,
+      selectedGeo: null,
+      warnings: false // 预警标志
+    }
+  },
+  computed: {
+    ...mapState(['targetList']),
+    ...mapState(['selectedTarget'])
+  },
+  watch: {
+    targetr_id() {
+      this.get_info()
+    },
+    selectedTarget(n, o) {
+      this.get_info()
+    }
+  },
+  methods: {
+    ...mapMutations(['setSomeState']),
+    setSelected(p, t) {
+      this.selectedGeo && this.selectedGeo.updateSymbol({
+        markerWidth: 25,
+        markerHeight: 25,
+        markerFill: '#f2e239'
+      })
+      p.target.updateSymbol({
+        markerWidth: 35,
+        markerHeight: 35,
+        markerFill: '#ff0000'
+      })
+      this.selectedGeo = p.target
+      this.setSomeState(['selectedTarget', t])
+      this.show_TargetrDetail_boolean = true
+      this.show_RelevantInformation_boolean = true
+      this.get_info()
+    },
+    makeSymbol(target) {
+      let symb = target.symbol
+      Object.assign(symb, {
+        markerType: 'path',
+        markerPathWidth: 1024,
+        markerPathHeight: 1024,
+        markerFill: '#f2e239',
+        markerWidth: 25,
+        markerHeight: 25,
+        markerPath: SVG[target.targetType],
+        markerVerticalAlignment: 'middle',
+        markerHorizontalAlignment: 'middle'
+      })
+      return [symb]
+    },
+    makeWarningSymbol(target) {
+      let symb = target.symbol
+      Object.assign(symb, {
+        markerType: 'path',
+        markerPathWidth: 1024,
+        markerPathHeight: 1024,
+        markerFill: '#ff0000',
+        markerWidth: 25,
+        markerHeight: 25,
+        markerPath: SVG[target.targetType],
+        markerVerticalAlignment: 'middle',
+        markerHorizontalAlignment: 'middle'
+      })
+      return [symb]
+    },
+    // 关闭下弹窗
+    close_TargetrDetail() {
+      this.show_TargetrDetail_boolean = false
+    },
+    close_RelevantInformation() {
+      this.show_RelevantInformation_boolean = false
+    },
+    // 展开弹窗
+    show_TargetrDetail(type) {
+      this.targetr_type = type
+      this.targetr_id = this.targetr_id + '-1'
+      this.show_TargetrDetail_boolean = true
+      this.show_RelevantInformation_boolean = true
+    },
+    // 获取目标
+    get_info() {
+      this.spinShow = true
+      executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
+        this.spinShow = false
+        this.targetr_info = r.target
+      })
+    },
+    playOver() {
+      this.playStatus = 'remove'
+      this.route = null
+    },
+    change_warning() {
+      this.warnings = !this.warnings
+      if (this.warnings === false) {
+        console.log()
+        location.reload()
+      }
+    }
+  },
+  mounted() {
+    this.$root.mq.$on('routePlay', (e) => {
+      if (this.playStatus === 'play') return (this.playStatus = 'pause')
+      if (this.playStatus === 'pause') return (this.playStatus = 'play')
+      this.playStatus = 'remove'
+      delay(() => {
+        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
+          unitTime: 100,
+          markerSymbol: {
+            markerType: 'path',
+            markerPathWidth: 1024,
+            markerPathHeight: 1024,
+            markerFill: '#ffff00',
+            markerWidth: 30,
+            markerHeight: 30,
+            markerPath: SVG['Plane'],
+            markerVerticalAlignment: 'middle',
+            markerHorizontalAlignment: 'middle'
+          },
+          lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
+        }
+        this.playStatus = 'play'
+      }, 1000)
+    })
+    this.intv = setInterval(async () => {
+      let ret = await executeGQL(GQL.freshWarning, { type: 'Plane' })
+      // debugger
+      this.waringList = ret.targetList
+    }, 5000)
+  }
+}
 </script>
 
 <style scoped>

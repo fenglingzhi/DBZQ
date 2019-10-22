@@ -1,5 +1,8 @@
 <template>
   <div class="TargetrDetail" :class = "show_TargetrDetail_boolean === true && filter_show && !show ? 'TargetrDetail_wrap_open':'TargetrDetail_wrap'">
+    {{show_TargetrDetail_boolean}}
+    {{filter_show}}
+    {{show}}
     <div class="open_wrap" @click="changeFilter" v-if="show_TargetrDetail_boolean" :class = "show === true ? 'open_wrap':'close_wrap_a'">
       <!--<img src="../assets/images/button1.png" alt="" style="width: 40px;">-->
       <Icon type="ios-arrow-down" class="icon_a"/>
@@ -241,7 +244,7 @@ export default {
     return {
       tab_boolean: true,
       tab_show: 'TargetrInformation',
-      container_height: 210,
+      container_height: 250,
       // targetr_info: {},
       get_data_boolean: true,
       chartlength: 1140,
@@ -265,7 +268,7 @@ export default {
       this.get_info()
     },
     targetr_info() {
-      this.container_height = 210
+      this.container_height = 250
       this.tab_boolean = true
     },
     // echarts resize调用
@@ -311,7 +314,7 @@ export default {
     },
     // 弹窗显示最大化
     show1() {
-      this.container_height = 210
+      this.container_height = 250
       this.tab_boolean = true
     },
     // 弹窗显示最小化
@@ -365,7 +368,7 @@ export default {
   }
   .TargetrDetail_container{
     width:1200px;
-    height: 210px;
+    height: 250px;
     background: rgba(0,0,0,.7);
     margin:0 auto;
     border-radius: 6px;
@@ -430,7 +433,7 @@ export default {
     top: 5px;
     margin:0 6px;
     border-radius: 0 0 2px 2px;
-    height: 174px;
+    height: 214px;
     z-index: 9;
   }
 

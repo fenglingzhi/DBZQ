@@ -31,7 +31,7 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -92,8 +92,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -134,8 +134,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -166,8 +166,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -188,8 +188,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -198,7 +198,7 @@
             <TabPane label="港口" tab="1-1" name="Port">
               <div>
                 <Row slot="content" class="row_margin">
-                  <i-col span="3" class="label">区域：</i-col>
+                  <i-col span="3" class="label">区域： </i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
                       <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
@@ -210,8 +210,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -232,8 +232,8 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.ename" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">{{ item.cname }}</Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -249,6 +249,29 @@
             <Row>
               <i-col span="4">
                 <Button type="primary" size="small" style="width: 100%;" @click="themeSelect()">搜索</Button>
+              </i-col>
+            </Row>
+          </div>
+        </TabPane>
+        <TabPane label="区域绘制" name="name3">
+          <div>
+            <RadioGroup type="button" size="small" >
+              <Radio v-for="item in area" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+            </RadioGroup>
+            <Row class="longitude">
+              <i-col :span="4">经度：</i-col>
+              <i-col :span="8" style="margin-right: 20px;"><Input v-model="Elongitude" size="small" placeholder="请输入经度E" /></i-col>
+
+              <i-col :span="8"><Input v-model="Wlongitude" size="small" placeholder="请输入经度W" /></i-col>
+            </Row>
+            <row class="longitude">
+              <i-col :span="4">纬度：</i-col>
+              <i-col :span="8" style="margin-right: 20px;"><Input v-model="Nlongitude" size="small" placeholder="请输入经度N" /></i-col>
+              <i-col :span="8"><Input v-model="Slongitude" size="small" placeholder="请输入经度S" /></i-col>
+            </row>
+            <Row>
+              <i-col span="4">
+                <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">搜索</Button>
               </i-col>
             </Row>
           </div>
@@ -393,7 +416,25 @@ export default {
           name: '南海动态',
           id: '1'
         }
-      ]
+      ],
+      area:[
+        {
+          name:'南海空管区域',
+          id:'1'
+        },
+        {
+          name:'黄海空管区域',
+          id:'1'
+        },
+        {
+          name:'东海空管区域',
+          id:'1'
+        },
+      ],
+      Elongitude:'',
+      Wlongitude:'',
+      Nlongitude:'',
+      Slongitude:'',
     }
   },
   computed: {
@@ -419,6 +460,9 @@ export default {
       executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
         this.$store.commit('targetList', r.targetList)
       })
+    },
+    areaSelect(){
+
     },
     // 国家选择
     countrySelect(index) {
@@ -517,4 +561,11 @@ export default {
       border-radius: 4px;
     }
   }
+  .longitude{
+    color:#fff;
+    margin-bottom: 10px;
+    text-align: right;
+    line-height: 24px;
+  }
+
 </style>
