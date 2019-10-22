@@ -501,7 +501,7 @@ export default {
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target
-        this.selectedtype = r.target.targetType
+        this.selectedtype = this.selectedTarget.targetType
       })
     },
     get_binfo() {
