@@ -504,7 +504,6 @@ export default {
       })
     },
     get_binfo() {
-      debugger
       executeGQL(GQL.boundaryList, {}).then(r => {
         console.log(r)
         this.boundaryList = r.boundaryList
