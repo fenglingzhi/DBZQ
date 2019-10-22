@@ -217,7 +217,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="发射场" tab="1-1" name="fashechang">
+            <TabPane label="发射场" tab="1-1" name="LaunchSite">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">区域：</i-col>
