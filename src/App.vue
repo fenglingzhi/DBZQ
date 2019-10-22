@@ -426,12 +426,13 @@ export default {
     makeSymbol(target) {
       let symb = target.symbol
       let isStatic = staticTarget.includes(target.targetType)
+      // debugger
       Object.assign(symb, {
         markerType: 'path',
         markerPathWidth: 1024,
         markerPathHeight: 1024,
         markerFill: isStatic ? null : '#f2e239',
-        markerRotation: isStatic ? 0 : symb.markerRotation,
+        markerRotation: isStatic ? 0 : 180,
         markerWidth: 25,
         markerHeight: 25,
         markerPath: SVG[target.targetType] || SVG.Unknow,
