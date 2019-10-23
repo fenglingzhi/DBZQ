@@ -6,7 +6,7 @@
                 <span v-text="'站点名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="base_info && base_info.name"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'观测站类型'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.usage.label"></span>
+                <span v-text="base_info && base_info.usage && base_info.usage.label"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.action.lon"></span>
+                <span v-text="base_info && base_info.action && base_info.action.lon"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.action.lat"></span>
+                <span v-text="base_info && base_info.action && base_info.action.lat"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'浮标型号'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.model.label"></span>
+                <span v-text="base_info && base_info.model && base_info.model.label"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'寿命'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.life"></span>
+                <span v-text="base_info && base_info.life"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'重量'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.weight"></span>
+                <span v-text="base_info && base_info.weight"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'标称吃水'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.draught"></span>
+                <span v-text="base_info && base_info.draught"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'雷达反射面积'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.radarArea"></span>
+                <span v-text="base_info && base_info.radarArea"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'材质'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.material"></span>
+                <span v-text="base_info && base_info.material"></span>
             </div>
         </div>
     </div>

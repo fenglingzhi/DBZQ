@@ -14,7 +14,7 @@
                 <span v-text="'所在国家'"></span>
             </div>
             <div class="info-value">
-                <span v-text="country"></span>
+                <span v-text="base_info.country"></span>
             </div>
         </div>
         <div class="info-data-item">

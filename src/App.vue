@@ -326,6 +326,19 @@ const GQL = {
         },
         area,
         parkCount
+      },
+      ... on Port{
+        targetType: __typename,
+        id,
+        name,
+        address {
+          country {
+            cname
+          },
+          position
+        },
+        code,
+        wharf
       }
     }
   }`
