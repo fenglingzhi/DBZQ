@@ -201,7 +201,7 @@ const GQL = {
           },
           symbol
         }
-      }
+      },
       ... on Ship{
         targetType: __typename,
         id, name,
@@ -255,7 +255,7 @@ const GQL = {
             }
           }
         }
-      }
+      },
       ... on Satellite{
         targetType: __typename,
         name,
@@ -266,7 +266,7 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT }
-      }
+      },
       ... on Buoy{
         targetType: __typename,
         name,
