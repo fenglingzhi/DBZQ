@@ -504,6 +504,7 @@ export default {
       // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
       executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: '', height: this.conditions.height, speed: this.conditions.speed }).then(r => {
         this.$store.commit('targetList', r.targetList)
+        this.$store.commit('selectedTarget', null)
       })
       this.show = !this.show
       this.$emit('change_filter_show', this.show)

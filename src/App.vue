@@ -58,8 +58,20 @@
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
       </uicomponent>
-      <uicomponent :position={top:5,right:400} style="z-index: 9999">
-          <Button type="info" @click="changeMode()">切换地图模式</Button>
+      <uicomponent :position={bottom:5,left:5} style="z-index: 9999">
+        <div>
+          <img v-if="maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}' " src="./assets/images/swImage.png" alt=""
+          @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'">
+          <img v-else src="./assets/images/swRoad.png" alt=""
+          @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}'">
+          <!-- <img :src="maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}' ? './assets/images/swImage.png':'./assets/images/swImage.png'" alt=""> -->
+        </div>
+        <!-- <transition name="layerswitch">
+          <div v-if="showSwitchLayer" @mouseleave="showSwitchLayer=false">
+          <Button type="info" @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'">影像图</Button>
+          <Button type="info" @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}'">地形图</Button>
+          </div>
+        </transition> -->
       </uicomponent>
     </mapcan>
     <div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">
@@ -110,14 +122,14 @@ import { delay, sample } from 'lodash'
 const GQL = {
   boundaryList: { query: gql`{
     boundaryList{
-    type
-    properties
-    geometry{
-      coordinates
       type
+      properties
+      geometry{
+        coordinates
+        type
+      }
     }
-  }
-}`
+  }`
   },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -201,7 +213,7 @@ const GQL = {
           },
           symbol
         }
-      }
+      },
       ... on Ship{
         targetType: __typename,
         id, name,
@@ -255,7 +267,7 @@ const GQL = {
             }
           }
         }
-      }
+      },
       ... on Satellite{
         targetType: __typename,
         name,
@@ -266,7 +278,7 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT }
-      }
+      },
       ... on Buoy{
         targetType: __typename,
         name,
@@ -304,7 +316,7 @@ const GQL = {
       },
       ... on Airport{
         targetType: __typename,
-        # name,
+        name,
         id,
         usage{ label },
         code,
@@ -313,11 +325,19 @@ const GQL = {
           country { cname }
         },
         area,
-        parkCount,
-        ,
-        news{
-          title, content, source, timestamp
-        }
+        parkCount
+      },
+      ... on Port{
+        targetType: __typename,
+        id,
+        name,
+        address {
+          country {
+            cname
+          },
+          position
+        },
+        code
       }
     }
   }`
@@ -395,7 +415,8 @@ export default {
       centerXY: {x: 100, y: 31},
       detailchar: {},
       maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}',
-      boundaryList: []
+      boundaryList: [],
+      showSwitchLayer: false
     }
   },
   computed: {
@@ -409,6 +430,9 @@ export default {
     },
     selectedTarget(n, o) {
       this.get_info()
+      if(n === null) {
+        this.playStatus = 'remove'
+      }
     },
     targetList() {
       this.clearinfo()
@@ -498,6 +522,7 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
+      // debugger
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target
