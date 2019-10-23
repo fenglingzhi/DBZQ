@@ -43,7 +43,7 @@
                              @close_RelevantInformation = "close_RelevantInformation"
                              @change_filter_RelevantInformation="change_filter_RelevantInformation"></RelevantInformation>
       </uicomponent>
-      <uicomponent :position={bottom:10,left:10} style="z-index: 9999">
+      <uicomponent :position={bottom:0,left:10} style="z-index: 9999">
         <TargetrDetail ref="TargetrDetail"
                        :targetr_type="selectedTarget && selectedTarget.targetType"
                        :targetr_id="targetr_id"
