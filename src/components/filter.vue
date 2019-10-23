@@ -217,7 +217,7 @@
                 </Row>
               </div>
             </TabPane>
-            <TabPane label="发射场" tab="1-1" name="fashechang">
+            <TabPane label="发射场" tab="1-1" name="LaunchSite">
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">区域：</i-col>
@@ -255,23 +255,46 @@
         </TabPane>
         <TabPane label="区域绘制" name="name3">
           <div>
+            <div class="area_title">
+              航空管制区:
+            </div>
             <RadioGroup type="button" size="small" >
-              <Radio v-for="item in area" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+              <Radio v-for="item in area_air" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
             </RadioGroup>
-            <Row class="longitude">
-              <i-col :span="4">经度：</i-col>
-              <i-col :span="8" style="margin-right: 20px;"><Input v-model="Elongitude" size="small" placeholder="请输入经度E" /></i-col>
-
-              <i-col :span="8"><Input v-model="Wlongitude" size="small" placeholder="请输入经度W" /></i-col>
+            <div class="area_title">
+              航海管制区:
+            </div>
+            <RadioGroup type="button" size="small" >
+              <Radio v-for="item in area_sea" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+            </RadioGroup>
+            <div class="area_title">
+              <span style="line-height: 24px">自定义管制区:</span>
+              <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
+                <Radio v-for="item in point_list" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+              </RadioGroup>
+            </div>
+            <Row class="longitude" v-for="item in pointSum">
+              <div class="point_wrap" >
+                <i-col :span="4">
+                  <Select size="small">
+                    <Option value="E" key="E">东经</Option>
+                    <Option value="W" key="E">西经</Option>
+                    <Option value="S" key="E">南纬</Option>
+                    <Option value="N" key="E">北纬</Option>
+                  </Select>
+                </i-col>
+                <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="a" size="small" /></i-col>
+                <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="a" size="small" /></i-col>
+                <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="a" size="small" /></i-col>
+                <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+              </div>
             </Row>
-            <row class="longitude">
-              <i-col :span="4">纬度：</i-col>
-              <i-col :span="8" style="margin-right: 20px;"><Input v-model="Nlongitude" size="small" placeholder="请输入经度N" /></i-col>
-              <i-col :span="8"><Input v-model="Slongitude" size="small" placeholder="请输入经度S" /></i-col>
-            </row>
             <Row>
-              <i-col span="4">
-                <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">搜索</Button>
+              <i-col :span="3"><Button  size="small" type="primary" icon="md-add" @click="addNewPoint()">添加</Button></i-col>
+              <i-col :span="4">
+                <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">绘制</Button>
               </i-col>
             </Row>
           </div>
@@ -383,6 +406,8 @@ export default {
   name: 'filterwrap',
   data() {
     return {
+      pointSum:[0],
+      ele: '',
       searchString: '',
       show: true,
       targetType: 'Plane',
@@ -417,24 +442,48 @@ export default {
           id: '1'
         }
       ],
-      area: [
+      area_air:[
         {
-          name: '南海空管区域',
-          id: '1'
+          name:'东北空管区域',
+          id:'1'
         },
         {
-          name: '黄海空管区域',
-          id: '1'
+          name:'华北空管区域',
+          id:'1'
         },
         {
-          name: '东海空管区域',
-          id: '1'
-        }
+          name:'华南空管区域',
+          id:'1'
+        },
       ],
-      Elongitude: '',
-      Wlongitude: '',
-      Nlongitude: '',
-      Slongitude: ''
+      area_sea:[
+        {
+          name:'南海管制区域',
+          id:'1'
+        },
+        {
+          name:'黄海管制区域',
+          id:'1'
+        },
+        {
+          name:'东海管制区域',
+          id:'1'
+        },
+      ],
+      point_list:[
+        {
+          name:'136°21′14″',
+          id:'1'
+        },
+        {
+          name:'127°56′27″',
+          id:'1'
+        },
+        {
+          name:'13°18′36″',
+          id:'1'
+        }
+      ]
     }
   },
   computed: {
@@ -447,6 +496,10 @@ export default {
     }
   },
   methods: {
+    addNewPoint(){
+      this.ele ++;
+      this.pointSum.push(this.ele)
+    },
     fadeChange() {
       // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
       executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: '', height: this.conditions.height, speed: this.conditions.speed }).then(r => {
@@ -564,8 +617,13 @@ export default {
   .longitude{
     color:#fff;
     margin-bottom: 10px;
-    text-align: right;
+    /*text-align: right;*/
     line-height: 24px;
+  }
+  .area_title{
+    color:#fff;
+    font-size: 14px;
+    margin-bottom: 10px;
   }
 
 </style>
