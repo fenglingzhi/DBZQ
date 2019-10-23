@@ -548,7 +548,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked){ 
+  .ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked){
     background: #ccc;
   }
   .filter{
