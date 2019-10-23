@@ -430,6 +430,9 @@ export default {
     },
     selectedTarget(n, o) {
       this.get_info()
+      if(n === null) {
+        this.playStatus = 'remove'
+      }
     },
     targetList() {
       this.clearinfo()
