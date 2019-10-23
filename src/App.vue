@@ -122,14 +122,14 @@ import { delay, sample } from 'lodash'
 const GQL = {
   boundaryList: { query: gql`{
     boundaryList{
-    type
-    properties
-    geometry{
-      coordinates
       type
+      properties
+      geometry{
+        coordinates
+        type
+      }
     }
-  }
-}`
+  }`
   },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -316,7 +316,7 @@ const GQL = {
       },
       ... on Airport{
         targetType: __typename,
-        # name,
+        name,
         id,
         usage{ label },
         code,
@@ -325,11 +325,7 @@ const GQL = {
           country { cname }
         },
         area,
-        parkCount,
-        ,
-        news{
-          title, content, source, timestamp
-        }
+        parkCount
       }
     }
   }`
@@ -511,6 +507,7 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
+      // debugger
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target
