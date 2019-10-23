@@ -33,7 +33,7 @@
       <!-- tab切换 -->
       <div class="RelevantInformation_operator_tabs" v-if="tab_boolean">
         <div
-          v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port'"
+          v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port' && targetr_type !== 'LaunchingSite'"
           :class="[tab_show == 'installation' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']"
           @click="changeTab('installation')"
         >
@@ -52,7 +52,7 @@
           <span>设施</span>
         </div>
         <div
-          v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port'"
+          v-if="targetr_type !== 'AirPort' && targetr_type !== 'Port' && targetr_type !== 'LaunchingSite'"
           :class="[tab_show == 'dynamic' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']"
           @click="changeTab('dynamic')"
         >
@@ -71,6 +71,7 @@
           <span>动态</span>
         </div>
         <div
+          v-if="targetr_type !== 'LaunchingSite'"
           :class="[tab_show == 'personnel' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']"
           @click="changeTab('personnel')"
         >
@@ -95,6 +96,7 @@
           <span>人员</span>
         </div>
         <div
+          v-if="targetr_type !== 'LaunchingSite'"
           :class="[tab_show == 'organization' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']"
           @click="changeTab('organization')"
         >

@@ -11,6 +11,7 @@
       <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'" @change_Relevant = "change_Relevant"></BuoyInformation>
       <AirportInformation :base_info="base_info" v-if="targetr_type=='Airport'" @change_Relevant = "change_Relevant"></AirportInformation>
       <PortInformation :base_info="base_info" v-if="targetr_type=='Port'" @change_Relevant = "change_Relevant"></PortInformation>
+      <LaunchingSiteInformation :base_info="base_info" v-if="targetr_type=='LaunchingSite'" @change_Relevant = "change_Relevant"></LaunchingSiteInformation>
     </div>
 
     <div class="TargetrInformation_chart">
@@ -28,9 +29,10 @@ import SatelliteInformation from './satellite_information'
 import BuoyInformation from './buoy_information'
 import AirportInformation from './airport_information'
 import PortInformation from './port_information'
+import LaunchingSiteInformation from './launching_site_information'
 export default {
   name: 'TargetrInformation',
-  components: { AirplaneInformation, ShipInformation, SatelliteInformation, BuoyInformation, AirportInformation, PortInformation },
+  components: { AirplaneInformation, ShipInformation, SatelliteInformation, BuoyInformation, AirportInformation, PortInformation, LaunchingSiteInformation },
   data() {
     this.chartSettings = {
       area: true,
