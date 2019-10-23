@@ -337,8 +337,7 @@ const GQL = {
           },
           position
         },
-        code,
-        wharf
+        code
       }
     }
   }`
