@@ -6,7 +6,7 @@
                 <span v-text="'飞机名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="base_info && base_info.name"></span>
             </div>
         </div>
         <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
@@ -14,7 +14,7 @@
                 <span v-text="'隶属单位'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ORG.cname}}</span>
+                <span>{{base_info && base_info.ORG && base_info.ORG.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'飞机性质'"></span>
             </div>
             <div class="info-value">
-                <span> {{base_info.usage.label}}</span>
+                <span> {{base_info && base_info.usage && base_info.usage.label}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'机型'"></span>
             </div>
             <div class="info-value">
-                <span >{{base_info.kind.label}}</span>
+                <span >{{base_info && base_info.kind && base_info.kind.label}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'注册信息'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.registration}}</span>
+                <span>{{base_info && base_info.registration}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'所属国家'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ORG.base.country.cname}}</span>
+                <span>{{base_info && base_info.ORG && base_info.ORG.base && base_info.ORG.base.country && base_info.ORG.base.country.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'应答机编码'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.radar.responseCode}}</span>
+                <span>{{base_info && base_info.radar && base_info.radar.responseCode}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -62,7 +62,7 @@
                 <span v-text="'飞机雷达型号'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.radar.model}}</span>
+                <span>{{base_info && base_info.radar && base_info.radar.model}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -70,7 +70,7 @@
                 <span v-text="'ICAO编号'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ICAO}}</span>
+                <span>{{base_info && base_info.ICAO}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'MSN编号'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ICAO}}</span>
+                <span>{{base_info && base_info.ICAO}}</span>
             </div>
         </div>
     </div>

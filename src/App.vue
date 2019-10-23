@@ -110,14 +110,14 @@ import { delay, sample } from 'lodash'
 const GQL = {
   boundaryList: { query: gql`{
     boundaryList{
-    type
-    properties
-    geometry{
-      coordinates
-      type
-    }
-  }
-}`
+        type
+        properties
+        geometry{
+          coordinates
+          type
+        }
+      }
+    }`
   },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
@@ -318,8 +318,7 @@ const GQL = {
         news{
           title, content, source, timestamp
         }
-      },
-      ... on Port{}
+      }
     }
   }`
   },
