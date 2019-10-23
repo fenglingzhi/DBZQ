@@ -213,7 +213,7 @@ const GQL = {
           },
           symbol
         }
-      }
+      },
       ... on Ship{
         targetType: __typename,
         id, name,
@@ -267,7 +267,7 @@ const GQL = {
             }
           }
         }
-      }
+      },
       ... on Satellite{
         targetType: __typename,
         name,
@@ -278,7 +278,7 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT }
-      }
+      },
       ... on Buoy{
         targetType: __typename,
         name,
@@ -316,7 +316,7 @@ const GQL = {
       },
       ... on Airport{
         targetType: __typename,
-        # name,
+        name,
         id,
         usage{ label },
         code,
@@ -325,11 +325,7 @@ const GQL = {
           country { cname }
         },
         area,
-        parkCount,
-        ,
-        news{
-          title, content, source, timestamp
-        }
+        parkCount
       }
     }
   }`
@@ -511,6 +507,7 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
+      // debugger
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target

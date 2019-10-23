@@ -5,7 +5,7 @@
         <span v-text="'机场名称'"></span>
       </div>
       <div class="info-value">
-        <!-- <span v-text="base_info.name"></span> -->
+        <span v-text="base_info.name"></span>
       </div>
     </div>
     <div class="info-data-item">
