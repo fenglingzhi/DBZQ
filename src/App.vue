@@ -58,8 +58,20 @@
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
       </uicomponent>
-      <uicomponent :position={top:5,right:400} style="z-index: 9999">
-          <Button type="info" @click="changeMode()">切换地图模式</Button>
+      <uicomponent :position={bottom:5,left:5} style="z-index: 9999">
+        <div>
+          <img v-if="maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}' " src="./assets/images/swImage.png" alt=""
+          @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'">
+          <img v-else src="./assets/images/swRoad.png" alt=""
+          @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}'">
+          <!-- <img :src="maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}' ? './assets/images/swImage.png':'./assets/images/swImage.png'" alt=""> -->
+        </div>
+        <!-- <transition name="layerswitch">
+          <div v-if="showSwitchLayer" @mouseleave="showSwitchLayer=false">
+          <Button type="info" @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'">影像图</Button>
+          <Button type="info" @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}'">地形图</Button>
+          </div>
+        </transition> -->
       </uicomponent>
     </mapcan>
     <div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">
@@ -395,7 +407,8 @@ export default {
       centerXY: {x: 100, y: 31},
       detailchar: {},
       maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}',
-      boundaryList: []
+      boundaryList: [],
+      showSwitchLayer: false
     }
   },
   computed: {
