@@ -87,8 +87,6 @@
           <span slot="close">正常</span>
         </i-switch>
     </div>
-
-
     <div class="notice" :class="{'notice_show': nitice_flag === true}">
       <div class="close" @click="closeNnotice">
         <Icon type="ios-close" />
