@@ -47,10 +47,13 @@ export const SVG = {
 }
 /**
  * 度分秒转十进制
- * @param {Array|String} value
+ * @param {Array|String} value --like (d,m,s) or '120°11'11"W'
  * @returns {Float}
  */
 export function formatDEC(...value) {
   if(value.length == 1) value = value[0].split(/°|\'|\"/g)
-  return parseFloat(value[0]) + value[1] / 60 + value[2] / 3600
+  value[0] = parseFloat(value[0])
+  let ret = parseFloat(value[0]) + value[1] / 60 + value[2] / 3600
+  if(value[4] == 'W' || value[4] == 'S') ret = -ret
+  return ret
 }
