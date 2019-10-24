@@ -270,25 +270,40 @@
             <div class="area_title">
               <span style="line-height: 24px">自定义管制区:</span>
               <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
-                <Radio v-for="item in point_list" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                <Radio v-for="item in point_list" :label="item.longitude_latitude" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
             </div>
             <Row class="longitude" v-for="item in pointSum">
               <div class="point_wrap" >
-                <i-col :span="4">
-                  <Select size="small">
-                    <Option value="E" key="E">东经</Option>
-                    <Option value="W" key="E">西经</Option>
-                    <Option value="S" key="E">南纬</Option>
-                    <Option value="N" key="E">北纬</Option>
-                  </Select>
+                <i-col :span="12">
+                  <i-col :span="6">
+                    <Select size="small" placeholder="经度">
+                      <Option value="E" key="E">东经</Option>
+                      <Option value="W" key="E">西经</Option>
+                    </Select>
+                  </i-col>
+                  <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small" /></i-col>
+                  <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                  <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small" /></i-col>
+                  <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                  <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small" /></i-col>
+                  <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
                 </i-col>
-                <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="a" size="small" /></i-col>
-                <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="a" size="small" /></i-col>
-                <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="a" size="small" /></i-col>
-                <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+                <i-col :span="12">
+                  <i-col :span="6">
+                    <Select size="small" placeholder="纬度">
+                      <Option value="S" key="E">南纬</Option>
+                      <Option value="N" key="E">北纬</Option>
+                    </Select>
+                  </i-col>
+                  <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small" /></i-col>
+                  <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                  <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small" /></i-col>
+                  <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                  <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small" /></i-col>
+                  <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+                </i-col>
+
               </div>
             </Row>
             <Row>
@@ -472,15 +487,11 @@ export default {
       ],
       point_list:[
         {
-          name:'136°21′14″',
+          longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
           id:'1'
         },
         {
-          name:'127°56′27″',
-          id:'1'
-        },
-        {
-          name:'13°18′36″',
+          longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
           id:'1'
         }
       ]

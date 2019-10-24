@@ -43,7 +43,7 @@
                              @close_RelevantInformation = "close_RelevantInformation"
                              @change_filter_RelevantInformation="change_filter_RelevantInformation"></RelevantInformation>
       </uicomponent>
-      <uicomponent :position={bottom:10,left:10} style="z-index: 9999">
+      <uicomponent :position={bottom:0,left:10} style="z-index: 9999">
         <TargetrDetail ref="TargetrDetail"
                        :targetr_type="selectedTarget && selectedTarget.targetType"
                        :targetr_id="targetr_id"
@@ -74,14 +74,21 @@
         </transition> -->
       </uicomponent>
     </mapcan>
-    <div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">
-      <div class="warning" :class="{'warning_true':warning === false}">
-        <div class="title" @click="change_warning()">正常模式</div>
-      </div>
-      <div class="warning warning_right" :class="{'warning_color':warning === true}">
-        <div class="title" @click="change_warning()">预警模式</div>
-      </div>
+    <!--<div class="tab_wrap" :class="{'tab_wrap_warning':warning === true}">-->
+      <div class="tab_wrap">
+      <!--<div class="warning" :class="{'warning_true':warning === false}">-->
+        <!--<div class="title" @click="change_warning()">正常模式</div>-->
+      <!--</div>-->
+      <!--<div class="warning warning_right" :class="{'warning_color':warning === true}">-->
+        <!--<div class="title" @click="change_warning()">预警模式</div>-->
+      <!--</div>-->
+        <i-switch size="large" @on-change="change_warning">
+          <span slot="open">预警</span>
+          <span slot="close">正常</span>
+        </i-switch>
     </div>
+
+
     <div class="notice" :class="{'notice_show': nitice_flag === true}">
       <div class="close" @click="closeNnotice">
         <Icon type="ios-close" />
@@ -91,12 +98,14 @@
       </div>
     </div>
     <div class="clock">
-      <Divider style="color:#83bfff;font-size: 12px;margin:10px 0;">天文时间</Divider>
+      <span>天文时间</span>
+      <Divider type="vertical" />
       <span class="date">{{ date }}</span>
-      <span class="time" style="margin-left: 10px;">{{ time }}</span>
-      <Divider style="color:#83bfff;font-size: 12px;margin:10px 0;">作战时间</Divider>
-      <span class="date">{{ date }}</span>
-      <span class="time" style="margin-left: 10px;">{{ time }}</span>
+      <span class="time" style="margin-left: 10px;margin-right: 50px">{{ time }}</span>
+      <span style="color:red">作战时间</span>
+      <Divider type="vertical" />
+      <span class="date" style="color:red">{{ date }}</span>
+      <span class="time" style="margin-left: 10px;color:red">{{ time }}</span>
     </div>
   </div>
 </template>
@@ -665,23 +674,30 @@ export default {
   .ivu-divider-horizontal.ivu-divider-with-text-center:after, .ivu-divider-horizontal.ivu-divider-with-text-center:before, .ivu-divider-horizontal.ivu-divider-with-text-left:after, .ivu-divider-horizontal.ivu-divider-with-text-left:before, .ivu-divider-horizontal.ivu-divider-with-text-right:after, .ivu-divider-horizontal.ivu-divider-with-text-right:before{
     border-color: #83bfff;
   }
+  .tab_wrap /deep/ .ivu-switch-checked{
+    border-color: red !important;
+    background-color: red !important;
+  }
+  .ivu-switch{
+    border: 1px solid #009bef !important;
+    background-color: #009bef !important;
+  }
   .clock {
     font-family: 'Share Tech Mono', monospace;
     text-align: center;
     position: absolute;
-    right: -90px;
-    bottom: -50px;
-    width: 300px;
+    right: -300px;
+    top: 20px;
+    width: 623px;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     /*color: #daf6ff;*/
-    color: #fff;
+    color: #009bef;
     text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
     background: rgba(0,0,0,0.6);
     padding: 4px 10px;
     border-radius: 4px;
     box-shadow: 0 0 20px 2px #009bef;
-    padding-bottom: 10px;
   }
   .military{
     right: -100px;
@@ -705,17 +721,17 @@ export default {
   .tab_wrap{
   position: fixed;
   z-index: 99999;
-  top: 0;
+  top: 10px;
   left: 50%;
-  width: 160px;
-  display: flex;
-  justify-content: space-evenly;
+  /*width: 160px;*/
+  /*display: flex;*/
+  /*justify-content: space-evenly;*/
   margin-left: -80px;
-  padding: 4px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 20px;
-  border: 1px solid #009bef;
-  box-shadow: 0 0 20px 2px #009bef;
+  /*padding: 4px;*/
+  /*background: rgba(0,0,0,0.6);*/
+  /*border-radius: 20px;*/
+  /*border: 1px solid #009bef;*/
+  /*box-shadow: 0 0 20px 2px #009bef;*/
 }
 .tab_wrap_warning{
   border: 1px solid red;
