@@ -421,7 +421,7 @@ export default {
   name: 'filterwrap',
   data() {
     return {
-      pointSum:[0],
+      pointSum: [0],
       ele: '',
       searchString: '',
       show: true,
@@ -457,42 +457,42 @@ export default {
           id: '1'
         }
       ],
-      area_air:[
+      area_air: [
         {
-          name:'东北空管区域',
-          id:'1'
+          name: '东北空管区域',
+          id: '1'
         },
         {
-          name:'华北空管区域',
-          id:'1'
+          name: '华北空管区域',
+          id: '1'
         },
         {
-          name:'华南空管区域',
-          id:'1'
-        },
+          name: '华南空管区域',
+          id: '1'
+        }
       ],
-      area_sea:[
+      area_sea: [
         {
-          name:'南海管制区域',
-          id:'1'
+          name: '南海管制区域',
+          id: '1'
         },
         {
-          name:'黄海管制区域',
-          id:'1'
+          name: '黄海管制区域',
+          id: '1'
         },
         {
-          name:'东海管制区域',
-          id:'1'
-        },
+          name: '东海管制区域',
+          id: '1'
+        }
       ],
-      point_list:[
+      point_list: [
         {
-          longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
-          id:'1'
+          longitude_latitude: '东经:136°21′14″ 北纬:136°21′14″',
+          id: '1'
         },
         {
-          longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
-          id:'1'
+          longitude_latitude: '西经:136°21′14″ 南纬:136°21′14″',
+          id: '1'
         }
       ]
     }
@@ -507,8 +507,8 @@ export default {
     }
   },
   methods: {
-    addNewPoint(){
-      this.ele ++;
+    addNewPoint() {
+      this.ele++
       this.pointSum.push(this.ele)
     },
     fadeChange() {

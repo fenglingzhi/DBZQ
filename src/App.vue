@@ -58,9 +58,9 @@
                        @change_Relevant = "change_Relevant"
                        @change_filter_TargetrDetail="change_filter_TargetrDetail"></TargetrDetail>
       </uicomponent>
-      <uicomponent :position={bottom:5,left:5} style="z-index: 9999">
-        <div>
-          <img v-if="maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}' " src="./assets/images/swImage.png" alt=""
+      <uicomponent :position={bottom:5,left:5} style="z-index: 9999;">
+        <div style="z-index: 9999; width: 74px; height: 58px; border: 1px solid #2b92d4; box-shadow: 0 0 10px 2px #009bef; line-height: 1; border-radius: 5px;">
+          <img v-if="maptiles == '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}' " src="./assets/images/swImage.png" alt="" style="border-radius: 5px;"
           @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}'">
           <img v-else src="./assets/images/swRoad.png" alt=""
           @click="maptiles = '/maptiles/vt?lyrs=y@852&gl=cn&t=p&x={x}&y={y}&z={z}'">
@@ -87,8 +87,6 @@
           <span slot="close">正常</span>
         </i-switch>
     </div>
-
-
     <div class="notice" :class="{'notice_show': nitice_flag === true}">
       <div class="close" @click="closeNnotice">
         <Icon type="ios-close" />
@@ -347,6 +345,16 @@ const GQL = {
           position
         },
         code
+      },
+      ... on LaunchSite{
+        targetType: __typename,
+        id,
+        name,
+        country{ cname },
+        address{
+          door,
+          position
+        }
       }
     }
   }`
