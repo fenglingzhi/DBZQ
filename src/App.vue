@@ -345,6 +345,16 @@ const GQL = {
           position
         },
         code
+      },
+      ... on LaunchSite{
+        targetType: __typename,
+        id,
+        name,
+        country{ cname },
+        address{
+          door,
+          position
+        }
       }
     }
   }`
