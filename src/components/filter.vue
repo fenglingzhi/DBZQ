@@ -525,15 +525,17 @@
         tabs: 0
       }
     },
-    computed: {
-      countryList() {
-        let region = find(this.regionOptions, { cname: this.conditions.region })
-        return region && region.countryList
-      },
-      countryTags() {
-        return this.countryList
-      }
+
+  computed: {
+    countryList() {
+      let region = find(this.regionOptions, { cname: this.conditions.region })
+      return region && region.countryList
     },
+    countryTags() {
+      return this.countryList
+    }
+  },
+
     methods: {
       addNewPoint() {
         this.ele++
@@ -582,7 +584,8 @@
       //自定义区域tab增加
       handleTabsAdd() {
         this.tabs++
-      }
+      },
+
     },
     mounted() {
       // 获取搜索区域列表
