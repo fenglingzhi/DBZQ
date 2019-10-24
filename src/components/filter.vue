@@ -259,13 +259,13 @@
               航空管制区:
             </div>
             <RadioGroup type="button" size="small" >
-              <Radio v-for="item in area_air" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+              <Radio v-for="item in area_air" :label="item.properties.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
             </RadioGroup>
             <div class="area_title">
               航海管制区:
             </div>
             <RadioGroup type="button" size="small" >
-              <Radio v-for="item in area_sea" :label="item.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+              <Radio v-for="item in area_sea" :label="item.properties.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
             </RadioGroup>
             <div class="area_title">
               <span style="line-height: 24px">自定义管制区:</span>
@@ -273,7 +273,7 @@
                 <Radio v-for="item in point_list" :label="item.longitude_latitude" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
             </div>
-            <Row class="longitude" v-for="item in pointSum">
+            <Row class="longitude" v-for="item in pointSum" :key="item.id">
               <div class="point_wrap" >
                 <i-col :span="12">
                   <i-col :span="6">
@@ -415,6 +415,18 @@ const GQL = {
           symbol}
       }
     }`
+  },
+  boundaryList: { query: gql`{
+    boundaryList{
+      id
+      type
+      properties
+      geometry{
+        coordinates
+        type
+      }
+    }
+  }`
   }
 }
 export default {
@@ -458,32 +470,32 @@ export default {
         }
       ],
       area_air:[
-        {
-          name:'东北空管区域',
-          id:'1'
-        },
-        {
-          name:'华北空管区域',
-          id:'1'
-        },
-        {
-          name:'华南空管区域',
-          id:'1'
-        },
+        // {
+        //   name:'东北空管区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'华北空管区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'华南空管区域',
+        //   id:'1'
+        // },
       ],
       area_sea:[
-        {
-          name:'南海管制区域',
-          id:'1'
-        },
-        {
-          name:'黄海管制区域',
-          id:'1'
-        },
-        {
-          name:'东海管制区域',
-          id:'1'
-        },
+        // {
+        //   name:'南海管制区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'黄海管制区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'东海管制区域',
+        //   id:'1'
+        // },
       ],
       point_list:[
         {
@@ -555,6 +567,16 @@ export default {
       this.planeKind = r.planeKind
       this.planeHeight = r.planeHeight
       this.planeSpeed = r.planeSpeed
+    })
+    // 获取自定义边界列表
+    executeGQL(GQL.boundaryList).then(r => {
+      r.boundaryList.forEach(res => {
+        if(res.properties.type == 'waterspace'){
+          this.area_sea.push(res)
+        }else if(res.properties.type == 'airspace'){
+          this.area_air.push(res)
+        }
+      })
     })
   }
 }

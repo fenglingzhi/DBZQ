@@ -17,7 +17,7 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
       <vectorlayer id="boundarylayer">
         <geometry v-for="boundary in boundaryList" :id="boundary.id" :key="boundary.id"
-          :json="boundary" :symbol="{ lineColor : '#34495e', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
+          :json="boundary" :symbol="{ lineColor : 'red', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
       </vectorlayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
