@@ -90,7 +90,7 @@ export default {
   computed: {
     data() {
       return [this.usr] && [this.usr].map(({ name, nickname, country, birthday, job, city }) => {
-        let cdata = { name, nickname, 'country': country && country.cname, birthday, job, city }
+        let cdata = { name, nickname, 'country': country && country.cname, birthday: new Date(birthday).toLocaleDateString(), job, city }
         return cdata
       })
     }
