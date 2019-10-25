@@ -549,7 +549,7 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      debugger
+      // debugger
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target

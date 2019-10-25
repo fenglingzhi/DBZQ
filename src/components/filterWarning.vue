@@ -156,7 +156,7 @@ const GQL = {
   },
   filterTargets: { query: gql`
     query($type:String!){
-      targetList: filterTargets(targetType:$type) {
+      targetList: filterWarning(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
