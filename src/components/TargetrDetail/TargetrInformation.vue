@@ -11,7 +11,7 @@
       <BuoyInformation :base_info="base_info" v-if="targetr_type=='Buoy'" @change_Relevant = "change_Relevant"></BuoyInformation>
       <AirportInformation :base_info="base_info" v-if="targetr_type=='Airport'" @change_Relevant = "change_Relevant"></AirportInformation>
       <PortInformation :base_info="base_info" v-if="targetr_type=='Port'" @change_Relevant = "change_Relevant"></PortInformation>
-      <LaunchingSiteInformation :base_info="base_info" v-if="targetr_type=='LaunchingSite'" @change_Relevant = "change_Relevant"></LaunchingSiteInformation>
+      <LaunchingSiteInformation :base_info="base_info" v-if="targetr_type=='LaunchSite'" @change_Relevant = "change_Relevant"></LaunchingSiteInformation>
     </div>
 
     <div class="TargetrInformation_chart">

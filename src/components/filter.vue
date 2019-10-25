@@ -440,6 +440,16 @@
             }
           },
           symbol}
+        ...on LaunchSite{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
       }
     }`
     }

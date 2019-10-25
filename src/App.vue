@@ -395,6 +395,16 @@ const GQL = {
             }
           },
           symbol}
+        ...on LaunchSite{
+          targetType: __typename,
+          id,
+          feature {
+            type,
+            geometry {
+              type, coordinates
+            }
+          },
+          symbol}
       }
     }`
   }
@@ -539,7 +549,7 @@ export default {
     // 获取目标
     get_info() {
       this.spinShow = true
-      // debugger
+      debugger
       executeGQL(GQL.queryPlaneByID, { pid: this.selectedTarget.id }).then(r => {
         this.spinShow = false
         this.targetr_info = r.target
