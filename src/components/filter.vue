@@ -271,25 +271,25 @@
           <Tabs tab="name3">
             <TabPane label="航空管制区" tab="name3">
               <RadioGroup type="button" size="small">
-                <Radio v-for="item in area_air" :label="item.name" :key="item.id"
+                <Radio v-for="item in area_air" :label="item.properties.name" :key="item.id"
                        style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
             </TabPane>
             <TabPane label="航海管制区" tab="name3">
               <RadioGroup type="button" size="small">
-                <Radio v-for="item in area_sea" :label="item.name" :key="item.id"
+                <Radio v-for="item in area_sea" :label="item.properties.name" :key="item.id"
                        style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
             </TabPane>
             <TabPane label="自定义管制区" tab="name3" name="user_defined">
               <Tabs type="card" tab="user_defined" name="add_tab">
-                <TabPane v-for="tab in tabs" :key="tab" :label="'管制区' + tab" tab="add_tab">
+                <TabPane v-for="tab in point_list" :key="tab.id" :label=" tab.properties.name" tab="add_tab">
                   <div class="area_title">
                     <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
-                      <Radio v-for="item in point_list" :label="item.longitude_latitude" :key="item.id"
+                      <Radio v-for="item in point_list" :label="item.properties.name" :key="item.id"
                              style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
-                    <Row class="longitude" v-for="item in pointSum">
+                    <Row class="longitude" v-for="item in pointSum" :key="item.id">
                       <div class="point_wrap">
                         <i-col :span="12">
                           <i-col :span="6">
@@ -452,90 +452,101 @@
           symbol}
       }
     }`
-    }
-  }
-  export default {
-    name: 'filterwrap',
-    data() {
-      return {
-        pointSum: [0],
-        ele: '',
-        searchString: '',
-        show: true,
-        targetType: 'Plane',
-        searchData: {
-          airCountry: [],
-          airArea: [],
-          property: [],
-          type: [],
-          height: [],
-          speed: []
-        },
-        checked: false,
-        dictTydefList: [],
-        // 选中的搜索条件组合
-        conditions: { region: '亚洲', country: '', model: '', height: '', speed: '' },
-        regionOptions: [],  // 大洲/国家 选项集合
-        planeUsage: [],     // 飞机用途
-        planeKind: [],     // 飞机型号
-        planeHeight: [],    // 飞行高度
-        planeSpeed: [],      // 飞行速度
-        theme: [
-          {
-            name: '南海联合军演',
-            id: '1'
-          },
-          {
-            name: '台湾局势 ',
-            id: '1'
-          },
-          {
-            name: '南海动态',
-            id: '1'
-          }
-        ],
-        area_air: [
-          {
-            name: '东北空管区域',
-            id: '1'
-          },
-          {
-            name: '华北空管区域',
-            id: '1'
-          },
-          {
-            name: '华南空管区域',
-            id: '1'
-          },
-        ],
-        area_sea: [
-          {
-            name: '南海管制区域',
-            id: '1'
-          },
-          {
-            name: '黄海管制区域',
-            id: '1'
-          },
-          {
-            name: '东海管制区域',
-            id: '1'
-          },
-        ],
-        point_list: [
-          {
-            longitude_latitude: 'E:136°21′14″ - N:136°21′14″',
-            id: '1'
-          },
-          {
-            longitude_latitude: 'W:136°21′14″ - S:136°21′14″',
-            id: '1'
-          }
-        ],
-        tabs: 0
+  },
+  boundaryList: { query: gql`{
+    boundaryList{
+      id
+      type
+      properties
+      geometry{
+        coordinates
+        type
       }
-    },
-
+    }
+  }`
+  }
+}
+export default {
+  name: 'filterwrap',
+  data() {
+    return {
+      pointSum:[0],
+      ele: '',
+      searchString: '',
+      show: true,
+      targetType: 'Plane',
+      searchData: {
+        airCountry: [],
+        airArea: [],
+        property: [],
+        type: [],
+        height: [],
+        speed: []
+      },
+      checked: false,
+      dictTydefList: [],
+      // 选中的搜索条件组合
+      conditions: { region: '亚洲', country: '', model: '', height: '', speed: '' },
+      regionOptions: [],  // 大洲/国家 选项集合
+      planeUsage: [],     // 飞机用途
+      planeKind: [],     // 飞机型号
+      planeHeight: [],    // 飞行高度
+      planeSpeed: [],      // 飞行速度
+      theme: [
+        {
+          name: '南海联合军演',
+          id: '1'
+        },
+        {
+          name: '台湾局势 ',
+          id: '1'
+        },
+        {
+          name: '南海动态',
+          id: '1'
+        }
+      ],
+      area_air:[
+        // {
+        //   name:'东北空管区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'华北空管区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'华南空管区域',
+        //   id:'1'
+        // },
+      ],
+      area_sea:[
+        // {
+        //   name:'南海管制区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'黄海管制区域',
+        //   id:'1'
+        // },
+        // {
+        //   name:'东海管制区域',
+        //   id:'1'
+        // },
+      ],
+      point_list:[
+        // {
+        //   longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
+        //   id:'1'
+        // },
+        // {
+        //   longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
+        //   id:'1'
+        // }
+      ],
+      tabs: 0
+    }
+  },
   computed: {
     countryList() {
       let region = find(this.regionOptions, { cname: this.conditions.region })
@@ -606,6 +617,20 @@
         this.planeKind = r.planeKind
         this.planeHeight = r.planeHeight
         this.planeSpeed = r.planeSpeed
+      })
+      // 获取自定义边界列表
+      executeGQL(GQL.boundaryList).then(r => {
+        console.log(r)
+        this.$store.commit("boundaryList",r.boundaryList)
+        r.boundaryList.forEach(res => {
+          if(res.properties.type == 'waterspace'){
+            this.area_sea.push(res)
+          }else if(res.properties.type == 'airspace'){
+            this.area_air.push(res)
+          }else{
+            this.point_list.push(res)
+          }
+        })
       })
     }
   }

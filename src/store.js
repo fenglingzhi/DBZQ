@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     targetList: [],
     selectedTarget: null,
-    selectinfoTarget: []
+    selectinfoTarget: [],
+    boundaryList:[]
   },
   mutations: {
     targetList(state, vals) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     selectinfoTarget(state, sival) {
       state.selectinfoTarget = sival
+    },
+    boundaryList(state, valB) {
+      state.boundaryList = valB
     }
   },
   actions: {

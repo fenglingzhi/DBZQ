@@ -17,7 +17,7 @@
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
       <vectorlayer id="boundarylayer">
         <geometry v-for="boundary in boundaryList" :id="boundary.id" :key="boundary.id"
-          :json="boundary" :symbol="{ lineColor : '#34495e', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
+          :json="boundary" :symbol="{ lineColor : 'red', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
       </vectorlayer>
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in targetList" :id="target.feature.id" :key="target.id"
@@ -127,17 +127,17 @@ import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
-  boundaryList: { query: gql`{
-    boundaryList{
-      type
-      properties
-      geometry{
-        coordinates
-        type
-      }
-    }
-  }`
-  },
+  // boundaryList: { query: gql`{
+  //   boundaryList{
+  //     type
+  //     properties
+  //     geometry{
+  //       coordinates
+  //       type
+  //     }
+  //   }
+  // }`
+  // },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -442,14 +442,15 @@ export default {
       centerXY: {x: 100, y: 31},
       detailchar: {},
       maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}',
-      boundaryList: [],
-      showSwitchLayer: false
+      showSwitchLayer: false,
+      selected_area:[]
     }
   },
   computed: {
     ...mapState(['targetList']),
     ...mapState(['selectedTarget']),
-    ...mapState(['selectinfoTarget'])
+    ...mapState(['selectinfoTarget']),
+    ...mapState(['boundaryList'])
   },
   watch: {
     targetr_id() {
@@ -463,6 +464,9 @@ export default {
     },
     targetList() {
       this.clearinfo()
+    },
+    boundaryList(){
+      
     },
     selectinfoTarget() {
       // this.centerXY = this.selectinfoTarget.position
@@ -557,10 +561,11 @@ export default {
       })
     },
     get_binfo() {
-      executeGQL(GQL.boundaryList, {}).then(r => {
-        console.log(r)
-        this.boundaryList = r.boundaryList
-      })
+
+      // executeGQL(GQL.boundaryList, {}).then(r => {
+      //   console.log(r)
+      //   this.boundaryList = r.boundaryList
+      // })
     },
     clearinfo() {
       this.$store.commit('selectinfoTarget', {})
