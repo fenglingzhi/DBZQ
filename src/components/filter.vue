@@ -270,7 +270,7 @@
             <div class="area_title">
               <span style="line-height: 24px">自定义管制区:</span>
               <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
-                <Radio v-for="item in point_list" :label="item.longitude_latitude" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                <Radio v-for="item in point_list" :label="item.properties.name" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
             </div>
             <Row class="longitude" v-for="item in pointSum" :key="item.id">
@@ -498,14 +498,14 @@ export default {
         // },
       ],
       point_list:[
-        {
-          longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
-          id:'1'
-        },
-        {
-          longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
-          id:'1'
-        }
+        // {
+        //   longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
+        //   id:'1'
+        // },
+        // {
+        //   longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
+        //   id:'1'
+        // }
       ]
     }
   },
@@ -570,11 +570,14 @@ export default {
     })
     // 获取自定义边界列表
     executeGQL(GQL.boundaryList).then(r => {
+      this.$store.commit("boundaryList",r.boundaryList)
       r.boundaryList.forEach(res => {
         if(res.properties.type == 'waterspace'){
           this.area_sea.push(res)
         }else if(res.properties.type == 'airspace'){
           this.area_air.push(res)
+        }else{
+          this.point_list.push(res)
         }
       })
     })

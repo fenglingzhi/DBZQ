@@ -6,7 +6,7 @@
         <span v-text="'卫星名称'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.name"></span>
+        <span v-text="base_info && base_info.name"></span>
       </div>
     </div>
     <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
@@ -14,7 +14,7 @@
         <span v-text="'所属国家'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.country.cname"></span>
+        <span v-text="base_info && base_info.country.cname"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -22,7 +22,7 @@
         <span v-text="'卫星用途'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.usage.label"></span>
+        <span v-text="base_info && base_info.usage.label"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -30,7 +30,7 @@
         <span v-text="'制造商'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.manufacturer.cname"></span>
+        <span v-text="base_info && base_info.manufacturer.cname"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -38,7 +38,7 @@
         <span v-text="'NORAD编号'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.NORAD"></span>
+        <span v-text="base_info && base_info.NORAD"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -46,7 +46,7 @@
         <span v-text="'近地点（km）'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.perigee"></span>
+        <span v-text="base_info && base_info.perigee"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -54,7 +54,7 @@
         <span v-text="'远地点(km)'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.apogee"></span>
+        <span v-text="base_info && base_info.apogee"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -62,7 +62,7 @@
         <span v-text="'发射时间'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.launchDate"></span>
+        <span v-text="base_info && base_info.launchDate"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -70,7 +70,7 @@
         <span v-text="'发射地点'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.launchSite.city"></span>
+        <span v-text="base_info && base_info.launchSite.city"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -78,7 +78,7 @@
         <span v-text="'干质量（kg）'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info.drySass"></span>
+        <span v-text="base_info && base_info.drySass"></span>
       </div>
     </div>
   </div>

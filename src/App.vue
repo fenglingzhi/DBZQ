@@ -129,17 +129,17 @@ import { mapState, mapMutations } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
-  boundaryList: { query: gql`{
-    boundaryList{
-      type
-      properties
-      geometry{
-        coordinates
-        type
-      }
-    }
-  }`
-  },
+  // boundaryList: { query: gql`{
+  //   boundaryList{
+  //     type
+  //     properties
+  //     geometry{
+  //       coordinates
+  //       type
+  //     }
+  //   }
+  // }`
+  // },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -424,14 +424,15 @@ export default {
       centerXY: {x: 100, y: 31},
       detailchar: {},
       maptiles:'/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}',
-      boundaryList: [],
-      showSwitchLayer: false
+      showSwitchLayer: false,
+      selected_area:[]
     }
   },
   computed: {
     ...mapState(['targetList']),
     ...mapState(['selectedTarget']),
-    ...mapState(['selectinfoTarget'])
+    ...mapState(['selectinfoTarget']),
+    ...mapState(['boundaryList'])
   },
   watch: {
     targetr_id() {
@@ -445,6 +446,9 @@ export default {
     },
     targetList() {
       this.clearinfo()
+    },
+    boundaryList(){
+      
     },
     selectinfoTarget() {
       // this.centerXY = this.selectinfoTarget.position
@@ -539,10 +543,11 @@ export default {
       })
     },
     get_binfo() {
-      executeGQL(GQL.boundaryList, {}).then(r => {
-        console.log(r)
-        this.boundaryList = r.boundaryList
-      })
+
+      // executeGQL(GQL.boundaryList, {}).then(r => {
+      //   console.log(r)
+      //   this.boundaryList = r.boundaryList
+      // })
     },
     clearinfo() {
       this.$store.commit('selectinfoTarget', {})
