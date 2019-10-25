@@ -6,7 +6,7 @@
                 <span v-text="'发射场名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.launchName"></span>
+                <span v-text="base_info && base_info.name"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -14,7 +14,7 @@
                 <span v-text="'所属国家'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.country}}</span>
+                <span>{{base_info && base_info.country && base_info.country.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'所属地区'"></span>
             </div>
             <div class="info-value">
-                <span> {{base_info.city}}</span>
+                <span> {{base_info && base_info.city}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span >{{base_info.longitude}}</span>
+                <span >{{base_info && base_info.address && base_info.address.position && base_info.address.position.x}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.latitude}}</span>
+                <span>{{base_info && base_info.address && base_info.address.position && base_info.address.position.y}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'建造时间'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info.ORG.buildDate}}</span>
+                <span>{{base_info && base_info.ORG && base_info.ORG.buildDate}}</span>
             </div>
         </div>
     </div>

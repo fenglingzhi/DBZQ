@@ -6,7 +6,7 @@
                 <span v-text="'港口名称'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.name"></span>
+                <span v-text="base_info && base_info.name"></span>
             </div>
         </div>
         <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('organization')">
@@ -14,7 +14,7 @@
                 <span v-text="'所在国家'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.country"></span>
+                <span v-text="base_info && base_info.country"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -22,7 +22,7 @@
                 <span v-text="'港口代码'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.code"></span>
+                <span v-text="base_info && base_info.code"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.longitude"></span>
+                <span v-text="base_info && base_info.longitude"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.latitude"></span>
+                <span v-text="base_info && base_info.latitude"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'码头数量'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.area"></span>
+                <span v-text="base_info && base_info.area"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -54,7 +54,7 @@
                 <span v-text="'状态'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info.status"></span>
+                <span v-text="base_info && base_info.status"></span>
             </div>
         </div>
     </div>

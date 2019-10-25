@@ -93,8 +93,9 @@ export default {
   props: ['facility'],
   computed: {
     data() {
+      debugger
       return this.facility && this.facility.map(({ targetType, id, name, code, usage, address, openDate, level, area, parkCount, feature, symbol }) => {
-        let cdata = { targetType, id, name, code, 'type': usage.label, 'country': address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount, feature, symbol }
+        let cdata = { targetType, id, name, code, 'type': usage && usage.label, 'country': address && address.country && address.country.cname, 'date': new Date(openDate).toLocaleDateString(), level, area, 'num': parkCount, feature, symbol }
         return cdata
       })
     }
