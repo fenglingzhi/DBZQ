@@ -289,34 +289,34 @@
                       <Radio v-for="item in point_list" :label="item.properties.name" :key="item.id"
                              style="margin: 0 10px 10px 0;"></Radio>
                     </RadioGroup>
-                    <Row class="longitude" v-for="item in pointSum" :key="item.id">
+                    <Row class="longitude" v-for="(item,index) in pointSum" :key="index">
                       <div class="point_wrap">
                         <i-col :span="12">
                           <i-col :span="6">
-                            <i-switch size="large" @on-change="change_warning">
+                            <i-switch size="large" v-model="item.firstSwitch" true-value="E" false-value="W">
                               <span slot="open">E</span>
                               <span slot="close">W</span>
                             </i-switch>
                           </i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
+                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.firstInputH" size="small"/></i-col>
                           <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputM" size="small"/></i-col>
                           <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputS" size="small"/></i-col>
                           <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
                         </i-col>
                         <i-col :span="12">
                           <i-col :span="6">
-                            <i-switch size="large" @on-change="change_warning">
+                            <i-switch size="large" v-model="item.lastSwitch" true-value="N" false-value="S">
                               <span slot="open">N</span>
                               <span slot="close">S</span>
                             </i-switch>
                           </i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
+                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.lastInputH" size="small"/></i-col>
                           <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputM" size="small"/></i-col>
                           <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputS" size="small"/></i-col>
                           <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
                         </i-col>
                       </div>
@@ -348,7 +348,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { executeGQL, gql } from '../commons'
+  import { executeGQL, gql, formatDEC } from '../commons'
   import { find } from 'lodash'
   import { mapState, mapMutations } from 'vuex'
 
@@ -471,7 +471,18 @@ export default {
   name: 'filterwrap',
   data() {
     return {
-      pointSum:[0],
+      pointSum:[
+        {
+          firstSwitch:'W',
+          firstInputH:'',
+          firstInputM:'',
+          firstInputS:'',
+          lastSwitch:'S',
+          lastInputH:'',
+          lastInputM:'',
+          lastInputS:''
+        }
+      ],
       ele: '',
       searchString: '',
       show: true,
@@ -561,8 +572,19 @@ export default {
     methods: {
       ...mapMutations(['setSomeState']),
       addNewPoint() {
-        this.ele++
-        this.pointSum.push(this.ele)
+        // this.ele++
+        // this.pointSum.push(this.ele)
+        let newObj = {
+          firstSwitch:'W',
+          firstInputH:'',
+          firstInputM:'',
+          firstInputS:'',
+          lastSwitch:'S',
+          lastInputH:'',
+          lastInputM:'',
+          lastInputS:''
+        }
+        this.pointSum.push(newObj)
       },
       fadeChange() {
         // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
