@@ -669,7 +669,7 @@ export default {
       this.playStatus = 'remove'
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
-          unitTime: 100,
+          unitTime: 1000,
           markerSymbol: {
             markerType: 'path',
             markerPathWidth: 1024,
