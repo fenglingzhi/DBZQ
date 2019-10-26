@@ -667,9 +667,10 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
+      let unitTime = 1000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
-          unitTime: 100,
+          unitTime,
           markerSymbol: {
             markerType: 'path',
             markerPathWidth: 1024,
@@ -686,7 +687,7 @@ export default {
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
         this.playStatus = 'play'
-        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime: 100 }
+        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime }
       }, 1000)
     })
     this.intv = setInterval(async () => { return
