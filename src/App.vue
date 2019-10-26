@@ -459,7 +459,7 @@ export default {
     selectedTarget(n, o) {
       this.get_info()
       // if(n === null) {
-        debugger
+        // debugger
         this.playStatus = 'remove'
         // this.playStatus = 'cancel'
       // }
@@ -667,7 +667,7 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
-      let unitTime = 1000
+      let unitTime = 10000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,

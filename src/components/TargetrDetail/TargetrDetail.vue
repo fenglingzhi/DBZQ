@@ -15,7 +15,7 @@
           <Icon style="cursor: pointer" type="md-pause" v-if = "status === 'play'"/>
         </div>
         <div style="flex: 1;height: 2px;background: #666;border-radius: 4px;">
-          <div style="height: 2px;background: #fff;border-radius: 4px;" :style="{ width: chartlength + 'px' }"></div>
+          <div style="height: 2px;background: #fff;border-radius: 4px;" :style="{ width: chartlength + '%' }"></div>
         </div>
         <div style="width:80px;margin-left:20px;color:#fff;text-align: center;">
           <span data-v-79e1caf0="">00:37</span> <span data-v-79e1caf0="">/</span> <span data-v-79e1caf0="">04:56</span>
@@ -270,7 +270,8 @@ export default {
     },
     // echarts resize调用
     chartlength(v) {
-      this.grid.width = v + 'px'
+      this.grid.width = v + '%'
+      console.log(v)
       this.$nextTick(_ => {
         this.$refs.chart.echarts.resize()
       })
@@ -302,7 +303,9 @@ export default {
         } else if (this.status === 'play') {
           // console.log('======================')
           this.chartData.rows.push(this.Data[this.timerIndex])
-          this.chartlength = this.timerIndex * 2
+          console.log(this.chartData.rows.length / this.Data.length)
+          // this.chartlength = this.timerIndex * 2
+          this.chartlength = (this.chartData.rows.length / this.Data.length) * 100
           this.timerIndex++
           // console.log(this.chartData.rows)
           this.$refs.chart.init()
