@@ -282,57 +282,68 @@
               </RadioGroup>
             </TabPane>
             <TabPane label="自定义管制区" tab="name3" name="user_defined">
-              <Tabs type="card" tab="user_defined" name="add_tab">
-                <TabPane v-for="tab in point_list" :key="tab.id" :label=" tab.properties.name" tab="add_tab">
-                  <div class="area_title">
-                    <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
-                      <Radio v-for="item in point_list" :label="item.properties.name" :key="item.id"
-                             style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                    <Row class="longitude" v-for="item in pointSum" :key="item.id">
-                      <div class="point_wrap">
-                        <i-col :span="12">
-                          <i-col :span="6">
-                            <i-switch size="large" @on-change="change_warning">
-                              <span slot="open">E</span>
-                              <span slot="close">W</span>
-                            </i-switch>
-                          </i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
-                        </i-col>
-                        <i-col :span="12">
-                          <i-col :span="6">
-                            <i-switch size="large" @on-change="change_warning">
-                              <span slot="open">N</span>
-                              <span slot="close">S</span>
-                            </i-switch>
-                          </i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
-                        </i-col>
-                      </div>
-                    </Row>
+              <!--<Tabs type="card" tab="user_defined" name="add_tab">-->
+                <!--<TabPane v-for="tab in point_list" :key="tab.id" :label=" tab.properties.name" tab="add_tab">-->
+                  <!---->
+                <!--</TabPane>-->
+                <!---->
+              <!--</Tabs>-->
+              <Row>
+                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
+                  <Radio v-for="item in self_list" :label="item.name" :key="item.id"
+                         style="margin: 0 10px 10px 0;"></Radio>
+                </RadioGroup>
+              </Row>
+              <Divider style="margin-top: 10px;" v-if="self_list.length>0"/>
+              <Row style="margin-bottom: 10px;">
+                <i-col :span="2" style="color:#fff;font-size: 16px;line-height: 22px;">标题：</i-col>
+                <i-col :span="6" style="margin-right: 20px;"><Input size="small" v-model="slef_title" /></i-col>
+                <i-col :span="3">
+                  <Button size="small" type="primary" icon="md-add" @click="addNewPoint()">添加</Button>
+                </i-col>
+                <i-col :span="4">
+                  <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">绘制</Button>
+                </i-col>
+              </Row>
+              <div class="area_title">
+                <Row class="longitude" v-for="item in pointSum" :key="item.id">
+                  <div class="point_wrap">
+                    <i-col :span="12">
+                      <i-col :span="6">
+                        <i-switch size="large" @on-change="change_warning">
+                          <span slot="open">E</span>
+                          <span slot="close">W</span>
+                        </i-switch>
+                      </i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+                    </i-col>
+                    <i-col :span="12">
+                      <i-col :span="6">
+                        <i-switch size="large" @on-change="change_warning">
+                          <span slot="open">N</span>
+                          <span slot="close">S</span>
+                        </i-switch>
+                      </i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+                    </i-col>
                   </div>
-                  <Row>
-                    <i-col :span="3">
-                      <Button size="small" type="primary" icon="md-add" @click="addNewPoint()">添加</Button>
-                    </i-col>
-                    <i-col :span="4">
-                      <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">绘制</Button>
-                    </i-col>
-                  </Row>
-                </TabPane>
-                <Button @click="handleTabsAdd" size="small" slot="extra" type="primary">增加</Button>
-              </Tabs>
+                </Row>
+              </div>
+              <Row>
+
+              </Row>
+
+              <!--<Button @click="handleTabsAdd" size="small" slot="extra" type="primary">增加</Button>-->
             </TabPane>
           </Tabs>
           <div>
@@ -492,6 +503,7 @@ export default {
       planeKind: [],     // 飞机型号
       planeHeight: [],    // 飞行高度
       planeSpeed: [],      // 飞行速度
+      slef_title:'',
       theme: [
         {
           name: '南海联合军演',
@@ -544,6 +556,7 @@ export default {
         //   id:'1'
         // }
       ],
+      self_list:[],
       tabs: 0
     }
   },
@@ -584,7 +597,10 @@ export default {
         })
       },
       areaSelect() {
-
+        this.self_list.push({
+          name:this.slef_title,
+          val:''
+        })
       },
       // 国家选择
       countrySelect(index) {
