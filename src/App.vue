@@ -28,7 +28,7 @@
       </vectorlayer>
       <Routeplayer v-if="route" :direction="selectedtype === 'Plane'" :unitTime="route.unitTime" :status="playStatus" :lineSymbol="route.lineSymbol" :markerSymbol="route.markerSymbol" :path="route.path" @finished="playOver"/>
       <uicomponent :position={top:10,left:10}>
-        <filterwrap @change_filter_show = "change_filter_show"></filterwrap>
+        <filterwrap @change_filter_show = "change_filter_show" @filter_stop="filter_stop"></filterwrap>
       </uicomponent>
       <uicomponent :position={top:10,right:10}>
         <RelevantInformation :targetr_type="selectedTarget && selectedTarget.targetType"
@@ -458,9 +458,11 @@ export default {
     },
     selectedTarget(n, o) {
       this.get_info()
-      if(n === null) {
+      // if(n === null) {
+        debugger
         this.playStatus = 'remove'
-      }
+        // this.playStatus = 'cancel'
+      // }
     },
     targetList() {
       this.clearinfo()
@@ -650,6 +652,9 @@ export default {
     },
     change_filter_TargetrDetail() {
       this.show_TargetrDetail_filter = !this.show_TargetrDetail_filter
+    },
+    filter_stop() {
+      this.playStatus = 'remove'
     }
   },
   mounted() {
