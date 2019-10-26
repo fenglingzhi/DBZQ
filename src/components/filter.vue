@@ -361,6 +361,7 @@
 <script type="text/ecmascript-6">
   import { executeGQL, gql } from '../commons'
   import { find } from 'lodash'
+  import { mapState, mapMutations } from 'vuex'
 
   const GQL = {
     getConditions: {
@@ -571,6 +572,7 @@ export default {
   },
 
     methods: {
+      ...mapMutations(['setSomeState']),
       addNewPoint() {
         this.ele++
         this.pointSum.push(this.ele)
@@ -584,8 +586,9 @@ export default {
           height: this.conditions.height,
           speed: this.conditions.speed
         }).then(r => {
+          this.setSomeState(['selectedTarget', null])
+          this.$emit('filter_stop')
           this.$store.commit('targetList', r.targetList)
-          this.$store.commit('selectedTarget', null)
         })
         this.show = !this.show
         this.$emit('change_filter_show', this.show)
@@ -612,7 +615,7 @@ export default {
         //   this.checked = checked
         // }
         index.checked = !index.checked
-        console.log(checked, name)
+        // console.log(checked, name)
       },
       changeFilter() {
         this.show = !this.show
@@ -636,7 +639,7 @@ export default {
       })
       // 获取自定义边界列表
       executeGQL(GQL.boundaryList).then(r => {
-        console.log(r)
+        // console.log(r)
         this.$store.commit("boundaryList",r.boundaryList)
         r.boundaryList.forEach(res => {
           if(res.properties.type == 'waterspace'){

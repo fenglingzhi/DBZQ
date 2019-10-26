@@ -297,14 +297,14 @@ export default {
           this.chartData.rows = []
         }
         if (this.status === 'pause') {
-          console.log('-----------------------')
+          // console.log('-----------------------')
           return
         } else if (this.status === 'play') {
-          console.log('======================')
+          // console.log('======================')
           this.chartData.rows.push(this.Data[this.timerIndex])
           this.chartlength = this.timerIndex * 2
           this.timerIndex++
-          console.log(this.chartData.rows)
+          // console.log(this.chartData.rows)
           this.$refs.chart.init()
         }
       }, this.detailchar.unitTime)
