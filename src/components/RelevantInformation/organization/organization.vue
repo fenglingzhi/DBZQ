@@ -79,12 +79,17 @@ export default {
           title: '主管领导',
           key: 'name'
         }
-      ],
-      data: [ ]
+      ]
     }
   },
   props: ['organization'],
   computed: {
+    data() {
+      return [this.organization] && [this.organization].map(({ cname, ename, abbr, code, type, base, business, superior, leader }) => {
+        let cdata = { cname, abbr, type, business, name }
+        return cdata
+      })
+    }
   },
   methods: { },
   mounted () {

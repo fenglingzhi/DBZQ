@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     targetList: [],
-    warningList: [],
+    waringList: [],
     selectedTarget: null,
     selectinfoTarget: [],
     boundaryList:[]
