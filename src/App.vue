@@ -129,14 +129,14 @@ import { delay, sample } from 'lodash'
 const GQL = {
   // boundaryList: { query: gql`{
   //   boundaryList{
-  //     type
-  //     properties
-  //     geometry{
-  //       coordinates
   //       type
+  //       properties
+  //       geometry{
+  //         coordinates
+  //         type
+  //       }
   //     }
-  //   }
-  // }`
+  //   }`
   // },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){

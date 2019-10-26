@@ -270,7 +270,7 @@
         <TabPane label="区域绘制" name="name3">
           <Tabs tab="name3">
             <TabPane label="航空管制区" tab="name3">
-              <RadioGroup type="button" size="small">
+              <RadioGroup type="button" size="small" @on-change="selectAir">
                 <Radio v-for="item in area_air" :label="item.properties.name" :key="item.id"
                        style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
@@ -282,57 +282,68 @@
               </RadioGroup>
             </TabPane>
             <TabPane label="自定义管制区" tab="name3" name="user_defined">
-              <Tabs type="card" tab="user_defined" name="add_tab">
-                <TabPane v-for="tab in point_list" :key="tab.id" :label=" tab.properties.name" tab="add_tab">
-                  <div class="area_title">
-                    <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
-                      <Radio v-for="item in point_list" :label="item.properties.name" :key="item.id"
-                             style="margin: 0 10px 10px 0;"></Radio>
-                    </RadioGroup>
-                    <Row class="longitude" v-for="(item,index) in pointSum" :key="index">
-                      <div class="point_wrap">
-                        <i-col :span="12">
-                          <i-col :span="6">
-                            <i-switch size="large" v-model="item.firstSwitch" true-value="E" false-value="W">
-                              <span slot="open">E</span>
-                              <span slot="close">W</span>
-                            </i-switch>
-                          </i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.firstInputH" size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputM" size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputS" size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
-                        </i-col>
-                        <i-col :span="12">
-                          <i-col :span="6">
-                            <i-switch size="large" v-model="item.lastSwitch" true-value="N" false-value="S">
-                              <span slot="open">N</span>
-                              <span slot="close">S</span>
-                            </i-switch>
-                          </i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.lastInputH" size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputM" size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                          <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputS" size="small"/></i-col>
-                          <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
-                        </i-col>
-                      </div>
-                    </Row>
+              <!--<Tabs type="card" tab="user_defined" name="add_tab">-->
+                <!--<TabPane v-for="tab in point_list" :key="tab.id" :label=" tab.properties.name" tab="add_tab">-->
+                  <!---->
+                <!--</TabPane>-->
+                <!---->
+              <!--</Tabs>-->
+              <Row>
+                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
+                  <Radio v-for="item in self_list" :label="item.properties.name" :key="item.id"
+                         style="margin: 0 10px 10px 0;"></Radio>
+                </RadioGroup>
+              </Row>
+              <Divider style="margin-top: 10px;" v-if="self_list.length>0"/>
+              <Row style="margin-bottom: 10px;">
+                <i-col :span="2" style="color:#fff;font-size: 16px;line-height: 22px;">标题：</i-col>
+                <i-col :span="6" style="margin-right: 20px;"><Input size="small" v-model="slef_title" /></i-col>
+                <i-col :span="3">
+                  <Button size="small" type="primary" icon="md-add" @click="addNewPoint()">添加</Button>
+                </i-col>
+                <i-col :span="4">
+                  <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">绘制</Button>
+                </i-col>
+              </Row>
+              <div class="area_title">
+                <Row class="longitude" v-for="(item,index) in pointSum" :key="index">
+                  <div class="point_wrap">
+                    <i-col :span="12">
+                      <i-col :span="6">
+                        <i-switch size="large" v-model="item.firstSwitch" true-value="E" false-value="W">
+                          <span slot="open">E</span>
+                          <span slot="close">W</span>
+                        </i-switch>
+                      </i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.firstInputH" size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputM" size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputS" size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+                    </i-col>
+                    <i-col :span="12">
+                      <i-col :span="6">
+                        <i-switch size="large" v-model="item.lastSwitch" true-value="N" false-value="S">
+                          <span slot="open">N</span>
+                          <span slot="close">S</span>
+                        </i-switch>
+                      </i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.lastInputH" size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputM" size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputS" size="small"/></i-col>
+                      <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
+                    </i-col>
                   </div>
-                  <Row>
-                    <i-col :span="3">
-                      <Button size="small" type="primary" icon="md-add" @click="addNewPoint()">添加</Button>
-                    </i-col>
-                    <i-col :span="4">
-                      <Button type="primary" size="small" style="width: 100%;" @click="areaSelect()">绘制</Button>
-                    </i-col>
-                  </Row>
-                </TabPane>
-                <Button @click="handleTabsAdd" size="small" slot="extra" type="primary">增加</Button>
-              </Tabs>
+                </Row>
+              </div>
+              <Row>
+
+              </Row>
+
+              <!--<Button @click="handleTabsAdd" size="small" slot="extra" type="primary">增加</Button>-->
             </TabPane>
           </Tabs>
           <div>
@@ -465,6 +476,19 @@
       }
     }
   }`
+  },
+  putBoundary : { query: gql`
+    mutation($points:[Position], $name:String!){
+      putBoundary(points:$points,name:$name){
+        type
+        id
+        geometry{
+          coordinates
+        }
+        properties
+      }
+  }`
+
   }
 }
 export default {
@@ -504,6 +528,7 @@ export default {
       planeKind: [],     // 飞机型号
       planeHeight: [],    // 飞行高度
       planeSpeed: [],      // 飞行速度
+      slef_title:'',
       theme: [
         {
           name: '南海联合军演',
@@ -518,44 +543,10 @@ export default {
           id: '1'
         }
       ],
-      area_air:[
-        // {
-        //   name:'东北空管区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'华北空管区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'华南空管区域',
-        //   id:'1'
-        // },
-      ],
-      area_sea:[
-        // {
-        //   name:'南海管制区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'黄海管制区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'东海管制区域',
-        //   id:'1'
-        // },
-      ],
-      point_list:[
-        // {
-        //   longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
-        //   id:'1'
-        // },
-        // {
-        //   longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
-        //   id:'1'
-        // }
-      ],
+      area_air:[],
+      area_sea:[],
+      point_list:[],
+      self_list:[],
       tabs: 0
     }
   },
@@ -586,6 +577,9 @@ export default {
         }
         this.pointSum.push(newObj)
       },
+      selectAir(r){
+        console.log(r)
+      },
       fadeChange() {
         // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
         executeGQL(GQL.filterTargets, {
@@ -609,6 +603,52 @@ export default {
         })
       },
       areaSelect() {
+        this.pointSum.forEach(r => {
+          let xPoint = r.firstInputH + "°" + r.firstInputM + "'" + r.firstInputS + '"' + r.firstSwitch
+          let yPoint = r.lastInputH + "°" + r.lastInputM + "'" + r.lastInputS + '"' + r.lastSwitch
+          let obj = {
+            x:formatDEC(xPoint),
+            y:formatDEC(yPoint)
+          }
+          this.point_list.push(JSON.stringify(obj))
+        })
+
+        // console.log(this.point_list)
+        // let newArr = JSON.stringify(this.point_list)
+        // console.log(newArr)
+
+        executeGQL(GQL.putBoundary , {
+          points:this.point_list,
+          name : this.slef_title
+        }).then(r => {
+          console.log(r)
+          this.point_list = []
+          this.pointSum = [
+            {
+              firstSwitch:'W',
+              firstInputH:'',
+              firstInputM:'',
+              firstInputS:'',
+              lastSwitch:'S',
+              lastInputH:'',
+              lastInputM:'',
+              lastInputS:''
+            }
+          ]
+          this.slef_title = ''
+          executeGQL(GQL.boundaryList).then(r => {
+            this.$store.commit("boundaryList",r.boundaryList)
+            r.boundaryList.forEach(res => {
+              if(res.properties.type == 'waterspace'){
+                this.area_sea.push(res)
+              }else if(res.properties.type == 'airspace'){
+                this.area_air.push(res)
+              }else{
+                this.self_list.push(res)
+              }
+            })
+          })
+        })
 
       },
       // 国家选择
@@ -653,7 +693,7 @@ export default {
           }else if(res.properties.type == 'airspace'){
             this.area_air.push(res)
           }else{
-            this.point_list.push(res)
+            this.self_list.push(res)
           }
         })
       })
