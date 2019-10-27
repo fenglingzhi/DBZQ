@@ -5,9 +5,9 @@
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
-        <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        <!-- <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
-        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/> -->
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -361,7 +361,7 @@ const GQL = {
   },
   freshWarning: { query: gql`
     query($type:String!){
-      targetList: filterTargets(targetType:$type) {
+      targetList: filterWarning(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -370,9 +370,6 @@ const GQL = {
             geometry {
               type, coordinates
             }
-          },
-          action{
-            track{ lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }
           }
           symbol}
         ...on Ship{
@@ -395,7 +392,7 @@ const GQL = {
             }
           },
           symbol}
-        ...on LaunchSite{
+        ...on Buoy{
           targetType: __typename,
           id,
           feature {
@@ -690,11 +687,6 @@ export default {
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime }
       }, 1000)
     })
-    this.intv = setInterval(async () => { return
-      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
-      // debugger
-      this.waringList = ret.targetList
-    }, 5000)
   }
 }
 </script>

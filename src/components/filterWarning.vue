@@ -22,8 +22,10 @@
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 300px;overflow: auto">
-                    <RadioGroup type="button" size="small" >
-                      <Radio v-for="item in countryTags" :label="item.cname" :key="item.id" style="margin: 0 10px 10px 0;"></Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.country">
+                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                        {{ item.cname }}
+                      </Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -155,8 +157,8 @@ const GQL = {
     }`
   },
   filterTargets: { query: gql`
-    query($type:String!){
-      targetList: filterWarning(targetType:$type) {
+    query($type:String!, $country:String){
+      targetList: filterWarning(targetType:$type, country:$country) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -259,7 +261,7 @@ export default {
       checked: false,
       dictTydefList: [],
       // 选中的搜索条件组合
-      conditions: { region: '亚洲', country: null },
+      conditions: { region: '亚洲', country: '' },
       regionOptions: [],  // 大洲/国家 选项集合
       planeUsage: [],     // 飞机用途
       planeKind: [],     // 飞机型号
@@ -297,7 +299,8 @@ export default {
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show */
-      executeGQL(GQL.filterTargets, { type: this.targetType }).then(r => {
+      executeGQL(GQL.filterTargets, { type: this.targetType,country:this.conditions.country }).then(r => {
+        debugger
         this.$store.commit('targetList', r.targetList)
       })
       this.show = !this.show
@@ -339,6 +342,11 @@ export default {
       this.planeHeight = r.planeHeight
       this.planeSpeed = r.planeSpeed
     })
+
+    this.intv = setInterval(async () => {
+      let ret = await executeGQL(GQL.filterTargets, { type: this.targetType,country:this.conditions.country  })
+      this.$store.commit('targetList', ret)
+    }, 5000)
   }
 }
 </script>
