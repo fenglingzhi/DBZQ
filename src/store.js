@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     targetList: [],
+    warningList: [],
     selectedTarget: null,
     selectinfoTarget: [],
     boundaryList:[]
@@ -13,6 +14,9 @@ export default new Vuex.Store({
   mutations: {
     targetList(state, vals) {
       state.targetList = vals
+    },
+    warningList(state,val) {
+      state.warningList = val
     },
     selectedTarget(state, val) {
       state.selectedTarget = val

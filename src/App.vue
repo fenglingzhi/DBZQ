@@ -3,9 +3,9 @@
     <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%" key="mainmap0">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
+        <geometry v-for="target in warningList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
-        <!-- <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        <!-- <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
         :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/> -->
       </vectorlayer>
@@ -424,7 +424,6 @@ export default {
       spinShow: true,
       route: null,
       playStatus: '',
-      waringList: [],
       hideTip: false,
       selectedGeo: null,
       selectWarningGeo: null,
@@ -444,7 +443,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['targetList']),
+    ...mapState(['targetList','warningList']),
     ...mapState(['selectedTarget']),
     ...mapState(['selectinfoTarget']),
     ...mapState(['boundaryList'])

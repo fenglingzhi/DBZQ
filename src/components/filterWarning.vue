@@ -301,7 +301,7 @@ export default {
       this.show = !this.show */
       executeGQL(GQL.filterTargets, { type: this.targetType,country:this.conditions.country }).then(r => {
         debugger
-        this.$store.commit('targetList', r.targetList)
+        this.$store.commit('warningList', r.targetList)
       })
       this.show = !this.show
       this.$emit('change_filter_show', this.show)
@@ -345,7 +345,7 @@ export default {
 
     this.intv = setInterval(async () => {
       let ret = await executeGQL(GQL.filterTargets, { type: this.targetType,country:this.conditions.country  })
-      this.$store.commit('targetList', ret)
+      this.$store.commit('warningList', ret)
     }, 5000)
   }
 }
