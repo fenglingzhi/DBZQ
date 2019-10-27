@@ -345,7 +345,7 @@ export default {
 
     this.intv = setInterval(async () => {
       let ret = await executeGQL(GQL.filterTargets, { type: this.targetType,country:this.conditions.country  })
-      this.$store.commit('warningList', ret)
+      this.$store.commit('warningList', ret.targetList)
     }, 5000)
   }
 }
