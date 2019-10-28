@@ -77,7 +77,7 @@ export default {
         },
         {
           title: '主管领导',
-          key: 'name'
+          key: 'leader'
         }
       ]
     }
@@ -86,7 +86,18 @@ export default {
   computed: {
     data() {
       return [this.organization] && [this.organization].map(({ cname, ename, abbr, code, type, base, business, superior, leader }) => {
-        let cdata = { cname, ename, abbr, code, type, base, business, superior, leader }
+        let lname = ''
+        leader.map(({name}, index) => {
+          if(index === 0) {
+            lname = name
+          } else {
+            lname = lname + ',' + name
+          }
+        })
+        let cdata = {
+          cname, ename, abbr, code, type, base, business, superior,
+          leader: lname
+        }
         return cdata
       })
     }

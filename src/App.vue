@@ -148,12 +148,12 @@ const GQL = {
         registration,
         ORG {
           cname, ename, abbr, code, type,
-          base{ country{ cname } },
+          base{ country{ ename } },
           business,
           superior { cname },
           leader {
             name, nation, gender, birthday, nickname,
-            country { cname },
+            country { ename },
             faith, job, EDU, city
           },
           homepage
@@ -228,7 +228,7 @@ const GQL = {
         MMSI,
         ORG {
           cname, ename, abbr, code, type,
-          base { country{ cname } },
+          base { country{ ename } },
           business,
           superior { cname },
           leader {
@@ -280,7 +280,7 @@ const GQL = {
         name,
         country { cname },
         usage { label },
-        manufacturer { cname },
+        manufacturer { ename },
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
