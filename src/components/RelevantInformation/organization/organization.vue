@@ -86,14 +86,14 @@ export default {
   computed: {
     data() {
       return [this.organization] && [this.organization].map(({ cname, ename, abbr, code, type, base, business, superior, leader }) => {
-        let cdata = { cname, abbr, type, business, name }
+        let cdata = { cname, ename, abbr, code, type, base, business, superior, leader }
         return cdata
       })
     }
   },
   methods: { },
   mounted () {
-    this.data.push(this.organization)
+    // this.data.push(this.organization)
   }
 }
 </script>

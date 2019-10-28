@@ -664,6 +664,7 @@ export default {
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
       let unitTime = 10000
+      // let unitTime = e.track[e.track.length]
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
