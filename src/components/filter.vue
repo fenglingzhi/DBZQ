@@ -366,27 +366,27 @@
   const GQL = {
     getConditions: {
       query: gql`
-    {
-      regionList {
-        id, cname,
-        countryList{ cname, ename, id }
-      }
-      dictTydefList: dictTypeDefs {
-        id value
-      }
-      planeUsage: dictItem(tid:"t001") {
-        id value label
-      }
-      planeKind: dictItem(tid:"t011"){
-        id value label
-      }
-      planeHeight: dictItem(tid:"t021"){
-        id value label
-      }
-      planeSpeed: dictItem(tid:"t022"){
-        id value label
-      }
-    }`
+      {
+        regionList {
+          id, cname,
+          countryList{ cname, ename, id }
+        }
+        dictTydefList: dictTypeDefs {
+          id value
+        }
+        planeUsage: dictItem(tid:"t001") {
+          id value label
+        }
+        planeKind: dictItem(tid:"t011"){
+          id value label
+        }
+        planeHeight: dictItem(tid:"t021"){
+          id value label
+        }
+        planeSpeed: dictItem(tid:"t022"){
+          id value label
+        }
+      }`
     },
     filterTargets: {
       query: gql`

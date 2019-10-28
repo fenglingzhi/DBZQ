@@ -3,11 +3,11 @@
     <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%" key="mainmap0">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
+        <geometry v-for="target in warningList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
-        <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        <!-- <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
-        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/> -->
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -361,7 +361,7 @@ const GQL = {
   },
   freshWarning: { query: gql`
     query($type:String!){
-      targetList: filterTargets(targetType:$type) {
+      targetList: filterWarning(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -370,9 +370,6 @@ const GQL = {
             geometry {
               type, coordinates
             }
-          },
-          action{
-            track{ lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }
           }
           symbol}
         ...on Ship{
@@ -395,7 +392,7 @@ const GQL = {
             }
           },
           symbol}
-        ...on LaunchSite{
+        ...on Buoy{
           targetType: __typename,
           id,
           feature {
@@ -427,7 +424,6 @@ export default {
       spinShow: true,
       route: null,
       playStatus: '',
-      waringList: [],
       hideTip: false,
       selectedGeo: null,
       selectWarningGeo: null,
@@ -447,7 +443,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['targetList']),
+    ...mapState(['targetList','warningList']),
     ...mapState(['selectedTarget']),
     ...mapState(['selectinfoTarget']),
     ...mapState(['boundaryList']),
@@ -468,7 +464,7 @@ export default {
     selectedTarget(n, o) {
       this.get_info()
       // if(n === null) {
-        debugger
+        // debugger
         this.playStatus = 'remove'
         // this.playStatus = 'cancel'
       // }
@@ -676,7 +672,7 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
-      let unitTime = 1000
+      let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 1000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
@@ -696,14 +692,10 @@ export default {
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
         this.playStatus = 'play'
+        
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime }
       }, 1000)
     })
-    this.intv = setInterval(async () => { return
-      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
-      // debugger
-      this.waringList = ret.targetList
-    }, 5000)
   }
 }
 </script>
