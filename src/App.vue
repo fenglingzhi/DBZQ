@@ -16,7 +16,7 @@
     <mapcan v-else name="mainmap1" :center="centerXY" :zoom="4" style="height:100%" key="mainmap1">
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
       <vectorlayer id="boundarylayer">
-        <geometry v-for="boundary in boundaryList" :id="boundary.id" :key="boundary.id"
+        <geometry v-for="boundary in selected_area" :id="boundary.id" :key="boundary.id"
           :json="boundary" :symbol="{ lineColor : 'red', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
       </vectorlayer>
       <vectorlayer :id="`featurelayer`">
@@ -123,7 +123,7 @@ import filterwrap from './components/filter.vue'
 import filterwarning from './components/filterWarning'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
@@ -446,11 +446,20 @@ export default {
     ...mapState(['targetList','warningList']),
     ...mapState(['selectedTarget']),
     ...mapState(['selectinfoTarget']),
-    ...mapState(['boundaryList'])
+    ...mapState(['boundaryList']),
+    ...mapState(['selectedArea'])
   },
   watch: {
     targetr_id() {
       this.get_info()
+    },
+    selectedArea(val){
+      this.selected_area = []
+      this.boundaryList.forEach(r => {
+        if(r.properties.name == val.air || r.properties.name == val.sea || r.properties.name == val.self){
+          this.selected_area.push(r)
+        }
+      })
     },
     selectedTarget(n, o) {
       this.get_info()

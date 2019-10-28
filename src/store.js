@@ -9,7 +9,12 @@ export default new Vuex.Store({
     waringList: [],
     selectedTarget: null,
     selectinfoTarget: [],
-    boundaryList:[]
+    boundaryList:[],
+    selectedArea:{
+      air:'',
+      sea:'',
+      self:''
+    }
   },
   mutations: {
     targetList(state, vals) {
@@ -31,6 +36,18 @@ export default new Vuex.Store({
     },
     boundaryList(state, valB) {
       state.boundaryList = valB
+    },
+    selectedArea(state , valS){
+      let data = Object.assign({},state.selectedArea,valS); 
+      
+      if(valS.air){
+        data.air = valS.air
+      }else if(valS.sea){
+        data.sea = valS.sea
+      }else{
+        data.self = valS.self
+      }
+      state.selectedArea = data;
     }
   },
   actions: {

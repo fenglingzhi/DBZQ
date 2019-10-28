@@ -276,7 +276,7 @@
               </RadioGroup>
             </TabPane>
             <TabPane label="航海管制区" tab="name3">
-              <RadioGroup type="button" size="small">
+              <RadioGroup type="button" size="small" @on-change="selectSea">
                 <Radio v-for="item in area_sea" :label="item.properties.name" :key="item.id"
                        style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
@@ -289,7 +289,7 @@
                 <!---->
               <!--</Tabs>-->
               <Row>
-                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
+                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;" @on-change="selectSelf">
                   <Radio v-for="item in self_list" :label="item.properties.name" :key="item.id"
                          style="margin: 0 10px 10px 0;"></Radio>
                 </RadioGroup>
@@ -578,7 +578,22 @@ export default {
         this.pointSum.push(newObj)
       },
       selectAir(r){
-        console.log(r)
+        let air = {
+          air:r
+        }
+        this.$store.commit("selectedArea",air)
+      },
+      selectSea(r){
+        let sea = {
+          sea:r
+        }
+        this.$store.commit("selectedArea",sea)
+      },
+      selectSelf(r){
+        let self = {
+          self:r
+        }
+        this.$store.commit("selectedArea",self)
       },
       fadeChange() {
         // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
@@ -621,7 +636,6 @@ export default {
           points:this.point_list,
           name : this.slef_title
         }).then(r => {
-          console.log(r)
           this.point_list = []
           this.pointSum = [
             {
@@ -636,18 +650,7 @@ export default {
             }
           ]
           this.slef_title = ''
-          executeGQL(GQL.boundaryList).then(r => {
-            this.$store.commit("boundaryList",r.boundaryList)
-            r.boundaryList.forEach(res => {
-              if(res.properties.type == 'waterspace'){
-                this.area_sea.push(res)
-              }else if(res.properties.type == 'airspace'){
-                this.area_air.push(res)
-              }else{
-                this.self_list.push(res)
-              }
-            })
-          })
+          this.getBoundaryList()
         })
 
       },
@@ -671,21 +674,9 @@ export default {
       handleTabsAdd() {
         this.tabs++
       },
-
-    },
-    mounted() {
-      // 获取搜索区域列表
-      executeGQL(GQL.getConditions).then(r => {
-        this.regionOptions = r.regionList
-        this.planeUsage = r.planeUsage
-        this.dictTydefList = r.dictTydefList
-        this.planeKind = r.planeKind
-        this.planeHeight = r.planeHeight
-        this.planeSpeed = r.planeSpeed
-      })
       // 获取自定义边界列表
-      executeGQL(GQL.boundaryList).then(r => {
-        // console.log(r)
+      getBoundaryList(){
+        executeGQL(GQL.boundaryList).then(r => {
         this.$store.commit("boundaryList",r.boundaryList)
         r.boundaryList.forEach(res => {
           if(res.properties.type == 'waterspace'){
@@ -697,6 +688,19 @@ export default {
           }
         })
       })
+      }
+    },
+    mounted() {
+      // 获取搜索区域列表
+      executeGQL(GQL.getConditions).then(r => {
+        this.regionOptions = r.regionList
+        this.planeUsage = r.planeUsage
+        this.dictTydefList = r.dictTydefList
+        this.planeKind = r.planeKind
+        this.planeHeight = r.planeHeight
+        this.planeSpeed = r.planeSpeed
+      })
+      this.getBoundaryList()
     }
   }
 </script>
