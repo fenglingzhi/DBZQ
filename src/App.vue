@@ -663,7 +663,7 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
-      let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 1000
+      let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
@@ -684,7 +684,7 @@ export default {
         }
         this.playStatus = 'play'
         
-        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime }
+        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
       }, 1000)
     })
   }
