@@ -89,8 +89,15 @@ export default {
   props: ['usr'],
   computed: {
     data() {
-      return [this.usr] && [this.usr].map(({ name, nickname, country, birthday, job, city }) => {
-        let cdata = { name, nickname, 'country': country && country.cname, birthday: new Date(birthday).toLocaleDateString(), job, city }
+      return this.usr && this.usr.map(({ name, nickname, country, birthday, job, city, gender, EDU, nation, faith }) => {
+        let cdata = {
+          name, nickname,
+          'country': country && country.cname,
+          birthday: new Date(birthday).toLocaleDateString(),
+          job, city, gender,
+          edu: EDU,
+          nation, faith
+        }
         return cdata
       })
     }
