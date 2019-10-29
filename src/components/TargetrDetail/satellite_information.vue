@@ -14,7 +14,7 @@
         <span v-text="'所属国家'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info && base_info.country.cname"></span>
+        <span v-text="base_info && base_info.country && base_info.country.cname"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -22,7 +22,7 @@
         <span v-text="'卫星用途'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info && base_info.usage.label"></span>
+        <span v-text="base_info && base_info.usage && base_info.usage.label"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -30,7 +30,7 @@
         <span v-text="'制造商'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info && base_info.manufacturer.cname"></span>
+        <span v-text="base_info && base_info.manufacturer && base_info.manufacturer.cname"></span>
       </div>
     </div>
     <div class="info-data-item">
@@ -70,7 +70,7 @@
         <span v-text="'发射地点'"></span>
       </div>
       <div class="info-value">
-        <span v-text="base_info && base_info.launchSite.city"></span>
+        <span v-text="base_info && base_info.launchSite && base_info.launchSite.city"></span>
       </div>
     </div>
     <div class="info-data-item">

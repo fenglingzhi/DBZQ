@@ -14,7 +14,7 @@
                 <span v-text="'所在国家'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.country"></span>
+                <span v-text="base_info && base_info.address && base_info.address.country && base_info.address.country.cname"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.longitude"></span>
+                <span v-text="base_info && base_info.address && base_info.address.position && base_info.address.position.x"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.latitude"></span>
+                <span v-text="base_info && base_info.address && base_info.address.position && base_info.address.position.y"></span>
             </div>
         </div>
         <div class="info-data-item">

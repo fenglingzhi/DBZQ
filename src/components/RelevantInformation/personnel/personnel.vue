@@ -92,7 +92,7 @@ export default {
       return this.usr && this.usr.map(({ name, nickname, country, birthday, job, city, gender, EDU, nation, faith }) => {
         let cdata = {
           name, nickname,
-          'country': country && country.cname,
+          country: country && country.ename,
           birthday: new Date(birthday).toLocaleDateString(),
           job, city, gender,
           edu: EDU,

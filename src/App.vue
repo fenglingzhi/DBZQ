@@ -148,12 +148,12 @@ const GQL = {
         registration,
         ORG {
           cname, ename, abbr, code, type,
-          base{ country{ cname } },
+          base{ country{ ename } },
           business,
           superior { cname },
           leader {
             name, nation, gender, birthday, nickname,
-            country { cname },
+            country { ename },
             faith, job, EDU, city
           },
           homepage
@@ -228,7 +228,7 @@ const GQL = {
         MMSI,
         ORG {
           cname, ename, abbr, code, type,
-          base { country{ cname } },
+          base { country{ ename } },
           business,
           superior { cname },
           leader {
@@ -280,11 +280,23 @@ const GQL = {
         name,
         country { cname },
         usage { label },
-        manufacturer { cname },
+        manufacturer { ename },
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
-        action{ RCS, lon, lat, geocentric, speed, GMT }
+        action{ RCS, lon, lat, geocentric, speed, GMT },
+        ORG: manufacturer {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on Buoy{
         targetType: __typename,
@@ -332,7 +344,19 @@ const GQL = {
           country { cname }
         },
         area,
-        parkCount
+        parkCount,
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on Port{
         targetType: __typename,
@@ -344,7 +368,19 @@ const GQL = {
           },
           position
         },
-        code
+        code,
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on LaunchSite{
         targetType: __typename,
@@ -354,7 +390,19 @@ const GQL = {
         address{
           door,
           position
-        }
+        },
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       }
     }
   }`
@@ -473,7 +521,7 @@ export default {
       this.clearinfo()
     },
     boundaryList(){
-      
+
     },
     selectinfoTarget() {
       // this.centerXY = this.selectinfoTarget.position
@@ -672,10 +720,17 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
+// <<<<<<< HEAD
+//       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
+//        delay(() => {
+//         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
+//           unitTime,
+// =======
       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
+// >>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
           markerSymbol: {
             markerType: 'path',
             markerPathWidth: 1024,
@@ -691,9 +746,13 @@ export default {
           },
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
-        this.playStatus = 'play'
-        
+//         this.playStatus = 'play'
+// <<<<<<< HEAD
+//         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
+// =======
+
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
+// >>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
       }, 1000)
     })
   }
