@@ -5,7 +5,7 @@
       <Icon type="ios-arrow-down" class="icon_a"/>
     </div>
     <!-- 高度echarts -->
-    <div class="TargetrDetail_charts" v-if = "show_TargetrDetail_boolean === true && filter_show && !show && status && (tab_show == 'Targetrtrajectory') && !spinShow">
+    <div class="TargetrDetail_charts" v-if = "show_TargetrDetail_boolean === true && filter_show && !show && status && (tab_show == 'Targetrtrajectory') && !spinShow && (targetr_type === 'Plane' ||  targetr_type === 'Ship' ||  targetr_type === 'Satellite')">
       <div style="padding:0 60px 0 0;">
         <ve-line width="1100px" ref="chart" height="30px" :legend-visible="false" :tooltip-visible="false" :colors="colors" :grid="grid" :extend="extend" :data="chartData" :settings="chartSettings"></ve-line>
       </div>
