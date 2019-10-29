@@ -670,7 +670,7 @@ export default {
         this.show = !this.show
         this.$emit('change_filter_show', this.show)
       },
-      //自定义区域tab增加 
+      //自定义区域tab增加
       handleTabsAdd() {
         this.tabs++
       },
