@@ -284,7 +284,19 @@ const GQL = {
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
-        action{ RCS, lon, lat, geocentric, speed, GMT }
+        action{ RCS, lon, lat, geocentric, speed, GMT },
+        ORG: manufacturer {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on Buoy{
         targetType: __typename,
@@ -332,7 +344,19 @@ const GQL = {
           country { cname }
         },
         area,
-        parkCount
+        parkCount,
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on Port{
         targetType: __typename,
@@ -344,7 +368,19 @@ const GQL = {
           },
           position
         },
-        code
+        code,
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on LaunchSite{
         targetType: __typename,
@@ -354,7 +390,19 @@ const GQL = {
         address{
           door,
           position
-        }
+        },
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       }
     }
   }`
