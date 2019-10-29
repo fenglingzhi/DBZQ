@@ -77,18 +77,34 @@ export default {
         },
         {
           title: '主管领导',
-          key: 'name'
+          key: 'leader'
         }
-      ],
-      data: [ ]
+      ]
     }
   },
   props: ['organization'],
   computed: {
+    data() {
+      return [this.organization] && [this.organization].map(({ cname, ename, abbr, code, type, base, business, superior, leader }) => {
+        let lname = ''
+        leader.map(({name}, index) => {
+          if(index === 0) {
+            lname = name
+          } else {
+            lname = lname + ',' + name
+          }
+        })
+        let cdata = {
+          cname, ename, abbr, code, type, base, business, superior,
+          leader: lname
+        }
+        return cdata
+      })
+    }
   },
   methods: { },
   mounted () {
-    this.data.push(this.organization)
+    // this.data.push(this.organization)
   }
 }
 </script>

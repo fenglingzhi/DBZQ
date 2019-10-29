@@ -162,6 +162,7 @@ export default {
     // echarts resize调用
     chartlength(v) {
       this.grid.width = v + 'px'
+      // console.log(v)
       this.$nextTick(_ => {
         this.$refs.chart.echarts.resize()
       })
@@ -178,7 +179,7 @@ export default {
   },
   mounted() {
     this.get_info()
-    this.chartlength = 240
+    this.chartlength = 0
   },
   methods: {
     // 高度charts动画

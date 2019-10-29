@@ -3,11 +3,11 @@
     <mapcan v-if="warning" name="mainmap0" :center="[100,31]" :zoom="4" style="height:100%" key="mainmap0">
       <tilelayer slot="baselayer" :id="`googlelayer`" url-template="/maptiles/vt?lyrs=y@852&gl=cn&t=y&x={x}&y={y}&z={z}"></tilelayer>
       <vectorlayer :id="`featurelayer`">
-        <geometry v-for="target in waringList" :id="target.feature.id" :key="target.id"
+        <geometry v-for="target in warningList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
-        <geometry v-for="target in waringList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        <!-- <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
-        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/> -->
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -16,7 +16,7 @@
     <mapcan v-else name="mainmap1" :center="centerXY" :zoom="4" style="height:100%" key="mainmap1">
       <tilelayer slot="baselayer" :id="`googlelayer`" :url-template="maptiles"></tilelayer>
       <vectorlayer id="boundarylayer">
-        <geometry v-for="boundary in boundaryList" :id="boundary.id" :key="boundary.id"
+        <geometry v-for="boundary in selected_area" :id="boundary.id" :key="boundary.id"
           :json="boundary" :symbol="{ lineColor : 'red', lineWidth : 2, polygonFill : 'rgb(135,196,240)',polygonOpacity : 0.3 }"></geometry>
       </vectorlayer>
       <vectorlayer :id="`featurelayer`">
@@ -123,21 +123,21 @@ import filterwrap from './components/filter.vue'
 import filterwarning from './components/filterWarning'
 import TargetrDetail from './components/TargetrDetail/TargetrDetail'
 import RelevantInformation from './components/RelevantInformation/RelevantInformation'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
-  boundaryList: { query: gql`{
-    boundaryList{
-        type
-        properties
-        geometry{
-          coordinates
-          type
-        }
-      }
-    }`
-  },
+  // boundaryList: { query: gql`{
+  //   boundaryList{
+  //       type
+  //       properties
+  //       geometry{
+  //         coordinates
+  //         type
+  //       }
+  //     }
+  //   }`
+  // },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -148,12 +148,12 @@ const GQL = {
         registration,
         ORG {
           cname, ename, abbr, code, type,
-          base{ country{ cname } },
+          base{ country{ ename } },
           business,
           superior { cname },
           leader {
             name, nation, gender, birthday, nickname,
-            country { cname },
+            country { ename },
             faith, job, EDU, city
           },
           homepage
@@ -228,7 +228,7 @@ const GQL = {
         MMSI,
         ORG {
           cname, ename, abbr, code, type,
-          base { country{ cname } },
+          base { country{ ename } },
           business,
           superior { cname },
           leader {
@@ -280,11 +280,23 @@ const GQL = {
         name,
         country { cname },
         usage { label },
-        manufacturer { cname },
+        manufacturer { ename },
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
-        action{ RCS, lon, lat, geocentric, speed, GMT }
+        action{ RCS, lon, lat, geocentric, speed, GMT },
+        ORG: manufacturer {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on Buoy{
         targetType: __typename,
@@ -332,7 +344,19 @@ const GQL = {
           country { cname }
         },
         area,
-        parkCount
+        parkCount,
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on Port{
         targetType: __typename,
@@ -344,7 +368,19 @@ const GQL = {
           },
           position
         },
-        code
+        code,
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       },
       ... on LaunchSite{
         targetType: __typename,
@@ -354,14 +390,26 @@ const GQL = {
         address{
           door,
           position
-        }
+        },
+        ORG {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
       }
     }
   }`
   },
   freshWarning: { query: gql`
     query($type:String!){
-      targetList: filterTargets(targetType:$type) {
+      targetList: filterWarning(targetType:$type) {
         ...on Plane{
           targetType: __typename,
           id,
@@ -370,9 +418,6 @@ const GQL = {
             geometry {
               type, coordinates
             }
-          },
-          action{
-            track{ lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }
           }
           symbol}
         ...on Ship{
@@ -395,7 +440,7 @@ const GQL = {
             }
           },
           symbol}
-        ...on LaunchSite{
+        ...on Buoy{
           targetType: __typename,
           id,
           feature {
@@ -427,7 +472,6 @@ export default {
       spinShow: true,
       route: null,
       playStatus: '',
-      waringList: [],
       hideTip: false,
       selectedGeo: null,
       selectWarningGeo: null,
@@ -447,19 +491,28 @@ export default {
     }
   },
   computed: {
-    ...mapState(['targetList']),
+    ...mapState(['targetList','warningList']),
     ...mapState(['selectedTarget']),
     ...mapState(['selectinfoTarget']),
-    ...mapState(['boundaryList'])
+    ...mapState(['boundaryList']),
+    ...mapState(['selectedArea'])
   },
   watch: {
     targetr_id() {
       this.get_info()
     },
+    selectedArea(val){
+      this.selected_area = []
+      this.boundaryList.forEach(r => {
+        if(r.properties.name == val.air || r.properties.name == val.sea || r.properties.name == val.self){
+          this.selected_area.push(r)
+        }
+      })
+    },
     selectedTarget(n, o) {
       this.get_info()
       // if(n === null) {
-        debugger
+        // debugger
         this.playStatus = 'remove'
         // this.playStatus = 'cancel'
       // }
@@ -667,10 +720,17 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
+<<<<<<< HEAD
       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
        delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
+=======
+      let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
+      delay(() => {
+        this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
+          unitTime,
+>>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
           markerSymbol: {
             markerType: 'path',
             markerPathWidth: 1024,
@@ -687,14 +747,14 @@ export default {
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
         this.playStatus = 'play'
+<<<<<<< HEAD
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
+=======
+        
+        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
+>>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
       }, 1000)
     })
-    this.intv = setInterval(async () => { return
-      let ret = await executeGQL(GQL.freshWarning, { type: 'PlaneWarning' })
-      // debugger
-      this.waringList = ret.targetList
-    }, 5000)
   }
 }
 </script>

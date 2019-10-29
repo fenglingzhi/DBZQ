@@ -270,13 +270,13 @@
         <TabPane label="区域绘制" name="name3">
           <Tabs tab="name3">
             <TabPane label="航空管制区" tab="name3">
-              <RadioGroup type="button" size="small">
+              <RadioGroup type="button" size="small" @on-change="selectAir">
                 <Radio v-for="item in area_air" :label="item.properties.name" :key="item.id"
                        style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
             </TabPane>
             <TabPane label="航海管制区" tab="name3">
-              <RadioGroup type="button" size="small">
+              <RadioGroup type="button" size="small" @on-change="selectSea">
                 <Radio v-for="item in area_sea" :label="item.properties.name" :key="item.id"
                        style="margin: 0 10px 10px 0;"></Radio>
               </RadioGroup>
@@ -289,8 +289,8 @@
                 <!---->
               <!--</Tabs>-->
               <Row>
-                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;">
-                  <Radio v-for="item in self_list" :label="item.name" :key="item.id"
+                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;" @on-change="selectSelf">
+                  <Radio v-for="item in self_list" :label="item.properties.name" :key="item.id"
                          style="margin: 0 10px 10px 0;"></Radio>
                 </RadioGroup>
               </Row>
@@ -306,34 +306,34 @@
                 </i-col>
               </Row>
               <div class="area_title">
-                <Row class="longitude" v-for="item in pointSum" :key="item.id">
+                <Row class="longitude" v-for="(item,index) in pointSum" :key="index">
                   <div class="point_wrap">
                     <i-col :span="12">
                       <i-col :span="6">
-                        <i-switch size="large" @on-change="change_warning">
+                        <i-switch size="large" v-model="item.firstSwitch" true-value="E" false-value="W">
                           <span slot="open">E</span>
                           <span slot="close">W</span>
                         </i-switch>
                       </i-col>
-                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.firstInputH" size="small"/></i-col>
                       <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputM" size="small"/></i-col>
                       <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.firstInputS" size="small"/></i-col>
                       <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
                     </i-col>
                     <i-col :span="12">
                       <i-col :span="6">
-                        <i-switch size="large" @on-change="change_warning">
+                        <i-switch size="large" v-model="item.lastSwitch" true-value="N" false-value="S">
                           <span slot="open">N</span>
                           <span slot="close">S</span>
                         </i-switch>
                       </i-col>
-                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input size="small"/></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 10px;"><Input v-model="item.lastInputH" size="small"/></i-col>
                       <i-col style="font-size: 30px;" :span="1"><span>°</span></i-col>
-                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputM" size="small"/></i-col>
                       <i-col style="font-size: 30px;" :span="1"><span>′</span></i-col>
-                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input size="small"/></i-col>
+                      <i-col :span="3" style="margin: 0 10px 0 5px;"><Input v-model="item.lastInputS" size="small"/></i-col>
                       <i-col style="font-size: 30px;" :span="1"><span>″</span></i-col>
                     </i-col>
                   </div>
@@ -359,34 +359,34 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { executeGQL, gql } from '../commons'
+  import { executeGQL, gql, formatDEC } from '../commons'
   import { find } from 'lodash'
   import { mapState, mapMutations } from 'vuex'
 
   const GQL = {
     getConditions: {
       query: gql`
-    {
-      regionList {
-        id, cname,
-        countryList{ cname, ename, id }
-      }
-      dictTydefList: dictTypeDefs {
-        id value
-      }
-      planeUsage: dictItem(tid:"t001") {
-        id value label
-      }
-      planeKind: dictItem(tid:"t011"){
-        id value label
-      }
-      planeHeight: dictItem(tid:"t021"){
-        id value label
-      }
-      planeSpeed: dictItem(tid:"t022"){
-        id value label
-      }
-    }`
+      {
+        regionList {
+          id, cname,
+          countryList{ cname, ename, id }
+        }
+        dictTydefList: dictTypeDefs {
+          id value
+        }
+        planeUsage: dictItem(tid:"t001") {
+          id value label
+        }
+        planeKind: dictItem(tid:"t011"){
+          id value label
+        }
+        planeHeight: dictItem(tid:"t021"){
+          id value label
+        }
+        planeSpeed: dictItem(tid:"t022"){
+          id value label
+        }
+      }`
     },
     filterTargets: {
       query: gql`
@@ -476,13 +476,37 @@
       }
     }
   }`
+  },
+  putBoundary : { query: gql`
+    mutation($points:[Position], $name:String!){
+      putBoundary(points:$points,name:$name){
+        type
+        id
+        geometry{
+          coordinates
+        }
+        properties
+      }
+  }`
+
   }
 }
 export default {
   name: 'filterwrap',
   data() {
     return {
-      pointSum:[0],
+      pointSum:[
+        {
+          firstSwitch:'W',
+          firstInputH:'',
+          firstInputM:'',
+          firstInputS:'',
+          lastSwitch:'S',
+          lastInputH:'',
+          lastInputM:'',
+          lastInputS:''
+        }
+      ],
       ele: '',
       searchString: '',
       show: true,
@@ -519,44 +543,9 @@ export default {
           id: '1'
         }
       ],
-      area_air:[
-        // {
-        //   name:'东北空管区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'华北空管区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'华南空管区域',
-        //   id:'1'
-        // },
-      ],
-      area_sea:[
-        // {
-        //   name:'南海管制区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'黄海管制区域',
-        //   id:'1'
-        // },
-        // {
-        //   name:'东海管制区域',
-        //   id:'1'
-        // },
-      ],
-      point_list:[
-        // {
-        //   longitude_latitude:'东经:136°21′14″ 北纬:136°21′14″',
-        //   id:'1'
-        // },
-        // {
-        //   longitude_latitude:'西经:136°21′14″ 南纬:136°21′14″',
-        //   id:'1'
-        // }
-      ],
+      area_air:[],
+      area_sea:[],
+      point_list:[],
       self_list:[],
       tabs: 0
     }
@@ -574,8 +563,37 @@ export default {
     methods: {
       ...mapMutations(['setSomeState']),
       addNewPoint() {
-        this.ele++
-        this.pointSum.push(this.ele)
+        // this.ele++
+        // this.pointSum.push(this.ele)
+        let newObj = {
+          firstSwitch:'W',
+          firstInputH:'',
+          firstInputM:'',
+          firstInputS:'',
+          lastSwitch:'S',
+          lastInputH:'',
+          lastInputM:'',
+          lastInputS:''
+        }
+        this.pointSum.push(newObj)
+      },
+      selectAir(r){
+        let air = {
+          air:r
+        }
+        this.$store.commit("selectedArea",air)
+      },
+      selectSea(r){
+        let sea = {
+          sea:r
+        }
+        this.$store.commit("selectedArea",sea)
+      },
+      selectSelf(r){
+        let self = {
+          self:r
+        }
+        this.$store.commit("selectedArea",self)
       },
       fadeChange() {
         // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
@@ -600,10 +618,41 @@ export default {
         })
       },
       areaSelect() {
-        this.self_list.push({
-          name:this.slef_title,
-          val:''
+        this.pointSum.forEach(r => {
+          let xPoint = r.firstInputH + "°" + r.firstInputM + "'" + r.firstInputS + '"' + r.firstSwitch
+          let yPoint = r.lastInputH + "°" + r.lastInputM + "'" + r.lastInputS + '"' + r.lastSwitch
+          let obj = {
+            x:formatDEC(xPoint),
+            y:formatDEC(yPoint)
+          }
+          this.point_list.push(JSON.stringify(obj))
         })
+
+        // console.log(this.point_list)
+        // let newArr = JSON.stringify(this.point_list)
+        // console.log(newArr)
+
+        executeGQL(GQL.putBoundary , {
+          points:this.point_list,
+          name : this.slef_title
+        }).then(r => {
+          this.point_list = []
+          this.pointSum = [
+            {
+              firstSwitch:'W',
+              firstInputH:'',
+              firstInputM:'',
+              firstInputS:'',
+              lastSwitch:'S',
+              lastInputH:'',
+              lastInputM:'',
+              lastInputS:''
+            }
+          ]
+          this.slef_title = ''
+          this.getBoundaryList()
+        })
+
       },
       // 国家选择
       countrySelect(index) {
@@ -621,11 +670,25 @@ export default {
         this.show = !this.show
         this.$emit('change_filter_show', this.show)
       },
-      //自定义区域tab增加
+      //自定义区域tab增加 
       handleTabsAdd() {
         this.tabs++
       },
-
+      // 获取自定义边界列表
+      getBoundaryList(){
+        executeGQL(GQL.boundaryList).then(r => {
+        this.$store.commit("boundaryList",r.boundaryList)
+        r.boundaryList.forEach(res => {
+          if(res.properties.type == 'waterspace'){
+            this.area_sea.push(res)
+          }else if(res.properties.type == 'airspace'){
+            this.area_air.push(res)
+          }else{
+            this.self_list.push(res)
+          }
+        })
+      })
+      }
     },
     mounted() {
       // 获取搜索区域列表
@@ -637,20 +700,7 @@ export default {
         this.planeHeight = r.planeHeight
         this.planeSpeed = r.planeSpeed
       })
-      // 获取自定义边界列表
-      executeGQL(GQL.boundaryList).then(r => {
-        // console.log(r)
-        this.$store.commit("boundaryList",r.boundaryList)
-        r.boundaryList.forEach(res => {
-          if(res.properties.type == 'waterspace'){
-            this.area_sea.push(res)
-          }else if(res.properties.type == 'airspace'){
-            this.area_air.push(res)
-          }else{
-            this.point_list.push(res)
-          }
-        })
-      })
+      this.getBoundaryList()
     }
   }
 </script>
