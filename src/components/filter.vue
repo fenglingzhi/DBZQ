@@ -679,9 +679,9 @@ export default {
         executeGQL(GQL.boundaryList).then(r => {
         this.$store.commit("boundaryList",r.boundaryList)
         r.boundaryList.forEach(res => {
-          if(res.properties.type == 'waterspace'){
+          if(res.properties.type == '1'){
             this.area_sea.push(res)
-          }else if(res.properties.type == 'airspace'){
+          }else if(res.properties.type == '2'){
             this.area_air.push(res)
           }else{
             this.self_list.push(res)
