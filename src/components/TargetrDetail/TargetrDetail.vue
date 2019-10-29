@@ -64,19 +64,43 @@ export default {
   destroyed() { },
   data() {
     this.Data = [
-      { '时间': '00:07', '高度': 60 },
-      { '时间': '00:08', '高度': 70 },
-      { '时间': '00:09', '高度': 80 },
-      { '时间': '00:10', '高度': 100 },
-      { '时间': '00:16', '高度': 180 },
-      { '时间': '00:17', '高度': 180 },
-      { '时间': '00:18', '高度': 180 },
-      { '时间': '00:19', '高度': 180 },
-      { '时间': '00:43', '高度': 410 },
-      { '时间': '01:40', '高度': 400 }
+// <<<<<<< HEAD
+//       { '时间': '00:07', '高度': 60 },
+//       { '时间': '00:08', '高度': 70 },
+//       { '时间': '00:09', '高度': 80 },
+//       { '时间': '00:10', '高度': 100 },
+//       { '时间': '00:16', '高度': 180 },
+//       { '时间': '00:17', '高度': 180 },
+//       { '时间': '00:18', '高度': 180 },
+//       { '时间': '00:19', '高度': 180 },
+//       { '时间': '00:43', '高度': 410 },
+//       { '时间': '01:40', '高度': 400 }
+// =======
+//       { '时间': '00:00', '高度': 115 },
+//       { '时间': '00:01', '高度': 120 },
+//       { '时间': '00:02', '高度': 135 },
+//       { '时间': '00:03', '高度': 205 },
+//       { '时间': '00:04', '高度': 130 },
+//       { '时间': '00:05', '高度': 140 },
+//       { '时间': '00:06', '高度': 150 },
+//       { '时间': '00:07', '高度': 160 },
+//       { '时间': '00:08', '高度': 170 },
+//       { '时间': '00:09', '高度': 180 },
+//       { '时间': '00:10', '高度': 100 },
+//       { '时间': '00:11', '高度': 120 },
+//       { '时间': '00:12', '高度': 200 },
+//       { '时间': '00:13', '高度': 210 },
+//       { '时间': '00:14', '高度': 210 },
+//       { '时间': '00:15', '高度': 280 },
+//       { '时间': '00:16', '高度': 330 },
+//       { '时间': '00:17', '高度': 400 },
+//       { '时间': '00:18', '高度': 430 },
+//       { '时间': '00:19', '高度': 450 },
+//       { '时间': '00:20', '高度': 450 }
+// >>>>>>> 0ff7dade4be4c2a50d53bc1f232d4c15722d5738
     ]
     this.timer = null // 定时器名称
-    this.timerIndex = 0
+    this.timerIndex = 1
     this.chartSettings = {
       area: true,
       scale: true
@@ -97,8 +121,7 @@ export default {
     this.extend = {
       xAxis: {
         axisLabel: {
-          show: false,
-          interval: 2
+          show: false
         },
         splitLine: { show: false }
       },
@@ -135,7 +158,7 @@ export default {
       container_height: 250,
       // targetr_info: {},
       get_data_boolean: true,
-      chartlength: 1140,
+      chartlength: 1088,
       chartData: {
         columns: ['时间', '高度'],
         rows: this.Data
@@ -169,7 +192,7 @@ export default {
     },
     status (v) {
       if (v === 'remove') {
-        this.timerIndex = 0
+        this.timerIndex = 1
         clearInterval(this.timer)
         this.timer = null
       } else if (v === 'play') {
@@ -184,24 +207,49 @@ export default {
   methods: {
     // 高度charts动画
     changeChats () {
-      let untime = 2000 / this.Data.length
+// <<<<<<< HEAD
+//       let untime = 2000 / this.Data.length
+//       this.timer = setInterval(() => {
+//         console.log(this.chartlength)
+//         if (this.timerIndex === 0) {
+//           this.chartData.rows = []
+//         }
+//         if (this.status === 'pause') {
+//           // console.log('-----------------------')
+//           return
+//         } else if (this.status === 'play') {
+//           if (this.timerIndex <= this.Data.length) {
+//             this.chartData.rows.push(this.Data[this.timerIndex])
+//             this.chartlength = (1088 / this.Data.length) * this.timerIndex
+//             this.timerIndex++
+//             this.$refs.chart.init()
+//           }
+//         }
+//       }, untime)
+// =======
+
+      console.log(this.detailchar)
+      console.log(this.Data)
+      console.log(this.detailchar.path[this.detailchar.path.length - 1][1])
+      let timeRate = ((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / this.Data.length).toFixed(0)
+      console.log(timeRate)
       this.timer = setInterval(() => {
-        console.log(this.chartlength)
-        if (this.timerIndex === 0) {
+
+        console.log(this.timerIndex)
+
+        if (this.timerIndex === 1) {
           this.chartData.rows = []
         }
-        if (this.status === 'pause') {
-          // console.log('-----------------------')
+        if (this.status === 'play') {
+          this.chartData.rows.push(this.Data[this.timerIndex -1])
+          this.chartlength = 1088 / this.Data.length * this.timerIndex
+          this.timerIndex++
+          this.$refs.chart.init()
+        } else if (this.status === 'pause') {
           return
-        } else if (this.status === 'play') {
-          if (this.timerIndex <= this.Data.length) {
-            this.chartData.rows.push(this.Data[this.timerIndex])
-            this.chartlength = (1088 / this.Data.length) * this.timerIndex
-            this.timerIndex++
-            this.$refs.chart.init()
-          }
         }
-      }, untime)
+      }, timeRate)
+// >>>>>>> 0ff7dade4be4c2a50d53bc1f232d4c15722d5738
     },
     // 弹窗显示最大化
     show1() {
