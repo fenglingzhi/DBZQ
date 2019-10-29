@@ -5,7 +5,7 @@
       <Icon type="ios-arrow-down" class="icon_a"/>
     </div>
     <!-- 高度echarts -->
-    <div class="TargetrDetail_charts" v-if = "show_TargetrDetail_boolean === true && filter_show && !show && status && (tab_show == 'Targetrtrajectory') && !spinShow">
+    <div class="TargetrDetail_charts" v-if = "show_TargetrDetail_boolean === true && filter_show && !show && status && (tab_show == 'Targetrtrajectory') && !spinShow && (targetr_type === 'Plane' ||  targetr_type === 'Ship' ||  targetr_type === 'Satellite')">
       <div style="padding:0 60px 0 0;">
         <ve-line width="1100px" ref="chart" height="30px" :legend-visible="false" :tooltip-visible="false" :colors="colors" :grid="grid" :extend="extend" :data="chartData" :settings="chartSettings"></ve-line>
       </div>
@@ -14,7 +14,7 @@
           <Icon style="cursor: pointer" type="md-play" v-if = "status !== 'play'"/>
           <Icon style="cursor: pointer" type="md-pause" v-if = "status === 'play'"/>
         </div>
-        <div style="flex: 1;height: 2px;background: #666;border-radius: 4px;">
+        <div style="flex: 1;height: 2px;background: #666;border-radius: 4px;overflow: hidden;">
           <div style="height: 2px;background: #fff;border-radius: 4px;" :style="{ width: chartlength + 'px' }"></div>
         </div>
         <div style="width:80px;margin-left:20px;color:#fff;text-align: center;">
@@ -64,128 +64,43 @@ export default {
   destroyed() { },
   data() {
     this.Data = [
-      { '时间': '00:00', '高度': 5 },
-      { '时间': '00:01', '高度': 10 },
-      { '时间': '00:02', '高度': 15 },
-      { '时间': '00:03', '高度': 20 },
-      { '时间': '00:04', '高度': 30 },
-      { '时间': '00:05', '高度': 40 },
-      { '时间': '00:06', '高度': 50 },
-      { '时间': '00:07', '高度': 60 },
-      { '时间': '00:08', '高度': 70 },
-      { '时间': '00:09', '高度': 80 },
-      { '时间': '00:10', '高度': 100 },
-      { '时间': '00:11', '高度': 120 },
-      { '时间': '00:12', '高度': 140 },
-      { '时间': '00:13', '高度': 180 },
-      { '时间': '00:14', '高度': 180 },
-      { '时间': '00:15', '高度': 180 },
-      { '时间': '00:16', '高度': 180 },
-      { '时间': '00:17', '高度': 180 },
-      { '时间': '00:18', '高度': 180 },
-      { '时间': '00:19', '高度': 180 },
-      { '时间': '00:20', '高度': 180 },
-      { '时间': '00:21', '高度': 200 },
-      { '时间': '00:22', '高度': 210 },
-      { '时间': '00:23', '高度': 210 },
-      { '时间': '00:24', '高度': 210 },
-      { '时间': '00:25', '高度': 210 },
-      { '时间': '00:26', '高度': 210 },
-      { '时间': '00:27', '高度': 210 },
-      { '时间': '00:28', '高度': 210 },
-      { '时间': '00:29', '高度': 210 },
-      { '时间': '00:30', '高度': 210 },
-      { '时间': '00:31', '高度': 210 },
-      { '时间': '00:32', '高度': 210 },
-      { '时间': '00:33', '高度': 210 },
-      { '时间': '00:34', '高度': 210 },
-      { '时间': '00:35', '高度': 210 },
-      { '时间': '00:36', '高度': 210 },
-      { '时间': '00:37', '高度': 210 },
-      { '时间': '00:38', '高度': 210 },
-      { '时间': '00:39', '高度': 210 },
-      { '时间': '00:40', '高度': 210 },
-      { '时间': '00:41', '高度': 210 },
-      { '时间': '00:42', '高度': 210 },
-      { '时间': '00:43', '高度': 210 },
-      { '时间': '00:45', '高度': 210 },
-      { '时间': '00:46', '高度': 210 },
-      { '时间': '00:47', '高度': 210 },
-      { '时间': '00:48', '高度': 210 },
-      { '时间': '00:49', '高度': 210 },
-      { '时间': '00:50', '高度': 210 },
-      { '时间': '00:51', '高度': 210 },
-      { '时间': '00:52', '高度': 210 },
-      { '时间': '00:53', '高度': 210 },
-      { '时间': '00:54', '高度': 210 },
-      { '时间': '00:55', '高度': 210 },
-      { '时间': '00:56', '高度': 210 },
-      { '时间': '00:57', '高度': 210 },
-      { '时间': '00:58', '高度': 210 },
-      { '时间': '00:59', '高度': 210 },
-      { '时间': '01:00', '高度': 210 },
-      { '时间': '01:01', '高度': 210 },
-      { '时间': '01:02', '高度': 215 },
-      { '时间': '01:03', '高度': 220 },
-      { '时间': '01:04', '高度': 230 },
-      { '时间': '01:05', '高度': 240 },
-      { '时间': '01:06', '高度': 250 },
-      { '时间': '01:07', '高度': 260 },
-      { '时间': '01:08', '高度': 270 },
-      { '时间': '01:09', '高度': 280 },
-      { '时间': '01:10', '高度': 200 },
-      { '时间': '01:11', '高度': 220 },
-      { '时间': '01:12', '高度': 240 },
-      { '时间': '01:13', '高度': 280 },
-      { '时间': '01:14', '高度': 280 },
-      { '时间': '01:15', '高度': 280 },
-      { '时间': '01:16', '高度': 280 },
-      { '时间': '01:17', '高度': 280 },
-      { '时间': '01:18', '高度': 280 },
-      { '时间': '01:19', '高度': 280 },
-      { '时间': '01:20', '高度': 280 },
-      { '时间': '01:21', '高度': 300 },
-      { '时间': '01:22', '高度': 310 },
-      { '时间': '01:23', '高度': 310 },
-      { '时间': '01:24', '高度': 310 },
-      { '时间': '01:25', '高度': 310 },
-      { '时间': '01:26', '高度': 310 },
-      { '时间': '01:27', '高度': 310 },
-      { '时间': '01:28', '高度': 310 },
-      { '时间': '01:29', '高度': 320 },
-      { '时间': '01:30', '高度': 330 },
-      { '时间': '01:31', '高度': 340 },
-      { '时间': '01:32', '高度': 360 },
-      { '时间': '01:33', '高度': 370 },
-      { '时间': '01:34', '高度': 370 },
-      { '时间': '01:35', '高度': 370 },
-      { '时间': '01:36', '高度': 380 },
-      { '时间': '01:37', '高度': 380 },
-      { '时间': '01:38', '高度': 390 },
-      { '时间': '01:39', '高度': 390 },
-      { '时间': '01:40', '高度': 400 },
-      { '时间': '01:41', '高度': 430 },
-      { '时间': '01:42', '高度': 450 },
-      { '时间': '01:43', '高度': 450 },
-      { '时间': '01:45', '高度': 450 },
-      { '时间': '01:46', '高度': 450 },
-      { '时间': '01:47', '高度': 460 },
-      { '时间': '01:48', '高度': 440 },
-      { '时间': '01:49', '高度': 480 },
-      { '时间': '01:50', '高度': 480 },
-      { '时间': '01:51', '高度': 480 },
-      { '时间': '01:52', '高度': 480 },
-      { '时间': '01:53', '高度': 460 },
-      { '时间': '01:54', '高度': 440 },
-      { '时间': '01:55', '高度': 430 },
-      { '时间': '01:56', '高度': 420 },
-      { '时间': '01:57', '高度': 410 },
-      { '时间': '01:58', '高度': 390 },
-      { '时间': '01:59', '高度': 290 },
-      { '时间': '02:00', '高度': 190 }
+// <<<<<<< HEAD
+//       { '时间': '00:07', '高度': 60 },
+//       { '时间': '00:08', '高度': 70 },
+//       { '时间': '00:09', '高度': 80 },
+//       { '时间': '00:10', '高度': 100 },
+//       { '时间': '00:16', '高度': 180 },
+//       { '时间': '00:17', '高度': 180 },
+//       { '时间': '00:18', '高度': 180 },
+//       { '时间': '00:19', '高度': 180 },
+//       { '时间': '00:43', '高度': 410 },
+//       { '时间': '01:40', '高度': 400 }
+// =======
+//       { '时间': '00:00', '高度': 115 },
+//       { '时间': '00:01', '高度': 120 },
+//       { '时间': '00:02', '高度': 135 },
+//       { '时间': '00:03', '高度': 205 },
+//       { '时间': '00:04', '高度': 130 },
+//       { '时间': '00:05', '高度': 140 },
+//       { '时间': '00:06', '高度': 150 },
+//       { '时间': '00:07', '高度': 160 },
+//       { '时间': '00:08', '高度': 170 },
+//       { '时间': '00:09', '高度': 180 },
+//       { '时间': '00:10', '高度': 100 },
+//       { '时间': '00:11', '高度': 120 },
+//       { '时间': '00:12', '高度': 200 },
+//       { '时间': '00:13', '高度': 210 },
+//       { '时间': '00:14', '高度': 210 },
+//       { '时间': '00:15', '高度': 280 },
+//       { '时间': '00:16', '高度': 330 },
+//       { '时间': '00:17', '高度': 400 },
+//       { '时间': '00:18', '高度': 430 },
+//       { '时间': '00:19', '高度': 450 },
+//       { '时间': '00:20', '高度': 450 }
+// >>>>>>> 0ff7dade4be4c2a50d53bc1f232d4c15722d5738
     ]
     this.timer = null // 定时器名称
-    this.timerIndex = 0
+    this.timerIndex = 1
     this.chartSettings = {
       area: true,
       scale: true
@@ -206,8 +121,7 @@ export default {
     this.extend = {
       xAxis: {
         axisLabel: {
-          show: false,
-          interval: 2
+          show: false
         },
         splitLine: { show: false }
       },
@@ -244,7 +158,7 @@ export default {
       container_height: 250,
       // targetr_info: {},
       get_data_boolean: true,
-      chartlength: 1140,
+      chartlength: 1088,
       chartData: {
         columns: ['时间', '高度'],
         rows: this.Data
@@ -278,7 +192,7 @@ export default {
     },
     status (v) {
       if (v === 'remove') {
-        this.timerIndex = 0
+        this.timerIndex = 1
         clearInterval(this.timer)
         this.timer = null
       } else if (v === 'play') {
@@ -293,22 +207,49 @@ export default {
   methods: {
     // 高度charts动画
     changeChats () {
+// <<<<<<< HEAD
+//       let untime = 2000 / this.Data.length
+//       this.timer = setInterval(() => {
+//         console.log(this.chartlength)
+//         if (this.timerIndex === 0) {
+//           this.chartData.rows = []
+//         }
+//         if (this.status === 'pause') {
+//           // console.log('-----------------------')
+//           return
+//         } else if (this.status === 'play') {
+//           if (this.timerIndex <= this.Data.length) {
+//             this.chartData.rows.push(this.Data[this.timerIndex])
+//             this.chartlength = (1088 / this.Data.length) * this.timerIndex
+//             this.timerIndex++
+//             this.$refs.chart.init()
+//           }
+//         }
+//       }, untime)
+// =======
+
+      console.log(this.detailchar)
+      console.log(this.Data)
+      console.log(this.detailchar.path[this.detailchar.path.length - 1][1])
+      let timeRate = ((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / this.Data.length).toFixed(0)
+      console.log(timeRate)
       this.timer = setInterval(() => {
-        if (this.timerIndex === 0) {
+
+        console.log(this.timerIndex)
+
+        if (this.timerIndex === 1) {
           this.chartData.rows = []
         }
-        if (this.status === 'pause') {
-          // console.log('-----------------------')
-          return
-        } else if (this.status === 'play') {
-          // console.log('======================')
-          this.chartData.rows.push(this.Data[this.timerIndex])
-          this.chartlength = this.timerIndex * 2
+        if (this.status === 'play') {
+          this.chartData.rows.push(this.Data[this.timerIndex -1])
+          this.chartlength = 1088 / this.Data.length * this.timerIndex
           this.timerIndex++
-          // console.log(this.chartData.rows)
           this.$refs.chart.init()
+        } else if (this.status === 'pause') {
+          return
         }
-      }, this.detailchar.unitTime)
+      }, timeRate)
+// >>>>>>> 0ff7dade4be4c2a50d53bc1f232d4c15722d5738
     },
     // 弹窗显示最大化
     show1() {
