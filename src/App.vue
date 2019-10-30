@@ -127,17 +127,17 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
-  // boundaryList: { query: gql`{
-  //   boundaryList{
-  //       type
-  //       properties
-  //       geometry{
-  //         coordinates
-  //         type
-  //       }
-  //     }
-  //   }`
-  // },
+  boundaryList: { query: gql`{
+    boundaryList{
+        type
+        properties
+        geometry{
+          coordinates
+          type
+        }
+      }
+    }`
+  },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -285,6 +285,23 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT },
+        history{
+          heading,ending,ETD,status,lon,lat,
+          draught,
+          loading{ name },
+          parking{ name },
+          destination{ name }
+          ETA,
+          track{
+            lon,
+            lat,
+            alt,
+            timestamp,
+            horSpeed,
+            vetSpeed,
+            azimuth
+          }
+        },
         ORG: manufacturer {
           cname, ename, abbr, code, type,
           base { country{ cname } },
