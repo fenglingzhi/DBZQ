@@ -186,9 +186,9 @@ export default {
     chartlength(v) {
       this.grid.width = v + 'px'
       // console.log(v)
-      this.$nextTick(_ => {
+      // this.$nextTick(_ => {
         this.$refs.chart.echarts.resize()
-      })
+      // })
     },
     status (v) {
       if (v === 'remove') {
@@ -231,8 +231,8 @@ export default {
       console.log(this.detailchar)
       console.log(this.Data)
       console.log(this.detailchar.path[this.detailchar.path.length - 1][1])
+      this.Data = this.detailchar.path
       let timeRate = ((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / this.Data.length).toFixed(0)
-      console.log(timeRate)
       this.timer = setInterval(() => {
 
         console.log(this.timerIndex)
