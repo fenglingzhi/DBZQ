@@ -5,9 +5,9 @@
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in warningList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
-        <!-- <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
-        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/> -->
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -127,17 +127,17 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import { SVG, executeGQL, gql } from './commons'
 import { delay, sample } from 'lodash'
 const GQL = {
-  // boundaryList: { query: gql`{
-  //   boundaryList{
-  //       type
-  //       properties
-  //       geometry{
-  //         coordinates
-  //         type
-  //       }
-  //     }
-  //   }`
-  // },
+  boundaryList: { query: gql`{
+    boundaryList{
+        type
+        properties
+        geometry{
+          coordinates
+          type
+        }
+      }
+    }`
+  },
   queryPlaneByID: { query: gql`query($pid:ID!){
     target(id:$pid){
       ... on Plane{
@@ -285,6 +285,7 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT },
+        
         ORG: manufacturer {
           cname, ename, abbr, code, type,
           base { country{ cname } },
@@ -520,6 +521,9 @@ export default {
     targetList() {
       this.clearinfo()
     },
+    warningList() {
+      // this.get_warningInfo()
+    },
     boundaryList(){
 
     },
@@ -615,12 +619,16 @@ export default {
         this.selectedtype = this.selectedTarget.targetType
       })
     },
-    get_binfo() {
-
-      // executeGQL(GQL.boundaryList, {}).then(r => {
-      //   console.log(r)
-      //   this.boundaryList = r.boundaryList
+    get_warningInfo() {
+      // let a = this.warningList.map(res => {
+      //   let result = res
+      //   executeGQL(GQL.queryPlaneByID, { pid: res.id }).then(r => {
+      //     result.track = r.target.action.track
+      //   })
+      //   return result
       // })
+      // this.selectedtype = id.split('_')[0]
+      // this.$store.commit('warningList', a)
     },
     clearinfo() {
       this.$store.commit('selectinfoTarget', {})
@@ -720,17 +728,10 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
-// <<<<<<< HEAD
-//       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
-//        delay(() => {
-//         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
-//           unitTime,
-// =======
       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
-// >>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
           markerSymbol: {
             markerType: 'path',
             markerPathWidth: 1024,
@@ -746,13 +747,8 @@ export default {
           },
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
-//         this.playStatus = 'play'
-// <<<<<<< HEAD
-//         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
-// =======
-
-        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
-// >>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
+        this.playStatus = 'play'
+        this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) }
       }, 1000)
     })
   }

@@ -168,7 +168,9 @@ const GQL = {
               type, coordinates
             }
           },
-          symbol}
+          symbol,
+          action {track { lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }}
+          }
         ...on Ship{
           targetType: __typename,
           id,
@@ -178,7 +180,9 @@ const GQL = {
               type, coordinates
             }
           },
-          symbol}
+          symbol,
+          action {track { lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }}
+          }
         ...on Buoy{
           targetType: __typename,
           id,
@@ -300,7 +304,7 @@ export default {
       })
       this.show = !this.show */
       executeGQL(GQL.filterTargets, { type: this.targetType,country:this.conditions.country }).then(r => {
-        debugger
+        // debugger
         this.$store.commit('warningList', r.targetList)
       })
       this.show = !this.show

@@ -5,7 +5,7 @@
       <!--<Divider size="small"/>-->
       <!--<input type="text" placeholder="请输入筛选项">-->
       <Tabs name="name1">
-        <TabPane label="标签检索" tab="name1">
+        <TabPane label="标签检索" name="name1">
           <Row style="margin-bottom: 10px;">
             <i-col span="20">
               <Input v-model="searchString" size="small" placeholder="请输入要搜索的目标"/>
@@ -270,15 +270,15 @@
         <TabPane label="区域绘制" name="name3">
           <Tabs tab="name3">
             <TabPane label="航空管制区" tab="name3">
-              <RadioGroup type="button" size="small" @on-change="selectAir">
-                <Radio v-for="item in area_air" :label="item.properties.name" :key="item.id"
-                       style="margin: 0 10px 10px 0;"></Radio>
+              <RadioGroup v-model="select_air" type="button" size="small" @on-change="selectAir">
+                <span v-for="item in area_air" :key="item.id" @click="changeAir(item.properties.name)"><Radio :label="item.properties.name"
+                       style="margin: 0 10px 10px 0;"></Radio></span>
               </RadioGroup>
             </TabPane>
             <TabPane label="航海管制区" tab="name3">
-              <RadioGroup type="button" size="small" @on-change="selectSea">
-                <Radio v-for="item in area_sea" :label="item.properties.name" :key="item.id"
-                       style="margin: 0 10px 10px 0;"></Radio>
+              <RadioGroup v-model="select_sea" type="button" size="small" @on-change="selectSea">
+                <span v-for="item in area_sea" :key="item.id" @click="changeSea(item.properties.name)"><Radio :label="item.properties.name"
+                       style="margin: 0 10px 10px 0;"></Radio></span>
               </RadioGroup>
             </TabPane>
             <TabPane label="自定义管制区" tab="name3" name="user_defined">
@@ -289,9 +289,9 @@
                 <!---->
               <!--</Tabs>-->
               <Row>
-                <RadioGroup type="button" size="small" style="margin:6px 0 0 10px;" @on-change="selectSelf">
-                  <Radio v-for="item in self_list" :label="item.properties.name" :key="item.id"
-                         style="margin: 0 10px 10px 0;"></Radio>
+                <RadioGroup v-model="select_self" type="button" size="small" style="margin:6px 0 0 10px;" @on-change="selectSelf">
+                  <span v-for="item in self_list"  :key="item.id" @click="changeSelf(item.properties.name)"><Radio :label="item.properties.name"
+                         style="margin: 0 10px 10px 0;"></Radio></span>
                 </RadioGroup>
               </Row>
               <Divider style="margin-top: 10px;" v-if="self_list.length>0"/>
@@ -547,7 +547,10 @@ export default {
       area_sea:[],
       point_list:[],
       self_list:[],
-      tabs: 0
+      tabs: 0,
+      select_self:'',
+      select_sea:'',
+      select_air:''
     }
   },
   computed: {
@@ -577,23 +580,89 @@ export default {
         }
         this.pointSum.push(newObj)
       },
+      //航空点击
       selectAir(r){
         let air = {
-          air:r
+          air:r,
+          sea:'',
+          self:''
         }
+        this.select_sea = ''
+        this.select_self = ''
         this.$store.commit("selectedArea",air)
       },
+      changeAir(r,s){
+        var vm = this
+        let now = +new Date();
+        if (now- this.evTimeStamp < 100) {
+            return;
+        }
+        this.evTimeStamp = now;
+        if(this.select_air == r){
+          let air = {
+            air:''
+          }
+          this.$store.commit("selectedArea",air)
+          setTimeout(() => {
+            vm.select_air = ''
+          }, 300);
+        }
+      },
+      //海域点击
       selectSea(r){
         let sea = {
-          sea:r
+          sea:r,
+          air:'',
+          self:''
         }
+        this.select_air = ''
+        this.select_self = ''
         this.$store.commit("selectedArea",sea)
       },
+      changeSea(r,s){
+        var vm = this
+        let now = +new Date();
+        if (now- this.evTimeStamp < 100) {
+            return;
+        }
+        this.evTimeStamp = now;
+        if(this.select_sea == r){
+          let sea = {
+            sea:''
+          }
+          this.$store.commit("selectedArea",sea)
+          setTimeout(() => {
+            vm.select_sea = ''
+          }, 300);
+        }
+      },
+      //自定义区域点击
       selectSelf(r){
         let self = {
-          self:r
+          self:r,
+          air:'',
+          sea:''
         }
+        this.select_sea = ''
+        this.select_air = ''
         this.$store.commit("selectedArea",self)
+      },
+      changeSelf(r,s){
+        var vm = this
+        let now = +new Date();
+        if (now- this.evTimeStamp < 100) {
+            return;
+        }
+        this.evTimeStamp = now;
+        if(this.select_self == r){
+          let self = {
+            self:''
+          }
+          this.$store.commit("selectedArea",self)
+          setTimeout(() => {
+            vm.select_self = ''
+          }, 300);
+        }
       },
       fadeChange() {
         // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
