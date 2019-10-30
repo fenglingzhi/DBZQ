@@ -285,23 +285,7 @@ const GQL = {
         launchSite { city },
         drySass,
         action{ RCS, lon, lat, geocentric, speed, GMT },
-        history{
-          heading,ending,ETD,status,lon,lat,
-          draught,
-          loading{ name },
-          parking{ name },
-          destination{ name }
-          ETA,
-          track{
-            lon,
-            lat,
-            alt,
-            timestamp,
-            horSpeed,
-            vetSpeed,
-            azimuth
-          }
-        },
+        
         ORG: manufacturer {
           cname, ename, abbr, code, type,
           base { country{ cname } },
@@ -737,17 +721,10 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
-// <<<<<<< HEAD
-//       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
-//        delay(() => {
-//         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
-//           unitTime,
-// =======
       let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,
-// >>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
           markerSymbol: {
             markerType: 'path',
             markerPathWidth: 1024,
@@ -763,13 +740,8 @@ export default {
           },
           lineSymbol: { lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }
         }
-//         this.playStatus = 'play'
-// <<<<<<< HEAD
-//         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
-// =======
-
+        this.playStatus = 'play'
         this.detailchar = { path: e.track.map(p => ([ p.alt, p.timestamp ])), unitTime, time: e.track[e.track.length - 1].timestamp }
-// >>>>>>> 4ca42b5b2768925149faf84d0d591c6d96f60754
       }, 1000)
     })
   }
