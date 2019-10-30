@@ -5,9 +5,9 @@
       <vectorlayer :id="`featurelayer`">
         <geometry v-for="target in warningList" :id="target.feature.id" :key="target.id"
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
-        <!-- <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
+        <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
-        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/> -->
+        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
@@ -521,6 +521,9 @@ export default {
     targetList() {
       this.clearinfo()
     },
+    warningList() {
+      // this.get_warningInfo()
+    },
     boundaryList(){
 
     },
@@ -616,12 +619,16 @@ export default {
         this.selectedtype = this.selectedTarget.targetType
       })
     },
-    get_binfo() {
-
-      // executeGQL(GQL.boundaryList, {}).then(r => {
-      //   console.log(r)
-      //   this.boundaryList = r.boundaryList
+    get_warningInfo() {
+      // let a = this.warningList.map(res => {
+      //   let result = res
+      //   executeGQL(GQL.queryPlaneByID, { pid: res.id }).then(r => {
+      //     result.track = r.target.action.track
+      //   })
+      //   return result
       // })
+      // this.selectedtype = id.split('_')[0]
+      // this.$store.commit('warningList', a)
     },
     clearinfo() {
       this.$store.commit('selectinfoTarget', {})
