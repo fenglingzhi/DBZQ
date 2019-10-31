@@ -284,8 +284,18 @@ const GQL = {
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
-        action{ RCS, lon, lat, geocentric, speed, GMT },
-        
+        action{
+          RCS, lon, lat, geocentric, speed, GMT,
+          track{
+            lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth
+          }
+        },
+        history{
+          RCS, lon, lat, geocentric, speed, GMT,
+          track{
+            lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth
+          }
+        }
         ORG: manufacturer {
           cname, ename, abbr, code, type,
           base { country{ cname } },
