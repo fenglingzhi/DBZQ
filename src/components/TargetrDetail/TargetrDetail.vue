@@ -7,7 +7,7 @@
     <!-- 高度echarts -->
     <div class="TargetrDetail_charts" v-if = "show_TargetrDetail_boolean === true && filter_show && !show && status && (tab_show == 'Targetrtrajectory') && !spinShow && (targetr_type === 'Plane' ||  targetr_type === 'Ship' ||  targetr_type === 'Satellite')">
       <div style="padding:0 60px 0 0;">
-        <ve-line width="1100px" ref="chart" height="30px" :legend-visible="false" :tooltip-visible="false" :colors="colors" :grid="grid" :extend="extend" :data="chartData" :settings="chartSettings"></ve-line>
+        <ve-line style="margin-left: 12px;" width="1088px" ref="chart" height="30px" :legend-visible="false" :tooltip-visible="false" :colors="colors" :grid="grid" :extend="extend" :data="chartData" :settings="chartSettings"></ve-line>
       </div>
       <div style="display: flex;justify-content: space-between;align-items: center;position: relative;top: -10px;">
         <div style="color:#fff">
@@ -18,7 +18,7 @@
           <div style="height: 2px;background: #fff;border-radius: 4px;" :style="{ width: chartlength + 'px' }"></div>
         </div>
         <div style="width:80px;margin-left:20px;color:#fff;text-align: center;">
-          <span data-v-79e1caf0="">00:37</span> <span data-v-79e1caf0="">/</span> <span data-v-79e1caf0="">04:56</span>
+          <span v-text="nowTime"></span> <span>/</span> <span v-text="allTime"></span>
         </div>
       </div>
     </div>
@@ -63,42 +63,9 @@ export default {
   components: { TargetrInformation, TargetrTrajectory },
   destroyed() { },
   data() {
-    this.Data = [
-// <<<<<<< HEAD
-//       { '时间': '00:07', '高度': 60 },
-//       { '时间': '00:08', '高度': 70 },
-//       { '时间': '00:09', '高度': 80 },
-//       { '时间': '00:10', '高度': 100 },
-//       { '时间': '00:16', '高度': 180 },
-//       { '时间': '00:17', '高度': 180 },
-//       { '时间': '00:18', '高度': 180 },
-//       { '时间': '00:19', '高度': 180 },
-//       { '时间': '00:43', '高度': 410 },
-//       { '时间': '01:40', '高度': 400 }
-// =======
-//       { '时间': '00:00', '高度': 115 },
-//       { '时间': '00:01', '高度': 120 },
-//       { '时间': '00:02', '高度': 135 },
-//       { '时间': '00:03', '高度': 205 },
-//       { '时间': '00:04', '高度': 130 },
-//       { '时间': '00:05', '高度': 140 },
-//       { '时间': '00:06', '高度': 150 },
-//       { '时间': '00:07', '高度': 160 },
-//       { '时间': '00:08', '高度': 170 },
-//       { '时间': '00:09', '高度': 180 },
-//       { '时间': '00:10', '高度': 100 },
-//       { '时间': '00:11', '高度': 120 },
-//       { '时间': '00:12', '高度': 200 },
-//       { '时间': '00:13', '高度': 210 },
-//       { '时间': '00:14', '高度': 210 },
-//       { '时间': '00:15', '高度': 280 },
-//       { '时间': '00:16', '高度': 330 },
-//       { '时间': '00:17', '高度': 400 },
-//       { '时间': '00:18', '高度': 430 },
-//       { '时间': '00:19', '高度': 450 },
-//       { '时间': '00:20', '高度': 450 }
-// >>>>>>> 0ff7dade4be4c2a50d53bc1f232d4c15722d5738
-    ]
+    this.nowTime = '00:00'
+    this.allTime = '00:00'
+    this.Data = []
     this.timer = null // 定时器名称
     this.timerIndex = 1
     this.chartSettings = {
@@ -120,13 +87,14 @@ export default {
     this.colors = ['transparent']
     this.extend = {
       xAxis: {
+        offset: 0,
+        boundaryGap: false,
         axisLabel: {
           show: false
         },
         splitLine: { show: false }
       },
       yAxis: {
-        max: 500,
         axisLabel: { show: false },
         splitLine: { show: false }
       },
@@ -185,17 +153,10 @@ export default {
     // echarts resize调用
     chartlength(v) {
       this.grid.width = v + 'px'
-      // console.log(v)
-      this.$nextTick(_ => {
-        this.$refs.chart.echarts.resize()
-      })
+      this.$refs.chart.echarts.resize()
     },
     status (v) {
-      if (v === 'remove') {
-        this.timerIndex = 1
-        clearInterval(this.timer)
-        this.timer = null
-      } else if (v === 'play') {
+      if (v === 'play') {
         this.changeChats()
       }
     }
@@ -207,49 +168,28 @@ export default {
   methods: {
     // 高度charts动画
     changeChats () {
-// <<<<<<< HEAD
-//       let untime = 2000 / this.Data.length
-//       this.timer = setInterval(() => {
-//         console.log(this.chartlength)
-//         if (this.timerIndex === 0) {
-//           this.chartData.rows = []
-//         }
-//         if (this.status === 'pause') {
-//           // console.log('-----------------------')
-//           return
-//         } else if (this.status === 'play') {
-//           if (this.timerIndex <= this.Data.length) {
-//             this.chartData.rows.push(this.Data[this.timerIndex])
-//             this.chartlength = (1088 / this.Data.length) * this.timerIndex
-//             this.timerIndex++
-//             this.$refs.chart.init()
-//           }
-//         }
-//       }, untime)
-// =======
-
-      console.log(this.detailchar)
-      console.log(this.Data)
-      console.log(this.detailchar.path[this.detailchar.path.length - 1][1])
-      let timeRate = ((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / this.Data.length).toFixed(0)
-      console.log(timeRate)
+      let secondAmount = Math.floor((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / 1000)
+      this.allTime = (Math.floor(secondAmount/60) < 10 ? ('0' + Math.floor(secondAmount/60)) : Math.floor(secondAmount/60)) + ':' + (secondAmount%60 < 10 ? ('0' + secondAmount%60) : secondAmount%60)
+      let timeRate = ((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / this.detailchar.path.length).toFixed(0)
       this.timer = setInterval(() => {
-
-        console.log(this.timerIndex)
-
         if (this.timerIndex === 1) {
           this.chartData.rows = []
         }
-        if (this.status === 'play') {
-          this.chartData.rows.push(this.Data[this.timerIndex -1])
-          this.chartlength = 1088 / this.Data.length * this.timerIndex
+        if (this.status === 'play' || this.timerIndex <= this.detailchar.path.length) {
+          let secondNow = Math.floor(this.timerIndex * timeRate /1000)
+          this.nowTime = (Math.floor(secondNow/60) < 10 ? ('0' + Math.floor(secondNow/60)) : Math.floor(secondNow/60)) + ':' + (secondNow%60 < 10 ? ('0' + secondNow%60) : secondNow%60)
+          this.chartData.rows.push({'时间':this.timerIndex-1,'高度':this.detailchar.path[this.timerIndex-1][0]})
+          this.chartlength = 1088 / this.detailchar.path.length * this.timerIndex
           this.timerIndex++
           this.$refs.chart.init()
         } else if (this.status === 'pause') {
           return
+        } else if (this.status === 'remove' || this.timerIndex >= this.detailchar.path.length) {
+          this.timerIndex = 1
+          clearInterval(this.timer)
+          this.timer = null
         }
       }, timeRate)
-// >>>>>>> 0ff7dade4be4c2a50d53bc1f232d4c15722d5738
     },
     // 弹窗显示最大化
     show1() {
