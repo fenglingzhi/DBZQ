@@ -1,7 +1,13 @@
 <template>
   <div class="TargetrInformation">
     <div class="TargetrInformation_img">
-      <img src="../../assets/images/airplane.jpg" alt="">
+      <img src="../../assets/images/airplane.jpg" alt="" v-if="targetr_type=='Plane'">
+      <img src="../../assets/images/Ship.jpg" alt="" v-if="targetr_type=='Ship'">
+      <img src="../../assets/images/Satellite.jpg" alt="" v-if="targetr_type=='Satellite'">
+      <img src="../../assets/images/Buoy.jpg" alt="" v-if="targetr_type=='Buoy'">
+      <img src="../../assets/images/Airport.jpg" alt="" v-if="targetr_type=='Airport'">
+      <img src="../../assets/images/Port.jpg" alt="" v-if="targetr_type=='Port'">
+      <img src="../../assets/images/LaunchSite.jpg" alt="" v-if="targetr_type=='LaunchSite'">
     </div>
     <!-- 飞机的目标信息 -->
     <div style="flex:1;">
@@ -114,6 +120,7 @@ export default {
     }
   },
   mounted () {
+    this.targetr_type = 'LaunchSite'
   }
 }
 </script>
@@ -128,10 +135,13 @@ export default {
 }
 .TargetrInformation_img{
   width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .TargetrInformation_img img{
   max-width: 240px;
-  padding:10px 10px 0 0;
+  max-height: 190px;
 }
 .TargetrInformation_chart{
   padding:5px 5px 0 0;
