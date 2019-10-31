@@ -368,7 +368,7 @@ export default {
       border: 1px solid red;
       box-shadow: 0 0 20px 2px red;
       color:#fff;
-      margin-top: -480px;
+      margin-top: -510px;
       transition: all 1s linear;
       .title{
         text-align: center;
