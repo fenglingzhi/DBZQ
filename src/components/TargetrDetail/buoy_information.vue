@@ -22,7 +22,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="getPosition.y"></span>
+                <span v-text="getPosition.x"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="getPosition.x"></span>
+                <span v-text="getPosition.y"></span>
             </div>
         </div>
         <div class="info-data-item">
