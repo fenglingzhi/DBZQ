@@ -547,7 +547,7 @@ export default {
     }
   },
   created() {
-    this.get_binfo()
+    this.get_info()
   },
   methods: {
     ...mapMutations(['setSomeState']),
@@ -679,7 +679,7 @@ export default {
         this.show_RelevantInformation_boolean = false
       }
     },
-    setSelectedWaring (e) {
+    setSelectedWaring (e,n) {
       this.selectWarningGeo && this.selectWarningGeo.updateSymbol({
         markerWidth: 25,
         markerHeight: 25
@@ -689,10 +689,10 @@ export default {
         markerHeight: 35
       })
       this.selectWarningGeo = e.target
-      this.nitice_flag = true
-      this.notice = sample([
-        '民航N1217A在韩国当前从美国檀香山机场，飞往韩国大邱国际机场，期间在群山基地停留，请各方注意！',
-        '民航PR1811 当前从菲律宾达沃机场出发，飞往日本横田机场，运动轨迹与美EP-3型侦察机相似，疑似有伪装侦察行为，请各方注意'])
+      if(n.options && n.options.warninginfo){
+        this.nitice_flag = true
+        this.notice = n.options.warninginfo
+      }
       // this.$Notice.open({
       //   title: '警告标题',
       //   desc: sample([
@@ -733,6 +733,7 @@ export default {
     setInterval(this.updateTime, 1000)
     this.$root.mq.$on('routePlay', (e) => {
       // this.$refs.TargetrDetail.changeChats()
+      // debugger
       this.show_RelevantInformation_boolean = false
       this.show_RelevantInformation_filter = true
       if (this.playStatus === 'play') return (this.playStatus = 'pause')

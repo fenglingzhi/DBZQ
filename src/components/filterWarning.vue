@@ -169,7 +169,8 @@ const GQL = {
             }
           },
           symbol,
-          action {track { lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }}
+          action {track { lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }},
+          options
           }
         ...on Ship{
           targetType: __typename,
@@ -181,7 +182,8 @@ const GQL = {
             }
           },
           symbol,
-          action {track { lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }}
+          action {track { lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth }},
+          options
           }
         ...on Buoy{
           targetType: __typename,
@@ -192,6 +194,7 @@ const GQL = {
               type, coordinates
             }
           },
+          options,
           symbol}
         ...on Airport{
           targetType: __typename,
@@ -202,6 +205,7 @@ const GQL = {
               type, coordinates
             }
           },
+          options,
           symbol}
         ...on Port{
           targetType: __typename,
@@ -212,6 +216,7 @@ const GQL = {
               type, coordinates
             }
           },
+          options,
           symbol}
         ...on Satellite{
           targetType: __typename,
@@ -222,6 +227,7 @@ const GQL = {
               type, coordinates
             }
           },
+          options,
           symbol}
       }
     }`
