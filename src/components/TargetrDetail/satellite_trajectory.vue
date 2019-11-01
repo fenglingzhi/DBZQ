@@ -91,7 +91,7 @@ export default {
   },
   props: {
     real_time_info: {
-      type: Object,
+      type: Array,
       default: () => []
     },
     status: {
@@ -101,8 +101,8 @@ export default {
   },
   computed: {
     data() {
-      return [this.real_time_info] && [this.real_time_info].map(({ action, launchSite }) => {
-        let cdata = { 'RCS': action && action.RCS, 'lon': action && action.lon, 'lat': action && action.lat, 'geocentric': action && action.geocentric, 'speed': action && action.speed, 'city': launchSite && launchSite.city, 'GMT': action && new Date(action.GMT).toLocaleString() }
+      return this.real_time_info && this.real_time_info.map(({ RCS, lon, lat, geocentric, GMT, speed, city }) => {
+        let cdata = { 'RCS': RCS, 'lon': lon, 'lat': lat, 'geocentric': geocentric, 'speed': speed, 'city': city, 'GMT': new Date().toLocaleString() }
         return cdata
       })
     }
