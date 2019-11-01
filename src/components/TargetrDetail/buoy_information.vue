@@ -22,7 +22,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.action && base_info.action.lon"></span>
+                <span v-text="getPosition.y"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -30,7 +30,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.action && base_info.action.lat"></span>
+                <span v-text="getPosition.x"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'buoy_information',
   components: { },
@@ -97,7 +98,13 @@ export default {
       this.$emit('change_Relevant', value)
     }
   },
-  mounted () { }
+  mounted () { },
+  computed:{
+      ...mapState(['selectedTarget']),
+      getPosition(){
+          return this.selectedTarget && this.selectedTarget.feature.geometry.coordinates
+      }
+  }
 }
 </script>
 
