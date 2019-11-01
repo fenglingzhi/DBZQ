@@ -592,11 +592,13 @@ export default {
     },
     makeWarningSymbol(target) {
       let symb = target.symbol
+      let isStatic = staticTarget.includes(target.targetType)
       Object.assign(symb, {
         markerType: 'path',
         markerPathWidth: 1024,
         markerPathHeight: 1024,
         markerFill: '#ff0000',
+        markerRotation: isStatic ? 0 : 180,
         markerWidth: 25,
         markerHeight: 25,
         markerPath: SVG[target.targetType],
