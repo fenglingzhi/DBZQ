@@ -743,7 +743,7 @@ export default {
       handleTabsAdd() {
         this.tabs++
       },
-      // 获取自定义边界列 表
+      // 获取自定义边界列表
       getBoundaryList(){
         executeGQL(GQL.boundaryList).then(r => {
         this.$store.commit("boundaryList",r.boundaryList)
