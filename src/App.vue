@@ -840,7 +840,7 @@ export default {
   right: 10px;
   width: 300px;
   height: 100px;
-  padding: 0 10px;
+  /*padding: 0 10px;*/
   background: rgba(0,0,0,0.6);
   border: 1px solid red;
   box-shadow: 0 0 20px 2px red;
@@ -857,12 +857,12 @@ export default {
     clear: both;
     height: 60px;
     padding-right: 12px;
-    margin-right: -30px;
     overflow: auto;
+    margin: 0 10px;
   }
 }
 .notice_show{
-  top: 10px;
+  top: 50px;
 }
 html,body{
   height: 100%;
