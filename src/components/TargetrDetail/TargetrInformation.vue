@@ -7,7 +7,7 @@
       <img src="../../assets/images/Buoy.jpg" alt="" v-if="targetr_type=='Buoy'">
       <img src="../../assets/images/Airport.jpg" alt="" v-if="targetr_type=='Airport'">
       <img src="../../assets/images/Port.jpg" alt="" v-if="targetr_type=='Port'">
-      <img src="../../assets/images/LaunchSite.jpg" alt="" v-if="targetr_type=='LaunchSite'">
+      <!-- <img src="../../assets/images/LaunchSite.jpg" alt="" v-if="targetr_type=='LaunchSite'"> -->
     </div>
     <!-- 飞机的目标信息 -->
     <div style="flex:1;">
@@ -120,7 +120,6 @@ export default {
     }
   },
   mounted () {
-    this.targetr_type = 'LaunchSite'
   }
 }
 </script>
