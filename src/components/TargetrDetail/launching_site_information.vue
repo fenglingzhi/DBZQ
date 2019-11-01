@@ -30,7 +30,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span >{{base_info && base_info.address && base_info.address.position && base_info.address.position.x}}</span>
+                <span >{{getPosition.x}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info && base_info.address && base_info.address.position && base_info.address.position.y}}</span>
+                <span>{{getPosition.y}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'launching_site_information',
   components: { },
@@ -61,6 +62,12 @@ export default {
   },
   props: ['base_info'],
   methods: {},
+  computed:{
+      ...mapState(['selectedTarget']),
+      getPosition(){
+          return this.selectedTarget && this.selectedTarget.feature.geometry.coordinates
+      }
+  },
   mounted () { }
 }
 </script>
