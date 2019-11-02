@@ -148,7 +148,7 @@ const GQL = {
         registration,
         ORG {
           cname, ename, abbr, code, type,
-          base{ country{ ename } },
+          base{ country{ cname } },
           business,
           superior { cname },
           leader {
@@ -228,7 +228,7 @@ const GQL = {
         MMSI,
         ORG {
           cname, ename, abbr, code, type,
-          base { country{ ename } },
+          base { country{ cname } },
           business,
           superior { cname },
           leader {
