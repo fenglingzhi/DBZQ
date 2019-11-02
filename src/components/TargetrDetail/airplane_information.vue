@@ -78,7 +78,7 @@
                 <span v-text="'MSN编号'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info && base_info.ICAO}}</span>
+                <span>{{base_info && base_info.MSN}}</span>
             </div>
         </div>
     </div>

@@ -46,7 +46,7 @@
                 <span v-text="'码头数量'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.area"></span>
+                <span v-text="base_info && base_info.wharfs"></span>
             </div>
         </div>
         <div class="info-data-item">

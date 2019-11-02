@@ -22,7 +22,7 @@
                 <span v-text="'所属地区'"></span>
             </div>
             <div class="info-value">
-                <span> {{base_info && base_info.city}}</span>
+                <span> {{base_info && base_info.address && base_info.address.city}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'建造时间'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info && base_info.ORG && base_info.ORG.buildDate}}</span>
+                <span>{{base_info && base_info.buildDate}}</span>
             </div>
         </div>
     </div>

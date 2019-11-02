@@ -142,7 +142,7 @@ const GQL = {
     target(id:$pid){
       ... on Plane{
         targetType: __typename,
-        id, name, ICAO,
+        id, name, ICAO,MSN
         kind { label },
         usage{ label },
         registration,
@@ -312,7 +312,7 @@ const GQL = {
       ... on Buoy{
         targetType: __typename,
         name,
-        life,weight,weight,radarArea
+        life,weight,weight,radarArea,material,draught
         usage { label },
         model { label },
         action{ lon, lat },
@@ -380,6 +380,7 @@ const GQL = {
           position
         },
         code,
+        wharfs,
         ORG {
           cname, ename, abbr, code, type,
           base { country{ cname } },
@@ -414,6 +415,7 @@ const GQL = {
           },
           homepage
         },
+        buildDate
       }
     }
   }`
