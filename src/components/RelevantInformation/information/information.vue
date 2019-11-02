@@ -47,8 +47,8 @@
     background: rgba(0,0,0,0.1);
   }
   .ivu-tooltip-inner-with-width {
-    max-width: 300px !important;
-    max-height: 500px;
+    max-width: 500px !important;
+    max-height: 300px;
     overflow: auto
   }
   .ivu-tooltip-rel{
