@@ -312,7 +312,11 @@ const GQL = {
       ... on Buoy{
         targetType: __typename,
         name,
-        life,weight,weight,radarArea,material,draught
+        life,weight,weight,radarArea,
+        material{
+          label
+        },
+        draught
         usage { label },
         model { label },
         action{ lon, lat },
