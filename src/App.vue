@@ -148,6 +148,7 @@ const GQL = {
         registration,
         ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base{ country{ cname } },
           business,
           superior { cname },
@@ -231,6 +232,7 @@ const GQL = {
         ORG { cname }
         ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
@@ -286,6 +288,7 @@ const GQL = {
         manufacturer { cname },
         ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
