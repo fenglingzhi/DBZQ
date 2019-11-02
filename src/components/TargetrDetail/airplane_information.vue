@@ -46,7 +46,7 @@
                 <span v-text="'所属国家'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info && base_info.ORG && base_info.ORG.base && base_info.ORG.base.country && base_info.ORG.base.country.cname}}</span>
+                <span>{{base_info && base_info.country &&  base_info.country.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">
