@@ -158,7 +158,7 @@ const GQL = {
           },
           homepage
         },
-        ORG { cname }
+        ORG { cname , base{ country{cname}}}
         radar{ model, responseCode },
         action{
           originated { name, code,
