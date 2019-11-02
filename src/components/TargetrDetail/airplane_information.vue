@@ -30,7 +30,7 @@
                 <span v-text="'机型'"></span>
             </div>
             <div class="info-value">
-                <span >{{base_info && base_info.kind && base_info.kind.label}}</span>
+                <span >{{base_info && base_info.model && base_info.model.label}}</span>
             </div>
         </div>
         <div class="info-data-item">

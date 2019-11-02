@@ -143,7 +143,7 @@ const GQL = {
       ... on Plane{
         targetType: __typename,
         id, name, ICAO,MSN
-        kind { label },
+        model { label },
         usage{ label },
         registration,
         ORG {
