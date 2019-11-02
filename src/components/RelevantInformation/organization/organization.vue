@@ -86,17 +86,10 @@ export default {
   computed: {
     data() {
       return this.organization && this.organization.map(({ cname, ename, abbr, code, usage, base, business, superior, leader,homepage }) => {
-        let lname = ''
-        leader.map(({name}, index) => {
-          if(index === 0) {
-            lname = name
-          } else {
-            lname = lname + ',' + name
-          }
-        })
+        
         let cdata = {
           cname, ename, abbr, code, type:usage.label, base, business, superior,homepage,
-          leader: lname
+          leader: leader.name
         }
         return cdata
       })

@@ -159,6 +159,11 @@ const GQL = {
           },
           homepage
         },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
         ORG { cname , base{ country{cname}}}
         country{cname}
         radar{ model, responseCode },
@@ -243,6 +248,11 @@ const GQL = {
           },
           homepage
         },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
         country { cname },
         status,tonnage,width,length,height,maxSpeed,phone,
         history{
@@ -298,6 +308,11 @@ const GQL = {
             faith,job,EDU,city
           },
           homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
@@ -364,6 +379,11 @@ const GQL = {
           },
           homepage
         },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
         news{ title, content, source, timestamp },
       },
       ... on Airport{
@@ -378,7 +398,8 @@ const GQL = {
         },
         area,
         parkCount,
-        ORG {
+        ORG { cname }
+        ORGs {
           cname, ename, abbr, code, type,
           base { country{ cname } },
           business,
@@ -389,6 +410,11 @@ const GQL = {
             faith,job,EDU,city
           },
           homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
       },
       ... on Port{
@@ -414,6 +440,11 @@ const GQL = {
             faith,job,EDU,city
           },
           homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
       },
       ... on LaunchSite{

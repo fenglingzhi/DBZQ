@@ -150,7 +150,7 @@
           <BuoyDynamic v-if="targetr_type == 'Buoy'" :dynamic="targetr_info.nearby"></BuoyDynamic>
         </div>
         <div v-if="tab_show == 'personnel'">
-          <personnel :usr="targetr_info.ORG.leader"></personnel>
+          <personnel :usr="targetr_info.people"></personnel>
         </div>
         <div v-if="tab_show == 'organization'">
           <organization :organization="targetr_info.ORGs"></organization>
