@@ -146,7 +146,7 @@ const GQL = {
         model { label },
         usage{ label },
         registration,
-        ORG {
+        ORGs {
           cname, ename, abbr, code, type,
           base{ country{ cname } },
           business,
@@ -158,6 +158,7 @@ const GQL = {
           },
           homepage
         },
+        ORG { cname }
         radar{ model, responseCode },
         action{
           originated { name, code,
@@ -226,7 +227,8 @@ const GQL = {
         id, name,
         usage { label },
         MMSI,
-        ORG {
+        ORG { cname }
+        ORGs {
           cname, ename, abbr, code, type,
           base { country{ cname } },
           business,
@@ -280,7 +282,19 @@ const GQL = {
         name,
         country { cname },
         usage { label },
-        manufacturer { ename },
+        manufacturer { cname },
+        ORGs {
+          cname, ename, abbr, code, type,
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,

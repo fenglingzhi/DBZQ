@@ -85,7 +85,7 @@ export default {
   props: ['organization'],
   computed: {
     data() {
-      return [this.organization] && [this.organization].map(({ cname, ename, abbr, code, type, base, business, superior, leader }) => {
+      return this.organization && this.organization.map(({ cname, ename, abbr, code, type, base, business, superior, leader }) => {
         let lname = ''
         leader.map(({name}, index) => {
           if(index === 0) {

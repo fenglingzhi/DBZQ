@@ -153,7 +153,7 @@
           <personnel :usr="targetr_info.ORG.leader"></personnel>
         </div>
         <div v-if="tab_show == 'organization'">
-          <organization :organization="targetr_info.ORG"></organization>
+          <organization :organization="targetr_info.ORGs"></organization>
         </div>
         <div v-if="tab_show == 'information'">
           <information :information="targetr_info.news"></information>
