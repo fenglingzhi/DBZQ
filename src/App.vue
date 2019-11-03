@@ -424,6 +424,7 @@ const GQL = {
           country { cname },
           faith,job,EDU,city
         },
+        news{ title, content, source, timestamp },
       },
       ... on Port{
         targetType: __typename,
@@ -455,6 +456,7 @@ const GQL = {
           country { cname },
           faith,job,EDU,city
         },
+        news{ title, content, source, timestamp },
       },
       ... on LaunchSite{
         targetType: __typename,
