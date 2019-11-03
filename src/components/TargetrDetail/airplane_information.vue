@@ -30,7 +30,7 @@
                 <span v-text="'机型'"></span>
             </div>
             <div class="info-value">
-                <span >{{base_info && base_info.kind && base_info.kind.label}}</span>
+                <span >{{base_info && base_info.model && base_info.model.label}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'所属国家'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info && base_info.ORG && base_info.ORG.base && base_info.ORG.base.country && base_info.ORG.base.country.cname}}</span>
+                <span>{{base_info && base_info.country &&  base_info.country.cname}}</span>
             </div>
         </div>
         <div class="info-data-item">
@@ -78,7 +78,7 @@
                 <span v-text="'MSN编号'"></span>
             </div>
             <div class="info-value">
-                <span>{{base_info && base_info.ICAO}}</span>
+                <span>{{base_info && base_info.MSN}}</span>
             </div>
         </div>
     </div>

@@ -37,7 +37,7 @@
         <span v-text="'经度'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info && base_info.address && base_info.address.position && base_info.address.position.x}}</span>
+        <span>{{getPosition.x}}</span>
       </div>
     </div>
     <div class="info-data-item">
@@ -45,7 +45,7 @@
         <span v-text="'纬度'"></span>
       </div>
       <div class="info-value">
-        <span>{{base_info && base_info.address && base_info.address.position && base_info.address.position.y}}</span>
+        <span>{{getPosition.y}}</span>
       </div>
     </div>
     <div class="info-data-item">
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'airport_information',
   components: { },
@@ -79,6 +80,12 @@ export default {
     change_Relevant(value) {
       this.$emit('change_Relevant', value)
     }
+  },
+  computed:{
+      ...mapState(['selectedTarget']),
+      getPosition(){
+          return this.selectedTarget && this.selectedTarget.feature.geometry.coordinates
+      }
   },
   mounted () { }
 }

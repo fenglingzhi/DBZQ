@@ -142,13 +142,14 @@ const GQL = {
     target(id:$pid){
       ... on Plane{
         targetType: __typename,
-        id, name, ICAO,
-        kind { label },
+        id, name, ICAO,MSN
+        model { label },
         usage{ label },
         registration,
-        ORG {
+        ORGs {
           cname, ename, abbr, code, type,
-          base{ country{ ename } },
+          usage{ label }
+          base{ country{ cname } },
           business,
           superior { cname },
           leader {
@@ -158,6 +159,13 @@ const GQL = {
           },
           homepage
         },
+        ORG { cname },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
+        country{cname}
         radar{ model, responseCode },
         action{
           originated { name, code,
@@ -226,9 +234,11 @@ const GQL = {
         id, name,
         usage { label },
         MMSI,
-        ORG {
+        ORG { cname }
+        ORGs {
           cname, ename, abbr, code, type,
-          base { country{ ename } },
+          usage{ label }
+          base { country{ cname } },
           business,
           superior { cname },
           leader {
@@ -237,6 +247,11 @@ const GQL = {
             faith,job,EDU,city
           },
           homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
         country { cname },
         status,tonnage,width,length,height,maxSpeed,phone,
@@ -280,7 +295,25 @@ const GQL = {
         name,
         country { cname },
         usage { label },
-        manufacturer { ename },
+        manufacturer { cname },
+        ORGs {
+          cname, ename, abbr, code, type,
+          usage{ label }
+          base { country{ cname } },
+          business,
+          superior { cname },
+          leader {
+            name,nation,gender,birthday,nickname,
+            country { cname },
+            faith,job,EDU,city
+          },
+          homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
         NORAD, perigee, apogee, launchDate,
         launchSite { city },
         drySass,
@@ -295,7 +328,7 @@ const GQL = {
           track{
             lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth
           }
-        }
+        },
         ORG: manufacturer {
           cname, ename, abbr, code, type,
           base { country{ cname } },
@@ -308,11 +341,20 @@ const GQL = {
           },
           homepage
         },
+        nearby {
+          targetType: __typename,
+          id,name, usage{ label },
+          address { country { cname },city}
+        }
       },
       ... on Buoy{
         targetType: __typename,
         name,
-        life,weight,weight,radarArea
+        life,weight,weight,radarArea,
+        material{
+          label
+        },
+        draught
         usage { label },
         model { label },
         action{ lon, lat },
@@ -330,17 +372,24 @@ const GQL = {
           depthWater,
           pressureTrend
         },
-        ORG {
+        ORGs {
           cname, ename, abbr, code, type,
-          base { country{ cname } },
+          usage{ label }
+          base{ country{ cname } },
           business,
           superior { cname },
           leader {
-            name,nation,gender,birthday,nickname,
-            country { cname },
-            faith,job,EDU,city
+            name, nation, gender, birthday, nickname,
+            country { ename },
+            faith, job, EDU, city
           },
           homepage
+        },
+        ORG { cname , base{ country{cname}}},
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
         news{ title, content, source, timestamp },
       },
@@ -356,8 +405,10 @@ const GQL = {
         },
         area,
         parkCount,
-        ORG {
+        ORG { cname }
+        ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
@@ -367,6 +418,11 @@ const GQL = {
             faith,job,EDU,city
           },
           homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
       },
       ... on Port{
@@ -380,8 +436,10 @@ const GQL = {
           position
         },
         code,
-        ORG {
+        wharfs,
+        ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
@@ -391,6 +449,11 @@ const GQL = {
             faith,job,EDU,city
           },
           homepage
+        },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
         },
       },
       ... on LaunchSite{
@@ -402,8 +465,10 @@ const GQL = {
           door,
           position
         },
-        ORG {
+        ORG { cname },
+        ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
@@ -414,6 +479,13 @@ const GQL = {
           },
           homepage
         },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
+        news{ title, content, source, timestamp },
+        buildDate
       }
     }
   }`
@@ -741,7 +813,7 @@ export default {
       if (this.playStatus === 'play') return (this.playStatus = 'pause')
       if (this.playStatus === 'pause') return (this.playStatus = 'play')
       this.playStatus = 'remove'
-      let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 2000
+      let unitTime = (e.track[e.track.length - 1].timestamp - e.track[0].timestamp) / 8000
       delay(() => {
         this.route = { path: e.track.map(p => ([ p.lon, p.lat, p.timestamp ])),
           unitTime,

@@ -30,7 +30,7 @@
                 <span v-text="'经度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.address && base_info.address.position && base_info.address.position.x"></span>
+                <span v-text="getPosition.x"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -38,7 +38,7 @@
                 <span v-text="'纬度'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.address && base_info.address.position && base_info.address.position.y"></span>
+                <span v-text="getPosition.y"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -46,7 +46,7 @@
                 <span v-text="'码头数量'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.area"></span>
+                <span v-text="base_info && base_info.wharfs"></span>
             </div>
         </div>
         <div class="info-data-item">
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'port_information',
   components: { },
@@ -72,6 +73,12 @@ export default {
     change_Relevant(value) {
       this.$emit('change_Relevant', value)
     }
+  },
+  computed:{
+      ...mapState(['selectedTarget']),
+      getPosition(){
+          return this.selectedTarget && this.selectedTarget.feature.geometry.coordinates
+      }
   },
   mounted () { }
 }

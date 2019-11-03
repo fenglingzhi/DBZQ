@@ -108,7 +108,7 @@ export default {
   props: ['information'],
   computed: {
     data() {
-      return this.information.map(({ title, content, source, timestamp }) => {
+      return this.information && this.information.map(({ title, content, source, timestamp }) => {
         return { title, content, source, 'timestamp': new Date(timestamp).toLocaleString() }
       })
     }
