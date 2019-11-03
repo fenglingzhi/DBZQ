@@ -71,7 +71,6 @@
           <span>动态</span>
         </div>
         <div
-          v-if="targetr_type !== 'LaunchSite'"
           :class="[tab_show == 'personnel' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']"
           @click="changeTab('personnel')"
         >
@@ -96,7 +95,6 @@
           <span>人员</span>
         </div>
         <div
-          v-if="targetr_type !== 'LaunchSite'"
           :class="[tab_show == 'organization' ? 'RelevantInformation_operator_tab RelevantInformation_operator_tab_active' : 'RelevantInformation_operator_tab']"
           @click="changeTab('organization')"
         >
@@ -214,21 +212,17 @@ export default {
   ],
   watch: {
     targetr_type(newVal, oldVal) {
-      if (newVal === 'Airport' || newVal === 'Port' || newVal === 'Buoy') {
+      if (newVal === 'Airport' || newVal === 'Port' || newVal === 'Buoy' || newVal === 'LaunchSite') {
         this.tab_show = 'personnel'
-      } else if (newVal === 'LaunchSite') {
-        this.tab_show = 'information'
       } else {
         this.tab_show = 'installation'
       }
       this.get_info()
     },
     targetr_id() {
-      if (this.targetr_type === 'Airport' || this.targetr_type === 'Port' || this.targetr_type === 'Buoy') {
+      if (this.targetr_type === 'Airport' || this.targetr_type === 'Port' || this.targetr_type === 'Buoy' || this.targetr_type === 'LaunchSite') {
         this.tab_show = 'personnel'
-      } else if (this.targetr_type === 'LaunchSite') {
-        this.tab_show = 'information'
-      } else {
+      }else {
         this.tab_show = 'installation'
       }
       this.get_info()
