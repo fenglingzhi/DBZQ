@@ -328,7 +328,7 @@ const GQL = {
           track{
             lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth
           }
-        }
+        },
         ORG: manufacturer {
           cname, ename, abbr, code, type,
           base { country{ cname } },
@@ -341,6 +341,11 @@ const GQL = {
           },
           homepage
         },
+        nearby {
+          targetType: __typename,
+          id,name, usage{ label },
+          address { country { cname },city}
+        }
       },
       ... on Buoy{
         targetType: __typename,
@@ -460,8 +465,10 @@ const GQL = {
           door,
           position
         },
-        ORG {
+        ORG { cname },
+        ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
@@ -472,6 +479,12 @@ const GQL = {
           },
           homepage
         },
+        people{
+          name,nation,gender,birthday,nickname,
+          country { cname },
+          faith,job,EDU,city
+        },
+        news{ title, content, source, timestamp },
         buildDate
       }
     }

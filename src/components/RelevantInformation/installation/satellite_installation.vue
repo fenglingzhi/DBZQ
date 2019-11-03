@@ -58,7 +58,8 @@ export default {
   props: ['facility'],
   watch: {
     facility() {
-      this.data = this.facility
+      this.data = this.facility.map(({name})=>({launch_site:name}))
+
     }
   },
   methods: {
@@ -69,7 +70,7 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      this.data = this.facility
+      this.data = this.facility.map(({name})=>({launch_site:name}))
     }, 0)
   }
 }
