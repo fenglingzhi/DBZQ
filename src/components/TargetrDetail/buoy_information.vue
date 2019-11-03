@@ -78,7 +78,7 @@
                 <span v-text="'材质'"></span>
             </div>
             <div class="info-value">
-                <span v-text="base_info && base_info.material"></span>
+                <span v-text="base_info && base_info.material && base_info.material.label"></span>
             </div>
         </div>
     </div>

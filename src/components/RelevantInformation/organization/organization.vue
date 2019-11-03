@@ -86,7 +86,6 @@ export default {
   computed: {
     data() {
       return this.organization && this.organization.map(({ cname, ename, abbr, code, usage, base, business, superior, leader,homepage }) => {
-        
         let cdata = {
           cname, ename, abbr, code, type:usage.label, base, business, superior,homepage,
           leader: leader.name

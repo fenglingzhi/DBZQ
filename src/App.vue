@@ -159,12 +159,12 @@ const GQL = {
           },
           homepage
         },
+        ORG { cname },
         people{
           name,nation,gender,birthday,nickname,
           country { cname },
           faith,job,EDU,city
         },
-        ORG { cname , base{ country{cname}}}
         country{cname}
         radar{ model, responseCode },
         action{
@@ -367,18 +367,20 @@ const GQL = {
           depthWater,
           pressureTrend
         },
-        ORG {
+        ORGs {
           cname, ename, abbr, code, type,
-          base { country{ cname } },
+          usage{ label }
+          base{ country{ cname } },
           business,
           superior { cname },
           leader {
-            name,nation,gender,birthday,nickname,
-            country { cname },
-            faith,job,EDU,city
+            name, nation, gender, birthday, nickname,
+            country { ename },
+            faith, job, EDU, city
           },
           homepage
         },
+        ORG { cname , base{ country{cname}}},
         people{
           name,nation,gender,birthday,nickname,
           country { cname },
@@ -401,6 +403,7 @@ const GQL = {
         ORG { cname }
         ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
@@ -429,8 +432,9 @@ const GQL = {
         },
         code,
         wharfs,
-        ORG {
+        ORGs {
           cname, ename, abbr, code, type,
+          usage{ label }
           base { country{ cname } },
           business,
           superior { cname },
