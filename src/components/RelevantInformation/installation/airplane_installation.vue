@@ -40,8 +40,6 @@
 <template>
     <!-- 航班设施信息 -->
     <div class="airplane_installation">
-      <button @click="showActiveColumn(parseInt(Math.random()*5))">点击</button>
-      <button @click="reset()">清除</button>
       <Table height="400" :row-class-name = "rowClassName" :columns="columns1" :data="data" size="small" @on-row-click="showRow"></Table>
     </div>
 </template>
