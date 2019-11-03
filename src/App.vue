@@ -7,7 +7,7 @@
         :json="target" :symbol="makeWarningSymbol(target)" @click="setSelectedWaring($event,target)"/>
         <geometry v-for="target in warningList" :id="'track_'+target.id" :key="'track_'+target.id" type="LineString"
         :symbol="{ lineColor: { type: 'linear', colorStops: [ [0.00, 'white'], [1 / 4, 'aqua'], [2 / 4, 'green'], [3 / 4, 'orange'], [1.00, 'red'] ] } }"
-        :coordinations="target.action.track.map(t=>([t.lon,t.lat]))"/>
+        :coordinations="target.action && target.action.track.map(t=>([t.lon,t.lat]))"/>
       </vectorlayer>
       <uicomponent :position={top:10,left:10}>
         <filterwarning></filterwarning>
