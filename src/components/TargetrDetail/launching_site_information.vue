@@ -1,7 +1,7 @@
 <template>
     <!-- 发射场的目标信息 -->
     <div class="launching_site_information">
-        <div class="info-data-item">
+        <div class="info-data-item" style="cursor: pointer;" @click="change_Relevant('information')">
             <div class="info-title">
                 <span v-text="'发射场名称'"></span>
             </div>
@@ -68,7 +68,12 @@ export default {
           return this.selectedTarget && this.selectedTarget.feature.geometry.coordinates
       }
   },
-  mounted () { }
+  mounted () {},
+  methods: {
+    change_Relevant(value) {
+      this.$emit('change_Relevant', value)
+    }
+  },
 }
 </script>
 
