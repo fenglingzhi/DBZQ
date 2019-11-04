@@ -21,7 +21,7 @@
                   <i-col span="3" class="label">区域：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.region">
-                      <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
+                        <Radio v-for="item in regionOptions" :label="item.cname" :key="item.id"></Radio>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -31,29 +31,23 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                        </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
               </div>
-              <!--<div>-->
-              <!--<Row slot="content" class="row_margin">-->
-              <!--<i-col span="3" class="label">军民属性：</i-col>-->
-              <!--<i-col span="21">-->
-              <!--<RadioGroup type="button" size="small" >-->
-              <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
-              <!--</RadioGroup>-->
-              <!--</i-col>-->
-              <!--</Row>-->
-              <!--</div>-->
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">类型：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.model">
-                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
+                      <span v-for="item in planeKind" @click="radioChangeType(item.label)">
+                      <Radio :label="item.label" :key="item.id"></Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -63,7 +57,9 @@
                   <i-col span="3" class="label">高度：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.height">
-                      <Radio v-for="item in planeHeight" :label="item.value" :key="item.id">{{ item.label }}</Radio>
+                      <span v-for="item in planeHeight" @click="radioChangeHeight(item.value)">
+                      <Radio :label="item.value" :key="item.id">{{ item.label }}</Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -73,7 +69,9 @@
                   <i-col span="3" class="label">速度：</i-col>
                   <i-col span="21">
                     <RadioGroup type="button" size="small" v-model="conditions.speed">
-                      <Radio v-for="item in planeSpeed" :label="item.value" :key="item.id">{{ item.label }}</Radio>
+                      <span v-for="item in planeSpeed" @click="radioChangeSpeed(item.value)">
+                      <Radio :label="item.value" :key="item.id">{{ item.label }}</Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -95,29 +93,23 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
               </div>
-              <!--<div>-->
-              <!--<Row slot="content" class="row_margin">-->
-              <!--<i-col span="3" class="label">军民属性：</i-col>-->
-              <!--<i-col span="21">-->
-              <!--<RadioGroup type="button" size="small" >-->
-              <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
-              <!--</RadioGroup>-->
-              <!--</i-col>-->
-              <!--</Row>-->
-              <!--</div>-->
               <div>
                 <Row slot="content" class="row_margin">
                   <i-col span="3" class="label">类型：</i-col>
                   <i-col span="21">
-                    <RadioGroup type="button" size="small">
-                      <Radio v-for="item in planeKind" :label="item.label" :key="item.id"></Radio>
+                    <RadioGroup type="button" size="small" v-model="conditions.model">
+                      <span v-for="item in planeKind" @click="radioChangeType(item.label)">
+                      <Radio :label="item.label" :key="item.id"></Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -139,23 +131,15 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
               </div>
-              <!--<div>-->
-              <!--<Row slot="content" class="row_margin">-->
-              <!--<i-col span="3" class="label">军民属性：</i-col>-->
-              <!--<i-col span="21">-->
-              <!--<RadioGroup type="button" size="small" >-->
-              <!--<Radio v-for="item in planeUsage" :label="item.label" :key="item.id"></Radio>-->
-              <!--</RadioGroup>-->
-              <!--</i-col>-->
-              <!--</Row>-->
-              <!--</div>-->
             </TabPane>
             <TabPane label="浮标" tab="1-1" name="Buoy">
               <div>
@@ -173,9 +157,11 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -197,9 +183,11 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -221,9 +209,11 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -245,9 +235,11 @@
                   <i-col span="3" class="label">国家/地区：</i-col>
                   <i-col span="21" style="max-height: 100px;overflow: auto">
                     <RadioGroup type="button" size="small" v-model="conditions.country">
-                      <Radio v-for="item in countryTags" :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
+                      <span v-for="item in countryTags" @click="radioChange(item.id)">
+                      <Radio :label="item.id" :key="item.id" style="margin: 0 10px 10px 0;">
                         {{ item.cname }}
                       </Radio>
+                      </span>
                     </RadioGroup>
                   </i-col>
                 </Row>
@@ -271,8 +263,10 @@
           <Tabs tab="name3">
             <TabPane label="航空管制区" tab="name3">
               <RadioGroup v-model="select_air" type="button" size="small" @on-change="selectAir">
-                <span v-for="item in area_air" :key="item.id" @click="changeAir(item.properties.name)"><Radio :label="item.properties.name"
-                       style="margin: 0 10px 10px 0;"></Radio></span>
+                <span v-for="item in area_air" :key="item.id" @click="changeAir(item.properties.name)">
+                  <Radio :label="item.properties.name"
+                       style="margin: 0 10px 10px 0;"></Radio>
+                </span>
               </RadioGroup>
             </TabPane>
             <TabPane label="航海管制区" tab="name3">
@@ -495,6 +489,7 @@ export default {
   name: 'filterwrap',
   data() {
     return {
+      trueValue:true,
       pointSum:[
         {
           firstSwitch:'W',
@@ -565,6 +560,46 @@ export default {
 
     methods: {
       ...mapMutations(['setSomeState']),
+      radioChange(data){
+        if(this.conditions.country == data){
+          setTimeout(() =>{
+            this.conditions.country = ''
+          },200)
+        }
+      },
+      radioChangeType(data){
+        if(this.conditions.model == data){
+          setTimeout(() =>{
+            this.conditions.model = ''
+          },200)
+        }
+      },
+      radioChangeHeight(data){
+        if(this.conditions.height == data){
+          setTimeout(() =>{
+            this.conditions.height = ''
+          },200)
+        }
+      },
+      radioChangeSpeed(data){
+        if(this.conditions.speed == data){
+          setTimeout(() =>{
+            this.conditions.speed = ''
+          },200)
+        }
+      },
+      //数据初始化
+      searchDataInit(){
+        this.targetType= 'Plane'
+        this.conditions = {
+          region: '亚洲', country: '', model: '', height: '', speed: ''
+        }
+        return this.targetType,this.conditions;
+      },
+      //tab切换事件
+      changeTab(){
+        this.searchDataInit()
+      },
       addNewPoint() {
         // this.ele++
         // this.pointSum.push(this.ele)
@@ -665,7 +700,6 @@ export default {
         }
       },
       fadeChange() {
-        // executeGQL(GQL.filterTargets, { type: this.targetType, country: this.conditions.country, model: this.conditions.model, height: this.conditions.height, speed: this.conditions.speed }).then(r => {
         executeGQL(GQL.filterTargets, {
           type: this.targetType,
           country: this.conditions.country,
@@ -676,6 +710,7 @@ export default {
           this.setSomeState(['selectedTarget', null])
           this.$emit('filter_stop')
           this.$store.commit('targetList', r.targetList)
+          this.searchDataInit();
         })
         this.show = !this.show
         this.$emit('change_filter_show', this.show)
