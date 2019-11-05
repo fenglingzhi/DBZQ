@@ -172,6 +172,7 @@ export default {
       this.allTime = (Math.floor(secondAmount/60) < 10 ? ('0' + Math.floor(secondAmount/60)) : Math.floor(secondAmount/60)) + ':' + (secondAmount%60 < 10 ? ('0' + secondAmount%60) : secondAmount%60)
       let timeRate = ((this.detailchar.path[this.detailchar.path.length - 1][1] - this.detailchar.path[0][1]) / this.detailchar.unitTime / this.detailchar.path.length).toFixed(0)
       this.timer = setInterval(() => {
+        console.log(this.timerIndex)
         if (this.timerIndex === 1) {
           this.chartData.rows = []
         }
@@ -187,6 +188,9 @@ export default {
         } else if (this.status === 'remove' || this.timerIndex >= this.detailchar.path.length) {
           this.timerIndex = 1
           clearInterval(this.timer)
+          this.nowTime = '00:00'
+          this.allTime = '00:00'
+          this.chartData.rows = []
           this.timer = null
         }
       }, timeRate)
