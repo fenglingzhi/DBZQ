@@ -14,7 +14,7 @@
               <Button type="primary" size="small" style="width: 100%;" @click="fadeChange()">搜索</Button>
             </i-col>
           </Row>
-          <Tabs name="1-1" tab="name1" v-model="targetType" @on-click="changeTab">
+          <Tabs name="1-1" tab="name1" v-model="targetType" @on-click="changeTab(targetType)">
             <TabPane label="飞机" tab="1-1" name="Plane">
               <div>
                 <Row slot="content" class="row_margin">
@@ -589,17 +589,18 @@ export default {
         }
       },
       //数据初始化
-      searchDataInit(){
+      searchDataInit(data){
         console.log(this.conditions)
-        this.targetType= 'Plane'
+        this.targetType= data
         this.conditions = {
           region: '亚洲', country: '', model: '', height: '', speed: ''
         }
         return this.targetType,this.conditions;
       },
       //tab切换事件
-      changeTab(){
-        this.searchDataInit()
+      changeTab(data){
+        console.log(data)
+        this.searchDataInit(data)
       },
       addNewPoint() {
         // this.ele++
