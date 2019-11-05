@@ -323,6 +323,8 @@ const GQL = {
             lon, lat, alt, timestamp, horSpeed, vetSpeed, azimuth
           }
         },
+        news{ title, content, source, timestamp
+        },
         history{
           RCS, lon, lat, geocentric, speed, GMT,
           track{
