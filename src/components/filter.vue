@@ -712,7 +712,7 @@ export default {
           this.setSomeState(['selectedTarget', null])
           this.$emit('filter_stop')
           this.$store.commit('targetList', r.targetList)
-          this.searchDataInit();
+          // this.searchDataInit();
         })
         this.show = !this.show
         this.$emit('change_filter_show', this.show)
