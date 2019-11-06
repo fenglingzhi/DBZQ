@@ -7,7 +7,7 @@
       <img src="../../assets/images/Buoy.jpg" alt="" v-if="targetr_type=='Buoy'">
       <img src="../../assets/images/Airport.jpg" alt="" v-if="targetr_type=='Airport'">
       <img src="../../assets/images/Port.jpg" alt="" v-if="targetr_type=='Port'">
-      <!-- <img src="../../assets/images/LaunchSite.jpg" alt="" v-if="targetr_type=='LaunchSite'"> -->
+       <img src="../../assets/images/LaunchSite.jpg" alt="" v-if="targetr_type=='LaunchSite'">
     </div>
     <!-- 飞机的目标信息 -->
     <div style="flex:1;">
@@ -22,7 +22,7 @@
 
     <div class="TargetrInformation_chart">
       <template>
-        <ve-line width="330px" height="160px" :legend-visible="false" :grid="grid" 
+        <ve-line width="330px" height="160px" :legend-visible="false" :grid="grid"
         :data="targetr_type == 'Plane' ? chartDataAirplane : targetr_type == 'Ship' ? chartDataShip : targetr_type == 'Satellite' ? chartDataSatellite : targetr_type == 'Buoy' ? chartDataBuoy : []" :settings="chartSettings"></ve-line>
       </template>
     </div>
